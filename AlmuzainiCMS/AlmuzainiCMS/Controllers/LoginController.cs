@@ -31,6 +31,10 @@ namespace AlmuzainiCMS.Controllers
         {
             var entity = _mapper.Map<UsersInfo>(user);
             var rData = manager.GetUsersList(entity);
+            if (rData == null)
+            {
+                return Redirect("/Login/index");
+            }
             HttpContext.Session.SetString("_userName", rData.userName);
             HttpContext.Session.SetString("_userPass", rData.userPass);
             return Redirect("/Home/index");
