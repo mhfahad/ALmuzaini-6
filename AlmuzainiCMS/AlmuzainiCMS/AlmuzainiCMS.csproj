@@ -24,4 +24,8 @@
     <ProjectReference Include="..\AlmuzainiCMS.DataBaseContext\AlmuzainiCMS.DataBaseContext.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Uploads\Home\" />
+  </ItemGroup>
+
 </Project>

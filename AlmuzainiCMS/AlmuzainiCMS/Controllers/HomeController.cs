@@ -42,7 +42,35 @@ namespace AlmuzainiCMS.Controllers
 
             return View();
         }
-       
+        public async Task<JsonResult> UploadTopSlider(List<IFormFile> ImgFile)
+        {
+         
+
+            try
+            {
+                foreach (var formFile in ImgFile)
+                {
+                    if (formFile.Length > 0)
+                    {
+                        var fileName = formFile.FileName.Split('\\').LastOrDefault().Split('/').LastOrDefault();
+                        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "~/Uploads/Home/", fileName);
+
+                        using (var stream = System.IO.File.Create(filePath))
+                        {
+                            await formFile.CopyToAsync(stream);
+                        }
+
+                        return Json(true);
+                    }
+                }
+            }
+            catch (Exception exception)
+            {
+                return Json(false);
+            }
+            return Json(false);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -2,209 +2,210 @@
     ViewData["Title"] = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="card-title">Top Slider</h4>
 
-<div class="col-sm-12 col-md-12">
-    <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <h4 class="card-title">Top Slider</h4>
+                    <h6 class="lebel">Live Images</h6>
 
-                <h6 class="lebel">Live Images</h6>
+                    <div class="col-lg-3">
+                        <div class="card">
 
-                <div class="col-lg-3">
-                    <div class="card">
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                     src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
 
-                        <div class="carousel-item active">
-                            <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
                         </div>
-
                     </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                     src="../assets/images/big/img2.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div><div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                     src="../assets/images/big/img3.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                     src="../assets/images/big/img3.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                     src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div><div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                     src="../assets/images/big/img2.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                     src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                     src="../assets/images/big/img2.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                     src="../assets/images/big/img3.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+
+
                 </div>
-                <div class="col-lg-3">
-                    <div class="card">
+                <div class="row" id="selectImg">
 
-                        <div class="carousel-item active">
-                            <img class="img-fluid"
-                                 src="../assets/images/big/img2.jpg" alt="First slide">
-                        </div>
-
-                    </div>
-                </div><div class="col-lg-3">
-                    <div class="card">
-
-                        <div class="carousel-item active">
-                            <img class="img-fluid"
-                                 src="../assets/images/big/img3.jpg" alt="First slide">
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card">
-
-                        <div class="carousel-item active">
-                            <img class="img-fluid"
-                                 src="../assets/images/big/img3.jpg" alt="First slide">
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card">
-
-                        <div class="carousel-item active">
-                            <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
-                        </div>
-
-                    </div>
-                </div><div class="col-lg-3">
-                    <div class="card">
-
-                        <div class="carousel-item active">
-                            <img class="img-fluid"
-                                 src="../assets/images/big/img2.jpg" alt="First slide">
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card">
-
-                        <div class="carousel-item active">
-                            <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card">
-
-                        <div class="carousel-item active">
-                            <img class="img-fluid"
-                                 src="../assets/images/big/img2.jpg" alt="First slide">
-                        </div>
-
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card">
-
-                        <div class="carousel-item active">
-                            <img class="img-fluid"
-                                 src="../assets/images/big/img3.jpg" alt="First slide">
-                        </div>
-
-                    </div>
-                </div>
-               
-
-            </div>
-            <div class="row" id="selectImg">
-              
                     <h6 class="lebel">Selected Images</h6>
 
                     <div class="col-lg-3">
-                       
 
-                            <div class="carousel-item active">
+
+                        <div class="carousel-item active">
                             <img class="img-fluid" id="thumbnil1" src="../assets/images/big/no-img.jpg" alt="image" />
-                            </div>
+                        </div>
 
-                      
+
                     </div>
                     <div class="col-lg-3">
-                        
 
-                            <div class="carousel-item active">
+
+                        <div class="carousel-item active">
                             <img class="img-fluid" id="thumbnil2" src="../assets/images/big/no-img.jpg" alt="image" />
-                            </div>
+                        </div>
 
-                      
+
                     </div>
                     <div class="col-lg-3">
-                      
 
-                            <div class="carousel-item active">
+
+                        <div class="carousel-item active">
                             <img class="img-fluid" id="thumbnil3" src="../assets/images/big/no-img.jpg" alt="image" />
-                            </div>
+                        </div>
 
-                      
+
                     </div>
                     <div class="col-lg-3">
-                      
 
-                            <div class="carousel-item active">
+
+                        <div class="carousel-item active">
                             <img class="img-fluid" id="thumbnil4" src="../assets/images/big/no-img.jpg" alt="image" />
-                            </div>
+                        </div>
 
-                       
+
                     </div>
                     <div class="col-lg-3">
-                       
 
-                            <div class="carousel-item active">
+
+                        <div class="carousel-item active">
                             <img class="img-fluid" id="thumbnil5" src="../assets/images/big/no-img.jpg" alt="image" />
-                            </div>
+                        </div>
 
                     </div>
                     <div class="col-lg-3">
-                       
 
-                            <div class="carousel-item active">
+
+                        <div class="carousel-item active">
                             <img class="img-fluid" id="thumbnil6" src="../assets/images/big/no-img.jpg" alt="image" />
-                            </div>
+                        </div>
 
-                       
+
                     </div>
                     <div class="col-lg-3">
-                     
 
-                            <div class="carousel-item active">
+
+                        <div class="carousel-item active">
                             <img class="img-fluid" id="thumbnil7" src="../assets/images/big/no-img.jpg" alt="image" />
-                            </div>
+                        </div>
 
                     </div>
                     <div class="col-lg-3">
-                      
 
-                            <div class="carousel-item active">
+
+                        <div class="carousel-item active">
                             <img class="img-fluid" id="thumbnil8" src="../assets/images/big/no-img.jpg" alt="image" />
-                            </div>
+                        </div>
 
                     </div>
                     <div class="col-lg-3">
-                       
 
-                            <div class="carousel-item active">
+
+                        <div class="carousel-item active">
                             <img class="img-fluid" id="thumbnil9" src="../assets/images/big/no-img.jpg" alt="image" />
-                            </div>
+                        </div>
 
                     </div>
-                
-                <div class="input-group flex-nowrap">
-                    <div class="custom-file w-100">
-                        @*<input class="form-control" type="file" id="formFileTopSlider"  multiple>*@
-                        <input class="form-control" type="file" id="formFileTopSlider" name="ImageData" onchange="fileCheck(this);" multiple />
+
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                           
+                            <input class="form-control" type="file" id="formFileTopSlider" name="ImageData" onchange="fileCheck(this);" multiple />
+                        </div>
+                        <button class="btn btn-outline-secondary" onclick="UploadTopSlider(this);" id="upBtnTopSlider" type="button">
+                            Upload
+                        </button>
                     </div>
-                    <button class="btn btn-outline-secondary" type="button">
-                        Button
-                    </button>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="col-sm-12 col-md-12">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">
-                Rate Calculator
-            </h4>
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">
+                    Rate Calculator
+                </h4>
 
-            <form class="mt-4">
+
                 <div class="input-group flex-nowrap">
                     <div class="custom-file w-100">
                         <input class="form-control" type="file" id="formFileRateCalculator">
@@ -213,16 +214,16 @@
                         Button
                     </button>
                 </div>
-            </form>
+
+            </div>
         </div>
     </div>
-</div>
-<div class="col-sm-12 col-md-12">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Middle Slider</h4>
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Middle Slider</h4>
 
-            <form class="mt-4">
+
                 <div class="input-group flex-nowrap">
                     <div class="custom-file w-100">
                         <input class="form-control" type="file" id="formFileMiddleSlider">
@@ -231,16 +232,16 @@
                         Button
                     </button>
                 </div>
-            </form>
+
+            </div>
         </div>
     </div>
-</div>
-<div class="col-sm-12 col-md-12">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Round Buttons</h4>
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Round Buttons</h4>
 
-            <form class="mt-4">
+
                 <div class="input-group flex-nowrap">
                     <div class="custom-file w-100">
                         <input class="form-control" type="file" id="formFile">
@@ -249,16 +250,16 @@
                         Button
                     </button>
                 </div>
-            </form>
+
+            </div>
         </div>
     </div>
-</div>
-<div class="col-sm-12 col-md-12">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Last Slider</h4>
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Last Slider</h4>
 
-            <form class="mt-4">
+
                 <div class="input-group flex-nowrap">
                     <div class="custom-file w-100">
                         <input class="form-control" type="file" id="formFile">
@@ -267,16 +268,16 @@
                         Button
                     </button>
                 </div>
-            </form>
+
+            </div>
         </div>
     </div>
-</div>
-<div class="col-sm-12 col-md-12">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">VIDEOS</h4>
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">VIDEOS</h4>
 
-            <form class="mt-4">
+
                 <div class="input-group flex-nowrap">
                     <div class="custom-file w-100">
                         <input class="form-control" type="file" id="formFile">
@@ -285,13 +286,14 @@
                         Button
                     </button>
                 </div>
-            </form>
+
+            </div>
         </div>
     </div>
-</div>
+}
 @section Scripts{
 
-   @* <script src="~/Scripts/jquery.validate.js"></script>
+    @* <script src="~/Scripts/jquery.validate.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 *@
     <script type="text/javascript">
@@ -302,7 +304,7 @@
                 alert("Only '.jpeg','.jpg', '.png', '.gif', '.bmp','.webp' formats are allowed.");
 
             }
-             
+
             else {
                 //var hideSection = '<div class="ROW" id="selectImg"><h6 class="lebel">Selected Images</h6 > <div class="col-lg-3" > <div class="card" > <div class="carousel-item active" > <img class="img-fluid" id = "thumbnil1" src = "" alt = "image" /> </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil2" src="" alt="image" / > </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil3" src="" alt="image" / > </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil4" src="" alt="image" / > </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil5" src="" alt="image" / > </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil6" src="" alt="image" / > </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil7" src="" alt="image" / > </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil8" src="" alt="image" / > </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil9" src="" alt="image" / > </div> </div > </div></div>'
                 //const div = document.createElement('div');
@@ -315,9 +317,9 @@
                 //document.getElementById("selectImg").appendChild(div);
 
                 var files = formFileTopSlider.files;
-                var j= 1
+                var j = 1
                 for (var i = 0; i <= files.length; i++) {
-                   
+
                     var file = files[i];
                     var imgid = "thumbnil" + j;
                     var img = document.getElementById(imgid);
@@ -333,6 +335,27 @@
                 }
             }
 
+        }
+        function UploadTopSlider(obj) {
+            event.preventDefault();
+            var ImgFile = formFileTopSlider.files;
+            var formData = new FormData();
+            console.log(ImgFile); 
+            console.log(formData); 
+            $.ajax({
+                type: "POST",
+                url: "/Home/UploadTopSlider",
+                data: ImgFile, // In the controller it receives IFormFile image
+                processData: false,
+                contentType: "multipart/form-data",
+                success: function () {
+                    alart("Done");
+                    
+                },
+                error: function (errorMessage) {
+                    console.log(errorMessage);
+                }
+            });
         }
     </script>
 
