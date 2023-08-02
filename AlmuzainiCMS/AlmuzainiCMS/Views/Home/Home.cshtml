@@ -340,14 +340,19 @@
             event.preventDefault();
             var ImgFile = formFileTopSlider.files;
             var formData = new FormData();
-            console.log(ImgFile); 
-            console.log(formData); 
+            console.log(ImgFile);
+            for (var i = 0; i <= ImgFile.length; i++) {
+            formData.append('ImgFiles', ImgFile[i]);
+            //formData.append('MyProperty', 12);
+            }
+            console.log(formData);
+
             $.ajax({
                 type: "POST",
                 url: "/Home/UploadTopSlider",
-                data: ImgFile, // In the controller it receives IFormFile image
+                data: { 'ImgFile': ImgFile }, // In the controller it receives IFormFile image
                 processData: false,
-                contentType: "multipart/form-data",
+                contentType: false,
                 success: function () {
                     alart("Done");
                     
