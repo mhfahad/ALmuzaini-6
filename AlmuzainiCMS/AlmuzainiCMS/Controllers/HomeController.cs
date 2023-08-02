@@ -42,13 +42,13 @@ namespace AlmuzainiCMS.Controllers
 
             return View();
         }
-        public async Task<JsonResult> UploadTopSlider(List<IFormFile> ImgFile)
+        public async Task<JsonResult> UploadTopSlider([FromForm] FileUpload  fileUpload)
         {
          
 
             try
             {
-                foreach (var formFile in ImgFile)
+                foreach (var formFile in fileUpload.ImgFiles)
                 {
                     if (formFile.Length > 0)
                     {
