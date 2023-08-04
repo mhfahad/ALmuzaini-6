@@ -19,17 +19,32 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-
+using AlmuzainiCMS.DAL.Interface.Currency;
+using AlmuzainiCMS.DAL.DAL.CurrencyDAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContextPool<ProjectDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddScoped<DbContext, ProjectDbContext>();
 
+//HttpClientFactory configure
+builder.Services.AddHttpClient("GetTTRate", c =>
+{
+    c.BaseAddress = new Uri("https://rateapi.muzaini.com:68/api/v1/Remittance/GetTTRate");
+    c.DefaultRequestHeaders.Add("Accept", "application/json");
+    c.DefaultRequestHeaders.Add("ChannelID", "");
+    c.DefaultRequestHeaders.Add("RequestID", "");
+    c.DefaultRequestHeaders.Add("SessionID", "");
+});
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddDbContextPool<ProjectDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<DbContext, ProjectDbContext>();
 builder.Services.AddScoped<IUserCreateManager, UserCreateManager>();
 builder.Services.AddScoped<IUserCreateRepository, UserCreateRepository>();
+builder.Services.AddTransient<ICurrencySyncManager, CurrencySyncManager>();
+builder.Services.AddTransient<ICurrencyRepository, CurrencyRepository>();
 
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 

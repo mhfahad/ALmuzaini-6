@@ -11,5 +11,6 @@ namespace AlmuzainiCMS.DAL.Interface.User
     {
         bool Create(UsersInfo usersInfo);
         UsersInfo GetUsersList(UsersInfo user);
+        
     }
 }
