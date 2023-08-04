@@ -13,6 +13,7 @@ using AlmuzainiCMS.DAL.Interface.Currency;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AlmuzainiCMS.BLL.BLL
 {
@@ -52,13 +53,14 @@ namespace AlmuzainiCMS.BLL.BLL
             }
 
             //var requestId = $"123XYA-{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
-            var requestId = 8764126000000001;
+            var requestId = 8764130000000002;
 
 
             foreach (var item in requestDto)
             { 
                 _httpClientFactory.DefaultRequestHeaders.Add("RequestID", $"{requestId}");
                 var buffer = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(item));
+                //var todoItemJson = new StringContent(JsonSerializer.Serialize(item),Encoding.UTF8,Application.Json);
                 var byteContent = new ByteArrayContent(buffer);
                 var response = await _httpClientFactory.PostAsync(_httpClientFactory.BaseAddress, byteContent);
                 if (response.IsSuccessStatusCode)
