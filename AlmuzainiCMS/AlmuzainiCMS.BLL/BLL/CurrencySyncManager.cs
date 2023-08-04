@@ -51,11 +51,13 @@ namespace AlmuzainiCMS.BLL.BLL
                 requestDto.Add(data);
             }
 
-            var requestId = $"123XYA-{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
+            //var requestId = $"123XYA-{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
+            var requestId = 8764126000000001;
 
-            _httpClientFactory.DefaultRequestHeaders.Add("RequestID", $"{requestId}");
+
             foreach (var item in requestDto)
-            {
+            { 
+                _httpClientFactory.DefaultRequestHeaders.Add("RequestID", $"{requestId}");
                 var buffer = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(item));
                 var byteContent = new ByteArrayContent(buffer);
                 var response = await _httpClientFactory.PostAsync(_httpClientFactory.BaseAddress, byteContent);
@@ -64,6 +66,7 @@ namespace AlmuzainiCMS.BLL.BLL
                     var responseResult = await response.Content.ReadAsStringAsync();
                     currencyRates.Add(JsonConvert.DeserializeObject<CurrencyRate>(responseResult));
                 }
+                requestId++;
             }
 
             var result = await _repo.AddCurrency(currencyRates);
