@@ -19,8 +19,8 @@ namespace AlmuzainiCMS.DAL.DAL.CurrencyDAL
         }
         public async Task<bool> AddCurrency(ICollection<CurrencyRate> model)
         {
-            var result = GetAllCurrencyAsync();
-            if(result is not null)
+            var result = await _db.CurrencyRates.ToListAsync();
+            if (result.Count is not 0)
             {
                 _db.RemoveRange(result);
             }

@@ -1,5 +1,6 @@
 ﻿using AlmuzainiCMS.BLL.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace AlmuzainiCMS.Controllers
 {
@@ -10,16 +11,26 @@ namespace AlmuzainiCMS.Controllers
         {
             _manager = manager;
         }
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
+
+            string? SessionName = HttpContext.Session.GetString("_userName");
+            string? SessionAge = HttpContext.Session.GetString("_userPass");
+            if (SessionAge == null || SessionName == null)
+            {
+                filterContext.Result = new RedirectResult("/Login/Index");
+                return;
+            }
+        }
         public ActionResult Index()
         {
             return View();
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Index(string currency = "bdt")
+        public async Task CurrencySync()
         {
-            var data = await _manager.GetCurrencySync();
-            return View(data);
+            await _manager.GetCurrencySync();
+            RedirectToAction("Index");
         }
     }
 }

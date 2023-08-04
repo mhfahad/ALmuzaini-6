@@ -21,6 +21,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using AlmuzainiCMS.DAL.Interface.Currency;
 using AlmuzainiCMS.DAL.DAL.CurrencyDAL;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,10 +32,10 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient("GetTTRate", c =>
 {
     c.BaseAddress = new Uri("https://rateapi.muzaini.com:68/api/v1/Remittance/GetTTRate");
-    c.DefaultRequestHeaders.Add("Accept", "application/json");
-    c.DefaultRequestHeaders.Add("ChannelID", "");
-    c.DefaultRequestHeaders.Add("RequestID", "");
-    c.DefaultRequestHeaders.Add("SessionID", "");
+    c.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+    c.DefaultRequestHeaders.Add("ChannelID", "mobapi");
+    c.DefaultRequestHeaders.Add("MachineID", "MachineID");
+    c.DefaultRequestHeaders.Add("SessionID", "12345678901234567890123");
 });
 builder.Services.AddHttpContextAccessor();
 

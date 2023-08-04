@@ -31,14 +31,14 @@ namespace AlmuzainiCMS.BLL.BLL
             return _repo.GetAllCurrencyAsync();
         }
 
-        public async Task<string> GetCurrencySync()
+        public async Task<bool> GetCurrencySync()
         {
             List<GetTTRateRequestDto> requestDto = new List<GetTTRateRequestDto>();
-            List<CurrencyRate> currencyRates = new List<CurrencyRate>();
+            List<CurrencyRate> currencyRates = new List<CurrencyRate>();              
 
-            ICollection<CurrencyCode> currencyCodes = await _repo.GetCurrencyCodes();
+            var currencyCodes = await _repo.GetCurrencyCodes();
 
-            foreach (CurrencyCode currencyCode in currencyCodes)
+            foreach (var currencyCode in currencyCodes)
             {
                 GetTTRateRequestDto data = new GetTTRateRequestDto
                 {
@@ -50,20 +50,25 @@ namespace AlmuzainiCMS.BLL.BLL
 
                 requestDto.Add(data);
             }
-            string URL = $"";
 
+            var requestId = $"123XYA-{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
+
+            _httpClientFactory.DefaultRequestHeaders.Add("RequestID", $"{requestId}");
             foreach (var item in requestDto)
             {
                 var buffer = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(item));
                 var byteContent = new ByteArrayContent(buffer);
-                var response = await _httpClientFactory.PostAsync(URL, byteContent);
-                var responseResult = await response.Content.ReadAsStringAsync();
-                currencyRates.Add(JsonConvert.DeserializeObject<CurrencyRate>(responseResult));
+                var response = await _httpClientFactory.PostAsync(_httpClientFactory.BaseAddress, byteContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseResult = await response.Content.ReadAsStringAsync();
+                    currencyRates.Add(JsonConvert.DeserializeObject<CurrencyRate>(responseResult));
+                }
             }
 
             var result = await _repo.AddCurrency(currencyRates);
-            if (result) return "Ok";
-            return "False";
+            if (result) return result;
+            return result;
         
         }
     }

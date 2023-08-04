@@ -10,7 +10,7 @@ namespace AlmuzainiCMS.BLL.Interface
 {
     public interface ICurrencySyncManager
     {
-        Task<string> GetCurrencySync();
+        Task<bool> GetCurrencySync();
         Task<ICollection<CurrencyRate>> GetAllCurrencyAsync();
     }
 }
