@@ -1,0 +1,35 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div>
+    <button type="button" id="syncButton" onclick="GetCurrencyRateSunc();" class="btn btn-primary btn-lg">Syncronous</button>
+</div>
+<div class="row">
+    <section class="col-md-12">
+        <div id="response"></div>
+    </section>
+</div>
+
+<script>
+    function GetCurrencyRateSunc(){
+        $.ajax({
+            type: "POST",
+            url: "CurrencyRateController.cs/GetCurrency",
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            beforeSend: function () {
+                $("#response").text("Request sending. Please wait...");
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            success: function (result) {
+                $("#response").text(result);
+                console.log(result);
+            }
+        });
+    }
+</script>
