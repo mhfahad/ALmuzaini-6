@@ -10,6 +10,7 @@ namespace AlmuzainiCMS.DAL.Interface.Currency
     public interface ICurrencyRepository
     {
         Task<bool> AddCurrency(ICollection<CurrencyRate> model);
+        Task<bool> AddRequestIdsAsync(ICollection<long> requestIds);
         Task<ICollection<CurrencyRate>> GetAllCurrencyAsync();
         Task<ICollection<CurrencyCode>> GetCurrencyCodes();
     }

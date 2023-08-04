@@ -34,7 +34,8 @@ namespace AlmuzainiCMS.BLL.BLL
         public async Task<bool> GetCurrencySync()
         {
             List<GetTTRateRequestDto> requestDto = new List<GetTTRateRequestDto>();
-            List<CurrencyRate> currencyRates = new List<CurrencyRate>();              
+            List<CurrencyRate> currencyRates = new List<CurrencyRate>();   
+            List<long> RequestIds = new List<long>();
 
             var currencyCodes = await _repo.GetCurrencyCodes();
 
@@ -54,7 +55,6 @@ namespace AlmuzainiCMS.BLL.BLL
             //var requestId = $"123XYA-{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
             var requestId = 8764126000000001;
 
-
             foreach (var item in requestDto)
             { 
                 _httpClientFactory.DefaultRequestHeaders.Add("RequestID", $"{requestId}");
@@ -66,13 +66,14 @@ namespace AlmuzainiCMS.BLL.BLL
                     var responseResult = await response.Content.ReadAsStringAsync();
                     currencyRates.Add(JsonConvert.DeserializeObject<CurrencyRate>(responseResult));
                 }
+                RequestIds.Add(requestId);
                 requestId++;
             }
 
+            await _repo.AddRequestIdsAsync(RequestIds);
             var result = await _repo.AddCurrency(currencyRates);
             if (result) return result;
             return result;
-        
         }
     }
 }
