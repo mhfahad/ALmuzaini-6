@@ -29,6 +29,12 @@ namespace AlmuzainiCMS.DAL.DAL.CurrencyDAL
             return await _db.SaveChangesAsync() > 0;  
         }
 
+        public async Task<bool> AddRequestIdsAsync(ICollection<long> requestIds)
+        {
+            await _db.AddRangeAsync(requestIds);
+            return await _db.SaveChangesAsync() > 0;
+        }
+
         public async Task<ICollection<CurrencyRate>> GetAllCurrencyAsync()
         {
             return await _db.CurrencyRates.ToListAsync();

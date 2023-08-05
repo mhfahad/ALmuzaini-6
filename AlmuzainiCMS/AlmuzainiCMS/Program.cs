@@ -38,6 +38,15 @@ builder.Services.AddHttpClient("GetTTRate", c =>
     c.DefaultRequestHeaders.Add("SessionID", "12345678901234567890123456789012");
 });
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddCors( option =>
+{
+    option.AddPolicy( name: "AllowAll", policy =>
+    {
+        policy.AllowAnyHeader();
+        policy.AllowAnyOrigin();
+        policy.AllowAnyMethod();
+    });
+});
 
 builder.Services.AddDbContextPool<ProjectDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -70,6 +79,7 @@ app.UseStaticFiles();
 app.UseSession();
 app.UseRouting();
 app.UseAuthorization();
+app.UseCors("AllowAll");
 
 app.MapControllerRoute(
     name: "default",
