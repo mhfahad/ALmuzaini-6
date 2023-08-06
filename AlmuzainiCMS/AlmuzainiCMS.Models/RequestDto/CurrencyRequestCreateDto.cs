@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlmuzainiCMS.Models.Models
+namespace AlmuzainiCMS.Models.RequestDto
 {
-    public class CurrencyRequest
+    public class CurrencyRequestCreateDto
     {
-        public Guid Id { get; set; }
         public long RequestId { get; set; }
-        public DateTime CreatedOn { get; set; }
         public string SessionId { get; set; }
     }
 }

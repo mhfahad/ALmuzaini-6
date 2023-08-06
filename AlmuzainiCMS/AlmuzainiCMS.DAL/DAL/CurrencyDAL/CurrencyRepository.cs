@@ -19,7 +19,7 @@ namespace AlmuzainiCMS.DAL.DAL.CurrencyDAL
         }
         public async Task<bool> AddCurrency(ICollection<CurrencyRate> model)
         {
-            var result = await _db.CurrencyRates.ToListAsync();
+            var result = await _db.CurrencyRates.ToListAsync() ?? Enumerable.Empty<CurrencyRate>().ToList();
             if (result.Count is not 0)
             {
                 _db.RemoveRange(result);
@@ -29,20 +29,41 @@ namespace AlmuzainiCMS.DAL.DAL.CurrencyDAL
             return await _db.SaveChangesAsync() > 0;  
         }
 
-        public async Task<bool> AddRequestIdsAsync(ICollection<long> requestIds)
+        public async Task<bool> AddRequestBodyAsync(ICollection<CurrencyRequest> requests)
         {
-            await _db.AddRangeAsync(requestIds);
+            await _db.AddRangeAsync(requests);
             return await _db.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> AddRequestIdAsync(CurrencyRequest model)
+        {
+            await _db.AddAsync(model);
+            return await _db.SaveChangesAsync()>0;
         }
 
         public async Task<ICollection<CurrencyRate>> GetAllCurrencyAsync()
         {
-            return await _db.CurrencyRates.ToListAsync();
+            return await _db.CurrencyRates.ToListAsync() ?? Enumerable.Empty<CurrencyRate>().ToList();
         }
 
         public async Task<ICollection<CurrencyCode>> GetCurrencyCodes()
         {
-            return await _db.CurrenyCodes.ToListAsync();
+            return await _db.CurrenyCodes.ToListAsync() ?? Enumerable.Empty<CurrencyCode>().ToList();
+        }
+
+        public async Task<ICollection<CurrencyRequest>> GetCurrencyRequestIdsAsync()
+        {
+            return await _db.CurrencyRequests.ToListAsync() ?? Enumerable.Empty<CurrencyRequest>().ToList();
+        }
+
+        public async Task<CurrencyRequest> GetLatestCurrencyRequestId()
+        {
+            return await _db.CurrencyRequests.OrderByDescending(c=>c.CreatedOn).FirstOrDefaultAsync();
+        }
+
+        public async Task<long> GetRequestByRequestId(long id)
+        {
+            return await _db.CurrencyRequests.Where(c=>c.Equals(id)).Select(c=>c.RequestId).FirstAsync();
         }
     }
 }

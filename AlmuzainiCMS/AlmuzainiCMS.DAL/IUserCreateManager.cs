@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AlmuzainiCMS.BLL.Abstraction
+namespace AlmuzainiCMS.BLL.Interface
 {
     public interface IUserCreateManager
     {

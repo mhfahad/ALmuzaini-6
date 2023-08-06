@@ -13,6 +13,7 @@ using AlmuzainiCMS.DAL.Interface.Currency;
 using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace AlmuzainiCMS.BLL.BLL
 {
@@ -26,6 +27,22 @@ namespace AlmuzainiCMS.BLL.BLL
             _repo = repo;
         }
 
+        public async Task<bool> AddRequestIdAsync(CurrencyRequestCreateDto model)
+        {
+            var existingData = await _repo.GetRequestByRequestId(model.RequestId);
+            if(existingData < 0)
+            {
+                var data = new CurrencyRequest
+                {
+                    RequestId = model.RequestId,
+                    SessionId = model.SessionId,
+                    CreatedOn = DateTime.UtcNow,
+                };
+                return await _repo.AddRequestIdAsync(data);
+            }
+            return false;
+        }
+
         public Task<ICollection<CurrencyRate>> GetAllCurrencyAsync()
         {
             return _repo.GetAllCurrencyAsync();
@@ -35,7 +52,7 @@ namespace AlmuzainiCMS.BLL.BLL
         {
             List<GetTTRateRequestDto> requestDto = new List<GetTTRateRequestDto>();
             List<CurrencyRate> currencyRates = new List<CurrencyRate>();   
-            List<long> RequestIds = new List<long>();
+            List<CurrencyRequest> RequestIds = new List<CurrencyRequest>();
 
             var currencyCodes = await _repo.GetCurrencyCodes();
 
@@ -48,32 +65,62 @@ namespace AlmuzainiCMS.BLL.BLL
                     CalcType = "FC",
                     Entity = "110"
                 };
-
                 requestDto.Add(data);
             }
 
-            //var requestId = $"123XYA-{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";
-            var requestId = 8764126000000001;
+            var currencyRequest = await _repo.GetLatestCurrencyRequestId();
 
             foreach (var item in requestDto)
-            { 
-                _httpClientFactory.DefaultRequestHeaders.Add("RequestID", $"{requestId}");
-                var buffer = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(item));
-                var byteContent = new ByteArrayContent(buffer);
-                var response = await _httpClientFactory.PostAsync(_httpClientFactory.BaseAddress, byteContent);
+            {
+                var RequestBody = new CurrencyRequest();
+
+                if (currencyRequest != null)
+                {
+                    RequestBody = new CurrencyRequest
+                    {
+                        RequestId = currencyRequest.RequestId++,
+                        CreatedOn = DateTime.Now,
+                        SessionId = currencyRequest.SessionId,
+                    };
+                    RequestIds.Add(RequestBody);
+                }
+                else
+                {
+                    RequestBody = new CurrencyRequest
+                    {
+                        RequestId = 8764130000000001,
+                        CreatedOn = DateTime.Now,
+                        SessionId = "",
+                    };
+                    RequestIds.Add(RequestBody);
+                }
+
+                _httpClientFactory.DefaultRequestHeaders.Add("RequestID", $"{RequestBody.RequestId}");
+
+                var newPostJson = JsonConvert.SerializeObject(item);
+                var payload = new StringContent(newPostJson, Encoding.UTF8, Application.Json);
+                //var buffer = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(item));
+                //var byteContent = new ByteArrayContent(buffer);
+                var response = await _httpClientFactory.PostAsync(_httpClientFactory.BaseAddress, payload);
                 if (response.IsSuccessStatusCode)
                 {
                     var responseResult = await response.Content.ReadAsStringAsync();
                     currencyRates.Add(JsonConvert.DeserializeObject<CurrencyRate>(responseResult));
+                    await _repo.AddRequestBodyAsync(RequestIds);
+                    var result = await _repo.AddCurrency(currencyRates);
+                    if (result) return result;
+                    return result;
                 }
-                RequestIds.Add(requestId);
-                requestId++;
+                return false;
             }
-
-            await _repo.AddRequestIdsAsync(RequestIds);
-            var result = await _repo.AddCurrency(currencyRates);
-            if (result) return result;
-            return result;
+            return false;
         }
+
+        public async Task<long> GetLatestCurrencyRequestId()
+        {
+            var data = await _repo.GetLatestCurrencyRequestId();
+            return data.RequestId;
+        }
+        
     }
 }

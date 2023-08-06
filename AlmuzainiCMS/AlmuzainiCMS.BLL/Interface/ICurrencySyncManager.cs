@@ -12,5 +12,7 @@ namespace AlmuzainiCMS.BLL.Interface
     {
         Task<bool> GetCurrencySync();
         Task<ICollection<CurrencyRate>> GetAllCurrencyAsync();
+        Task<long> GetLatestCurrencyRequestId();
+        Task<bool> AddRequestIdAsync(CurrencyRequestCreateDto model);
     }
 }
