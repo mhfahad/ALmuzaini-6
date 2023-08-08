@@ -8,7 +8,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing.Internal;
 using System.Diagnostics;
 using System.Security.Policy;
-
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Formats.Webp;
+using SixLabors.ImageSharp.Formats.Jpeg;
 
 namespace AlmuzainiCMS.Controllers
 {
@@ -105,6 +108,9 @@ namespace AlmuzainiCMS.Controllers
 
             return Json(response);
         }
+
+       
+
 
         [HttpPost]
         public IActionResult UploadRateCalculator(MultipleFileUploadVM model)

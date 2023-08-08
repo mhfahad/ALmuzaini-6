@@ -22,11 +22,19 @@ using Microsoft.Extensions.Hosting;
 using AlmuzainiCMS.DAL.Interface.Currency;
 using AlmuzainiCMS.DAL.DAL.CurrencyDAL;
 using Microsoft.Net.Http.Headers;
+using Microsoft.AspNetCore.StaticFiles;
+using SixLabors.ImageSharp.Web.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.Configure<StaticFileOptions>(options =>
+{
+    var provider = new FileExtensionContentTypeProvider();
+    provider.Mappings[".webp"] = "image/webp";
+    options.ContentTypeProvider = provider;
+});
 
 //HttpClientFactory configure
 builder.Services.AddHttpClient("GetTTRate", c =>
@@ -63,6 +71,13 @@ builder.Services.AddSession(options => {
     options.IdleTimeout = TimeSpan.FromMinutes(10);  
 });
 
+//builder.Services.AddImageSharp().SetMimeTypeMap(new Dictionary<string, string>
+//        {
+//            { "image/webp", "webp" }
+//        });
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -76,6 +91,7 @@ if (!app.Environment.IsDevelopment())
 //builder.Services.AddTransient<IUserInfoManager, UserInfoManager>();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 app.UseSession();
 app.UseRouting();
 app.UseAuthorization();
