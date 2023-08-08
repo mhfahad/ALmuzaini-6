@@ -2,7 +2,514 @@
     ViewData["Title"] = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="card-title">Top Slider</h4>
+                    <h6 class="lebel">Live Images</h6>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                   
+                    <form  enctype="multipart/form-data">
+                        <div class="input-group flex-nowrap">
+                            <div class="custom-file w-100">
+                                <input type="file" name="Files" multiple />
+                            </div>
+                            <button type="button" id="uploadSliderButton" class="btn btn-outline-secondary">Upload</button>
+                        </div>
+                    
+                    </form>
+
+
+                    <div id="resultMessage"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="card-title">Rate Calculator</h4>
+                    <h6 class="lebel">Live Images</h6>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <form enctype="multipart/form-data">
+                        <div class="input-group flex-nowrap">
+                            <div class="custom-file w-100">
+                                <input type="file" name="RateCalculatorFiles" multiple />
+                            </div>
+                            <button type="button" id="uploadRateCalculatorButton" class="btn btn-outline-secondary">Upload</button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="card-title">Middle Slider</h4>
+                    <h6 class="lebel">Live Images</h6>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <form enctype="multipart/form-data">
+                        <div class="input-group flex-nowrap">
+                            <div class="custom-file w-100">
+                                <input type="file" name="MiddleSliderFiles" multiple />
+                            </div>
+                            <button type="button" id="uploadMiddleSliderButton" class="btn btn-outline-secondary">Upload</button>
+                        </div>
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="card-title">Round Buttons</h4>
+                    <h6 class="lebel">Live Images</h6>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <form enctype="multipart/form-data">
+                        <div class="input-group flex-nowrap">
+                            <div class="custom-file w-100">
+                                <input type="file" name="RoundButtonsFiles" multiple />
+                            </div>
+                            <button type="button" id="uploadRoundButtonsButton" class="btn btn-outline-secondary">Upload</button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="card-title">Last Slider</h4>
+                    <h6 class="lebel">Live Images</h6>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+
+                            <div class="carousel-item active">
+                                <img class="img-fluid"
+                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                            </div>
+
+                        </div>
+                    </div>
+                    <form enctype="multipart/form-data">
+                        <div class="input-group flex-nowrap">
+                            <div class="custom-file w-100">
+                                <input type="file" name="LastSliderFiles" multiple />
+                            </div>
+                            <button type="button" id="uploadLastSliderButton" class="btn btn-outline-secondary">Upload</button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="card-title">Videos</h4>
+                    
+                    <form enctype="multipart/form-data">
+                        <div class="input-group flex-nowrap">
+                            <div class="custom-file w-100">
+                                <input type="file" name="VideoFiles" multiple />
+                            </div>
+                            <button type="button" id="uploadVideoButton" class="btn btn-outline-secondary">Upload</button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+@section Scripts{
+
+    <script>
+        document.getElementById("uploadSliderButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="Files"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadTopSlider", "Home")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+        
+
+            //uploadRateCalculatorButton
+        document.getElementById("uploadRateCalculatorButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="RateCalculatorFiles"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadRateCalculator", "Home")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+
+        //uploadMiddleSliderButton
+        document.getElementById("uploadMiddleSliderButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="MiddleSliderFiles"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadMiddleSlider", "Home")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+        
+
+            //uploadRoundButtonsButton
+        document.getElementById("uploadRoundButtonsButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="RoundButtonsFiles"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadRoundButtons", "Home")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+        
+
+
+            //uploadLastSliderButton
+        document.getElementById("uploadLastSliderButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="LastSliderFiles"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadLastSlider", "Home")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+        
+
+            //uploadVideoButton
+
+            document.getElementById("uploadVideoButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="VideoFiles"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadVideo", "Home")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+
+
+
+    </script>
+}
+
+
+
+@*@using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
 {
     <div class="col-sm-12 col-md-12">
         <div class="card">
@@ -292,10 +799,6 @@
     </div>
 }
 @section Scripts{
-
-    @* <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-*@
     <script type="text/javascript">
 
         function fileCheck(obj) {
@@ -364,4 +867,4 @@
         }
     </script>
 
-}
+}*@
