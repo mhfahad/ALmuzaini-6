@@ -61,6 +61,27 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.ToTable("CurrencyRates");
                 });
 
+            modelBuilder.Entity("AlmuzainiCMS.Models.Models.CurrencyRequest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("RequestId")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SessionId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CurrencyRequests");
+                });
+
             modelBuilder.Entity("AlmuzainiCMS.Models.Models.UsersInfo", b =>
                 {
                     b.Property<int>("Id")

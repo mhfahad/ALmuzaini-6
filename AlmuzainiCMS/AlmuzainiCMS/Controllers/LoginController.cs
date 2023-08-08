@@ -13,9 +13,9 @@ namespace AlmuzainiCMS.Controllers
     {
         private readonly IUserCreateManager manager;
         private readonly IMapper _mapper;
-        public LoginController(IUserCreateManager _manager, IMapper mapper, IWebHostEnvironment hostEnvironment)
+        public LoginController(IUserCreateManager Manager, IMapper mapper, IWebHostEnvironment hostEnvironment)
         {
-            manager = _manager;
+            manager = Manager;
             _mapper = mapper;
             //webHostEnvironment = hostEnvironment;
         }

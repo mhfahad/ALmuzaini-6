@@ -1,5 +1,6 @@
 ﻿using AlmuzainiCMS.BLL.Interface;
 using AlmuzainiCMS.Models.Models;
+using AlmuzainiCMS.Models.RequestDto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +26,25 @@ namespace AlmuzainiCMS.Controllers
             if(data is not null) 
                 return Ok(data);
             return NotFound();
+        }
+
+        [AllowAnonymous]
+        [HttpGet("LatestRequestId")]
+        public async Task<IActionResult> GetRequestId()
+        {
+            var data = await _manager.GetLatestCurrencyRequestId();
+            if (data > 0)
+                return Ok(data);
+            return NotFound();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> AddUpdateRequestId([FromBody] CurrencyRequestCreateDto model)
+        {
+            var result = await _manager.AddRequestIdAsync(model);
+            if(result) return Ok(result);
+            return BadRequest();
         }
     }
 }

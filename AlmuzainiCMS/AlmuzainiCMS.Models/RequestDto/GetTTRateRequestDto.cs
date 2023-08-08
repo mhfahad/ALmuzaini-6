@@ -9,7 +9,7 @@ namespace AlmuzainiCMS.Models.RequestDto
     public class GetTTRateRequestDto
     {
         public string CurrenyCode { get; set; }
-        public double Amount { get; set; }
+        public string Amount { get; set; }
         public string CalcType { get; set; }
         public string Entity { get; set; }
     }
