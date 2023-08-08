@@ -19,11 +19,11 @@ namespace AlmuzainiCMS.BLL.BLL
 {
     public class CurrencySyncManager : ICurrencySyncManager
     {
-        private readonly HttpClient _httpClientFactory;
+        private readonly IHttpClientFactory _httpClientFactory;
         private readonly ICurrencyRepository _repo;
         public CurrencySyncManager(IHttpClientFactory httpClientFactory, ICurrencyRepository repo)
         {
-            _httpClientFactory = httpClientFactory.CreateClient("GetTTRate");
+            _httpClientFactory = httpClientFactory;
             _repo = repo;
         }
 
@@ -50,6 +50,7 @@ namespace AlmuzainiCMS.BLL.BLL
 
         public async Task<bool> GetCurrencySync()
         {
+            var _httpClient = _httpClientFactory.CreateClient("GetTTRate");
             List<GetTTRateRequestDto> requestDto = new List<GetTTRateRequestDto>();
             List<CurrencyRate> currencyRates = new List<CurrencyRate>();   
             List<CurrencyRequest> RequestIds = new List<CurrencyRequest>();
@@ -95,13 +96,13 @@ namespace AlmuzainiCMS.BLL.BLL
                     RequestIds.Add(RequestBody);
                 }
 
-                _httpClientFactory.DefaultRequestHeaders.Add("RequestID", $"{RequestBody.RequestId}");
+                _httpClient.DefaultRequestHeaders.Add("RequestID", $"{RequestBody.RequestId}");
 
                 var newPostJson = JsonConvert.SerializeObject(item);
                 var payload = new StringContent(newPostJson, Encoding.UTF8, Application.Json);
                 //var buffer = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(item));
                 //var byteContent = new ByteArrayContent(buffer);
-                var response = await _httpClientFactory.PostAsync(_httpClientFactory.BaseAddress, payload);
+                var response = await _httpClient.PostAsync(_httpClient.BaseAddress, payload);
                 if (response.IsSuccessStatusCode)
                 {
                     var responseResult = await response.Content.ReadAsStringAsync();
