@@ -18,11 +18,13 @@ namespace AlmuzainiCMS.Controllers
        
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _hostingEnvironment;
+       
         public HomeController(ILogger<HomeController> logger ,  IMapper mapper, IWebHostEnvironment webHostEnvironment)
         {
             _logger = logger;
             _mapper = mapper;
             _hostingEnvironment = webHostEnvironment;
+           
         }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -60,9 +62,15 @@ namespace AlmuzainiCMS.Controllers
                     string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
-                    string filePath = Path.Combine(uploadsFolder, "original", "TopSlider", uniqueFileName);
+                    string filePath = Path.Combine(uploadsFolder, "original", "TopSlider");
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                    string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
 
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
                     {
                         file.CopyTo(fileStream);
                     }
@@ -78,6 +86,10 @@ namespace AlmuzainiCMS.Controllers
                         }));
 
                         string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "TopSlider");
+                        if (!Directory.Exists(thumbnailPath))
+                        {
+                            Directory.CreateDirectory(thumbnailPath);
+                        }
                         int totalfiles = Directory.GetFiles(thumbnailPath).Count();
 
                         string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
@@ -85,8 +97,13 @@ namespace AlmuzainiCMS.Controllers
                     }
                 }
             }
+            var response = new
+            {
+                Success = true,
+                Message = "File uploaded successfully."
+            };
 
-            return RedirectToAction("Index", "Home");
+            return Json(response);
         }
 
         [HttpPost]
@@ -99,9 +116,14 @@ namespace AlmuzainiCMS.Controllers
                     string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
-                    string filePath = Path.Combine(uploadsFolder, "original", "RateCalculator", uniqueFileName);
-
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    string filePath = Path.Combine(uploadsFolder, "original", "RateCalculator");
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                    string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
                     {
                         file.CopyTo(fileStream);
                     }
@@ -117,6 +139,10 @@ namespace AlmuzainiCMS.Controllers
                         }));
 
                         string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "RateCalculator");
+                        if (!Directory.Exists(thumbnailPath))
+                        {
+                            Directory.CreateDirectory(thumbnailPath);
+                        }
                         int totalfiles = Directory.GetFiles(thumbnailPath).Count();
 
                         string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
@@ -125,7 +151,13 @@ namespace AlmuzainiCMS.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Home");
+            var response = new
+            {
+                Success = true,
+                Message = "File uploaded successfully."
+            };
+
+            return Json(response);
         }
 
 
@@ -139,9 +171,15 @@ namespace AlmuzainiCMS.Controllers
                     string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
-                    string filePath = Path.Combine(uploadsFolder, "original", "MiddleSlider", uniqueFileName);
+                    string filePath = Path.Combine(uploadsFolder, "original", "MiddleSlider");
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                    string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
 
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
                     {
                         file.CopyTo(fileStream);
                     }
@@ -157,6 +195,10 @@ namespace AlmuzainiCMS.Controllers
                         }));
 
                         string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "MiddleSlider");
+                        if (!Directory.Exists(thumbnailPath))
+                        {
+                            Directory.CreateDirectory(thumbnailPath);
+                        }
                         int totalfiles = Directory.GetFiles(thumbnailPath).Count();
 
                         string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
@@ -165,7 +207,13 @@ namespace AlmuzainiCMS.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Home");
+            var response = new
+            {
+                Success = true,
+                Message = "File uploaded successfully."
+            };
+
+            return Json(response);
         }
 
 
@@ -179,9 +227,15 @@ namespace AlmuzainiCMS.Controllers
                     string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
-                    string filePath = Path.Combine(uploadsFolder, "original", "RoundButtons", uniqueFileName);
+                    string filePath = Path.Combine(uploadsFolder, "original", "RoundButtons");
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                    string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
 
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
                     {
                         file.CopyTo(fileStream);
                     }
@@ -197,6 +251,10 @@ namespace AlmuzainiCMS.Controllers
                         }));
 
                         string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "RoundButtons");
+                        if (!Directory.Exists(thumbnailPath))
+                        {
+                            Directory.CreateDirectory(thumbnailPath);
+                        }
                         int totalfiles = Directory.GetFiles(thumbnailPath).Count();
 
                         string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
@@ -205,7 +263,13 @@ namespace AlmuzainiCMS.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Home");
+            var response = new
+            {
+                Success = true,
+                Message = "File uploaded successfully."
+            };
+
+            return Json(response);
         }
 
         [HttpPost]
@@ -218,9 +282,15 @@ namespace AlmuzainiCMS.Controllers
                     string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
-                    string filePath = Path.Combine(uploadsFolder, "original", "LastSlider", uniqueFileName);
+                    string filePath = Path.Combine(uploadsFolder, "original", "LastSlider");
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                    string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
 
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
                     {
                         file.CopyTo(fileStream);
                     }
@@ -236,6 +306,10 @@ namespace AlmuzainiCMS.Controllers
                         }));
 
                         string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "LastSlider");
+                        if (!Directory.Exists(thumbnailPath))
+                        {
+                            Directory.CreateDirectory(thumbnailPath);
+                        }
                         int totalfiles = Directory.GetFiles(thumbnailPath).Count();
 
                         string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
@@ -244,7 +318,13 @@ namespace AlmuzainiCMS.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "Home");
+            var response = new
+            {
+                Success = true,
+                Message = "File uploaded successfully."
+            };
+
+            return Json(response);
         }
 
 
@@ -259,16 +339,28 @@ namespace AlmuzainiCMS.Controllers
                     string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
-                    string filePath = Path.Combine(uploadsFolder, "original", "Videos", uniqueFileName);
+                    string filePath = Path.Combine(uploadsFolder, "original", "Videos");
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                    string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
 
-                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
                     {
                         file.CopyTo(fileStream);
                     }
                 }
             }
 
-            return RedirectToAction("Index", "Home");
+            var response = new
+            {
+                Success = true,
+                Message = "File uploaded successfully."
+            };
+
+            return Json(response);
         }
 
 

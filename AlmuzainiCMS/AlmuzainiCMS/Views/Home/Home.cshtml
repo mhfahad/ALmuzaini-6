@@ -309,6 +309,7 @@
 
 
 @section Scripts{
+
     <script>
         document.getElementById("uploadSliderButton").addEventListener("click", function () {
             var formData = new FormData();
@@ -325,15 +326,21 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function (data) {
-                    // Handle the response as needed
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
                 },
                 error: function () {
-                    // Handle errors
+                    toastr.error("An error occurred while uploading the file.");
                 }
             });
         });
-
+        
 
             //uploadRateCalculatorButton
         document.getElementById("uploadRateCalculatorButton").addEventListener("click", function () {
@@ -351,11 +358,17 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function (data) {
-                    // Handle the response as needed
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
                 },
                 error: function () {
-                    // Handle errors
+                    toastr.error("An error occurred while uploading the file.");
                 }
             });
         });
@@ -376,14 +389,21 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function (data) {
-                    // Handle the response as needed
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
                 },
                 error: function () {
-                    // Handle errors
+                    toastr.error("An error occurred while uploading the file.");
                 }
             });
         });
+        
 
             //uploadRoundButtonsButton
         document.getElementById("uploadRoundButtonsButton").addEventListener("click", function () {
@@ -401,14 +421,21 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function (data) {
-                    // Handle the response as needed
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
                 },
                 error: function () {
-                    // Handle errors
+                    toastr.error("An error occurred while uploading the file.");
                 }
             });
         });
+        
 
 
             //uploadLastSliderButton
@@ -427,14 +454,21 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function (data) {
-                    // Handle the response as needed
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
                 },
                 error: function () {
-                    // Handle errors
+                    toastr.error("An error occurred while uploading the file.");
                 }
             });
         });
+        
 
             //uploadVideoButton
 
@@ -453,14 +487,21 @@
                 data: formData,
                 processData: false,
                 contentType: false,
-                success: function (data) {
-                    // Handle the response as needed
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
                 },
                 error: function () {
-                    // Handle errors
+                    toastr.error("An error occurred while uploading the file.");
                 }
             });
         });
+
 
 
     </script>
