@@ -34,8 +34,8 @@ builder.Services.AddHttpClient("GetTTRate", c =>
     c.BaseAddress = new Uri("https://rateapi.muzaini.com:68/api/v1/Remittance/GetTTRate");
     c.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
     c.DefaultRequestHeaders.Add("ChannelID", "mobapi");
-    c.DefaultRequestHeaders.Add("MachineID", "MachineID");
-    c.DefaultRequestHeaders.Add("SessionID", "12345678901234567890123");
+    c.DefaultRequestHeaders.Add("MechineID", "MachineID");
+    c.DefaultRequestHeaders.Add("SessionID", "12345678901234567890123456789012");
 });
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddCors( option =>

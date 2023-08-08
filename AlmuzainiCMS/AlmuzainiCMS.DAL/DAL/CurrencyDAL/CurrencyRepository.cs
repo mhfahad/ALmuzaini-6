@@ -58,7 +58,7 @@ namespace AlmuzainiCMS.DAL.DAL.CurrencyDAL
 
         public async Task<CurrencyRequest> GetLatestCurrencyRequestId()
         {
-            return await _db.CurrencyRequests.OrderByDescending(c=>c.CreatedOn).FirstOrDefaultAsync();
+            return await _db.CurrencyRequests.OrderByDescending(c=>c.RequestId).FirstOrDefaultAsync();
         }
 
         public async Task<long> GetRequestByRequestId(long id)
