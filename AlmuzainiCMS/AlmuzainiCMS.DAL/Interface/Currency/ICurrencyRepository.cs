@@ -10,13 +10,14 @@ namespace AlmuzainiCMS.DAL.Interface.Currency
 {
     public interface ICurrencyRepository
     {
-        Task<bool> AddCurrency(ICollection<CurrencyRate> model);
+        Task<bool> AddCurrency(ICollection<GetTrateResult> model);
         Task<bool> AddRequestBodyAsync(ICollection<CurrencyRequest> requestIds);
-        Task<ICollection<CurrencyRate>> GetAllCurrencyAsync();
+        Task<ICollection<GetTrateResult>> GetAllCurrencyAsync();
         Task<ICollection<CurrencyCode>> GetCurrencyCodes();
         Task<ICollection<CurrencyRequest>> GetCurrencyRequestIdsAsync();
         Task<CurrencyRequest> GetLatestCurrencyRequestId();
         Task<bool> AddRequestIdAsync(CurrencyRequest model);
         Task<long> GetRequestByRequestId(long id);
+        Task<bool> AddGetTRetResult(GetTrateResult requests);
     }
 }

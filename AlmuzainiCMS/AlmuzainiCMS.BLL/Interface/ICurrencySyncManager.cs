@@ -11,7 +11,7 @@ namespace AlmuzainiCMS.BLL.Interface
     public interface ICurrencySyncManager
     {
         Task<bool> GetCurrencySync();
-        Task<ICollection<CurrencyRate>> GetAllCurrencyAsync();
+        Task<ICollection<GetTrateResult>> GetAllCurrencyAsync();
         Task<long> GetLatestCurrencyRequestId();
         Task<bool> AddRequestIdAsync(CurrencyRequestCreateDto model);
     }

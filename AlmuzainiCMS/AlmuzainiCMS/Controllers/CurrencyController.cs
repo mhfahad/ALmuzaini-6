@@ -32,5 +32,11 @@ namespace AlmuzainiCMS.Controllers
             await _manager.GetCurrencySync();
             RedirectToAction("Index");
         }
+
+        public async Task<IActionResult> GetAllCurrency()
+        {
+            var data = await _manager.GetAllCurrencyAsync();
+            return View(data);
+        }
     }
 }

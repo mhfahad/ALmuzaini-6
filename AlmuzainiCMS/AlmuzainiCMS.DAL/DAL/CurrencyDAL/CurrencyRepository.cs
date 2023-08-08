@@ -17,9 +17,9 @@ namespace AlmuzainiCMS.DAL.DAL.CurrencyDAL
         {
             _db = db;
         }
-        public async Task<bool> AddCurrency(ICollection<CurrencyRate> model)
+        public async Task<bool> AddCurrency(ICollection<GetTrateResult> model)
         {
-            var result = await _db.CurrencyRates.ToListAsync() ?? Enumerable.Empty<CurrencyRate>().ToList();
+            var result = await _db.GetTrateResults.ToListAsync() ?? Enumerable.Empty<GetTrateResult>().ToList();
             if (result.Count is not 0)
             {
                 _db.RemoveRange(result);
@@ -35,15 +35,21 @@ namespace AlmuzainiCMS.DAL.DAL.CurrencyDAL
             return await _db.SaveChangesAsync() > 0;
         }
 
+        public async Task<bool> AddGetTRetResult(GetTrateResult requests)
+        {
+            await _db.AddAsync(requests);
+            return await _db.SaveChangesAsync() > 0;
+        }
+
         public async Task<bool> AddRequestIdAsync(CurrencyRequest model)
         {
             await _db.AddAsync(model);
             return await _db.SaveChangesAsync()>0;
         }
 
-        public async Task<ICollection<CurrencyRate>> GetAllCurrencyAsync()
+        public async Task<ICollection<GetTrateResult>> GetAllCurrencyAsync()
         {
-            return await _db.CurrencyRates.ToListAsync() ?? Enumerable.Empty<CurrencyRate>().ToList();
+            return await _db.GetTrateResults.ToListAsync() ?? Enumerable.Empty<GetTrateResult>().ToList();
         }
 
         public async Task<ICollection<CurrencyCode>> GetCurrencyCodes()

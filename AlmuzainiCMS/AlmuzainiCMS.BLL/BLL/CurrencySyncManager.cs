@@ -43,7 +43,7 @@ namespace AlmuzainiCMS.BLL.BLL
             return false;
         }
 
-        public Task<ICollection<CurrencyRate>> GetAllCurrencyAsync()
+        public Task<ICollection<GetTrateResult>> GetAllCurrencyAsync()
         {
             return _repo.GetAllCurrencyAsync();
         }
@@ -51,8 +51,7 @@ namespace AlmuzainiCMS.BLL.BLL
         public async Task<bool> GetCurrencySync()
         {
             var _httpClient = _httpClientFactory.CreateClient("GetTTRate");
-            List<GetTTRateRequestDto> requestDto = new List<GetTTRateRequestDto>();
-            List<CurrencyRate> currencyRates = new List<CurrencyRate>();   
+            List<GetTTRateRequestDto> requestDto = new List<GetTTRateRequestDto>(); 
             List<CurrencyRequest> RequestIds = new List<CurrencyRequest>();
 
             var currencyCodes = await _repo.GetCurrencyCodes();
@@ -100,16 +99,13 @@ namespace AlmuzainiCMS.BLL.BLL
 
                 var newPostJson = JsonConvert.SerializeObject(item);
                 var payload = new StringContent(newPostJson, Encoding.UTF8, Application.Json);
-                //var buffer = System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(item));
-                //var byteContent = new ByteArrayContent(buffer);
                 var response = await _httpClient.PostAsync(_httpClient.BaseAddress, payload);
                 if (response.IsSuccessStatusCode)
                 {
                     var responseResult = await response.Content.ReadAsStringAsync();
-                    var dRate = JsonConvert.DeserializeObject<CurrencyRate>(responseResult);
-                    currencyRates.Add(dRate);
+                    var dRate = JsonConvert.DeserializeObject<Root>(responseResult);
                     await _repo.AddRequestBodyAsync(RequestIds);
-                    var result = await _repo.AddCurrency(currencyRates);
+                    var result = await _repo.AddGetTRetResult(dRate!.getTrateResult);
                     if (result) return result;
                     return result;
                 }
