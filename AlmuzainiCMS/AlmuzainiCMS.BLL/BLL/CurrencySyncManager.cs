@@ -61,8 +61,8 @@ namespace AlmuzainiCMS.BLL.BLL
             {
                 GetTTRateRequestDto data = new GetTTRateRequestDto
                 {
-                    Amount = 1,
                     CurrenyCode = currencyCode.CurrencyCodeName,
+                    Amount = "1",
                     CalcType = "FC",
                     Entity = "110"
                 };
@@ -89,7 +89,7 @@ namespace AlmuzainiCMS.BLL.BLL
                 {
                     RequestBody = new CurrencyRequest
                     {
-                        RequestId = 8764130000000001,
+                        RequestId = 8764130000000004,
                         CreatedOn = DateTime.Now,
                         SessionId = "",
                     };
@@ -106,7 +106,8 @@ namespace AlmuzainiCMS.BLL.BLL
                 if (response.IsSuccessStatusCode)
                 {
                     var responseResult = await response.Content.ReadAsStringAsync();
-                    currencyRates.Add(JsonConvert.DeserializeObject<CurrencyRate>(responseResult));
+                    var dRate = JsonConvert.DeserializeObject<CurrencyRate>(responseResult);
+                    currencyRates.Add(dRate);
                     await _repo.AddRequestBodyAsync(RequestIds);
                     var result = await _repo.AddCurrency(currencyRates);
                     if (result) return result;
