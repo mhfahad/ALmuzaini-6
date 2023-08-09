@@ -8,7 +8,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing.Internal;
 using System.Diagnostics;
 using System.Security.Policy;
-
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Formats.Webp;
+using SixLabors.ImageSharp.Formats.Jpeg;
 
 namespace AlmuzainiCMS.Controllers
 {
@@ -52,17 +55,47 @@ namespace AlmuzainiCMS.Controllers
 
             return View();
         }
+
+        public void DeleteAllFilesOfFolder(string folderPath)
+        {
+            try
+            {
+                if (Directory.Exists(folderPath))
+                {
+                    string[] files = Directory.GetFiles(folderPath);
+                    foreach(string file in files)
+                    {
+                        System.IO.File.Delete(file);    
+                    }
+
+                }
+
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("File Delete Failed");
+            }
+
+        }
+
+
+
         [HttpPost]
         public IActionResult UploadTopSlider(MultipleFileUploadVM model)
         {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
+            string filePath = Path.Combine(uploadsFolder, "original", "TopSlider");
+            string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "TopSlider");
+
+            DeleteAllFilesOfFolder(filePath);
+            DeleteAllFilesOfFolder(thumbnailPath);
+
             foreach (var file in model.Files)
             {
                 if (file != null && file.Length > 0)
                 {
-                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
-                    string filePath = Path.Combine(uploadsFolder, "original", "TopSlider");
                     if (!Directory.Exists(filePath))
                     {
                         Directory.CreateDirectory(filePath);
@@ -85,7 +118,7 @@ namespace AlmuzainiCMS.Controllers
                             Mode = ResizeMode.Max
                         }));
 
-                        string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "TopSlider");
+                       
                         if (!Directory.Exists(thumbnailPath))
                         {
                             Directory.CreateDirectory(thumbnailPath);
@@ -106,17 +139,25 @@ namespace AlmuzainiCMS.Controllers
             return Json(response);
         }
 
+       
+
+
         [HttpPost]
         public IActionResult UploadRateCalculator(MultipleFileUploadVM model)
         {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
+            string filePath = Path.Combine(uploadsFolder, "original", "RateCalculator");
+            string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "RateCalculator");
+            DeleteAllFilesOfFolder(filePath);
+            DeleteAllFilesOfFolder(thumbnailPath);
+
             foreach (var file in model.Files)
             {
                 if (file != null && file.Length > 0)
                 {
-                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
-                    string filePath = Path.Combine(uploadsFolder, "original", "RateCalculator");
+                    
                     if (!Directory.Exists(filePath))
                     {
                         Directory.CreateDirectory(filePath);
@@ -138,7 +179,6 @@ namespace AlmuzainiCMS.Controllers
                             Mode = ResizeMode.Max
                         }));
 
-                        string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "RateCalculator");
                         if (!Directory.Exists(thumbnailPath))
                         {
                             Directory.CreateDirectory(thumbnailPath);
@@ -164,14 +204,20 @@ namespace AlmuzainiCMS.Controllers
         [HttpPost]
         public IActionResult UploadMiddleSlider(MultipleFileUploadVM model)
         {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
+            string filePath = Path.Combine(uploadsFolder, "original", "MiddleSlider");
+            string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "MiddleSlider");
+            DeleteAllFilesOfFolder(filePath);
+            DeleteAllFilesOfFolder(thumbnailPath);
+
             foreach (var file in model.Files)
             {
                 if (file != null && file.Length > 0)
                 {
-                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+                   
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
-                    string filePath = Path.Combine(uploadsFolder, "original", "MiddleSlider");
+                    
                     if (!Directory.Exists(filePath))
                     {
                         Directory.CreateDirectory(filePath);
@@ -194,7 +240,7 @@ namespace AlmuzainiCMS.Controllers
                             Mode = ResizeMode.Max
                         }));
 
-                        string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "MiddleSlider");
+                        
                         if (!Directory.Exists(thumbnailPath))
                         {
                             Directory.CreateDirectory(thumbnailPath);
@@ -220,14 +266,18 @@ namespace AlmuzainiCMS.Controllers
         [HttpPost]
         public IActionResult UploadRoundButtons(MultipleFileUploadVM model)
         {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
+            string filePath = Path.Combine(uploadsFolder, "original", "RoundButtons");
+            string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "RoundButtons");
+            DeleteAllFilesOfFolder(filePath);
+            DeleteAllFilesOfFolder(thumbnailPath);
+
             foreach (var file in model.Files)
             {
                 if (file != null && file.Length > 0)
                 {
-                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
-                    string filePath = Path.Combine(uploadsFolder, "original", "RoundButtons");
                     if (!Directory.Exists(filePath))
                     {
                         Directory.CreateDirectory(filePath);
@@ -250,7 +300,7 @@ namespace AlmuzainiCMS.Controllers
                             Mode = ResizeMode.Max
                         }));
 
-                        string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "RoundButtons");
+                        
                         if (!Directory.Exists(thumbnailPath))
                         {
                             Directory.CreateDirectory(thumbnailPath);
@@ -275,14 +325,20 @@ namespace AlmuzainiCMS.Controllers
         [HttpPost]
         public IActionResult UploadLastSlider(MultipleFileUploadVM model)
         {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
+            string filePath = Path.Combine(uploadsFolder, "original", "LastSlider");
+            string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "LastSlider");
+            DeleteAllFilesOfFolder(filePath);
+            DeleteAllFilesOfFolder(thumbnailPath);
+
             foreach (var file in model.Files)
             {
                 if (file != null && file.Length > 0)
                 {
-                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+                    
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
-                    string filePath = Path.Combine(uploadsFolder, "original", "LastSlider");
+                    
                     if (!Directory.Exists(filePath))
                     {
                         Directory.CreateDirectory(filePath);
@@ -305,7 +361,7 @@ namespace AlmuzainiCMS.Controllers
                             Mode = ResizeMode.Max
                         }));
 
-                        string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "LastSlider");
+                        
                         if (!Directory.Exists(thumbnailPath))
                         {
                             Directory.CreateDirectory(thumbnailPath);
@@ -332,14 +388,18 @@ namespace AlmuzainiCMS.Controllers
         [HttpPost]
         public IActionResult UploadVideo(MultipleFileUploadVM model)
         {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
+            string filePath = Path.Combine(uploadsFolder, "original", "Videos");
+            
+            DeleteAllFilesOfFolder(filePath);
+
             foreach (var file in model.Files)
             {
                 if (file != null && file.Length > 0)
                 {
-                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
-                    string filePath = Path.Combine(uploadsFolder, "original", "Videos");
+                    
                     if (!Directory.Exists(filePath))
                     {
                         Directory.CreateDirectory(filePath);
