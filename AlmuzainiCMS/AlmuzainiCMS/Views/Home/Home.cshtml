@@ -11,10 +11,10 @@
                     <h6 class="lebel">Live Images</h6>
                     <div class="col-lg-3">
                         <div class="card">
-
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                 src="../assets/Uploads/original/TopSlider/1.webp" alt="First slide">
+                        @*  src="@Url.Action("DisplayImage", "Home", new { imageName = "1" })" src="../assets/Uploads/thumbnails/TopSlider/1"  uploads/original/TopSlider/1.webp*@
+                        <div class="carousel-item active">
+                            <img class="img-fluid"  src="@Url.Content("../Uploads/original/TopSlider/1.webp")"
+                                  alt="First slide">
                             </div>
 
                         </div>
@@ -24,7 +24,7 @@
 
                             <div class="carousel-item active">
                                 <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                                 src="@Url.Content("../Uploads/original/TopSlider/2.webp")" alt="First slide">
                             </div>
 
                         </div>

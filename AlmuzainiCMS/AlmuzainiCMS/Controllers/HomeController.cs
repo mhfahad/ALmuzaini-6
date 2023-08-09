@@ -8,7 +8,10 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Routing.Internal;
 using System.Diagnostics;
 using System.Security.Policy;
-
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Formats.Webp;
+using SixLabors.ImageSharp.Formats.Jpeg;
 
 namespace AlmuzainiCMS.Controllers
 {
@@ -59,7 +62,7 @@ namespace AlmuzainiCMS.Controllers
             {
                 if (file != null && file.Length > 0)
                 {
-                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
                     string filePath = Path.Combine(uploadsFolder, "original", "TopSlider");
@@ -106,6 +109,9 @@ namespace AlmuzainiCMS.Controllers
             return Json(response);
         }
 
+       
+
+
         [HttpPost]
         public IActionResult UploadRateCalculator(MultipleFileUploadVM model)
         {
@@ -113,7 +119,7 @@ namespace AlmuzainiCMS.Controllers
             {
                 if (file != null && file.Length > 0)
                 {
-                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
                     string filePath = Path.Combine(uploadsFolder, "original", "RateCalculator");
@@ -168,7 +174,7 @@ namespace AlmuzainiCMS.Controllers
             {
                 if (file != null && file.Length > 0)
                 {
-                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
                     string filePath = Path.Combine(uploadsFolder, "original", "MiddleSlider");
@@ -224,7 +230,7 @@ namespace AlmuzainiCMS.Controllers
             {
                 if (file != null && file.Length > 0)
                 {
-                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
                     string filePath = Path.Combine(uploadsFolder, "original", "RoundButtons");
@@ -279,7 +285,7 @@ namespace AlmuzainiCMS.Controllers
             {
                 if (file != null && file.Length > 0)
                 {
-                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
                     string filePath = Path.Combine(uploadsFolder, "original", "LastSlider");
@@ -336,7 +342,7 @@ namespace AlmuzainiCMS.Controllers
             {
                 if (file != null && file.Length > 0)
                 {
-                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "uploads");
+                    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = Path.GetExtension(file.FileName);
                     string filePath = Path.Combine(uploadsFolder, "original", "Videos");
