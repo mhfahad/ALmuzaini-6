@@ -104,10 +104,15 @@ namespace AlmuzainiCMS.BLL.BLL
                 {
                     var responseResult = await response.Content.ReadAsStringAsync();
                     var dRate = JsonConvert.DeserializeObject<Root>(responseResult);
-                    await _repo.AddRequestBodyAsync(RequestIds);
-                    var result = await _repo.AddGetTRetResult(dRate!.getTrateResult);
-                    if (result) return result;
-                    return result;
+                    if(dRate.responseHeader.responseCode != "R997")
+                    {
+                        await _repo.AddRequestBodyAsync(RequestIds);
+                        dRate.getTrateResult.currencyCode = item.CurrenyCode;
+                        var result = await _repo.AddGetTRetResult(dRate!.getTrateResult);
+                        if (result) return result;
+                        return result;
+                    }
+                    return false;    
                 }
                 return false;
             }
