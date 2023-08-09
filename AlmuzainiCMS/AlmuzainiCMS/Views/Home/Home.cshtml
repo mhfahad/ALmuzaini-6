@@ -9,37 +9,29 @@
                 <div class="row">
                     <h4 class="card-title">Top Slider</h4>
                     <h6 class="lebel">Live Images</h6>
-                    <div class="col-lg-3">
-                        <div class="card">
-                        @*  src="@Url.Action("DisplayImage", "Home", new { imageName = "1" })" src="../assets/Uploads/thumbnails/TopSlider/1"  uploads/original/TopSlider/1.webp*@
-                        <div class="carousel-item active">
-                            <img class="img-fluid"  src="@Url.Content("../Uploads/original/TopSlider/1.webp")"
-                                  alt="First slide">
-                            </div>
+                    @if (ViewBag.TopSliderFileNames.Length > 0)
+                    {
+                            @foreach (var fileName in ViewBag.TopSliderFileNames)
+                            {
+                                <div class="col-lg-3">
+                                    <div class="card">
+                                        <div class="carousel-item-active">
+                                            @*<li>@fileName</li>*@
+                                            <img class="img-fluid" src="@Url.Content("../Uploads/original/TopSlider/"+ fileName)" alt="First Slide">
+                                        </div>
+                                    </div>
+                                </div>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="card">
 
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                 src="@Url.Content("../Uploads/original/TopSlider/2.webp")" alt="First slide">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="card">
-
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
-                            </div>
-
-                        </div>
-                    </div>
-                   
+                                
+                            }
+                       
+                    }
+                    else 
+                    {
+                        <p>No files available.</p>
+                    }
+                    
                     <form  enctype="multipart/form-data">
                         <div class="input-group flex-nowrap">
                             <div class="custom-file w-100">
@@ -49,9 +41,6 @@
                         </div>
                     
                     </form>
-
-
-                    <div id="resultMessage"></div>
 
                 </div>
 
@@ -69,36 +58,28 @@
                 <div class="row">
                     <h4 class="card-title">Rate Calculator</h4>
                     <h6 class="lebel">Live Images</h6>
-                    <div class="col-lg-3">
-                        <div class="card">
-
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                    @if (ViewBag.RateCalculatorFileNames.Length > 0)
+                    {
+                        @foreach (var fileName in ViewBag.RateCalculatorFileNames)
+                        {
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="carousel-item-active">
+                                        @*<li>@fileName</li>*@
+                                        <img class="img-fluid" src="@Url.Content("../Uploads/original/RateCalculator/"+ fileName)" alt="First Slide">
+                                    </div>
+                                </div>
                             </div>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="card">
 
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
-                            </div>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="card">
+                        }
 
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
-                            </div>
-
-                        </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
                     <form enctype="multipart/form-data">
                         <div class="input-group flex-nowrap">
                             <div class="custom-file w-100">
@@ -124,36 +105,28 @@
                 <div class="row">
                     <h4 class="card-title">Middle Slider</h4>
                     <h6 class="lebel">Live Images</h6>
-                    <div class="col-lg-3">
-                        <div class="card">
-
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                    @if (ViewBag.MiddleSliderFileNames.Length > 0)
+                    {
+                        @foreach (var fileName in ViewBag.MiddleSliderFileNames)
+                        {
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="carousel-item-active">
+                                        @*<li>@fileName</li>*@
+                                        <img class="img-fluid" src="@Url.Content("../Uploads/original/MiddleSlider/"+ fileName)" alt="First Slide">
+                                    </div>
+                                </div>
                             </div>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="card">
 
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
-                            </div>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="card">
+                        }
 
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
-                            </div>
-
-                        </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
                     <form enctype="multipart/form-data">
                         <div class="input-group flex-nowrap">
                             <div class="custom-file w-100">
@@ -181,36 +154,28 @@
                 <div class="row">
                     <h4 class="card-title">Round Buttons</h4>
                     <h6 class="lebel">Live Images</h6>
-                    <div class="col-lg-3">
-                        <div class="card">
-
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                    @if (ViewBag.RoundButtonsFileNames.Length > 0)
+                    {
+                        @foreach (var fileName in ViewBag.RoundButtonsFileNames)
+                        {
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="carousel-item-active">
+                                        @*<li>@fileName</li>*@
+                                        <img class="img-fluid" src="@Url.Content("../Uploads/original/RoundButtons/"+ fileName)" alt="First Slide">
+                                    </div>
+                                </div>
                             </div>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="card">
 
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
-                            </div>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="card">
+                        }
 
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
-                            </div>
-
-                        </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
                     <form enctype="multipart/form-data">
                         <div class="input-group flex-nowrap">
                             <div class="custom-file w-100">
@@ -235,36 +200,28 @@
                 <div class="row">
                     <h4 class="card-title">Last Slider</h4>
                     <h6 class="lebel">Live Images</h6>
-                    <div class="col-lg-3">
-                        <div class="card">
-
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
+                    @if (ViewBag.LastSliderFileNames.Length > 0)
+                    {
+                        @foreach (var fileName in ViewBag.LastSliderFileNames)
+                        {
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="carousel-item-active">
+                                        @*<li>@fileName</li>*@
+                                        <img class="img-fluid" src="@Url.Content("../Uploads/original/LastSlider/"+ fileName)" alt="First Slide">
+                                    </div>
+                                </div>
                             </div>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="card">
 
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
-                            </div>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="card">
+                        }
 
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                 src="../assets/images/big/img1.jpg" alt="First slide">
-                            </div>
-
-                        </div>
-                    </div>
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
                     <form enctype="multipart/form-data">
                         <div class="input-group flex-nowrap">
                             <div class="custom-file w-100">
@@ -333,6 +290,9 @@
                     } else {
                         // Handle error case
                         toastr.error("File upload failed.");
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
                     }
                 },
                 error: function () {
@@ -360,8 +320,14 @@
                 contentType: false,
                 success: function (response) {
                     if (response.success) {
-                        // Display toast notification
+                    
                         toastr.success(response.message);
+                        
+                        var redirectUrl = response.redirectUrl;
+                      
+                        window.location.href = redirectUrl;
+                       
+                        
                     } else {
                         // Handle error case
                         toastr.error("File upload failed.");
@@ -393,6 +359,9 @@
                     if (response.success) {
                         // Display toast notification
                         toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
                     } else {
                         // Handle error case
                         toastr.error("File upload failed.");
@@ -425,6 +394,9 @@
                     if (response.success) {
                         // Display toast notification
                         toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
                     } else {
                         // Handle error case
                         toastr.error("File upload failed.");
@@ -458,6 +430,9 @@
                     if (response.success) {
                         // Display toast notification
                         toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
                     } else {
                         // Handle error case
                         toastr.error("File upload failed.");
