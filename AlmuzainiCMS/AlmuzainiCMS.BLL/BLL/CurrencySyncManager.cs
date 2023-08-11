@@ -53,7 +53,6 @@ namespace AlmuzainiCMS.BLL.BLL
         {
             var _httpClient = _httpClientFactory.CreateClient("GetTTRate");
             List<GetTTRateRequestDto> requestDto = new List<GetTTRateRequestDto>(); 
-            List<CurrencyRequest> RequestIds = new List<CurrencyRequest>();
 
             var currencyCodes = await _repo.GetCurrencyCodes();
 
@@ -68,8 +67,6 @@ namespace AlmuzainiCMS.BLL.BLL
                 };
                 requestDto.Add(data);
             }
-
-            
 
             foreach (var item in requestDto)
             {
@@ -126,6 +123,12 @@ namespace AlmuzainiCMS.BLL.BLL
                     await Recall(item, RequestBody);
                 }
                 dRate.GetTTRateResult.currencyCode = item.CurrenyCode;
+
+                var existing = await _repo.GetAllCurrencyAsync();
+                if(existing is not null || existing!.Count > 0)
+                {
+                    await _repo.RemoveAllCurrency(existing);
+                }
                 await _repo.AddGetTRetResult(dRate!.GetTTRateResult);
                 return dRate;
             }
