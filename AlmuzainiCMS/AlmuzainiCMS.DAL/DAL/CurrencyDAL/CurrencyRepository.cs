@@ -71,5 +71,12 @@ namespace AlmuzainiCMS.DAL.DAL.CurrencyDAL
         {
             return await _db.CurrencyRequests.Where(c=>c.Equals(id)).Select(c=>c.RequestId).FirstAsync();
         }
+
+        public async Task<bool> RemoveAllCurrency(ICollection<GetTTRateResult> data)
+        {
+            //var data = await _db.GetTrateResults.ToListAsync();
+            _db.RemoveRange(data);
+            return await _db.SaveChangesAsync() > 0;
+        }
     }
 }
