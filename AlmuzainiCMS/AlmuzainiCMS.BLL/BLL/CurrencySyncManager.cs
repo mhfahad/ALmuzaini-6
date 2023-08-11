@@ -116,10 +116,11 @@ namespace AlmuzainiCMS.BLL.BLL
                 var responseResult = await response.Content.ReadAsStringAsync();
                 var dRate = JsonConvert.DeserializeObject<Root>(responseResult);
                 await _repo.AddRequestIdAsync(model);
-                if (dRate.responseHeader.responseCode == "R997")
+                if (dRate!.responseHeader.responseCode == "R997")
                 {
                     await Recall(model);
                 }
+                //dRate.GetTTRateResult.currencyCode = model.
                 await _repo.AddGetTRetResult(dRate!.GetTTRateResult);
                 return dRate;
             }
