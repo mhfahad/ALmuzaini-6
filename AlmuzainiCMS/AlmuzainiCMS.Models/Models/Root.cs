@@ -9,6 +9,6 @@ namespace AlmuzainiCMS.Models.Models
     public class Root
     {
         public ResponseHeader responseHeader { get; set; }
-        public GetTrateResult getTrateResult { get; set; }
+        public GetTTRateResult GetTTRateResult { get; set; }
     }
 }

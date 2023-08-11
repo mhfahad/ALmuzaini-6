@@ -22,7 +22,7 @@ namespace AlmuzainiCMS.Controllers
         [HttpGet]
         public async Task<IActionResult> GetCurrencyListAsync()
         {
-            ICollection<GetTrateResult> data = await _manager.GetAllCurrencyAsync();
+            ICollection<GetTTRateResult> data = await _manager.GetAllCurrencyAsync();
             if (data is not null)
                 return Ok(data);
             return NotFound();

@@ -19,7 +19,7 @@ namespace AlmuzainiCMS.DataBaseContext.DataBaseContext
         //public DbSet<CurrencyRate> CurrencyRates { get; set; }
         public DbSet<CurrencyCode> CurrenyCodes { get; set; }
         public DbSet<CurrencyRequest> CurrencyRequests { get; set; }
-        public DbSet<GetTrateResult> GetTrateResults { get; set; }
+        public DbSet<GetTTRateResult> GetTrateResults { get; set; }
 
     }
 }

@@ -43,7 +43,7 @@ namespace AlmuzainiCMS.BLL.BLL
             return false;
         }
 
-        public Task<ICollection<GetTrateResult>> GetAllCurrencyAsync()
+        public Task<ICollection<GetTTRateResult>> GetAllCurrencyAsync()
         {
             return _repo.GetAllCurrencyAsync();
         }
@@ -72,7 +72,11 @@ namespace AlmuzainiCMS.BLL.BLL
 
             foreach (var item in requestDto)
             {
+                RequestIds.Remove(RequestIds.FirstOrDefault());
+                 currencyRequest = await _repo.GetLatestCurrencyRequestId();
+
                 var RequestBody = new CurrencyRequest();
+                
 
                 if (currencyRequest != null)
                 {
@@ -107,16 +111,15 @@ namespace AlmuzainiCMS.BLL.BLL
                     if(dRate.responseHeader.responseCode != "R997")
                     {
                         await _repo.AddRequestBodyAsync(RequestIds);
-                        dRate.getTrateResult.currencyCode = item.CurrenyCode;
-                        var result = await _repo.AddGetTRetResult(dRate!.getTrateResult);
-                        if (result) return result;
-                        return result;
+                        dRate.GetTTRateResult.currencyCode = item.CurrenyCode;
+                        var result = await _repo.AddGetTRetResult(dRate!.GetTTRateResult);
+                        
                     }
-                    return false;    
+                     
                 }
-                return false;
+               
             }
-            return false;
+            return true;
         }
 
         public async Task<long> GetLatestCurrencyRequestId()
