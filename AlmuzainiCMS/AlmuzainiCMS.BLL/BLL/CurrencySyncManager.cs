@@ -14,6 +14,7 @@ using System.Text.Json.Nodes;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics;
 
 namespace AlmuzainiCMS.BLL.BLL
 {
@@ -72,8 +73,8 @@ namespace AlmuzainiCMS.BLL.BLL
 
             foreach (var item in requestDto)
             {
-                RequestIds.Remove(RequestIds.FirstOrDefault());
-                 currencyRequest = await _repo.GetLatestCurrencyRequestId();
+                //RequestIds.Remove(RequestIds.FirstOrDefault());
+                 //currencyRequest = await _repo.GetLatestCurrencyRequestId();
 
                 var RequestBody = new CurrencyRequest();
                 
@@ -82,7 +83,7 @@ namespace AlmuzainiCMS.BLL.BLL
                 {
                     RequestBody = new CurrencyRequest
                     {
-                        RequestId = currencyRequest.RequestId++,
+                        RequestId = currencyRequest.RequestId,
                         CreatedOn = DateTime.Now,
                         SessionId = currencyRequest.SessionId,
                     };
@@ -98,28 +99,31 @@ namespace AlmuzainiCMS.BLL.BLL
                     };
                     RequestIds.Add(RequestBody);
                 }
-
-                _httpClient.DefaultRequestHeaders.Add("RequestID", $"{RequestBody.RequestId}");
-
-                var newPostJson = JsonConvert.SerializeObject(item);
-                var payload = new StringContent(newPostJson, Encoding.UTF8, Application.Json);
-                var response = await _httpClient.PostAsync(_httpClient.BaseAddress, payload);
-                if (response.IsSuccessStatusCode)
-                {
-                    var responseResult = await response.Content.ReadAsStringAsync();
-                    var dRate = JsonConvert.DeserializeObject<Root>(responseResult);
-                    if(dRate.responseHeader.responseCode != "R997")
-                    {
-                        await _repo.AddRequestBodyAsync(RequestIds);
-                        dRate.GetTTRateResult.currencyCode = item.CurrenyCode;
-                        var result = await _repo.AddGetTRetResult(dRate!.GetTTRateResult);
-                        
-                    }
-                     
-                }
-               
+                var data = await Recall(RequestBody);
             }
             return true;
+        }
+
+        private async Task<Root> Recall(CurrencyRequest model)
+        {
+            var _httpClient = _httpClientFactory.CreateClient("GetTTRate");
+            _httpClient.DefaultRequestHeaders.Add("RequestID", $"{model.RequestId++}");
+            var newPostJson = JsonConvert.SerializeObject(model);
+            var payload = new StringContent(newPostJson, Encoding.UTF8, Application.Json);
+            var response = await _httpClient.PostAsync(_httpClient.BaseAddress, payload);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseResult = await response.Content.ReadAsStringAsync();
+                var dRate = JsonConvert.DeserializeObject<Root>(responseResult);
+                await _repo.AddRequestIdAsync(model);
+                if (dRate.responseHeader.responseCode == "R997")
+                {
+                    await Recall(model);
+                }
+                await _repo.AddGetTRetResult(dRate!.GetTTRateResult);
+                return dRate;
+            }
+            return null;
         }
 
         public async Task<long> GetLatestCurrencyRequestId()
