@@ -62,7 +62,11 @@ namespace AlmuzainiCMS.BLL.BLL
                 };
                 requestDto.Add(data);
             }
-
+            var existing = await _repo.GetAllCurrencyAsync();
+            if (existing is not null || existing!.Count > 0)
+            {
+                await _repo.RemoveAllCurrency(existing);
+            }
             foreach (var item in requestDto)
             {
                 //RequestIds.Remove(RequestIds.FirstOrDefault());
@@ -89,6 +93,7 @@ namespace AlmuzainiCMS.BLL.BLL
                         SessionId = "",
                     };
                 }
+                
                 var data = await Recall(item, RequestBody);
             }
             return true;
@@ -119,11 +124,6 @@ namespace AlmuzainiCMS.BLL.BLL
                 }
                 dRate.GetTTRateResult.currencyCode = item.CurrenyCode;
 
-                var existing = await _repo.GetAllCurrencyAsync();
-                if(existing is not null || existing!.Count > 0)
-                {
-                    await _repo.RemoveAllCurrency(existing);
-                }
                 await _repo.AddGetTRetResult(dRate!.GetTTRateResult);
                 return dRate;
             }
