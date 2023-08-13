@@ -58,7 +58,7 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.ToTable("CurrencyRequests");
                 });
 
-            modelBuilder.Entity("AlmuzainiCMS.Models.Models.GetTrateResult", b =>
+            modelBuilder.Entity("AlmuzainiCMS.Models.Models.GetTTRateResult", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

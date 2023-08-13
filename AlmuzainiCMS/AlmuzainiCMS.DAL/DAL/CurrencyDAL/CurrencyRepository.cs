@@ -17,9 +17,9 @@ namespace AlmuzainiCMS.DAL.DAL.CurrencyDAL
         {
             _db = db;
         }
-        public async Task<bool> AddCurrency(ICollection<GetTrateResult> model)
+        public async Task<bool> AddCurrency(ICollection<GetTTRateResult> model)
         {
-            var result = await _db.GetTrateResults.ToListAsync() ?? Enumerable.Empty<GetTrateResult>().ToList();
+            var result = await _db.GetTrateResults.ToListAsync() ?? Enumerable.Empty<GetTTRateResult>().ToList();
             if (result.Count is not 0)
             {
                 _db.RemoveRange(result);
@@ -35,7 +35,7 @@ namespace AlmuzainiCMS.DAL.DAL.CurrencyDAL
             return await _db.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> AddGetTRetResult(GetTrateResult requests)
+        public async Task<bool> AddGetTRetResult(GetTTRateResult requests)
         {
             await _db.AddAsync(requests);
             return await _db.SaveChangesAsync() > 0;
@@ -47,9 +47,9 @@ namespace AlmuzainiCMS.DAL.DAL.CurrencyDAL
             return await _db.SaveChangesAsync()>0;
         }
 
-        public async Task<ICollection<GetTrateResult>> GetAllCurrencyAsync()
+        public async Task<ICollection<GetTTRateResult>> GetAllCurrencyAsync()
         {
-            return await _db.GetTrateResults.ToListAsync() ?? Enumerable.Empty<GetTrateResult>().ToList();
+            return await _db.GetTrateResults.ToListAsync() ?? Enumerable.Empty<GetTTRateResult>().ToList();
         }
 
         public async Task<ICollection<CurrencyCode>> GetCurrencyCodes()
@@ -70,6 +70,13 @@ namespace AlmuzainiCMS.DAL.DAL.CurrencyDAL
         public async Task<long> GetRequestByRequestId(long id)
         {
             return await _db.CurrencyRequests.Where(c=>c.Equals(id)).Select(c=>c.RequestId).FirstAsync();
+        }
+
+        public async Task<bool> RemoveAllCurrency(ICollection<GetTTRateResult> data)
+        {
+            //var data = await _db.GetTrateResults.ToListAsync();
+            _db.RemoveRange(data);
+            return await _db.SaveChangesAsync() > 0;
         }
     }
 }

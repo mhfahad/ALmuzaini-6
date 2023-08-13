@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AlmuzainiCMS.Models.Models
 {
-    public class GetTrateResult
+    public class GetTTRateResult
     {
         public Guid Id { get; set; }
         public string currencyCode { get; set; }
