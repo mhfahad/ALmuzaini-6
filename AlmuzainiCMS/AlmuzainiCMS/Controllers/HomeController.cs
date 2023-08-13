@@ -18,13 +18,17 @@ namespace AlmuzainiCMS.Controllers
        
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly INewsManager _newsManager;
        
-        public HomeController(ILogger<HomeController> logger ,  IMapper mapper, IWebHostEnvironment webHostEnvironment)
+        public HomeController(ILogger<HomeController> logger ,  IMapper mapper, IWebHostEnvironment webHostEnvironment, INewsManager newsManager)
         {
             _logger = logger;
             _mapper = mapper;
             _hostingEnvironment = webHostEnvironment;
-           
+            _newsManager = newsManager; 
+             
+
+
         }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
@@ -57,6 +61,7 @@ namespace AlmuzainiCMS.Controllers
             GetRoundButtons("uploads", "original", "RoundButtons"); //RoundButtons
             GetLastSlider("uploads", "original", "LastSlider"); //LastSlider
             GetVideos("uploads", "original", "Videos"); //Videos
+            GetLatestNews();
 
             return View();
         }
@@ -433,6 +438,76 @@ namespace AlmuzainiCMS.Controllers
             return Json(response);
         }
 
+        [HttpPost]
+        public  async Task<JsonResult> UploadNews( NewsVM model)
+        {
+            
+
+            string filePath =  UploadFilesToFolder("Uploads", "original", "NewsImage", model.Image);
+
+            News news = new News
+            {
+                Title = model.Title ?? "",
+                Description = model.Description ?? "",
+                ImagePath = filePath,
+                CreatedAt = DateTime.Now
+
+            };
+
+            bool result = await  _newsManager.AddNews(news);
+
+            var response = new
+            {
+                Success = true,
+                Message = "News uploaded successfully.",
+                redirectUrl = Url.Action("Home", "Home")
+            };
+
+            return Json(response);
+
+            //return new JsonResult("News upload Failed ");
+            //return Ok("Data processed successfully.");
+        }
+
+        private string UploadFilesToFolder(string folderName, string subFolderName, string typeFolderName, IFormFile file)
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
+            string filePath = Path.Combine(uploadsFolder, subFolderName, typeFolderName);
+            string filePathToSave = string.Empty;
+            if (file != null && file.Length > 0)
+            {
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string fileExtension = Path.GetExtension(file.FileName);
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+                int totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+              
+            }
+
+            return filePathToSave;
+
+
+            //var response = new
+            //{
+            //    Success = true,
+            //    Message = "File uploaded successfully.",
+            //    redirectUrl = Url.Action("Home", "Home")
+            //};
+
+            //return Json(response);
+        }
+
         public void DeleteAllFilesOfFolder(string folderPath)
         {
             try
@@ -579,8 +654,52 @@ namespace AlmuzainiCMS.Controllers
             }
 
         }
-        
-       [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+
+
+        public void GetLatestNews()
+        {
+            List<News> news = _newsManager.GetAllNews();
+
+            List<LatestNewsVM> latestNewsList = new List<LatestNewsVM>();
+
+            foreach (News newsItem in news)
+            {
+                //DateTime startDateTime = new DateTime(2023, 8, 1, 10, 0, 0);
+                //DateTime endDateTime = new DateTime(2023, 8, 13, 15, 30, 0);
+
+                //TimeSpan timeDifference2 = endDateTime - startDateTime;
+
+                TimeSpan timeDifference = DateTime.Now - newsItem.CreatedAt;
+
+                int days = timeDifference.Days;
+                int hours = timeDifference.Hours;
+                int minutes = timeDifference.Minutes + (days > 0 ? days * 24*60 : 0) + (hours > 0 ? hours * 60 : 0);
+                int seconds = timeDifference.Seconds;
+                int i = 1;
+
+                LatestNewsVM latestNews = new LatestNewsVM
+                {
+                    Id = newsItem.Id,
+                    Title = newsItem.Title,
+                    Description = newsItem.Description,
+                    ImagePath = Path.GetFileName( newsItem.ImagePath ),
+                    //UpdatedAt = $"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds ago"
+                    UpdatedAt = $"{minutes} minutes ago"
+                };
+
+                latestNewsList.Add(latestNews);
+
+                //newsItem.CreatedAt = newsItem.CreatedAt 
+            }
+
+            ViewBag.LatestNews = latestNewsList; // No files available
+            
+        }
+
+
+
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

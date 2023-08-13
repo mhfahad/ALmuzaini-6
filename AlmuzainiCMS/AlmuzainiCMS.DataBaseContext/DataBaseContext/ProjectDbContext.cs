@@ -21,5 +21,7 @@ namespace AlmuzainiCMS.DataBaseContext.DataBaseContext
         public DbSet<CurrencyRequest> CurrencyRequests { get; set; }
         public DbSet<GetTTRateResult> GetTrateResults { get; set; }
 
+        public DbSet<News> News { get; set; }
+
     }
 }
