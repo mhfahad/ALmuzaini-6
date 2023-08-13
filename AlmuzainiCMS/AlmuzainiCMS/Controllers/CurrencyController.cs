@@ -1,4 +1,5 @@
 ﻿using AlmuzainiCMS.BLL.Interface;
+using AlmuzainiCMS.Models.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -24,13 +25,14 @@ namespace AlmuzainiCMS.Controllers
         }
         public ActionResult Index()
         {
+            var data = _manager.GetAllCurrencyAsync();
             return View();
         }
-
+        
         public async Task CurrencySync()
         {
             await _manager.GetCurrencySync();
-            RedirectToAction("Index");
+            Response.Redirect("/Currency/Index/1");
         }
 
         public async Task<IActionResult> GetAllCurrency()
