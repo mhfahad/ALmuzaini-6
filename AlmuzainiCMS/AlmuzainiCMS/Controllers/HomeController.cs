@@ -82,7 +82,19 @@ namespace AlmuzainiCMS.Controllers
                     {
                         Directory.CreateDirectory(filePath);
                     }
-                    int totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                    int totalfilesOriginal;
+                    if (model.position != "0")
+                    {
+                        totalfilesOriginal = Convert.ToInt32(model.position);
+
+
+                    }
+                    else
+                    {
+                        totalfilesOriginal = Directory.GetFiles(filePath).Count();
+
+                    }
+
                     string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
 
                     using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
@@ -106,7 +118,6 @@ namespace AlmuzainiCMS.Controllers
                             Directory.CreateDirectory(thumbnailPath);
                         }
                         int totalfiles = Directory.GetFiles(thumbnailPath).Count();
-
                         string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
                         thumbnail.Save(thumbnailPathWithCount);
                     }
@@ -381,6 +392,9 @@ namespace AlmuzainiCMS.Controllers
 
 
         [HttpPost]
+        [DisableRequestSizeLimit,
+        RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue,
+        ValueLengthLimit = int.MaxValue)]
         public IActionResult UploadVideo(MultipleFileUploadVM model)
         {
             string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
