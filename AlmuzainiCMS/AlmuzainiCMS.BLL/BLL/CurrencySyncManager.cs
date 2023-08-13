@@ -30,18 +30,13 @@ namespace AlmuzainiCMS.BLL.BLL
 
         public async Task<bool> AddRequestIdAsync(CurrencyRequestCreateDto model)
         {
-            var existingData = await _repo.GetRequestByRequestId(model.RequestId);
-            if(existingData < 0)
+            var data = new CurrencyRequest
             {
-                var data = new CurrencyRequest
-                {
-                    RequestId = model.RequestId,
-                    SessionId = model.SessionId,
-                    CreatedOn = DateTime.UtcNow,
-                };
-                return await _repo.AddRequestIdAsync(data);
-            }
-            return false;
+                RequestId = model.RequestId,
+                SessionId = model.SessionId,
+                CreatedOn = DateTime.UtcNow,
+            };
+            return await _repo.AddRequestIdAsync(data);
         }
 
         public Task<ICollection<GetTTRateResult>> GetAllCurrencyAsync()
