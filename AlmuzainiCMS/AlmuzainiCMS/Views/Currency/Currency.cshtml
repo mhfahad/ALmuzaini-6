@@ -4,21 +4,39 @@
 @{
 }
 
-<div>
-    <button type="button" id="syncButton" onclick="GetCurrencyRateSunc();" class="btn btn-primary btn-lg">Syncronous</button>
-</div>
-<div class="row">
-    <section class="col-md-12">
-        <div id="response"></div>
-    </section>
-</div>
+<head>
+    <title>Request Form</title>
+</head>
+<body>
+    <form method="post">
+        <fieldset>
+            <legend>Add Request</legend>
+            <div>
+                <label for="CompanyName">Request Id:</label>
+                <input type="text" id="requestId" name="CompanyName" value="" />
+            </div>
+            <div>
+                <label for="ContactName">Session Id:</label>
+                <input type="text" id="sessionId" name="ContactName" value="" />
+            </div>
+            <div>
+                <label>&nbsp;</label>
+                <input onclick="PostRequestData();" type="submit" value="Submit" class="submit" />
+            </div>
+        </fieldset>
+    </form>
+</body>
 
 <script>
-    function GetCurrencyRateSunc(){
+    function PostRequestData() {
+        let requestIdData = document.getElementById("requestId").value;
+        let sessionIdData = document.getElementById("sessionId").value;
+        let requestData = {requestId : requestIdData, sessionId: sessionIdData};
         $.ajax({
             type: "POST",
-            url: "CurrencyRateController.cs/GetCurrency",
+            url: "https://localhost:7136/api/CurrencyRate",
             contentType: 'application/json; charset=utf-8',
+            data : requestData,
             dataType: 'json',
             beforeSend: function () {
                 $("#response").text("Request sending. Please wait...");
