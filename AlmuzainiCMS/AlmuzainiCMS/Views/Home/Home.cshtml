@@ -55,13 +55,9 @@
                         </div>
                     
                     </form>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
 
@@ -94,6 +90,24 @@
                     {
                         <p>No files available.</p>
                     }
+                    <div class="row">
+                        <div class="form-group col-sm-3 col-md-3 mb-4">
+                            <label class="mr-sm-2">Select Position</label>
+                            <select class="form-select mr-sm-2" id="ddlRateCalculatorSelection">
+                                <option selected="" value="0">All</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                                <option value="4">Four</option>
+                                <option value="5">Five</option>
+                                <option value="6">Six</option>
+                                <option value="7">Seven</option>
+                                <option value="8">Eight</option>
+                                <option value="9">Nine</option>
+
+                            </select>
+                        </div>
+                    </div>
                     <form enctype="multipart/form-data">
                         <div class="input-group flex-nowrap">
                             <div class="custom-file w-100">
@@ -111,8 +125,6 @@
         </div>
 
     </div>
-
-
     <div class="col-sm-12 col-md-12">
         <div class="card">
             <div class="card-body">
@@ -141,6 +153,23 @@
                     {
                         <p>No files available.</p>
                     }
+                    <div class="row">
+                        <div class="form-group col-sm-3 col-md-3 mb-4">
+                            <label class="mr-sm-2">Select Position</label>
+                            <select class="form-select mr-sm-2" id="ddlMiddleSliderSelection">
+                                <option selected="" value="0">All</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                                <option value="4">Four</option>
+                                <option value="5">Five</option>
+                                <option value="6">Six</option>
+                                <option value="7">Seven</option>
+                                <option value="8">Eight</option>
+                                <option value="9">Nine</option>
+                            </select>
+                        </div>
+                    </div>
                     <form enctype="multipart/form-data">
                         <div class="input-group flex-nowrap">
                             <div class="custom-file w-100">
@@ -159,9 +188,6 @@
         </div>
 
     </div>
-
-
-
     <div class="col-sm-12 col-md-12">
         <div class="card">
             <div class="card-body">
@@ -190,6 +216,24 @@
                     {
                         <p>No files available.</p>
                     }
+                
+                    <div class="row">
+                        <div class="form-group col-sm-3 col-md-3 mb-4">
+                            <label class="mr-sm-2">Select Position</label>
+                            <select class="form-select mr-sm-2" id="ddlRoundButtonsSelection">
+                                <option selected="" value="0">All</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                                <option value="4">Four</option>
+                                <option value="5">Five</option>
+                                <option value="6">Six</option>
+                                <option value="7">Seven</option>
+                                <option value="8">Eight</option>
+                                <option value="9">Nine</option>
+                            </select>
+                        </div>
+                    </div>
                     <form enctype="multipart/form-data">
                         <div class="input-group flex-nowrap">
                             <div class="custom-file w-100">
@@ -207,7 +251,6 @@
         </div>
 
     </div>
-
     <div class="col-sm-12 col-md-12">
         <div class="card">
             <div class="card-body">
@@ -236,6 +279,23 @@
                     {
                         <p>No files available.</p>
                     }
+                    <div class="row">
+                        <div class="form-group col-sm-3 col-md-3 mb-4">
+                            <label class="mr-sm-2">Select Position</label>
+                            <select class="form-select mr-sm-2" id="ddlLastSliderSelection">
+                                <option selected="" value="0">All</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                                <option value="4">Four</option>
+                                <option value="5">Five</option>
+                                <option value="6">Six</option>
+                                <option value="7">Seven</option>
+                                <option value="8">Eight</option>
+                                <option value="9">Nine</option>
+                            </select>
+                        </div>
+                    </div>
                     <form enctype="multipart/form-data">
                         <div class="input-group flex-nowrap">
                             <div class="custom-file w-100">
@@ -253,7 +313,6 @@
         </div>
 
     </div>
-
     <div class="col-sm-12 col-md-12">
         <div class="card">
             <div class="card-body">
@@ -263,7 +322,21 @@
                     <form enctype="multipart/form-data">
                         <div class="input-group flex-nowrap">
                             <div class="custom-file w-100">
-                                <input type="file" name="VideoFiles" multiple />
+                                <input type="file" name="VideoFiles" />
+                            </div>
+                           @* <button type="button" id="uploadVideoButton" class="btn btn-outline-secondary">Upload</button>*@
+                        </div>
+
+                    </form>
+
+                </div>
+                <div class="row mt-2">
+                    <h4 class="card-title">Videos Thumb Image</h4>
+                    
+                    <form enctype="multipart/form-data">
+                        <div class="input-group flex-nowrap">
+                            <div class="custom-file w-100">
+                                <input type="file" name="VideoThumbFiles" />
                             </div>
                             <button type="button" id="uploadVideoButton" class="btn btn-outline-secondary">Upload</button>
                         </div>
@@ -271,14 +344,30 @@
                     </form>
 
                 </div>
+            <div class="row">
+                <div class="form-group col-sm-3 col-md-3 mb-4">
+                    <label class="mr-sm-2">Select Position</label>
+                    <select class="form-select mr-sm-2" id="ddlVideoSelection">
+                        <option selected="" value="0">All</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        <option value="4">Four</option>
+                        <option value="5">Five</option>
+                        <option value="6">Six</option>
+                        <option value="7">Seven</option>
+                        <option value="8">Eight</option>
+                        <option value="9">Nine</option>
+                    </select>
+                </div>
+            </div>
 
             </div>
 
         </div>
 
     </div>
-
-<div class="col-sm-12 col-md-12">
+    <div class="col-sm-12 col-md-12">
     <div class="card">
         <div class="card-body">
             <div class="row">
@@ -296,7 +385,7 @@
                             <p class="card-text">
                                 @news.Description
                             </p>
-                            <p class="card-text text-muted">Last updated @news.UpdatedAt</p>
+                            <h6 class="card-text text-muted">Last updated @news.UpdatedAt</h6>
                             </div>
                         </div>
                        
@@ -349,6 +438,8 @@
 @section Scripts{
 
     <script>
+
+        
         document.getElementById("uploadSliderButton").addEventListener("click", function () {
             var formData = new FormData();
             var position = $("#ddlTopSliderSelect option:selected").val();
@@ -390,9 +481,13 @@
 
             // Append each selected file to the FormData object
             var filesInput = document.querySelector('input[type="file"][name="RateCalculatorFiles"]');
+            var position = $("#ddlRateCalculatorSelection option:selected").val();
             for (var i = 0; i < filesInput.files.length; i++) {
                 formData.append("Files", filesInput.files[i]);
+               
             }
+
+             formData.append("position", position)
 
             $.ajax({
                 url: "@Url.Action("UploadRateCalculator", "Home")",
@@ -425,11 +520,15 @@
         document.getElementById("uploadMiddleSliderButton").addEventListener("click", function () {
             var formData = new FormData();
 
-            // Append each selected file to the FormData object
+            // Append each selected file to the FormData object   
             var filesInput = document.querySelector('input[type="file"][name="MiddleSliderFiles"]');
+            var position = $("#ddlMiddleSliderSelection option:selected").val();
             for (var i = 0; i < filesInput.files.length; i++) {
                 formData.append("Files", filesInput.files[i]);
+               
             }
+
+             formData.append("position", position)
 
             $.ajax({
                 url: "@Url.Action("UploadMiddleSlider", "Home")",
@@ -460,11 +559,15 @@
         document.getElementById("uploadRoundButtonsButton").addEventListener("click", function () {
             var formData = new FormData();
 
-            // Append each selected file to the FormData object
+            // Append each selected file to the FormData object  ddlRoundButtonsSelection
             var filesInput = document.querySelector('input[type="file"][name="RoundButtonsFiles"]');
+            var position = $("#ddlRoundButtonsSelection option:selected").val();
             for (var i = 0; i < filesInput.files.length; i++) {
                 formData.append("Files", filesInput.files[i]);
+
             }
+
+            formData.append("position", position)
 
             $.ajax({
                 url: "@Url.Action("UploadRoundButtons", "Home")",
@@ -496,11 +599,15 @@
         document.getElementById("uploadLastSliderButton").addEventListener("click", function () {
             var formData = new FormData();
 
-            // Append each selected file to the FormData object
+            // Append each selected file to the FormData object  ddlLastSliderSelection
             var filesInput = document.querySelector('input[type="file"][name="LastSliderFiles"]');
+            var position = $("#ddlLastSliderSelection option:selected").val();
             for (var i = 0; i < filesInput.files.length; i++) {
                 formData.append("Files", filesInput.files[i]);
+
             }
+
+            formData.append("position", position)
 
             $.ajax({
                 url: "@Url.Action("UploadLastSlider", "Home")",
@@ -533,10 +640,15 @@
             var formData = new FormData();
 
             // Append each selected file to the FormData object
-            var filesInput = document.querySelector('input[type="file"][name="VideoFiles"]');
-            for (var i = 0; i < filesInput.files.length; i++) {
-                formData.append("Files", filesInput.files[i]);
-            }
+            var videoFilesInput = document.querySelector('input[type="file"][name="VideoFiles"]');
+            var videoThumbImageInput = document.querySelector('input[type="file"][name="VideoThumbFiles"]');
+            var position = $("#ddlVideoSelection option:selected").val();
+            formData.append("VideoFile", videoFilesInput.files[0]);
+            formData.append("VideoThumbFile", videoThumbImageInput.files[0]);
+            formData.append("Position", position);
+            //for (var i = 0; i < filesInput.files.length; i++) {
+            //    formData.append("Files", filesInput.files[i]);
+            //}
 
             $.ajax({
                 url: "@Url.Action("UploadVideo", "Home")",
@@ -597,6 +709,7 @@
             });
         });
 
+        
 
 
     </script>

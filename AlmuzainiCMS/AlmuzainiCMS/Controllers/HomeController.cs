@@ -5,7 +5,9 @@ using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.AspNetCore.Routing.Internal;
+using Microsoft.CodeAnalysis.Text;
 using System.Diagnostics;
 using System.Security.Policy;
 
@@ -72,8 +74,11 @@ namespace AlmuzainiCMS.Controllers
             string filePath = Path.Combine(uploadsFolder, "original", "TopSlider");
             string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "TopSlider");
 
-            DeleteAllFilesOfFolder(filePath);
-            DeleteAllFilesOfFolder(thumbnailPath);
+            string filePosition = model.position;
+
+            //DeleteAllFilesOfFolder(filePath, filePosition);
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            DeleteAllFilesOfFolderWithPosition(thumbnailPath, filePosition);
 
             foreach (var file in model.Files)
             {
@@ -88,20 +93,19 @@ namespace AlmuzainiCMS.Controllers
                         Directory.CreateDirectory(filePath);
                     }
                     int totalfilesOriginal;
+                    string filePathToSave = string.Empty;
                     if (model.position != "0")
                     {
                         totalfilesOriginal = Convert.ToInt32(model.position);
-
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal ).ToString() + fileExtension);
 
                     }
                     else
                     {
                         totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
 
                     }
-
-                    string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
-
                     using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
                     {
                         file.CopyTo(fileStream);
@@ -122,9 +126,24 @@ namespace AlmuzainiCMS.Controllers
                         {
                             Directory.CreateDirectory(thumbnailPath);
                         }
-                        int totalfiles = Directory.GetFiles(thumbnailPath).Count();
-                        string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
-                        thumbnail.Save(thumbnailPathWithCount);
+                        //int totalfiles = Directory.GetFiles(thumbnailPath).Count();
+                        int totalfiles;
+                        string thumbnailPathToSave = string.Empty;
+
+                        if (model.position != "0")
+                        {
+                            totalfiles = Convert.ToInt32(model.position);
+                            thumbnailPathToSave = Path.Combine(thumbnailPath, (totalfiles).ToString() + fileExtension);
+
+                        }
+                        else
+                        {
+                            totalfiles = Directory.GetFiles(thumbnailPath).Count();
+                            thumbnailPathToSave = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
+
+                        }
+                        //string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
+                        thumbnail.Save(thumbnailPathToSave);
                     }
                 }
             }
@@ -145,8 +164,11 @@ namespace AlmuzainiCMS.Controllers
             string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
             string filePath = Path.Combine(uploadsFolder, "original", "RateCalculator");
             string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "RateCalculator");
-            DeleteAllFilesOfFolder(filePath);
-            DeleteAllFilesOfFolder(thumbnailPath);
+            //DeleteAllFilesOfFolder(filePath);
+            //DeleteAllFilesOfFolder(thumbnailPath);
+            string filePosition = model.position;
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            DeleteAllFilesOfFolderWithPosition(thumbnailPath, filePosition);
 
             foreach (var file in model.Files)
             {
@@ -160,13 +182,24 @@ namespace AlmuzainiCMS.Controllers
                     {
                         Directory.CreateDirectory(filePath);
                     }
-                    int totalfilesOriginal = Directory.GetFiles(filePath).Count();
-                    string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+                    int totalfilesOriginal;
+                    string filePathToSave = string.Empty;
+                    if (model.position != "0")
+                    {
+                        totalfilesOriginal = Convert.ToInt32(model.position);
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
+
+                    }
+                    else
+                    {
+                        totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+
+                    }
                     using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
                     {
                         file.CopyTo(fileStream);
                     }
-
                     //Generate a thumbnail and save it
                     using (var imageStream = file.OpenReadStream())
                     using (var image = Image.Load(imageStream))
@@ -182,10 +215,23 @@ namespace AlmuzainiCMS.Controllers
                         {
                             Directory.CreateDirectory(thumbnailPath);
                         }
-                        int totalfiles = Directory.GetFiles(thumbnailPath).Count();
+                        int totalfiles;
+                        string thumbnailPathToSave = string.Empty;
 
-                        string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
-                        thumbnail.Save(thumbnailPathWithCount);
+                        if (model.position != "0")
+                        {
+                            totalfiles = Convert.ToInt32(model.position);
+                            thumbnailPathToSave = Path.Combine(thumbnailPath, (totalfiles).ToString() + fileExtension);
+
+                        }
+                        else
+                        {
+                            totalfiles = Directory.GetFiles(thumbnailPath).Count();
+                            thumbnailPathToSave = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
+
+                        }
+                        //string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
+                        thumbnail.Save(thumbnailPathToSave);
                     }
                 }
             }
@@ -213,8 +259,9 @@ namespace AlmuzainiCMS.Controllers
             string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
             string filePath = Path.Combine(uploadsFolder, "original", "MiddleSlider");
             string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "MiddleSlider");
-            DeleteAllFilesOfFolder(filePath);
-            DeleteAllFilesOfFolder(thumbnailPath);
+            string filePosition = model.position;
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            DeleteAllFilesOfFolderWithPosition(thumbnailPath, filePosition);
 
             foreach (var file in model.Files)
             {
@@ -228,9 +275,20 @@ namespace AlmuzainiCMS.Controllers
                     {
                         Directory.CreateDirectory(filePath);
                     }
-                    int totalfilesOriginal = Directory.GetFiles(filePath).Count();
-                    string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+                    int totalfilesOriginal;
+                    string filePathToSave = string.Empty;
+                    if (model.position != "0")
+                    {
+                        totalfilesOriginal = Convert.ToInt32(model.position);
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
 
+                    }
+                    else
+                    {
+                        totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+
+                    }
                     using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
                     {
                         file.CopyTo(fileStream);
@@ -251,10 +309,23 @@ namespace AlmuzainiCMS.Controllers
                         {
                             Directory.CreateDirectory(thumbnailPath);
                         }
-                        int totalfiles = Directory.GetFiles(thumbnailPath).Count();
+                        int totalfiles;
+                        string thumbnailPathToSave = string.Empty;
 
-                        string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
-                        thumbnail.Save(thumbnailPathWithCount);
+                        if (model.position != "0")
+                        {
+                            totalfiles = Convert.ToInt32(model.position);
+                            thumbnailPathToSave = Path.Combine(thumbnailPath, (totalfiles).ToString() + fileExtension);
+
+                        }
+                        else
+                        {
+                            totalfiles = Directory.GetFiles(thumbnailPath).Count();
+                            thumbnailPathToSave = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
+
+                        }
+                        //string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
+                        thumbnail.Save(thumbnailPathToSave);
                     }
                 }
             }
@@ -276,8 +347,9 @@ namespace AlmuzainiCMS.Controllers
             string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
             string filePath = Path.Combine(uploadsFolder, "original", "RoundButtons");
             string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "RoundButtons");
-            DeleteAllFilesOfFolder(filePath);
-            DeleteAllFilesOfFolder(thumbnailPath);
+            string filePosition = model.position;
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            DeleteAllFilesOfFolderWithPosition(thumbnailPath, filePosition);
 
             foreach (var file in model.Files)
             {
@@ -291,9 +363,20 @@ namespace AlmuzainiCMS.Controllers
                     {
                         Directory.CreateDirectory(filePath);
                     }
-                    int totalfilesOriginal = Directory.GetFiles(filePath).Count();
-                    string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+                    int totalfilesOriginal;
+                    string filePathToSave = string.Empty;
+                    if (model.position != "0")
+                    {
+                        totalfilesOriginal = Convert.ToInt32(model.position);
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
 
+                    }
+                    else
+                    {
+                        totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+
+                    }
                     using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
                     {
                         file.CopyTo(fileStream);
@@ -314,10 +397,23 @@ namespace AlmuzainiCMS.Controllers
                         {
                             Directory.CreateDirectory(thumbnailPath);
                         }
-                        int totalfiles = Directory.GetFiles(thumbnailPath).Count();
+                        int totalfiles;
+                        string thumbnailPathToSave = string.Empty;
 
-                        string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
-                        thumbnail.Save(thumbnailPathWithCount);
+                        if (model.position != "0")
+                        {
+                            totalfiles = Convert.ToInt32(model.position);
+                            thumbnailPathToSave = Path.Combine(thumbnailPath, (totalfiles).ToString() + fileExtension);
+
+                        }
+                        else
+                        {
+                            totalfiles = Directory.GetFiles(thumbnailPath).Count();
+                            thumbnailPathToSave = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
+
+                        }
+                        //string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
+                        thumbnail.Save(thumbnailPathToSave);
                     }
                 }
             }
@@ -338,8 +434,9 @@ namespace AlmuzainiCMS.Controllers
             string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
             string filePath = Path.Combine(uploadsFolder, "original", "LastSlider");
             string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "LastSlider");
-            DeleteAllFilesOfFolder(filePath);
-            DeleteAllFilesOfFolder(thumbnailPath);
+            string filePosition = model.position;
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            DeleteAllFilesOfFolderWithPosition(thumbnailPath, filePosition);
 
             foreach (var file in model.Files)
             {
@@ -353,9 +450,20 @@ namespace AlmuzainiCMS.Controllers
                     {
                         Directory.CreateDirectory(filePath);
                     }
-                    int totalfilesOriginal = Directory.GetFiles(filePath).Count();
-                    string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+                    int totalfilesOriginal;
+                    string filePathToSave = string.Empty;
+                    if (model.position != "0")
+                    {
+                        totalfilesOriginal = Convert.ToInt32(model.position);
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
 
+                    }
+                    else
+                    {
+                        totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+
+                    }
                     using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
                     {
                         file.CopyTo(fileStream);
@@ -376,10 +484,23 @@ namespace AlmuzainiCMS.Controllers
                         {
                             Directory.CreateDirectory(thumbnailPath);
                         }
-                        int totalfiles = Directory.GetFiles(thumbnailPath).Count();
+                        int totalfiles;
+                        string thumbnailPathToSave = string.Empty;
 
-                        string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
-                        thumbnail.Save(thumbnailPathWithCount);
+                        if (model.position != "0")
+                        {
+                            totalfiles = Convert.ToInt32(model.position);
+                            thumbnailPathToSave = Path.Combine(thumbnailPath, (totalfiles).ToString() + fileExtension);
+
+                        }
+                        else
+                        {
+                            totalfiles = Directory.GetFiles(thumbnailPath).Count();
+                            thumbnailPathToSave = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
+
+                        }
+                        //string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
+                        thumbnail.Save(thumbnailPathToSave);
                     }
                 }
             }
@@ -400,14 +521,17 @@ namespace AlmuzainiCMS.Controllers
         [DisableRequestSizeLimit,
         RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue,
         ValueLengthLimit = int.MaxValue)]
-        public IActionResult UploadVideo(MultipleFileUploadVM model)
+        public IActionResult UploadVideo(VideoFileUploadVM model)
         {
             string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
             string filePath = Path.Combine(uploadsFolder, "original", "Videos");
+            string videoImageThumbFilePath = Path.Combine(uploadsFolder, "original", "VideoImageThumb");
+            string filePosition = model.Position;
+            //DeleteAllFilesOfFolder(filePath);
+            DeleteAllFilesOfFolderWithPosition(filePath , filePosition);
+            DeleteAllFilesOfFolderWithPosition(videoImageThumbFilePath, filePosition);
 
-            DeleteAllFilesOfFolder(filePath);
-
-            foreach (var file in model.Files)
+            foreach (var file in model.VideoFile)
             {
                 if (file != null && file.Length > 0)
                 {
@@ -419,8 +543,20 @@ namespace AlmuzainiCMS.Controllers
                     {
                         Directory.CreateDirectory(filePath);
                     }
-                    int totalfilesOriginal = Directory.GetFiles(filePath).Count();
-                    string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+                    string filePathToSave = string.Empty;
+                    int totalfilesOriginal;
+                    if (model.Position != "0")
+                    {
+                        totalfilesOriginal = Convert.ToInt32(model.Position);
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
+
+                    }
+                    else
+                    {
+                        totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+
+                    }
 
                     using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
                     {
@@ -428,6 +564,43 @@ namespace AlmuzainiCMS.Controllers
                     }
                 }
             }
+            //ThumbImageSave 
+            foreach (var file in model.VideoThumbFile)
+            {
+                if (file != null && file.Length > 0)
+                {
+
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                    string fileExtension = Path.GetExtension(file.FileName);
+
+                    if (!Directory.Exists(videoImageThumbFilePath))
+                    {
+                        Directory.CreateDirectory(videoImageThumbFilePath);
+                    }
+                    //int totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                    //string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+                    string fileThumbPathToSave = string.Empty;
+                    int totalfilesThumb;  
+                    if (model.Position != "0")    
+                    {
+                        totalfilesThumb = Convert.ToInt32(model.Position);
+                        fileThumbPathToSave = Path.Combine(videoImageThumbFilePath, (totalfilesThumb).ToString() + fileExtension);
+
+                    }
+                    else
+                    {
+                        totalfilesThumb = Directory.GetFiles(videoImageThumbFilePath).Count();
+                        fileThumbPathToSave = Path.Combine(videoImageThumbFilePath, (totalfilesThumb + 1).ToString() + fileExtension);
+
+                    }
+
+                    using (var fileStream = new FileStream(fileThumbPathToSave, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+                }
+            }
+
 
             var response = new
             {
@@ -508,13 +681,48 @@ namespace AlmuzainiCMS.Controllers
             //return Json(response);
         }
 
+        public void DeleteAllFilesOfFolderWithPosition(string folderPath , string position)
+        {
+            try
+            {
+                if (Directory.Exists(folderPath))
+                {
+                    if(position == "0")
+                    {
+                        string[] files = Directory.GetFiles(folderPath);
+                        foreach (string file in files)
+                        {
+                            System.IO.File.Delete(file);
+                        }
+                    }
+                    else
+                    {
+                        string[] files = Directory.GetFiles(folderPath).Where(filePath => Path.GetFileNameWithoutExtension(filePath).Equals(position, StringComparison.OrdinalIgnoreCase)).ToArray();
+                        foreach(string file in files)
+                        {
+                            System.IO.File.Delete(file);
+                        }
+                                       
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("File Delete Failed");
+            }
+
+        }
+
+
         public void DeleteAllFilesOfFolder(string folderPath)
         {
             try
             {
                 if (Directory.Exists(folderPath))
                 {
-                    string[] files = Directory.GetFiles(folderPath);
+                   string[] files = Directory.GetFiles(folderPath);
                     foreach (string file in files)
                     {
                         System.IO.File.Delete(file);
@@ -529,6 +737,7 @@ namespace AlmuzainiCMS.Controllers
             }
 
         }
+
 
         public void GetTopSlider(string folderName, string subfolder, string typefolder)
         {
@@ -697,7 +906,7 @@ namespace AlmuzainiCMS.Controllers
             }
 
             ViewBag.LatestNews = latestNewsList; // No files available
-            
+         
         }
 
 
