@@ -24,6 +24,8 @@ using AlmuzainiCMS.DAL.DAL.CurrencyDAL;
 using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.StaticFiles;
 using SixLabors.ImageSharp.Web.DependencyInjection;
+using AlmuzainiCMS.DAL.Interface;
+using AlmuzainiCMS.DAL.DAL;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,7 +65,8 @@ builder.Services.AddScoped<IUserCreateManager, UserCreateManager>();
 builder.Services.AddScoped<IUserCreateRepository, UserCreateRepository>();
 builder.Services.AddTransient<ICurrencySyncManager, CurrencySyncManager>();
 builder.Services.AddTransient<ICurrencyRepository, CurrencyRepository>();
-
+builder.Services.AddScoped<INewsManager, NewsManager>();
+builder.Services.AddScoped<INewsRepository, NewsRepository>();  
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddDistributedMemoryCache();

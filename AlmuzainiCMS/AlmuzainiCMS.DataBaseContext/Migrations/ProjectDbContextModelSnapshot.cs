@@ -85,6 +85,32 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.ToTable("GetTrateResults");
                 });
 
+            modelBuilder.Entity("AlmuzainiCMS.Models.Models.News", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("News");
+                });
+
             modelBuilder.Entity("AlmuzainiCMS.Models.Models.UsersInfo", b =>
                 {
                     b.Property<int>("Id")
