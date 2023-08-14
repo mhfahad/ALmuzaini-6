@@ -673,9 +673,13 @@ namespace AlmuzainiCMS.Controllers
 
                 int days = timeDifference.Days;
                 int hours = timeDifference.Hours;
-                int minutes = timeDifference.Minutes + (days > 0 ? days * 24*60 : 0) + (hours > 0 ? hours * 60 : 0);
+                //int minutes = timeDifference.Minutes + (days > 0 ? days * 24*60 : 0) + (hours > 0 ? hours * 60 : 0);
+                int minutes = timeDifference.Minutes;
                 int seconds = timeDifference.Seconds;
-                int i = 1;
+
+                string updatedAt = days > 1 ? days.ToString() + "days ago" : days == 1 ? "yesterday" : hours >= 1 ? hours.ToString() + "hours ago" : minutes >= 1 ? minutes.ToString() + "minutes ago" : seconds.ToString() + "seconds ago"; 
+
+
 
                 LatestNewsVM latestNews = new LatestNewsVM
                 {
@@ -684,7 +688,7 @@ namespace AlmuzainiCMS.Controllers
                     Description = newsItem.Description,
                     ImagePath = Path.GetFileName( newsItem.ImagePath ),
                     //UpdatedAt = $"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds ago"
-                    UpdatedAt = $"{minutes} minutes ago"
+                    UpdatedAt = updatedAt
                 };
 
                 latestNewsList.Add(latestNews);
