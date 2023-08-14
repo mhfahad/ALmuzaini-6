@@ -677,7 +677,7 @@ namespace AlmuzainiCMS.Controllers
                 int minutes = timeDifference.Minutes;
                 int seconds = timeDifference.Seconds;
 
-                string updatedAt = days > 1 ? days.ToString() + "days ago" : days == 1 ? "yesterday" : hours >= 1 ? hours.ToString() + "hours ago" : minutes >= 1 ? minutes.ToString() + "minutes ago" : seconds.ToString() + "seconds ago"; 
+                string updatedAt = days > 1 ? days.ToString() + " days ago" : days == 1 ? " yesterday" : hours > 1 ? hours.ToString() + " hours ago" : hours == 1 ? hours.ToString() + " hour ago" : minutes > 1 ? minutes.ToString() + " minutes ago" : minutes == 1 ? minutes.ToString() + " minute ago" : seconds.ToString() + " seconds ago"; 
 
 
 
