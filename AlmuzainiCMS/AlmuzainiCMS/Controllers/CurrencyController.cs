@@ -32,7 +32,7 @@ namespace AlmuzainiCMS.Controllers
         public async Task CurrencySync()
         {
             await _manager.GetCurrencySync();
-            Response.Redirect("/Currency/Index/1");
+            Response.Redirect("/Currency/Index");
         }
 
         public async Task<IActionResult> GetAllCurrency()
