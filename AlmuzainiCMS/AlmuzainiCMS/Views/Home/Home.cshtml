@@ -1,4 +1,5 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -283,20 +284,19 @@
             <div class="row">
                 <h4 class="card-title">LATEST NEWS</h4>
                 <h6 class="lebel">Live News</h6>
-                @if (ViewBag.TopSliderFileNames.Length > 0)
+                @if (ViewBag.LatestNews.Count > 0)
                 {
-                    @foreach (var fileName in ViewBag.TopSliderFileNames)
+                    @foreach (var news in ViewBag.LatestNews)
                     {
                         <div class="col-sm-4 col-lg-3">
-                        <img class="card-img-top img-fluid" src="@Url.Content("../Uploads/original/TopSlider/"+ fileName)"
+                        <img class="card-img-top img-fluid" src="@Url.Content("../Uploads/original/NewsImage/"+ news.ImagePath)"
                              alt="Card image cap">
                         <div class="card-body">
-                            <h4 class="card-title">Card title</h4>
+                                <h4 class="card-title">@news.Title</h4>
                             <p class="card-text">
-                                This card has supporting text below as a natural lead-in to
-                                additional content.
+                                @news.Description
                             </p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <p class="card-text text-muted">Last updated @news.UpdatedAt</p>
                             </div>
                         </div>
                        
@@ -307,19 +307,22 @@
                 {
                     <p>No files available.</p>
                 }
+
                 <form enctype="multipart/form-data">
                     <div class="row">
+                        <div class="input-group flex-nowrap">
                         <div class="form-group col-sm-4 col-md-4 mb-5">
                             <h6 class="card-subtitle">Add News</h6>
                             <div class="form-group">
-                                <input type="text" placeholder="News Title....." class="form-control">
+                                <input type="text" id="newsTitle" name="newsTitle" placeholder="News Title....." class="form-control">
                             </div>
 
+                        </div>
                         </div>
                         <div class="input-group flex-nowrap">
                         <div class="form-group col-sm-5 col-md-5 mb-6">
                             <div class="form-group">
-                                <textarea class="form-control" rows="3" placeholder="News Body....."></textarea>
+                                <textarea class="form-control" id="newsDescription" name="newsDescription" rows="3" placeholder="News Body....."></textarea>
                             </div>
 
                             </div>
@@ -328,9 +331,9 @@
                  
                     <div class="input-group flex-nowrap">
                         <div class="custom-file w-100">
-                            <input type="file" name="News" multiple />
+                            <input type="file" name="newsImage" id="newsImage" />
                         </div>
-                        <button type="button" id="uploadVideoButton" class="btn btn-outline-secondary">Upload</button>
+                        <button type="button" id="uploadNews" class="btn btn-outline-secondary">Upload</button>
                     </div>
 
                 </form>
@@ -526,7 +529,7 @@
 
             //uploadVideoButton
 
-            document.getElementById("uploadVideoButton").addEventListener("click", function () {
+        document.getElementById("uploadVideoButton").addEventListener("click", function () {
             var formData = new FormData();
 
             // Append each selected file to the FormData object
@@ -553,6 +556,44 @@
                 error: function () {
                     toastr.error("An error occurred while uploading the file.");
                 }
+            });
+        });
+
+
+        document.getElementById("uploadNews").addEventListener("click", function(){
+            debugger;
+            var newsTitle = document.getElementById("newsTitle").value;
+            var newsDescription = document.getElementById("newsDescription").value;
+            var newsImage = document.getElementById("newsImage").files[0];
+
+            var formData = new FormData();
+            formData.append("Title", newsTitle);
+            formData.append("Description", newsDescription);
+            formData.append("Image", newsImage);
+
+            $.ajax({
+                url: "@Url.Action("UploadNews", "Home")",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
+                },
+                error: function(error){
+                    console.error(error);
+                }
+
+
             });
         });
 
