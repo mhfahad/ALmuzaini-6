@@ -46,5 +46,6 @@ namespace AlmuzainiCMS.Controllers
             if(result) return Ok(result);
             return BadRequest();
         }
+
     }
 }
