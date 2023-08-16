@@ -37,11 +37,13 @@
         let requestIdData = document.getElementById("requestId").value;
         let sessionIdData = document.getElementById("sessionId").value;
         let requestData = { requestId: requestIdData, sessionId: sessionIdData };
+        
+        console.log(requestData);
         $.ajax({
             type: "POST",
             url: "https://localhost:7136/api/CurrencyRate",
             contentType: 'application/json; charset=utf-8',
-            data: requestData,
+            data: JSON.stringify(requestData),
             dataType: 'json',
             beforeSend: function () {
                 $("#response").text("Request sending. Please wait...");
