@@ -40,5 +40,10 @@ namespace AlmuzainiCMS.Controllers
             var data = await _manager.GetAllCurrencyAsync();
             return View(data);
         }
+
+        public IActionResult RequestSetupAPI()
+        {
+            return View();
+        }
     }
 }
