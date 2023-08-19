@@ -4,11 +4,14 @@
 @{
 }
 
-<head>
-    <title>Request Form</title>
-</head>
-<body>
-    <form method="post">
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+    <form method="post" action="RequestIdPostAPI">
         <fieldset>
             <legend>Add Request</legend>
             <div>
@@ -25,18 +28,18 @@
             </div>
         </fieldset>
     </form>
-</body>
+
 
 <script>
     function PostRequestData() {
         let requestIdData = document.getElementById("requestId").value;
         let sessionIdData = document.getElementById("sessionId").value;
-        let requestData = {requestId : requestIdData, sessionId: sessionIdData};
+        let requestData = { requestId: requestIdData, sessionId: sessionIdData };
         $.ajax({
             type: "POST",
             url: "https://localhost:7136/api/CurrencyRate",
             contentType: 'application/json; charset=utf-8',
-            data : requestData,
+            data: requestData,
             dataType: 'json',
             beforeSend: function () {
                 $("#response").text("Request sending. Please wait...");

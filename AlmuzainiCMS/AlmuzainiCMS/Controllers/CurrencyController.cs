@@ -23,10 +23,10 @@ namespace AlmuzainiCMS.Controllers
                 return;
             }
         }
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var data = _manager.GetAllCurrencyAsync();
-            return View();
+            var data = await _manager.GetAllCurrencyAsync();
+            return View(data);
         }
         
         public async Task CurrencySync()
@@ -41,7 +41,8 @@ namespace AlmuzainiCMS.Controllers
             return View(data);
         }
 
-        public IActionResult RequestSetupAPI()
+
+        public IActionResult RequestIdPostAPI()
         {
             return View();
         }

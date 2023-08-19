@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable< AlmuzainiCMS.Models.Models.GetTTRateResult>
+@model ICollection<AlmuzainiCMS.Models.Models.GetTTRateResult>
 
 
 <div class="col-sm-12 col-md-12">
@@ -13,32 +13,47 @@
                 </form>
 
             </div>
-
         </div>
-
     </div>
-
 </div>
 
-@*<div>
-    <table>
+<div "col-sm-12 col-md-12>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <label>Code</label>
+                </th>
+                <th>
+                    <label>Amount</label>
+                </th>
+                <th>
+                    <label>LC Amount</label>
+                </th>
+                <th>
+                    <label>FC Amount</label>
+                </th>
+            </tr>
+        </thead>
         <tbody>
-            @foreach (var fileName in Model)
+            @foreach (var currencyRate in Model)
             {
                 <tr>
                     <td>
-                        @fileName.currencyCode
+                        @Html.DisplayFor(modelItem => currencyRate.currencyCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => currencyRate.rate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => currencyRate.lcAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => currencyRate.fcAmount)
                     </td>
                 </tr>
-
-            }
-            
+            }       
         </tbody>
     </table>
-</div>*@
-
-<div class="row">
-    <section class="col-md-12">
-        <div id="response"></div>
-    </section>
 </div>
+
