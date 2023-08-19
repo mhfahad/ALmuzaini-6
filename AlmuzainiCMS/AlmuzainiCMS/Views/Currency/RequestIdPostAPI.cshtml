@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewData["Title"] = "RequestIdPostAPI";
+}
+
+<h6>Request Id API Call</h6>
+
+<div class="card">
+    <div class="card-body">
+        <form method="post" action="RequestIdPostAPI">
+            <fieldset>
+                <legend>Add Request</legend>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="requestId">Request Id</label>
+                            <input type="text" class="form-control" id="requestId" placeholder="Input your unique request id.">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="requestId">Session Id</label>
+                            <input type="text" class="form-control" id="sessionId" placeholder="Input your unique session id.">
+                        </div>
+                    </div>
+                </div>
+                <button style="margin-top : 10px;" onclick="PostRequestData();" class="btn btn-primary">Submit</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+
+
+<script>
+    function PostRequestData() {
+        let requestIdData = document.getElementById("requestId").value;
+        let sessionIdData = document.getElementById("sessionId").value;
+        let requestData = { requestId: requestIdData, sessionId: sessionIdData };
+        
+        console.log(requestData);
+        $.ajax({
+            type: "POST",
+            url: "https://localhost:7136/api/CurrencyRate",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(requestData),
+            dataType: 'json',
+            beforeSend: function () {
+                $("#response").text("Request sending. Please wait...");
+            },
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
+                alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
+            },
+            success: function (result) {
+                $("#response").text(result);
+                console.log(result);
+            }
+        });
+    }
+</script>
