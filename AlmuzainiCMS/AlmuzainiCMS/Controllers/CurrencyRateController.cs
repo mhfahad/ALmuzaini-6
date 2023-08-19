@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.DotNet.MSIdentity.Shared;
 
 namespace AlmuzainiCMS.Controllers
 {
@@ -16,6 +17,12 @@ namespace AlmuzainiCMS.Controllers
         public CurrencyRateController(ICurrencySyncManager manager)
         {
             _manager = manager;
+        }
+
+        [HttpPost("Index")]
+        public async Task<ActionResult> Index()
+        {
+            return Ok();
         }
 
         [AllowAnonymous]
@@ -46,5 +53,6 @@ namespace AlmuzainiCMS.Controllers
             if(result) return Ok(result);
             return BadRequest();
         }
+
     }
 }
