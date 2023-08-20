@@ -20,5 +20,6 @@ namespace AlmuzainiCMS.DAL.Interface.Currency
         Task<long> GetRequestByRequestId(long id);
         Task<bool> AddGetTRetResult(GetTTRateResult requests);
         Task<bool> RemoveAllCurrency(ICollection<GetTTRateResult> data);
+        Task<bool> AddCurrencycodeAsync(CurrencyCode model);
     }
 }
