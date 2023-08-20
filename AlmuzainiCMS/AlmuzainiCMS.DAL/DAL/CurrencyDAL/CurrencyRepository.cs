@@ -78,5 +78,11 @@ namespace AlmuzainiCMS.DAL.DAL.CurrencyDAL
             _db.RemoveRange(data);
             return await _db.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> AddCurrencycodeAsync(CurrencyCode model)
+        {
+            await _db.AddAsync(model);
+            return await _db.SaveChangesAsync() > 0;
+        }
     }
 }

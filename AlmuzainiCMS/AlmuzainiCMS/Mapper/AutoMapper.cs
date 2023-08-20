@@ -1,5 +1,6 @@
 ﻿using AlmuzainiCMS.Models.LoginVM;
 using AlmuzainiCMS.Models.Models;
+using AlmuzainiCMS.Models.RequestDto;
 using AutoMapper;
 
 namespace AlmuzainiCMS.Mapper
@@ -12,7 +13,7 @@ namespace AlmuzainiCMS.Mapper
 
             CreateMap<UsersInfo, UsersInfoVM>();
             CreateMap<UsersInfoVM, UsersInfo>();
-
+            CreateMap<CurrencyCodeRequestDto, CurrencyCode>();
         }
     }
 }

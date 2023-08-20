@@ -1,0 +1,27 @@
+﻿@model AlmuzainiCMS.Models.RequestDto.CurrencyCodeRequestDto
+
+<div class="card">
+    <div class="card-body">
+        <form enctype="multipart/form-data" asp-action="AddCurrencyCode" method="post">
+            <fieldset>
+                <legend>Add Currency Code</legend>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="requestId">Currency Code</label>
+                            <input type="text" asp-for="CurrencyCodeName" class="form-control" id="currencycode" placeholder="Input your currency code.">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label for="requestId">Image</label>
+                            <br />
+                            <input type="file" id="files" asp-for="FlagFile" class="form-control-file" />
+                        </div>
+                    </div>
+                </div>
+                <button style="margin-top : 10px;"  class="btn btn-primary">Submit</button>
+            </fieldset>
+        </form>
+    </div>
+</div>
