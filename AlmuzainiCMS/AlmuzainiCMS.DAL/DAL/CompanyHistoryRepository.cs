@@ -54,5 +54,66 @@ namespace AlmuzainiCMS.DAL.DAL
 
            
         }
+
+        public async Task<bool> UpdateExpertise(CompanyHistory companyHistory)
+        {
+            var count = _context.CompanyHistory?.Count();   
+            if(count > 0)
+            {
+                var companyHistoryToUpdate = _context.CompanyHistory?.First();
+                companyHistoryToUpdate.ExpertiseText = companyHistory.ExpertiseText;
+                companyHistoryToUpdate.ExpertiseImagePath = companyHistory.ExpertiseImagePath;
+
+                _context.Entry(companyHistoryToUpdate).Property(i => i.ExpertiseText).IsModified = true;
+                _context.Entry(companyHistoryToUpdate).Property(i => i.ExpertiseImagePath).IsModified = true;
+                return await _context.SaveChangesAsync() > 0;
+            }
+            else
+            {
+                _context.CompanyHistory?.Add(companyHistory);
+                return await _context.SaveChangesAsync() > 0;
+            }
+        }
+
+        public async Task<bool> UpdateWorkforce(CompanyHistory companyHistory)
+        {
+            var count = _context.CompanyHistory?.Count();
+            if (count > 0)
+            {
+                var companyHistoryToUpdate = _context.CompanyHistory?.First();
+                companyHistoryToUpdate.WorkforceText = companyHistory.WorkforceText;
+                companyHistoryToUpdate.WorkforceImagePath = companyHistory.WorkforceImagePath;
+
+                _context.Entry(companyHistoryToUpdate).Property(i => i.WorkforceText).IsModified = true;
+                _context.Entry(companyHistoryToUpdate).Property(i => i.WorkforceImagePath).IsModified = true;
+                return await _context.SaveChangesAsync() > 0;
+            }
+            else
+            {
+                _context.CompanyHistory?.Add(companyHistory);
+                return await _context.SaveChangesAsync() > 0;
+            }
+        }
+
+        
+        public async Task<bool> UpdateTechnology(CompanyHistory companyHistory)
+        {
+            var count = _context.CompanyHistory?.Count();
+            if (count > 0)
+            {
+                var companyHistoryToUpdate = _context.CompanyHistory?.First();
+                companyHistoryToUpdate.TechnologyText = companyHistory.TechnologyText;
+                companyHistoryToUpdate.TechnologyImagePath = companyHistory.TechnologyImagePath;
+
+                _context.Entry(companyHistoryToUpdate).Property(i => i.TechnologyText).IsModified = true;
+                _context.Entry(companyHistoryToUpdate).Property(i => i.TechnologyImagePath).IsModified = true;
+                return await _context.SaveChangesAsync() > 0;
+            }
+            else
+            {
+                _context.CompanyHistory?.Add(companyHistory);
+                return await _context.SaveChangesAsync() > 0;
+            }
+        }
     }
 }

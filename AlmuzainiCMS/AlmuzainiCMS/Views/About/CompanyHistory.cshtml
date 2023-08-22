@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="col-sm-12 col-md-12">
+<div class="col-xs-12 col-sm-12 col-md-12">
     <div class="card">
         <div class="card-body">
             <div class="row">
@@ -53,40 +53,144 @@
                     <div class="input-group flex-nowrap">
                         <div class="w-100 mt-1 mb-2">
                             <label for="FirstSection">First Section </label>
-                            <textarea class="form-control" cols="20" id="FirstSection" name="FirstSection" rows="4" placeholder="@ViewBag.FirstSection"></textarea>
+                            <textarea class="form-control" cols="20" id="FirstSection" name="FirstSection" rows="4" contenteditable="true">@ViewBag.FirstSection</textarea>
                         </div>                        
                     </div>
                     <div class="input-group flex-nowrap">
                         <div class="w-100 mt-1 mb-2">
                             <label for="SecondSection">Second Section </label>
-                            <textarea class="form-control" cols="20" id="SecondSection" name="SecondSection" rows="4" placeholder="@ViewBag.SecondSection"></textarea>
+                            <textarea class="form-control" cols="20" id="SecondSection" name="SecondSection" rows="4" contenteditable="true" >@ViewBag.SecondSection</textarea>
                         </div>
                     </div>
                     <div class="input-group flex-nowrap">
                         <div class="w-100 mt-1 mb-2">
                             <label for="ThirdSection">Third Section </label>
-                            <textarea class="form-control" cols="20" id="ThirdSection" name="ThirdSection" rows="4" placeholder="@ViewBag.ThirdSection"></textarea>
+                            <textarea class="form-control" cols="20" id="ThirdSection" name="ThirdSection" rows="4" contenteditable="true" >@ViewBag.ThirdSection</textarea>
                         </div>
                     </div>
                     <div class="input-group flex-nowrap">
                         <div class="w-100 mt-1 mb-2">
                             <label for="FourthSection">Fourth Section </label>
-                            <textarea class="form-control" cols="20" id="FourthSection" name="FourthSection" rows="4" placeholder="@ViewBag.FourthSection"></textarea>
+                            <textarea class="form-control" cols="20" id="FourthSection" name="FourthSection" rows="4" contenteditable="true" >@ViewBag.FourthSection</textarea>
                         </div>
                     </div>
                     <button type="button" id="uploadCompanyHistorySection" class="btn btn-outline-secondary">Update</button>
                 </form>
-
-
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Expertise</h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="ExpertiseText">Expertise Text</label>
+                            <textarea class="form-control" cols="20" rows="4" id="ExpertiseText" name="ExpertiseText" contenteditable="true" >@ViewBag.ExpertiseText</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="ExpertiseImageFile"/>
+                        </div>
+                        <button type="button" id="updateExpertiseButton" class="btn btn-outline-secondary">Update</button>
+                    </div>
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.ExpertiseImageFile.Length > 0){
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                   @* <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/ExpertiseImage/"+ fileName)" alt="First Slide">*@
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/ExpertiseImage/"+ ViewBag.ExpertiseImageFile)" alt="First Slide">
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Workforce</h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="WorkforceText">Workforce Text</label>
+                            <textarea class="form-control" cols="20" rows="4" id="WorkforceText" name="WorkforceText" contenteditable="true">@ViewBag.WorkforceText</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="WorkforceImageFile"/>
+                        </div>
+                        <button type="button" id="updateWorkforceButton" class="btn btn-outline-secondary">Update</button>
+                    </div>
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.WorkforceImageFile.Length > 0){
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                   @* <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/ExpertiseImage/"+ fileName)" alt="First Slide">*@
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/WorkforceImage/"+ ViewBag.WorkforceImageFile)" alt="First Slide">
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Technology</h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="TechnologyText">Technology Text</label>
+                            <textarea class="form-control" cols="20" rows="6" id="TechnologyText" name="TechnologyText" contenteditable="true">@ViewBag.TechnologyText</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="TechnologyImageFile" />
+                        </div>
+                        <button type="button" id="updateTechnologyButton" class="btn btn-outline-secondary">Update</button>
+                    </div>
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.TechnologyImageFile.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                    @* <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/ExpertiseImage/"+ fileName)" alt="First Slide">*@
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/TechnologyImage/"+ ViewBag.TechnologyImageFile)" alt="First Slide">
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="col-sm-12 col-md-12">
     <div class="card">
@@ -131,6 +235,102 @@
 @section Scripts{
     <script>
 
+        document.getElementById("updateExpertiseButton").addEventListener("click", function(){
+            var formData = new FormData();
+            var expertiseText = document.getElementById("ExpertiseText").value;
+
+            var expertiseImageFile = document.querySelector('input[type="file"][name="ExpertiseImageFile"]');
+
+            formData.append("ExpertiseText", expertiseText);
+            formData.append("ExpertiseImageFile", expertiseImageFile.files[0]);
+
+            $.ajax({
+                url: "@Url.Action("UpdateExpertise", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response){
+                    if(response.success){
+                        toastr.success(response.message);
+                    }else{
+                        toastr.error("Expertise update failed.");
+                    }
+                },
+                error: function(){
+                    toastr.error("An error occurred while updating expertise.");
+                }
+            });
+
+
+        })
+
+        //updateWorkforceButton
+
+        document.getElementById("updateWorkforceButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var workforceText = document.getElementById("WorkforceText").value;
+
+            var workforceImageFile = document.querySelector('input[type="file"][name="WorkforceImageFile"]');
+
+            formData.append("WorkforceText", workforceText);
+            formData.append("WorkforceImageFile", workforceImageFile.files[0]);
+
+            $.ajax({
+                url: "@Url.Action("UpdateWorkforce", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Workforce update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating workforce.");
+                }
+            });
+
+
+        })
+
+        //updateTechnologyButton
+         document.getElementById("updateTechnologyButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var technologyText = document.getElementById("TechnologyText").value;
+
+            var technologyImageFile = document.querySelector('input[type="file"][name="TechnologyImageFile"]');
+
+            formData.append("TechnologyText", technologyText);
+            formData.append("TechnologyImageFile", technologyImageFile.files[0]);
+
+            $.ajax({
+                url: "@Url.Action("UpdateTechnology", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                       
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Technology update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Technology.");
+                }
+            });
+
+
+        })
+
+
+
 
         document.getElementById("UploadCompanyHistoryCompanyProfileButton").addEventListener("click", function () {
             var formData = new FormData();
@@ -150,21 +350,19 @@
                 contentType: false,
                 success: function (response) {
                     if (response.success) {
-                        // Display toast notification
+                       
                         toastr.success(response.message);
                     } else {
                         // Handle error case
                         toastr.error("File upload failed.");
-                        var redirectUrl = response.redirectUrl;
-
-                        window.location.href = redirectUrl;
+                        
                     }
-            },
-            error: function () {
-                toastr.error("An error occurred while uploading the file.");
-            }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
         });
-    });
 
 
         document.getElementById("uploadCompanyHistorySection").addEventListener("click", function () {
@@ -180,15 +378,6 @@
             formData.append("ThirdSection", thirdSection);
             formData.append("FourthSection", fourthSection);
 
-
-            //var position = 1;
-            //// Append each selected file to the FormData object
-            //var filesInput = document.querySelector('input[type="file"][name="Files"]');
-            //for (var i = 0; i < filesInput.files.length; i++) {
-            //    formData.append("Files", filesInput.files[i]);
-            //    formData.append("position", position);
-            //}
-
             $.ajax({
                 url: "@Url.Action("UpdateCompanyHistorySection", "About")",
                 type: "POST",
@@ -197,14 +386,14 @@
                 contentType: false,
                 success: function (response) {
                     if (response.success) {
-                        // Display toast notification
+                        //var redirectUrl = response.redirectUrl;
+
+                        //window.location.href = redirectUrl;
                         toastr.success(response.message);
                     } else {
                         // Handle error case
                         toastr.error("File upload failed.");
-                        var redirectUrl = response.redirectUrl;
-
-                        window.location.href = redirectUrl;
+                       
                     }
                 },
                 error: function () {
@@ -231,14 +420,14 @@
                 contentType: false,
                 success: function (response) {
                     if (response.success) {
-                        // Display toast notification
+                        //var redirectUrl = response.redirectUrl;
+
+                        //window.location.href = redirectUrl;
                         toastr.success(response.message);
                     } else {
                         // Handle error case
                         toastr.error("File upload failed.");
-                        var redirectUrl = response.redirectUrl;
-
-                        window.location.href = redirectUrl;
+                       
                     }
                 },
                 error: function () {

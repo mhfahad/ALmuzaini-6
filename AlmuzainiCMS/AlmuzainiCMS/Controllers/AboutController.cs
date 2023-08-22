@@ -32,9 +32,14 @@ namespace AlmuzainiCMS.Controllers
         {
             GetCompanyProfileBanner("uploads", "original", "CompanyHistory", "CompanyProfileBanner");
             GetCompanyHistoryImage("uploads", "original", "CompanyHistory", "CompanyHistoryImage");
-            GetCompanyHistorySection();
+            GetCompanyExpertiseImage("uploads", "original", "CompanyHistory", "ExpertiseImage");
+            GetCompanyWorkforceImage("uploads", "original", "CompanyHistory", "WorkforceImage");
+            GetCompanyTechnologyImage("uploads", "original", "CompanyHistory", "TechnologyImage");
+            GetCompanyHistory();
             return View();
         }
+
+        
 
         [HttpPost]
         public IActionResult UploadCompanyHistoryCompanyProfile(MultipleFileUploadVM model)  
@@ -86,7 +91,7 @@ namespace AlmuzainiCMS.Controllers
             var response = new
             {
                 Success = true,
-                Message = "File uploaded successfully.",
+                Message = "Company profile banner uploaded successfully.",
                 redirectUrl = Url.Action("CompanyHistory", "About")
             };
 
@@ -186,7 +191,216 @@ namespace AlmuzainiCMS.Controllers
 
         }
 
-        public void GetCompanyProfileBanner(string folderName, string subfolder, string typefolder , string filetypefolder)  
+        [HttpPost]
+        public async Task<JsonResult> UpdateCompanyHistorySection(CompanyHistoryRequestDTO model)   
+        {
+            var companyHistory = _mapper.Map<CompanyHistory>(model);
+            var result = await _companyHistoryManager.UpdateCompanyHistorySection(companyHistory);  
+          
+            var response = new
+            {
+                Success = true,
+                Message = "Company History section updated successfully.",
+                redirectUrl = Url.Action("CompanyHistory", "About")
+            };
+
+
+            return Json(response);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateExpertise(CompanyHistoryRequestDTO model)
+        {
+            var companyHistory  = _mapper.Map<CompanyHistory>(model);
+           
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads",  "original", "CompanyHistory", "ExpertiseImage");
+            string filePosition = "1";
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            string filePathToSave = string.Empty;
+
+            var file = model.ExpertiseImageFile;
+
+            if (file != null && file.Length > 0)
+            {
+
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                    string fileExtension = Path.GetExtension(file.FileName);
+
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    
+                   
+                    filePathToSave = Path.Combine(filePath, filePosition + fileExtension);
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                    {
+                            file.CopyTo(fileStream);
+                    }
+
+            }
+
+            var expertiseImagePath =  filePathToSave.Substring(uploadsFolder.Length).Replace("\\","/");
+            companyHistory.ExpertiseImagePath = expertiseImagePath;
+            //companyHistory.ExpertiseImagePath = filePathToSave;
+            bool result = await _companyHistoryManager.UpdateExpertise(companyHistory);
+
+            if(result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Expertise updated successfully.",
+                    redirectUrl = Url.Action("CompanyHistory", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Expertise updated failed.",
+                    redirectUrl = Url.Action("CompanyHistory", "About")
+                };
+                return Json(response);
+            }
+           
+           
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateWorkforce(CompanyHistoryRequestDTO model)   
+        {
+            var companyHistory = _mapper.Map<CompanyHistory>(model);
+
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "CompanyHistory", "WorkforceImage");
+            string filePosition = "1";
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            string filePathToSave = string.Empty;
+
+            var file = model.WorkforceImageFile;
+
+            if (file != null && file.Length > 0)
+            {
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string fileExtension = Path.GetExtension(file.FileName);
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+
+                filePathToSave = Path.Combine(filePath, filePosition + fileExtension);
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+            }
+
+            var workforceImagePath = filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+            companyHistory.WorkforceImagePath = workforceImagePath;
+            //companyHistory.ExpertiseImagePath = filePathToSave;
+            bool result = await _companyHistoryManager.UpdateWorkforce(companyHistory);
+
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Workforce updated successfully.",
+                    redirectUrl = Url.Action("CompanyHistory", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Workforce updated failed.",
+                    redirectUrl = Url.Action("CompanyHistory", "About")
+                };
+                return Json(response);
+            }
+
+
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateTechnology(CompanyHistoryRequestDTO model)
+        {
+            var companyHistory = _mapper.Map<CompanyHistory>(model);
+
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "CompanyHistory", "TechnologyImage");
+            string filePosition = "1";
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            string filePathToSave = string.Empty;
+
+            var file = model.TechnologyImageFile;
+
+            if (file != null && file.Length > 0)
+            {
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string fileExtension = Path.GetExtension(file.FileName);
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+
+                filePathToSave = Path.Combine(filePath, filePosition + fileExtension);
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+            }
+
+            var technologyImagePath = filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+            companyHistory.TechnologyImagePath = technologyImagePath;
+            //companyHistory.ExpertiseImagePath = filePathToSave;
+            bool result = await _companyHistoryManager.UpdateTechnology(companyHistory);    
+
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Technology updated successfully.",
+                    redirectUrl = Url.Action("CompanyHistory", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Technology updated failed.",
+                    redirectUrl = Url.Action("CompanyHistory", "About")
+                };
+                return Json(response);
+            }
+
+
+        }
+        public void GetCompanyProfileBanner(string folderName, string subfolder, string typefolder, string filetypefolder)
         {
             string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
             string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, filetypefolder);
@@ -207,6 +421,69 @@ namespace AlmuzainiCMS.Controllers
 
         }
 
+        public void GetCompanyExpertiseImage(string folderName, string subfolder, string typefolder, string filetypefolder)
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
+            string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, filetypefolder);
+            // Replace with the actual folder path
+
+            if (Directory.Exists(folderPath))
+            {
+                string? fileNames = Directory.GetFiles(folderPath)
+                    .Select(Path.GetFileName)
+                    .First();
+
+                ViewBag.ExpertiseImageFile = fileNames;
+            }
+            else
+            {
+                ViewBag.ExpertiseImageFile = new string[0]; // No files available
+            }
+
+        }
+
+        public void GetCompanyWorkforceImage(string folderName, string subfolder, string typefolder, string filetypefolder)
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
+            string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, filetypefolder);
+            // Replace with the actual folder path
+
+            if (Directory.Exists(folderPath))
+            {
+                string? fileNames = Directory.GetFiles(folderPath)
+                    .Select(Path.GetFileName)
+                    .First();
+
+                ViewBag.WorkforceImageFile = fileNames;
+            }
+            else
+            {
+                ViewBag.WorkforceImageFile = new string[0]; // No files available
+            }
+
+        }
+
+        //
+        public void GetCompanyTechnologyImage(string folderName, string subfolder, string typefolder, string filetypefolder)
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
+            string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, filetypefolder);
+            // Replace with the actual folder path
+
+            if (Directory.Exists(folderPath))
+            {
+                string? fileNames = Directory.GetFiles(folderPath)
+                    .Select(Path.GetFileName)
+                    .First();
+
+                ViewBag.TechnologyImageFile = fileNames;
+            }
+            else
+            {
+                ViewBag.TechnologyImageFile = new string[0]; // No files available
+            }
+
+        }
         public void GetCompanyHistoryImage(string folderName, string subfolder, string typefolder, string filetypefolder)
         {
             string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
@@ -227,25 +504,7 @@ namespace AlmuzainiCMS.Controllers
             }
 
         }
-
-        [HttpPost]
-        public async Task<JsonResult> UpdateCompanyHistorySection(CompanyHistoryRequestDTO model)   
-        {
-            var companyHistory = _mapper.Map<CompanyHistory>(model);
-            var result = await _companyHistoryManager.UpdateCompanyHistorySection(companyHistory);  
-          
-            var response = new
-            {
-                Success = true,
-                Message = "Company History section updated successfully.",
-                redirectUrl = Url.Action("CompanyHistory", "About")
-            };
-
-
-            return Json(response);
-        }
-
-        public async void GetCompanyHistorySection()
+        public async void GetCompanyHistory()
         {
             CompanyHistory companyHistory = await _companyHistoryManager.GetCompanyHistorySection();
 
@@ -253,8 +512,9 @@ namespace AlmuzainiCMS.Controllers
             ViewBag.SecondSection = companyHistory.SecondSection ?? "";
             ViewBag.ThirdSection = companyHistory.ThirdSection ?? "";
             ViewBag.FourthSection = companyHistory.FourthSection ?? "";
-
-
+            ViewBag.ExpertiseText = companyHistory.ExpertiseText ?? "";
+            ViewBag.WorkforceText = companyHistory.WorkforceText ?? "";
+            ViewBag.TechnologyText = companyHistory.TechnologyText ?? "";
 
         }
 
