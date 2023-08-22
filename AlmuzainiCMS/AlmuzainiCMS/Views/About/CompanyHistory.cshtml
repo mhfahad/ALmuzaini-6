@@ -1,0 +1,255 @@
+﻿
+@{
+    ViewData["Title"] = "CompanyHistory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Company Profile Banner</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.BrandImageFileNames.Length > 0)
+                {
+                    @foreach (var fileName in ViewBag.BrandImageFileNames)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                    @*<li>@fileName</li>*@
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/CompanyProfileBanner/"+ fileName)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="Files" multiple />
+                        </div>
+                        <button type="button" id="UploadCompanyHistoryCompanyProfileButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Company History</h4>
+                <form enctype="text/plain">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FirstSection">First Section </label>
+                            <textarea class="form-control" cols="20" id="FirstSection" name="FirstSection" rows="4" placeholder="@ViewBag.FirstSection"></textarea>
+                        </div>                        
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="SecondSection">Second Section </label>
+                            <textarea class="form-control" cols="20" id="SecondSection" name="SecondSection" rows="4" placeholder="@ViewBag.SecondSection"></textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="ThirdSection">Third Section </label>
+                            <textarea class="form-control" cols="20" id="ThirdSection" name="ThirdSection" rows="4" placeholder="@ViewBag.ThirdSection"></textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FourthSection">Fourth Section </label>
+                            <textarea class="form-control" cols="20" id="FourthSection" name="FourthSection" rows="4" placeholder="@ViewBag.FourthSection"></textarea>
+                        </div>
+                    </div>
+                    <button type="button" id="uploadCompanyHistorySection" class="btn btn-outline-secondary">Update</button>
+                </form>
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Company History Image</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.CompanyHistoryFileNames.Length > 0)
+                {
+                    @foreach (var fileName in ViewBag.CompanyHistoryFileNames)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                    @*<li>@fileName</li>*@
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/CompanyHistoryImage/"+ fileName)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="HistoryImageFiles" multiple />
+                        </div>
+                        <button type="button" id="uploadCompanyHistoryImageButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+
+        document.getElementById("UploadCompanyHistoryCompanyProfileButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var position = 1;
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="Files"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadCompanyHistoryCompanyProfile", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    }
+            },
+            error: function () {
+                toastr.error("An error occurred while uploading the file.");
+            }
+        });
+    });
+
+
+        document.getElementById("uploadCompanyHistorySection").addEventListener("click", function () {
+            debugger;
+            var formData = new FormData();
+            var firstSection = document.getElementById("FirstSection").value;
+            var secondSection = document.getElementById("SecondSection").value;
+            var thirdSection = document.getElementById("ThirdSection").value;
+            var fourthSection = document.getElementById("FourthSection").value;
+
+            formData.append("FirstSection", firstSection);
+            formData.append("SecondSection", secondSection);
+            formData.append("ThirdSection", thirdSection);
+            formData.append("FourthSection", fourthSection);
+
+
+            //var position = 1;
+            //// Append each selected file to the FormData object
+            //var filesInput = document.querySelector('input[type="file"][name="Files"]');
+            //for (var i = 0; i < filesInput.files.length; i++) {
+            //    formData.append("Files", filesInput.files[i]);
+            //    formData.append("position", position);
+            //}
+
+            $.ajax({
+                url: "@Url.Action("UpdateCompanyHistorySection", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+
+        document.getElementById("uploadCompanyHistoryImageButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var position = 1;
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="HistoryImageFiles"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadCompanyHistoryImage", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+
+
+
+
+    </script>
+    
+}
