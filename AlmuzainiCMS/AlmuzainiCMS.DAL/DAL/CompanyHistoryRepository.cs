@@ -115,5 +115,45 @@ namespace AlmuzainiCMS.DAL.DAL
                 return await _context.SaveChangesAsync() > 0;
             }
         }
+
+        //UpdateCompanyHistoryImagePath
+        public async Task<bool> UpdateCompanyHistoryImagePath(CompanyHistory companyHistory)
+        {
+            var count = _context.CompanyHistory?.Count();
+            if (count > 0)
+            {
+                var companyHistoryToUpdate = _context.CompanyHistory?.First();
+                
+                companyHistoryToUpdate.CompanyHistoryImagePath = companyHistory.CompanyHistoryImagePath;
+
+                _context.Entry(companyHistoryToUpdate).Property(i => i.CompanyHistoryImagePath).IsModified = true;
+                return await _context.SaveChangesAsync() > 0;
+            }
+            else
+            {
+                _context.CompanyHistory?.Add(companyHistory);
+                return await _context.SaveChangesAsync() > 0;
+            }
+        }
+
+        
+        public async Task<bool> UpdateCompanyProfileBannerImagePath(CompanyHistory companyHistory)
+        {
+            var count = _context.CompanyHistory?.Count();
+            if (count > 0)
+            {
+                var companyHistoryToUpdate = _context.CompanyHistory?.First();
+
+                companyHistoryToUpdate.CompanyProfileBannerImagePath = companyHistory.CompanyProfileBannerImagePath;
+
+                _context.Entry(companyHistoryToUpdate).Property(i => i.CompanyProfileBannerImagePath).IsModified = true;
+                return await _context.SaveChangesAsync() > 0;
+            }
+            else
+            {
+                _context.CompanyHistory?.Add(companyHistory);
+                return await _context.SaveChangesAsync() > 0;
+            }
+        }
     }
 }

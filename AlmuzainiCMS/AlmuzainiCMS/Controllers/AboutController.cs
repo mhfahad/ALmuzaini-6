@@ -42,18 +42,18 @@ namespace AlmuzainiCMS.Controllers
         
 
         [HttpPost]
-        public IActionResult UploadCompanyHistoryCompanyProfile(MultipleFileUploadVM model)  
+        public async Task<JsonResult> UploadCompanyHistoryCompanyProfile(MultipleFileUploadVM model)  
         {
-            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
-            string filePath = Path.Combine(uploadsFolder, "original", "CompanyHistory", "CompanyProfileBanner");
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "CompanyHistory", "CompanyProfileBanner");
             //string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "TopSlider");
 
             string filePosition = model.position;
 
             //DeleteAllFilesOfFolder(filePath, filePosition);
             DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
-            
 
+            string filePathToSave = string.Empty;
             foreach (var file in model.Files)
             {
                 if (file != null && file.Length > 0)
@@ -67,7 +67,7 @@ namespace AlmuzainiCMS.Controllers
                         Directory.CreateDirectory(filePath);
                     }
                     int totalfilesOriginal;
-                    string filePathToSave = string.Empty;
+                    
                     if (model.position != "0")
                     {
                         totalfilesOriginal = Convert.ToInt32(model.position);
@@ -88,73 +88,35 @@ namespace AlmuzainiCMS.Controllers
                     
                 }
             }
-            var response = new
+            var companyProfileBannerImagePath = filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+            CompanyHistory companyHistory = new CompanyHistory();
+            companyHistory.CompanyProfileBannerImagePath = companyProfileBannerImagePath;
+            //companyHistory.ExpertiseImagePath = filePathToSave;
+            bool result = await _companyHistoryManager.UpdateCompanyProfileBannerImagePath(companyHistory);
+
+
+
+            if (result == true)
             {
-                Success = true,
-                Message = "Company profile banner uploaded successfully.",
-                redirectUrl = Url.Action("CompanyHistory", "About")
-            };
-
-
-            return Json(response);
-        }
-
-        [HttpPost]
-        public IActionResult UploadCompanyHistoryImage(MultipleFileUploadVM model)
-        {
-            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
-            string filePath = Path.Combine(uploadsFolder, "original", "CompanyHistory", "CompanyHistoryImage");
-            //string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "TopSlider");
-
-            string filePosition = model.position;
-
-            //DeleteAllFilesOfFolder(filePath, filePosition);
-            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
-
-
-            foreach (var file in model.Files)
-            {
-                if (file != null && file.Length > 0)
+                var response = new
                 {
-
-                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    string fileExtension = Path.GetExtension(file.FileName);
-
-                    if (!Directory.Exists(filePath))
-                    {
-                        Directory.CreateDirectory(filePath);
-                    }
-                    int totalfilesOriginal;
-                    string filePathToSave = string.Empty;
-                    if (model.position != "0")
-                    {
-                        totalfilesOriginal = Convert.ToInt32(model.position);
-                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
-
-                    }
-                    else
-                    {
-                        totalfilesOriginal = Directory.GetFiles(filePath).Count();
-                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
-
-                    }
-                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
-                    {
-                        file.CopyTo(fileStream);
-                    }
-
-
-                }
+                    Success = true,
+                    Message = "Company Profile image updated successfully.",
+                    redirectUrl = Url.Action("CompanyHistory", "About")
+                };
+                return Json(response);
             }
-            var response = new
+            else
             {
-                Success = true,
-                Message = "File uploaded successfully.",
-                redirectUrl = Url.Action("CompanyHistory", "About")
-            };
+                var response = new
+                {
+                    Success = true,
+                    Message = "Company Profile image updated failed.",
+                    redirectUrl = Url.Action("CompanyHistory", "About")
+                };
+                return Json(response);
+            }
 
-
-            return Json(response);
         }
 
         public void DeleteAllFilesOfFolderWithPosition(string folderPath, string position)
@@ -400,6 +362,87 @@ namespace AlmuzainiCMS.Controllers
 
 
         }
+
+        [HttpPost]
+        public async Task<JsonResult>  UploadCompanyHistoryImage(MultipleFileUploadVM model)
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "CompanyHistory", "CompanyHistoryImage");
+            //string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "TopSlider");
+
+            string filePosition = model.position;
+
+            //DeleteAllFilesOfFolder(filePath, filePosition);
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            string filePathToSave = string.Empty;
+
+            foreach (var file in model.Files)
+            {
+                if (file != null && file.Length > 0)
+                {
+
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                    string fileExtension = Path.GetExtension(file.FileName);
+
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal;
+                   
+                    if (model.position != "0")
+                    {
+                        totalfilesOriginal = Convert.ToInt32(model.position);
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
+
+                    }
+                    else
+                    {
+                        totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+
+                    }
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+
+                }
+            }
+            var companyHistoryImagePath = filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+            CompanyHistory companyHistory = new CompanyHistory();
+            companyHistory.CompanyHistoryImagePath = companyHistoryImagePath;
+            //companyHistory.ExpertiseImagePath = filePathToSave;
+            bool result = await _companyHistoryManager.UpdateCompanyHistoryImagePath(companyHistory);
+
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Company History image updated successfully.",
+                    redirectUrl = Url.Action("CompanyHistory", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Company History image updated failed.",
+                    redirectUrl = Url.Action("CompanyHistory", "About")
+                };
+                return Json(response);
+            }
+
+
+           
+        }
+
         public void GetCompanyProfileBanner(string folderName, string subfolder, string typefolder, string filetypefolder)
         {
             string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);

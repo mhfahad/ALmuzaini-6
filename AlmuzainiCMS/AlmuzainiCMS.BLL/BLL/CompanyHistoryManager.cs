@@ -82,6 +82,34 @@ namespace AlmuzainiCMS.BLL.BLL
             }
         }
 
+        
+        public async Task<bool> UpdateCompanyHistoryImagePath(CompanyHistory companyHistory)
+        {
+            try
+            {
+                bool result = await _repository.UpdateCompanyHistoryImagePath(companyHistory);
+                return await Task.FromResult(result);   
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(false);
+            }
+        }
+
+        
+        public async Task<bool> UpdateCompanyProfileBannerImagePath(CompanyHistory companyHistory)
+        {
+            try
+            {
+                bool result = await _repository.UpdateCompanyProfileBannerImagePath(companyHistory);   
+                return await Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(false);
+            }
+        }
+
 
     }
 }

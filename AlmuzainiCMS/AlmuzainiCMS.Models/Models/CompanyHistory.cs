@@ -26,5 +26,7 @@ namespace AlmuzainiCMS.Models.Models
         public string? TechnologyImagePath { get; set; }
         public string? TechnologyText { get; set; }
         public string? CompanyHistoryImagePath { get; set; }
+
+        public string? CompanyProfileBannerImagePath { get; set; }   
     }
 }
