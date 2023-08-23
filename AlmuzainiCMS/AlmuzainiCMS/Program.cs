@@ -66,7 +66,9 @@ builder.Services.AddScoped<IUserCreateRepository, UserCreateRepository>();
 builder.Services.AddTransient<ICurrencySyncManager, CurrencySyncManager>();
 builder.Services.AddTransient<ICurrencyRepository, CurrencyRepository>();
 builder.Services.AddScoped<INewsManager, NewsManager>();
-builder.Services.AddScoped<INewsRepository, NewsRepository>();  
+builder.Services.AddScoped<INewsRepository, NewsRepository>();
+builder.Services.AddScoped<ICompanyHistoryManager, CompanyHistoryManager>();
+builder.Services.AddScoped<ICompanyHistoryRepository, CompanyHistoryRepository>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddDistributedMemoryCache();

@@ -4,6 +4,7 @@ using AlmuzainiCMS.DataBaseContext.DataBaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlmuzainiCMS.DataBaseContext.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    partial class ProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230821194400_CompanyHistoryAdded")]
+    partial class CompanyHistoryAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,53 +23,6 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("AlmuzainiCMS.Models.Models.CompanyHistory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("CompanyHistoryImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CompanyProfileBannerImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExpertiseImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ExpertiseText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstSection")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FourthSection")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("SecondSection")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TechnologyImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TechnologyText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ThirdSection")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WorkforceImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WorkforceText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CompanyHistory");
-                });
 
             modelBuilder.Entity("AlmuzainiCMS.Models.Models.CurrencyCode", b =>
                 {
