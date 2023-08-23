@@ -22,6 +22,7 @@ namespace AlmuzainiCMS.DataBaseContext.DataBaseContext
         public DbSet<GetTTRateResult> GetTrateResults { get; set; }
 
         public DbSet<News> News { get; set; }
+        public DbSet<CompanyHistory> CompanyHistory { get; set; }
 
     }
 }
