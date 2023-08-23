@@ -135,6 +135,10 @@ namespace AlmuzainiCMS.BLL.BLL
             var data = await _repo.GetLatestCurrencyRequestId();
             return data.RequestId;
         }
-        
+
+        public async Task<bool> AddCurrencycodeAsync(CurrencyCode model)
+        {
+            return await _repo.AddCurrencycodeAsync(model);
+        }
     }
 }
