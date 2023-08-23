@@ -15,6 +15,7 @@ namespace AlmuzainiCMS.Mapper
             CreateMap<UsersInfoVM, UsersInfo>();
             CreateMap<CurrencyCodeRequestDto, CurrencyCode>();
             CreateMap<CompanyHistoryRequestDTO, CompanyHistory>();
+            CreateMap<ChairmansMessageRequestDTO, ChairmanMessage>();
         }
     }
 }
