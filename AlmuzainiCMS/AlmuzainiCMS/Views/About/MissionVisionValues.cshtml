@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewData["Title"] = "MissionVisionValues";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Mission Vision and Values</h1>
+
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Mission Vision Values Banner</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.MissionVisionValuesBannerImageFileName.Length > 0)
+                {
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="carousel-item-active">
+                                <img class="img-fluid" src="@Url.Content(ViewBag.MissionVisionValuesBannerImageFileName)" alt="First Slide">
+                            </div>
+                        </div>
+                    </div>
+                        
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="BannerFiles" multiple />
+                        </div>
+                        <button type="button" id="UploadMissionBannerButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        document.getElementById("UploadMissionBannerButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+
+            var imageFile = document.querySelector('input[type="file"][name="BannerFiles"]');
+
+            formData.append("MissionBannerImageFile", imageFile.files[0]);
+
+            $.ajax({
+                url: "@Url.Action("UpdateMissionBanner", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response){
+                    if(response.success){
+                        toastr.success(response.message);
+                    }else{
+                        toastr.error("Mission Vision and Values Banner update failed.");
+                    }
+                },
+                error: function(){
+                    toastr.error("An error occurred while updating Mission Vision and Values Banner.");
+                }
+            });
+
+
+        })
+
+    </script>
+}
