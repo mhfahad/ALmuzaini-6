@@ -30,13 +30,15 @@ namespace AlmuzainiCMS.Controllers
 
         public  IActionResult CompanyHistory()
         {
-            GetCompanyProfileBanner("uploads", "original", "CompanyHistory", "CompanyProfileBanner");
-            GetCompanyHistoryImage("uploads", "original", "CompanyHistory", "CompanyHistoryImage");
-            GetCompanyExpertiseImage("uploads", "original", "CompanyHistory", "ExpertiseImage");
-            GetCompanyWorkforceImage("uploads", "original", "CompanyHistory", "WorkforceImage");
-            GetCompanyTechnologyImage("uploads", "original", "CompanyHistory", "TechnologyImage");
+           
             GetCompanyHistory();
             return View();
+
+            //GetCompanyProfileBanner("uploads", "original", "CompanyHistory", "CompanyProfileBanner");
+            //GetCompanyHistoryImage("uploads", "original", "CompanyHistory", "CompanyHistoryImage");
+            //GetCompanyExpertiseImage("uploads", "original", "CompanyHistory", "ExpertiseImage");
+            //GetCompanyWorkforceImage("uploads", "original", "CompanyHistory", "WorkforceImage");
+            //GetCompanyTechnologyImage("uploads", "original", "CompanyHistory", "TechnologyImage");
         }
 
         
@@ -60,8 +62,8 @@ namespace AlmuzainiCMS.Controllers
                 {
 
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    string fileExtension = Path.GetExtension(file.FileName);
-
+                    //string fileExtension = Path.GetExtension(file.FileName);
+                    string fileExtension = ".webp";
                     if (!Directory.Exists(filePath))
                     {
                         Directory.CreateDirectory(filePath);
@@ -88,7 +90,7 @@ namespace AlmuzainiCMS.Controllers
                     
                 }
             }
-            var companyProfileBannerImagePath = filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+            var companyProfileBannerImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
             CompanyHistory companyHistory = new CompanyHistory();
             companyHistory.CompanyProfileBannerImagePath = companyProfileBannerImagePath;
             //companyHistory.ExpertiseImagePath = filePathToSave;
@@ -188,7 +190,7 @@ namespace AlmuzainiCMS.Controllers
             {
 
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    string fileExtension = Path.GetExtension(file.FileName);
+                    string fileExtension = ".webp";
 
                     if (!Directory.Exists(filePath))
                     {
@@ -201,11 +203,11 @@ namespace AlmuzainiCMS.Controllers
                     {
                             file.CopyTo(fileStream);
                     }
-
+                var expertiseImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+                companyHistory.ExpertiseImagePath = expertiseImagePath;
             }
 
-            var expertiseImagePath =  filePathToSave.Substring(uploadsFolder.Length).Replace("\\","/");
-            companyHistory.ExpertiseImagePath = expertiseImagePath;
+            
             //companyHistory.ExpertiseImagePath = filePathToSave;
             bool result = await _companyHistoryManager.UpdateExpertise(companyHistory);
 
@@ -251,7 +253,7 @@ namespace AlmuzainiCMS.Controllers
             {
 
                 string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                string fileExtension = Path.GetExtension(file.FileName);
+                string fileExtension = ".webp";
 
                 if (!Directory.Exists(filePath))
                 {
@@ -264,11 +266,11 @@ namespace AlmuzainiCMS.Controllers
                 {
                     file.CopyTo(fileStream);
                 }
-
+                var workforceImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+                companyHistory.WorkforceImagePath = workforceImagePath;
             }
 
-            var workforceImagePath = filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
-            companyHistory.WorkforceImagePath = workforceImagePath;
+            
             //companyHistory.ExpertiseImagePath = filePathToSave;
             bool result = await _companyHistoryManager.UpdateWorkforce(companyHistory);
 
@@ -316,7 +318,7 @@ namespace AlmuzainiCMS.Controllers
             {
 
                 string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                string fileExtension = Path.GetExtension(file.FileName);
+                string fileExtension = ".webp";
 
                 if (!Directory.Exists(filePath))
                 {
@@ -329,11 +331,11 @@ namespace AlmuzainiCMS.Controllers
                 {
                     file.CopyTo(fileStream);
                 }
-
+                var technologyImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+                companyHistory.TechnologyImagePath = technologyImagePath;
             }
 
-            var technologyImagePath = filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
-            companyHistory.TechnologyImagePath = technologyImagePath;
+           
             //companyHistory.ExpertiseImagePath = filePathToSave;
             bool result = await _companyHistoryManager.UpdateTechnology(companyHistory);    
 
@@ -382,7 +384,7 @@ namespace AlmuzainiCMS.Controllers
                 {
 
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    string fileExtension = Path.GetExtension(file.FileName);
+                    string fileExtension = ".webp";
 
                     if (!Directory.Exists(filePath))
                     {
@@ -410,7 +412,7 @@ namespace AlmuzainiCMS.Controllers
 
                 }
             }
-            var companyHistoryImagePath = filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+            var companyHistoryImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
             CompanyHistory companyHistory = new CompanyHistory();
             companyHistory.CompanyHistoryImagePath = companyHistoryImagePath;
             //companyHistory.ExpertiseImagePath = filePathToSave;
@@ -443,110 +445,7 @@ namespace AlmuzainiCMS.Controllers
            
         }
 
-        public void GetCompanyProfileBanner(string folderName, string subfolder, string typefolder, string filetypefolder)
-        {
-            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
-            string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, filetypefolder);
-            // Replace with the actual folder path
-
-            if (Directory.Exists(folderPath))
-            {
-                string[] fileNames = Directory.GetFiles(folderPath)
-                    .Select(Path.GetFileName)
-                    .ToArray();
-
-                ViewBag.BrandImageFileNames = fileNames;
-            }
-            else
-            {
-                ViewBag.BrandImageFileNames = new string[0]; // No files available
-            }
-
-        }
-
-        public void GetCompanyExpertiseImage(string folderName, string subfolder, string typefolder, string filetypefolder)
-        {
-            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
-            string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, filetypefolder);
-            // Replace with the actual folder path
-
-            if (Directory.Exists(folderPath))
-            {
-                string? fileNames = Directory.GetFiles(folderPath)
-                    .Select(Path.GetFileName)
-                    .First();
-
-                ViewBag.ExpertiseImageFile = fileNames;
-            }
-            else
-            {
-                ViewBag.ExpertiseImageFile = new string[0]; // No files available
-            }
-
-        }
-
-        public void GetCompanyWorkforceImage(string folderName, string subfolder, string typefolder, string filetypefolder)
-        {
-            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
-            string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, filetypefolder);
-            // Replace with the actual folder path
-
-            if (Directory.Exists(folderPath))
-            {
-                string? fileNames = Directory.GetFiles(folderPath)
-                    .Select(Path.GetFileName)
-                    .First();
-
-                ViewBag.WorkforceImageFile = fileNames;
-            }
-            else
-            {
-                ViewBag.WorkforceImageFile = new string[0]; // No files available
-            }
-
-        }
-
-        //
-        public void GetCompanyTechnologyImage(string folderName, string subfolder, string typefolder, string filetypefolder)
-        {
-            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
-            string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, filetypefolder);
-            // Replace with the actual folder path
-
-            if (Directory.Exists(folderPath))
-            {
-                string? fileNames = Directory.GetFiles(folderPath)
-                    .Select(Path.GetFileName)
-                    .First();
-
-                ViewBag.TechnologyImageFile = fileNames;
-            }
-            else
-            {
-                ViewBag.TechnologyImageFile = new string[0]; // No files available
-            }
-
-        }
-        public void GetCompanyHistoryImage(string folderName, string subfolder, string typefolder, string filetypefolder)
-        {
-            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
-            string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, filetypefolder);
-            // Replace with the actual folder path
-
-            if (Directory.Exists(folderPath))
-            {
-                string[] fileNames = Directory.GetFiles(folderPath)
-                    .Select(Path.GetFileName)
-                    .ToArray();
-
-                ViewBag.CompanyHistoryFileNames = fileNames;
-            }
-            else
-            {
-                ViewBag.CompanyHistoryFileNames = new string[0]; // No files available
-            }
-
-        }
+       
         public async void GetCompanyHistory()
         {
             CompanyHistory companyHistory = await _companyHistoryManager.GetCompanyHistorySection();
@@ -558,8 +457,237 @@ namespace AlmuzainiCMS.Controllers
             ViewBag.ExpertiseText = companyHistory.ExpertiseText ?? "";
             ViewBag.WorkforceText = companyHistory.WorkforceText ?? "";
             ViewBag.TechnologyText = companyHistory.TechnologyText ?? "";
+            ViewBag.BrandImageFileNames = companyHistory.CompanyProfileBannerImagePath ?? "";
+            ViewBag.ExpertiseImageFile = companyHistory.ExpertiseImagePath ?? "";
+            ViewBag.WorkforceImageFile = companyHistory.WorkforceImagePath ?? "";
+            ViewBag.TechnologyImageFile = companyHistory.TechnologyImagePath ?? "";
+            ViewBag.CompanyHistoryFileNames  = companyHistory.CompanyHistoryImagePath ?? "";
 
         }
+        
+        [HttpGet]
+        public IActionResult ChairmansMessage()  
+        {
+            GetChairmansMessage();
+
+            return View();
+        }
+
+        private async void GetChairmansMessage()
+        {
+            ChairmanMessage chairmanMessage = await _companyHistoryManager.GetChairmanMessage();
+
+            ViewBag.ChairmanName = chairmanMessage.ChairmanName ?? "";
+            ViewBag.Designation = chairmanMessage.Designation ?? "";
+            ViewBag.ChairmanImagePath = chairmanMessage.ChairmanImagePath ?? "";
+            ViewBag.FirstSection = chairmanMessage.FirstSection ?? "";
+            ViewBag.SecondSection = chairmanMessage.SecondSection ?? "";
+            ViewBag.ThirdSection = chairmanMessage.ThirdSection ?? "";
+            ViewBag.FourthSection = chairmanMessage.FourthSection ?? "";
+            ViewBag.FifthSection = chairmanMessage.FifthSection ?? "";
+            ViewBag.SixthSection = chairmanMessage.SixthSection ?? "";
+            ViewBag.SeventhSection = chairmanMessage.SeventhSection ?? "";    
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateChairmanInfo(ChairmansMessageRequestDTO model)
+        {
+            var chairmanMessage  = _mapper.Map<ChairmanMessage>(model);
+
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "ChairmansMessage", "ChairmanImage");
+            string filePosition = "1";
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            string filePathToSave = string.Empty;
+
+            var file = model.ChairmanImageFile;
+
+            if (file != null && file.Length > 0)
+            {
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                //string fileExtension = Path.GetExtension(file.FileName);
+                string fileExtension = ".webp";
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+
+                filePathToSave = Path.Combine(filePath, filePosition + fileExtension);
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+
+                var chairmanImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+                chairmanMessage.ChairmanImagePath = chairmanImagePath;
+            }
+
+           
+            //companyHistory.ExpertiseImagePath = filePathToSave;
+            bool result = await _companyHistoryManager.UpdateChairmanInfo(chairmanMessage);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Chairman info updated successfully.",
+                    redirectUrl = Url.Action("ChairmansMessage", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Chairman info updated failed.",
+                    redirectUrl = Url.Action("ChairmansMessage", "About")
+                };
+                return Json(response);
+            }
+
+
+        }
+
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateChairmanMessage(ChairmansMessageRequestDTO model)
+        {
+            var chairmanMessage = _mapper.Map<ChairmanMessage>(model);
+            bool result = await _companyHistoryManager.UpdateChairmanMessage(chairmanMessage);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Chairman Message updated successfully.",
+                    redirectUrl = Url.Action("ChairmansMessage", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Chairman Message updated failed.",
+                    redirectUrl = Url.Action("ChairmansMessage", "About")
+                };
+                return Json(response);
+            }
+        }
+
+        //public void GetCompanyProfileBanner(string folderName, string subfolder, string typefolder, string filetypefolder)
+        //{
+        //    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
+        //    string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, filetypefolder);
+        //    // Replace with the actual folder path
+
+        //    if (Directory.Exists(folderPath))
+        //    {
+        //        string[] fileNames = Directory.GetFiles(folderPath)
+        //            .Select(Path.GetFileName)
+        //            .ToArray();
+
+        //        ViewBag.BrandImageFileNames = fileNames;
+        //    }
+        //    else
+        //    {
+        //        ViewBag.BrandImageFileNames = new string[0]; // No files available
+        //    }
+
+        //}
+
+        //public void GetCompanyExpertiseImage(string folderName, string subfolder, string typefolder, string filetypefolder)
+        //{
+        //    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
+        //    string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, filetypefolder);
+        //    // Replace with the actual folder path
+
+        //    if (Directory.Exists(folderPath))
+        //    {
+        //        string? fileNames = Directory.GetFiles(folderPath)
+        //            .Select(Path.GetFileName)
+        //            .First();
+
+        //        ViewBag.ExpertiseImageFile = fileNames;
+        //    }
+        //    else
+        //    {
+        //        ViewBag.ExpertiseImageFile = new string[0]; // No files available
+        //    }
+
+        //}
+
+        //public void GetCompanyWorkforceImage(string folderName, string subfolder, string typefolder, string filetypefolder)
+        //{
+        //    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
+        //    string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, filetypefolder);
+        //    // Replace with the actual folder path
+
+        //    if (Directory.Exists(folderPath))
+        //    {
+        //        string? fileNames = Directory.GetFiles(folderPath)
+        //            .Select(Path.GetFileName)
+        //            .First();
+
+        //        ViewBag.WorkforceImageFile = fileNames;
+        //    }
+        //    else
+        //    {
+        //        ViewBag.WorkforceImageFile = new string[0]; // No files available
+        //    }
+
+        //}
+
+        ////
+        //public void GetCompanyTechnologyImage(string folderName, string subfolder, string typefolder, string filetypefolder)
+        //{
+        //    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
+        //    string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, filetypefolder);
+        //    // Replace with the actual folder path
+
+        //    if (Directory.Exists(folderPath))
+        //    {
+        //        string? fileNames = Directory.GetFiles(folderPath)
+        //            .Select(Path.GetFileName)
+        //            .First();
+
+        //        ViewBag.TechnologyImageFile = fileNames;
+        //    }
+        //    else
+        //    {
+        //        ViewBag.TechnologyImageFile = new string[0]; // No files available
+        //    }
+
+        //}
+        //public void GetCompanyHistoryImage(string folderName, string subfolder, string typefolder, string filetypefolder)
+        //{
+        //    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
+        //    string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, filetypefolder);
+        //    // Replace with the actual folder path
+
+        //    if (Directory.Exists(folderPath))
+        //    {
+        //        string[] fileNames = Directory.GetFiles(folderPath)
+        //            .Select(Path.GetFileName)
+        //            .ToArray();
+
+        //        ViewBag.CompanyHistoryFileNames = fileNames;
+        //    }
+        //    else
+        //    {
+        //        ViewBag.CompanyHistoryFileNames = new string[0]; // No files available
+        //    }
+
+        //}
+
 
 
     }
