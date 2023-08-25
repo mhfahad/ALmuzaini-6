@@ -683,7 +683,7 @@ namespace AlmuzainiCMS.Controllers
         {
             var missionVisionValues = _mapper.Map<MissionVisionValues>(model);
             string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
-            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "ChairmanMessage", "ChairmanMessageBanner");
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "MissionVisionValues", "MissionVisionValuesBanner");
             string filePosition = "1";
 
             DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
