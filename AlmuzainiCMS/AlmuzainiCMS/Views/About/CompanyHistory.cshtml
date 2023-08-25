@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="col-xs-12 col-sm-12 col-md-12">
+<div class="col-sm-12 col-md-12">
     <div class="card">
         <div class="card-body">
             <div class="row">
@@ -12,18 +12,16 @@
                 <h6 class="lebel">Live Images</h6>
                 @if (ViewBag.BrandImageFileNames.Length > 0)
                 {
-                    @foreach (var fileName in ViewBag.BrandImageFileNames)
-                    {
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="carousel-item-active">
-                                    @*<li>@fileName</li>*@
-                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/CompanyProfileBanner/"+ fileName)" alt="First Slide">
-                                </div>
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="carousel-item-active">
+                                @*<li>@fileName</li>*@
+                                <img class="img-fluid" src="@Url.Content(ViewBag.BrandImageFileNames)" alt="First Slide">
                             </div>
                         </div>
+                    </div>
+                        
 
-                    }
                 }
                 else
                 {
@@ -105,7 +103,7 @@
                             <div class="card">
                                 <div class="carousel-item-active">
                                    @* <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/ExpertiseImage/"+ fileName)" alt="First Slide">*@
-                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/ExpertiseImage/"+ ViewBag.ExpertiseImageFile)" alt="First Slide">
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.ExpertiseImageFile)" alt="First Slide">
                                 </div>
                             </div>
 
@@ -142,7 +140,7 @@
                             <div class="card">
                                 <div class="carousel-item-active">
                                    @* <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/ExpertiseImage/"+ fileName)" alt="First Slide">*@
-                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/WorkforceImage/"+ ViewBag.WorkforceImageFile)" alt="First Slide">
+                                    <img class="img-fluid" src="@Url.Content( ViewBag.WorkforceImageFile)" alt="First Slide">
                                 </div>
                             </div>
 
@@ -179,7 +177,7 @@
                             <div class="card">
                                 <div class="carousel-item-active">
                                     @* <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/ExpertiseImage/"+ fileName)" alt="First Slide">*@
-                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/TechnologyImage/"+ ViewBag.TechnologyImageFile)" alt="First Slide">
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.TechnologyImageFile)" alt="First Slide">
                                 </div>
                             </div>
 
@@ -200,18 +198,15 @@
                 <h6 class="lebel">Live Images</h6>
                 @if (ViewBag.CompanyHistoryFileNames.Length > 0)
                 {
-                    @foreach (var fileName in ViewBag.CompanyHistoryFileNames)
-                    {
-                        <div class="col-lg-3">
+                    <div class="col-lg-3">
                             <div class="card">
                                 <div class="carousel-item-active">
-                                    @*<li>@fileName</li>*@
-                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/CompanyHistoryImage/"+ fileName)" alt="First Slide">
+                                    @* <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/ExpertiseImage/"+ fileName)" alt="First Slide">*@
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.CompanyHistoryFileNames)" alt="First Slide">
                                 </div>
                             </div>
-                        </div>
 
-                    }
+                        </div>
                 }
                 else
                 {

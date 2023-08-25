@@ -110,6 +110,40 @@ namespace AlmuzainiCMS.BLL.BLL
             }
         }
 
+        public async Task<bool> UpdateChairmanInfo(ChairmanMessage chairmanMessage)
+        {
+            try
+            {
+                bool result = await _repository.UpdateChairmanInfo(chairmanMessage);   
+                return await Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(false);
+            }
+        }
 
+
+        
+        public async Task<bool> UpdateChairmanMessage(ChairmanMessage chairmanMessage)
+        {
+            try
+            {
+                bool result = await _repository.UpdateChairmanMessage(chairmanMessage);  
+                return await Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(false);
+            }
+        }
+
+        public async Task<ChairmanMessage> GetChairmanMessage()
+        {
+            ChairmanMessage chairmanMessage = new ChairmanMessage();
+
+            chairmanMessage = await _repository.GetChairmanMessage();
+            return await Task.FromResult(chairmanMessage);
+        }
     }
 }
