@@ -2,9 +2,6 @@
 @{
     ViewData["Title"] = "RequestIdPostAPI";
 }
-
-<h6>Request Id API Call</h6>
-
 <div class="card">
     <div class="card-body">
         <form method="post" action="RequestIdPostAPI">
@@ -15,12 +12,6 @@
                         <div class="form-group">
                             <label for="requestId">Request Id</label>
                             <input type="text" class="form-control" id="requestId" placeholder="Input your unique request id.">
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="requestId">Session Id</label>
-                            <input type="text" class="form-control" id="sessionId" placeholder="Input your unique session id.">
                         </div>
                     </div>
                 </div>
@@ -35,7 +26,6 @@
 <script>
     function PostRequestData() {
         let requestIdData = document.getElementById("requestId").value;
-        let sessionIdData = document.getElementById("sessionId").value;
         let requestData = { requestId: requestIdData, sessionId: sessionIdData };
         
         console.log(requestData);
