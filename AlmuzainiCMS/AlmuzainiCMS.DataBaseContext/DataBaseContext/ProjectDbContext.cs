@@ -23,6 +23,8 @@ namespace AlmuzainiCMS.DataBaseContext.DataBaseContext
 
         public DbSet<News> News { get; set; }
         public DbSet<CompanyHistory> CompanyHistory { get; set; }
+        public DbSet<ChairmanMessage> ChairmanMessage { get; set; }
+        public DbSet<MissionVisionValues> MissionVisionValues { get; set; }
 
     }
 }

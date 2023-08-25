@@ -1,0 +1,257 @@
+﻿
+@{
+    ViewData["Title"] = "ChairmansMessaage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Chairman's Messaage</h1>
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Chairman Message Banner</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.ChairmanMessageBannerImageFile.Length > 0)
+                {
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="carousel-item-active">
+                                @*<li>@fileName</li>*@
+                                <img class="img-fluid" src="@Url.Content(ViewBag.ChairmanMessageBannerImageFile)" alt="First Slide">
+                            </div>
+                        </div>
+                    </div>
+                        
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="ChairmanMessageBannerFile"  />
+                        </div>
+                        <button type="button" id="UploadChairmanMessageBannerFileButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 col-md-12">
+   <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Chairman's Information</h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="ChairmanName">Name</label>
+                            <input type="text" class="form-control" id="ChairmanName" name="ChairmanName" contenteditable="true" value="@ViewBag.ChairmanName"></input>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="Designation">Designation</label>
+                            <input type="text" class="form-control" id="Designation" name="Designation" contenteditable="true" value="@ViewBag.Designation"></input>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        @*<label for="ChairmanImageFile">Chairman Image</label>*@
+                        <div class="custom-file w-100">
+                            <input type="file" name="ChairmanImageFile" multiple />
+                        </div>
+                        <button type="button" id="UploadChairmanInfoButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+                    @if (ViewBag.ChairmanImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                    @*<li>@fileName</li>*@
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.ChairmanImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+
+                </form>
+            </div>
+        </div>
+   </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Chairman's Message</h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FirstSection">First Section</label>
+                            <textarea class="form-control" cols="20" id="FirstSection" name="FirstSection" rows="4"  contenteditable="true">@ViewBag.FirstSection</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="SecondSection">Second Section</label>
+                            <textarea class="form-control" cols="20" id="SecondSection" name="SecondSection" rows="4"  contenteditable="true">@ViewBag.SecondSection</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="ThirdSection">Third Section</label>
+                            <textarea class="form-control" cols="20" id="ThirdSection" name="ThirdSection" rows="4" contenteditable="true">@ViewBag.ThirdSection</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FourthSection">Fourth Section</label>
+                            <textarea class="form-control" cols="20" id="FourthSection" name="FourthSection" rows="4"  contenteditable="true">@ViewBag.FourthSection</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FifthSection">Fifth Section</label>
+                            <textarea class="form-control" cols="20" id="FifthSection" name="FifthSection" rows="4"  contenteditable="true">@ViewBag.FifthSection</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="SixthSection">Sixth Section</label>
+                            <textarea class="form-control" cols="20" id="SixthSection" name="SixthSection" rows="4"  contenteditable="true">@ViewBag.SixthSection</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="SeventhSection">Seventh Section</label>
+                            <textarea class="form-control" cols="20" id="SeventhSection" name="SeventhSection" rows="4"  contenteditable="true">@ViewBag.SeventhSection</textarea>
+                        </div>
+                    </div>
+                    <button type="button" id="uploadChairmansMessageButton" class="btn btn-outline-secondary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+
+    <script>
+
+        //UploadChairmanMessageBannerFileButton
+        document.getElementById("UploadChairmanMessageBannerFileButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+
+            var imageFile = document.querySelector('input[type="file"][name="ChairmanMessageBannerFile"]');
+
+            formData.append("ChairmanMessageBannerImageFile", imageFile.files[0]);
+
+            $.ajax({
+                url: "@Url.Action("UpdateChairmanMessageBanner", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Chairman Message Banner update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Chairman Message Banner.");
+                }
+            });
+
+
+        })
+        document.getElementById("UploadChairmanInfoButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var name = document.getElementById("ChairmanName").value;
+            var designation = document.getElementById("Designation").value;
+
+            var imageFile = document.querySelector('input[type="file"][name="ChairmanImageFile"]');
+
+            formData.append("ChairmanName", name);
+            formData.append("Designation", designation);
+            formData.append("ChairmanImageFile", imageFile.files[0]);
+
+            $.ajax({
+                url: "@Url.Action("UpdateChairmanInfo", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response){
+                    if(response.success){
+                        toastr.success(response.message);
+                    }else{
+                        toastr.error("Chairman Info update failed.");
+                    }
+                },
+                error: function(){
+                    toastr.error("An error occurred while updating Chairman Info.");
+                }
+            });
+
+
+        })
+
+        document.getElementById("uploadChairmansMessageButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var first = document.getElementById("FirstSection").value;
+            var second = document.getElementById("SecondSection").value;
+            var third = document.getElementById("ThirdSection").value;
+            var fourth = document.getElementById("FourthSection").value;
+            var fifth = document.getElementById("FifthSection").value;
+            var sixth = document.getElementById("SixthSection").value;
+            var seventh = document.getElementById("SeventhSection").value;
+
+            formData.append("FirstSection", first);
+            formData.append("SecondSection", second);
+            formData.append("ThirdSection", third);
+            formData.append("FourthSection", fourth);
+            formData.append("FifthSection", fifth);
+            formData.append("SixthSection", sixth);
+            formData.append("SeventhSection", seventh);  
+
+            $.ajax({
+                url: "@Url.Action("UpdateChairmanMessage", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Chairman Message update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Chairman Message.");
+                }
+            });
+
+
+        })
+
+
+    </script>
+
+
+
+
+}

@@ -21,10 +21,9 @@ namespace AlmuzainiCMS.DAL.DAL
 
         public Task<CompanyHistory> GetCompanyHistorySection()
         {
-            CompanyHistory companyHistory = _context.CompanyHistory.First();    
+            CompanyHistory companyHistory = _context.CompanyHistory.FirstOrDefault();    
             return Task.FromResult(companyHistory);
         }
-
         public async Task<bool> UpdateCompanyHistorySection(CompanyHistory companyHistory)
         {
             var count = _context.CompanyHistory?.Count();
@@ -62,10 +61,15 @@ namespace AlmuzainiCMS.DAL.DAL
             {
                 var companyHistoryToUpdate = _context.CompanyHistory?.First();
                 companyHistoryToUpdate.ExpertiseText = companyHistory.ExpertiseText;
-                companyHistoryToUpdate.ExpertiseImagePath = companyHistory.ExpertiseImagePath;
-
                 _context.Entry(companyHistoryToUpdate).Property(i => i.ExpertiseText).IsModified = true;
-                _context.Entry(companyHistoryToUpdate).Property(i => i.ExpertiseImagePath).IsModified = true;
+
+
+                if (!String.IsNullOrEmpty(companyHistory.ExpertiseImagePath))
+                {
+                    companyHistoryToUpdate.ExpertiseImagePath = companyHistory.ExpertiseImagePath;
+                    _context.Entry(companyHistoryToUpdate).Property(i => i.ExpertiseImagePath).IsModified = true;
+                }
+                              
                 return await _context.SaveChangesAsync() > 0;
             }
             else
@@ -82,10 +86,14 @@ namespace AlmuzainiCMS.DAL.DAL
             {
                 var companyHistoryToUpdate = _context.CompanyHistory?.First();
                 companyHistoryToUpdate.WorkforceText = companyHistory.WorkforceText;
-                companyHistoryToUpdate.WorkforceImagePath = companyHistory.WorkforceImagePath;
-
                 _context.Entry(companyHistoryToUpdate).Property(i => i.WorkforceText).IsModified = true;
-                _context.Entry(companyHistoryToUpdate).Property(i => i.WorkforceImagePath).IsModified = true;
+
+                if (!String.IsNullOrEmpty(companyHistory.WorkforceImagePath))
+                {
+                    companyHistoryToUpdate.WorkforceImagePath = companyHistory.WorkforceImagePath;
+                    _context.Entry(companyHistoryToUpdate).Property(i => i.WorkforceImagePath).IsModified = true;
+                }
+
                 return await _context.SaveChangesAsync() > 0;
             }
             else
@@ -103,10 +111,16 @@ namespace AlmuzainiCMS.DAL.DAL
             {
                 var companyHistoryToUpdate = _context.CompanyHistory?.First();
                 companyHistoryToUpdate.TechnologyText = companyHistory.TechnologyText;
-                companyHistoryToUpdate.TechnologyImagePath = companyHistory.TechnologyImagePath;
-
+                
                 _context.Entry(companyHistoryToUpdate).Property(i => i.TechnologyText).IsModified = true;
-                _context.Entry(companyHistoryToUpdate).Property(i => i.TechnologyImagePath).IsModified = true;
+
+                if (!String.IsNullOrEmpty(companyHistory.TechnologyImagePath))
+                {
+                    companyHistoryToUpdate.TechnologyImagePath = companyHistory.TechnologyImagePath;
+
+                    _context.Entry(companyHistoryToUpdate).Property(i => i.TechnologyImagePath).IsModified = true;
+                }
+                
                 return await _context.SaveChangesAsync() > 0;
             }
             else

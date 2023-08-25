@@ -16,6 +16,7 @@ namespace AlmuzainiCMS.BLL.Interface
         Task<bool> UpdateTechnology(CompanyHistory companyHistory);   
         Task<bool> UpdateCompanyHistoryImagePath(CompanyHistory companyHistory);     
         Task<bool> UpdateCompanyProfileBannerImagePath(CompanyHistory companyHistory);        
+       
         Task<CompanyHistory> GetCompanyHistorySection();
     }
 }

@@ -110,6 +110,6 @@ namespace AlmuzainiCMS.BLL.BLL
             }
         }
 
-
+        
     }
 }

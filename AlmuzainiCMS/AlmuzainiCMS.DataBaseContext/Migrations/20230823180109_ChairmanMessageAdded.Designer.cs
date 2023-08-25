@@ -4,6 +4,7 @@ using AlmuzainiCMS.DataBaseContext.DataBaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlmuzainiCMS.DataBaseContext.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    partial class ProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230823180109_ChairmanMessageAdded")]
+    partial class ChairmanMessageAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,9 +31,6 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ChairmanImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ChairmanMessageBannerImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ChairmanName")
@@ -177,68 +176,6 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("GetTrateResults");
-                });
-
-            modelBuilder.Entity("AlmuzainiCMS.Models.Models.MissionVisionValues", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("MissionImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MissionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MissionVisionBannerImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ValuesImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ValuesItem1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ValuesItem10")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ValuesItem2")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ValuesItem3")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ValuesItem4")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ValuesItem5")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ValuesItem6")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ValuesItem7")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ValuesItem8")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ValuesItem9")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ValuesText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VisionImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VisionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("MissionVisionValues");
                 });
 
             modelBuilder.Entity("AlmuzainiCMS.Models.Models.News", b =>
