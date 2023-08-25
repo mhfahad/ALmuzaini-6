@@ -13,14 +13,20 @@ namespace AlmuzainiCMS.Controllers
 
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _hostingEnvironment;
-        private readonly ICompanyHistoryManager _companyHistoryManager; 
+        private readonly ICompanyHistoryManager _companyHistoryManager;
+        private readonly IChairmanMessageManager _chairmanMessageManager;
+        private readonly IMissionVisionValuesManager _missionVisionValuesManager; 
 
-        public AboutController(ILogger<AboutController> logger, IMapper mapper, IWebHostEnvironment webHostEnvironment, ICompanyHistoryManager companyHistoryManager)
+
+        public AboutController(ILogger<AboutController> logger, IMapper mapper, IWebHostEnvironment webHostEnvironment,
+            ICompanyHistoryManager companyHistoryManager,IChairmanMessageManager chairmanMessageManager ,IMissionVisionValuesManager missionVisionValuesManager)
         {
             _logger = logger;
             _mapper = mapper;
             _hostingEnvironment = webHostEnvironment;
             _companyHistoryManager = companyHistoryManager;  
+            _missionVisionValuesManager = missionVisionValuesManager;
+            _chairmanMessageManager = chairmanMessageManager;
         }
 
         public IActionResult Index()
@@ -448,20 +454,21 @@ namespace AlmuzainiCMS.Controllers
        
         public async void GetCompanyHistory()
         {
-            CompanyHistory companyHistory = await _companyHistoryManager.GetCompanyHistorySection();
+            CompanyHistory companyHistory = new CompanyHistory(); 
+            companyHistory = await _companyHistoryManager.GetCompanyHistorySection();
 
-            ViewBag.FirstSection = companyHistory.FirstSection ?? "";
-            ViewBag.SecondSection = companyHistory.SecondSection ?? "";
-            ViewBag.ThirdSection = companyHistory.ThirdSection ?? "";
-            ViewBag.FourthSection = companyHistory.FourthSection ?? "";
-            ViewBag.ExpertiseText = companyHistory.ExpertiseText ?? "";
-            ViewBag.WorkforceText = companyHistory.WorkforceText ?? "";
-            ViewBag.TechnologyText = companyHistory.TechnologyText ?? "";
-            ViewBag.BrandImageFileNames = companyHistory.CompanyProfileBannerImagePath ?? "";
-            ViewBag.ExpertiseImageFile = companyHistory.ExpertiseImagePath ?? "";
-            ViewBag.WorkforceImageFile = companyHistory.WorkforceImagePath ?? "";
-            ViewBag.TechnologyImageFile = companyHistory.TechnologyImagePath ?? "";
-            ViewBag.CompanyHistoryFileNames  = companyHistory.CompanyHistoryImagePath ?? "";
+            ViewBag.FirstSection = companyHistory?.FirstSection ?? "";
+            ViewBag.SecondSection = companyHistory?.SecondSection ?? "";
+            ViewBag.ThirdSection = companyHistory?.ThirdSection ?? "";
+            ViewBag.FourthSection = companyHistory?.FourthSection ?? "";
+            ViewBag.ExpertiseText = companyHistory?.ExpertiseText ?? "";
+            ViewBag.WorkforceText = companyHistory?.WorkforceText ?? "";
+            ViewBag.TechnologyText = companyHistory?.TechnologyText ?? "";
+            ViewBag.BrandImageFileNames = companyHistory?.CompanyProfileBannerImagePath ?? "";
+            ViewBag.ExpertiseImageFile = companyHistory?.ExpertiseImagePath ?? "";
+            ViewBag.WorkforceImageFile = companyHistory?.WorkforceImagePath ?? "";
+            ViewBag.TechnologyImageFile = companyHistory?.TechnologyImagePath ?? "";
+            ViewBag.CompanyHistoryFileNames  = companyHistory?.CompanyHistoryImagePath ?? "";
 
         }
         
@@ -475,19 +482,86 @@ namespace AlmuzainiCMS.Controllers
 
         private async void GetChairmansMessage()
         {
-            ChairmanMessage chairmanMessage = await _companyHistoryManager.GetChairmanMessage();
+            ChairmanMessage chairmanMessage = new ChairmanMessage();
+            chairmanMessage = await _chairmanMessageManager.GetChairmanMessage();
 
-            ViewBag.ChairmanName = chairmanMessage.ChairmanName ?? "";
-            ViewBag.Designation = chairmanMessage.Designation ?? "";
-            ViewBag.ChairmanImagePath = chairmanMessage.ChairmanImagePath ?? "";
-            ViewBag.FirstSection = chairmanMessage.FirstSection ?? "";
-            ViewBag.SecondSection = chairmanMessage.SecondSection ?? "";
-            ViewBag.ThirdSection = chairmanMessage.ThirdSection ?? "";
-            ViewBag.FourthSection = chairmanMessage.FourthSection ?? "";
-            ViewBag.FifthSection = chairmanMessage.FifthSection ?? "";
-            ViewBag.SixthSection = chairmanMessage.SixthSection ?? "";
-            ViewBag.SeventhSection = chairmanMessage.SeventhSection ?? "";    
+            ViewBag.ChairmanMessageBannerImageFile = chairmanMessage?.ChairmanMessageBannerImagePath ?? "";
+            ViewBag.ChairmanName = chairmanMessage?.ChairmanName ?? "";
+            ViewBag.Designation = chairmanMessage?.Designation ?? "";
+            ViewBag.ChairmanImagePath = chairmanMessage?.ChairmanImagePath ?? "";
+            ViewBag.FirstSection = chairmanMessage?.FirstSection ?? "";
+            ViewBag.SecondSection = chairmanMessage?.SecondSection ?? "";
+            ViewBag.ThirdSection = chairmanMessage?.ThirdSection ?? "";
+            ViewBag.FourthSection = chairmanMessage?.FourthSection ?? "";
+            ViewBag.FifthSection = chairmanMessage?.FifthSection ?? "";
+            ViewBag.SixthSection = chairmanMessage?.SixthSection ?? "";
+            ViewBag.SeventhSection = chairmanMessage?.SeventhSection ?? "";    
         }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateChairmanMessageBanner(ChairmansMessageRequestDTO model)
+        {
+            var chairmanMessage = _mapper.Map<ChairmanMessage>(model);
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "ChairmanMessage", "ChairmanMessageBanner");
+            string filePosition = "1";
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            string filePathToSave = string.Empty;
+
+            var file = model.ChairmanMessageBannerImageFile;
+
+            if (file != null && file.Length > 0)
+            {
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string fileExtension = ".webp";
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+
+                filePathToSave = Path.Combine(filePath, filePosition + fileExtension);
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                var chairmanMessageBannerImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+                chairmanMessage.ChairmanMessageBannerImagePath = chairmanMessageBannerImagePath;
+            }
+
+
+            //companyHistory.ExpertiseImagePath = filePathToSave;
+            bool result = await _chairmanMessageManager.UpdateChairmanMessageBanner(chairmanMessage);
+
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Chairman Message Banner updated successfully.",
+                    redirectUrl = Url.Action("ChairmansMessage", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Chairman Message Banner updated failed.",
+                    redirectUrl = Url.Action("ChairmansMessage", "About")
+                };
+                return Json(response);
+            }
+
+        }
+
+
 
         [HttpPost]
         public async Task<JsonResult> UpdateChairmanInfo(ChairmansMessageRequestDTO model)
@@ -528,7 +602,7 @@ namespace AlmuzainiCMS.Controllers
 
            
             //companyHistory.ExpertiseImagePath = filePathToSave;
-            bool result = await _companyHistoryManager.UpdateChairmanInfo(chairmanMessage);
+            bool result = await _chairmanMessageManager.UpdateChairmanInfo(chairmanMessage);
 
             if (result == true)
             {
@@ -559,7 +633,7 @@ namespace AlmuzainiCMS.Controllers
         public async Task<JsonResult> UpdateChairmanMessage(ChairmansMessageRequestDTO model)
         {
             var chairmanMessage = _mapper.Map<ChairmanMessage>(model);
-            bool result = await _companyHistoryManager.UpdateChairmanMessage(chairmanMessage);
+            bool result = await _chairmanMessageManager.UpdateChairmanMessage(chairmanMessage);
 
             if (result == true)
             {
@@ -582,6 +656,91 @@ namespace AlmuzainiCMS.Controllers
                 return Json(response);
             }
         }
+
+        [HttpGet]
+        public IActionResult MissionVisionValues()
+        {
+            GetMissionVisionValues();
+            return View();
+        }
+
+        private async void GetMissionVisionValues()
+        {
+            MissionVisionValues missionVisionValues = new MissionVisionValues();
+
+            //bool valueExists = await _missionVisionValuesManager.MissionVisionValuesExists();
+            //if (valueExists)
+            //{
+               
+            //}
+
+            missionVisionValues = await _missionVisionValuesManager.GetMissionVisionValues();
+            ViewBag.MissionVisionValuesBannerImageFileName = missionVisionValues?.MissionVisionBannerImagePath ?? "";
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateMissionBanner(MissionVisionValuesRequestDTO model)
+        {
+            var missionVisionValues = _mapper.Map<MissionVisionValues>(model);
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "ChairmanMessage", "ChairmanMessageBanner");
+            string filePosition = "1";
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            string filePathToSave = string.Empty;
+
+            var file = model.MissionVisionBannerImageFile;
+
+            if (file != null && file.Length > 0)
+            {
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string fileExtension = ".webp";
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+
+                filePathToSave = Path.Combine(filePath, filePosition + fileExtension);
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                var missionVisionBannerImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+                missionVisionValues.MissionVisionBannerImagePath = missionVisionBannerImagePath;
+            }
+
+
+            //companyHistory.ExpertiseImagePath = filePathToSave;
+            bool result = await _missionVisionValuesManager.UpdateMissionVisionValuesBanner(missionVisionValues);
+
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Mission Vision Values Banner updated successfully.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Mission Vision Values Banner updated failed.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+
+        }
+
 
         //public void GetCompanyProfileBanner(string folderName, string subfolder, string typefolder, string filetypefolder)
         //{

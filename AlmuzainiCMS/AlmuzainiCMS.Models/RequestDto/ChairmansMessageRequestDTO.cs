@@ -13,6 +13,8 @@ namespace AlmuzainiCMS.Models.RequestDto
         public string? Designation  { get; set; }
         public string? ChairmanImagePath { get; set; }
         public IFormFile? ChairmanImageFile { get; set; }
+        public IFormFile? ChairmanMessageBannerImageFile { get; set; }  
+        public string? ChairmanMessageBannerImagePath { get; set; }
         public string? FirstSection { get; set; }
         public string? SecondSection { get; set; }
         public string? ThirdSection { get; set; }
