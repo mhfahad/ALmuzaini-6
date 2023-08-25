@@ -86,8 +86,8 @@ namespace AlmuzainiCMS.Controllers
                 {
                    
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    string fileExtension = Path.GetExtension(file.FileName);
-                   
+                    string fileExtension = ".webp";
+
                     if (!Directory.Exists(filePath))
                     {
                         Directory.CreateDirectory(filePath);
@@ -176,8 +176,8 @@ namespace AlmuzainiCMS.Controllers
                 {
                     
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    string fileExtension = Path.GetExtension(file.FileName);
-                    
+                    string fileExtension = ".webp";
+
                     if (!Directory.Exists(filePath))
                     {
                         Directory.CreateDirectory(filePath);
@@ -269,8 +269,8 @@ namespace AlmuzainiCMS.Controllers
                 {
                     
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    string fileExtension = Path.GetExtension(file.FileName);
-                   
+                    string fileExtension = ".webp";
+
                     if (!Directory.Exists(filePath))
                     {
                         Directory.CreateDirectory(filePath);
@@ -357,8 +357,8 @@ namespace AlmuzainiCMS.Controllers
                 {
                    
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    string fileExtension = Path.GetExtension(file.FileName);
-                    
+                    string fileExtension = ".webp";
+
                     if (!Directory.Exists(filePath))
                     {
                         Directory.CreateDirectory(filePath);
@@ -444,8 +444,8 @@ namespace AlmuzainiCMS.Controllers
                 {
                     
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    string fileExtension = Path.GetExtension(file.FileName);
-                    
+                    string fileExtension = ".webp";
+
                     if (!Directory.Exists(filePath))
                     {
                         Directory.CreateDirectory(filePath);
@@ -651,7 +651,7 @@ namespace AlmuzainiCMS.Controllers
             {
 
                 string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                string fileExtension = Path.GetExtension(file.FileName);
+                string fileExtension = ".webp";
 
                 if (!Directory.Exists(filePath))
                 {
