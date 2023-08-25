@@ -5,6 +5,43 @@
 }
 
 <h1>Chairman's Messaage</h1>
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Chairman Message Banner</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.ChairmanMessageBannerImageFile.Length > 0)
+                {
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="carousel-item-active">
+                                @*<li>@fileName</li>*@
+                                <img class="img-fluid" src="@Url.Content(ViewBag.ChairmanMessageBannerImageFile)" alt="First Slide">
+                            </div>
+                        </div>
+                    </div>
+                        
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="ChairmanMessageBannerFile"  />
+                        </div>
+                        <button type="button" id="UploadChairmanMessageBannerFileButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="col-sm-12 col-md-12">
    <div class="card">
@@ -110,6 +147,36 @@
 @section Scripts{
 
     <script>
+
+        //UploadChairmanMessageBannerFileButton
+        document.getElementById("UploadChairmanMessageBannerFileButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+
+            var imageFile = document.querySelector('input[type="file"][name="ChairmanMessageBannerFile"]');
+
+            formData.append("ChairmanMessageBannerImageFile", imageFile.files[0]);
+
+            $.ajax({
+                url: "@Url.Action("UpdateChairmanMessageBanner", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Chairman Message Banner update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Chairman Message Banner.");
+                }
+            });
+
+
+        })
         document.getElementById("UploadChairmanInfoButton").addEventListener("click", function () {
             var formData = new FormData();
             var name = document.getElementById("ChairmanName").value;

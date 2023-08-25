@@ -17,6 +17,7 @@ namespace AlmuzainiCMS.Models.Models
         public string? ChairmanName { get; set; }
         public string? Designation { get; set; }
         public string? ChairmanImagePath { get; set; }
+        public string? ChairmanMessageBannerImagePath { get; set; }
         public string? FirstSection { get; set; }
         public string? SecondSection { get; set; }
         public string? ThirdSection { get; set; }

@@ -69,6 +69,11 @@ builder.Services.AddScoped<INewsManager, NewsManager>();
 builder.Services.AddScoped<INewsRepository, NewsRepository>();
 builder.Services.AddScoped<ICompanyHistoryManager, CompanyHistoryManager>();
 builder.Services.AddScoped<ICompanyHistoryRepository, CompanyHistoryRepository>();
+builder.Services.AddScoped<IChairmanMessageManager, ChairmanMessageManager>();
+builder.Services.AddScoped<IChairmanMessageRepository, ChairmanMessageRepository>();
+
+builder.Services.AddScoped<IMissionVisionValuesManager, MissionVisionValuesManager>();
+builder.Services.AddScoped<IMissionVisionValuesRepository, MissionVisionValuesRepository>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddDistributedMemoryCache();
