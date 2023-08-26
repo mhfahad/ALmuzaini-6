@@ -32,11 +32,51 @@ namespace AlmuzainiCMS.BLL.BLL
             return Task.FromResult(result);
         }
 
+        
+
         public async Task<bool> UpdateMissionVisionValuesBanner(MissionVisionValues missionVisionValues)
         {
             try
             {
                 bool result = await _repository.UpdateMissionVisionValuesBanner(missionVisionValues);
+                return await Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(false);
+            }
+        }
+
+        public async Task<bool> UpdateVision(MissionVisionValues missionVisionValues)
+        {
+            try
+            {
+                bool result = await _repository.UpdateVision(missionVisionValues);
+                return await Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(false);
+            }
+        }
+
+        public async Task<bool> UpdateMission(MissionVisionValues missionVisionValues)
+        {
+            try
+            {
+                bool result = await _repository.UpdateMission(missionVisionValues);
+                return await Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(false);
+            }
+        }
+        public async Task<bool> UpdateValues(MissionVisionValues missionVisionValues)
+        {
+            try
+            {
+                bool result = await _repository.UpdateValues(missionVisionValues);
                 return await Task.FromResult(result);
             }
             catch (Exception ex)
