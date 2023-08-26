@@ -4,6 +4,7 @@ using AlmuzainiCMS.DataBaseContext.DataBaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlmuzainiCMS.DataBaseContext.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    partial class ProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230826124829_ValuesItemAdded")]
+    partial class ValuesItemAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -293,9 +295,6 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.Property<Guid>("MissionVisionValuesId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("SerialNo")
-                        .HasColumnType("int");
-
                     b.Property<string>("ValuesItemText")
                         .HasColumnType("nvarchar(max)");
 
@@ -303,7 +302,7 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
 
                     b.HasIndex("MissionVisionValuesId");
 
-                    b.ToTable("ValuesItems");
+                    b.ToTable("ValuesItem");
                 });
 
             modelBuilder.Entity("AlmuzainiCMS.Models.Models.ValuesItem", b =>

@@ -84,5 +84,57 @@ namespace AlmuzainiCMS.BLL.BLL
                 return await Task.FromResult(false);
             }
         }
+
+        //UpdateValuesItem
+        public async Task<bool> UpdateValuesItem(ValuesItem missionVisionValues)
+        {
+            try
+            {
+                bool result = await _repository.UpdateValuesItem(missionVisionValues);
+                return await Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(false);
+            }
+        }
+
+        public async Task<bool> DeleteValuesItem(ValuesItem valuesItem)
+        {
+            try
+            {
+                bool result = await _repository.DeleteValuesItem(valuesItem);   
+                return await Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+                return await Task.FromResult(false);
+            }
+        }
+
+
+        //Task<bool> DeleteValuesItem(ValuesItem valuesItem); 
+
+        public async Task<ICollection<ValuesItem>> GetMissionVisionValuesItems()
+        {
+            ICollection<ValuesItem> missionVisionValuesItems = new List<ValuesItem>();
+
+            missionVisionValuesItems = await _repository.GetMissionVisionValuesItems();
+            return await Task.FromResult(missionVisionValuesItems);
+            //throw new NotImplementedException();
+        }
+
+       
+        public async Task<ValuesItem> GetMissionVisionValuesItemsBySerialNo(int serialNo)
+        {
+            ValuesItem missionVisionValuesItems = new ValuesItem();
+
+            missionVisionValuesItems = await _repository.GetMissionVisionValuesItemsBySerialNo( serialNo);
+            return await Task.FromResult(missionVisionValuesItems);
+            //throw new NotImplementedException();
+        }
+
+
+
     }
 }
