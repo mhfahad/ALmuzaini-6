@@ -12,5 +12,8 @@ namespace AlmuzainiCMS.DAL.Interface
         Task<bool> UpdateMissionVisionValuesBanner(MissionVisionValues missionVisionValues);
         bool MissionVisionValuesExists();
         Task<MissionVisionValues> GetMissionVisionValues();
+        Task<bool> UpdateVision(MissionVisionValues missionVisionValues);
+        Task<bool> UpdateMission(MissionVisionValues missionVisionValues);
+        Task<bool> UpdateValues(MissionVisionValues missionVisionValues);
     }
 }

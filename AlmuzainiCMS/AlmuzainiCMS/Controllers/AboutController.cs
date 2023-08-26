@@ -676,6 +676,20 @@ namespace AlmuzainiCMS.Controllers
 
             missionVisionValues = await _missionVisionValuesManager.GetMissionVisionValues();
             ViewBag.MissionVisionValuesBannerImageFileName = missionVisionValues?.MissionVisionBannerImagePath ?? "";
+            ViewBag.VisionText = missionVisionValues?.VisionText;
+            ViewBag.VisionImagePath = missionVisionValues?.VisionImagePath;
+            ViewBag.MissionText = missionVisionValues?.MissionText;
+            ViewBag.MissionImagePath = missionVisionValues?.MissionImagePath;
+            ViewBag.ValuesImagePath = missionVisionValues?.ValuesImagePath;
+            ViewBag.ValuesText = missionVisionValues?.ValuesText;
+        
+        
+        
+        
+        
+        
+        
+        
         }
 
         [HttpPost]
@@ -741,6 +755,196 @@ namespace AlmuzainiCMS.Controllers
 
         }
 
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateVision(MissionVisionValuesRequestDTO model)
+        {
+            var missionVisionValues = _mapper.Map<MissionVisionValues>(model);
+
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "MissionVisionValues", "OurVision");
+            string filePosition = "1";
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            string filePathToSave = string.Empty;
+
+            var file = model.VisionImageFile;
+
+            if (file != null && file.Length > 0)
+            {
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string fileExtension = ".webp";
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+
+                filePathToSave = Path.Combine(filePath, filePosition + fileExtension);
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                var visionImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+                missionVisionValues.VisionImagePath = visionImagePath;
+            }
+
+
+            //companyHistory.ExpertiseImagePath = filePathToSave;
+            bool result = await _missionVisionValuesManager.UpdateVision(missionVisionValues);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Our Vision updated successfully.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Our Vision updated failed.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+
+
+        }
+
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateMission(MissionVisionValuesRequestDTO model)   
+        {
+            var missionVisionValues = _mapper.Map<MissionVisionValues>(model);
+
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "MissionVisionValues", "OurMission");
+            string filePosition = "1";
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            string filePathToSave = string.Empty;
+
+            var file = model.MissionImageFile;
+
+            if (file != null && file.Length > 0)
+            {
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string fileExtension = ".webp";
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+
+                filePathToSave = Path.Combine(filePath, filePosition + fileExtension);
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                var missionImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+                missionVisionValues.MissionImagePath = missionImagePath;
+            }
+
+
+            //companyHistory.ExpertiseImagePath = filePathToSave;
+            bool result = await _missionVisionValuesManager.UpdateMission(missionVisionValues);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Our Mission updated successfully.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Our Mission updated failed.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+
+
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateValues(MissionVisionValuesRequestDTO model)
+        {
+            var missionVisionValues = _mapper.Map<MissionVisionValues>(model);
+
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "MissionVisionValues", "OurValues");
+            string filePosition = "1";
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            string filePathToSave = string.Empty;
+
+            var file = model.ValuesImageFile;
+
+            if (file != null && file.Length > 0)
+            {
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string fileExtension = ".webp";
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+
+                filePathToSave = Path.Combine(filePath, filePosition + fileExtension);
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                var valuesImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+                missionVisionValues.ValuesImagePath = valuesImagePath;
+            }
+
+
+            //companyHistory.ExpertiseImagePath = filePathToSave;
+            bool result = await _missionVisionValuesManager.UpdateValues(missionVisionValues);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Our Values updated successfully.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Our Values updated failed.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+
+
+        }
 
         //public void GetCompanyProfileBanner(string folderName, string subfolder, string typefolder, string filetypefolder)
         //{
