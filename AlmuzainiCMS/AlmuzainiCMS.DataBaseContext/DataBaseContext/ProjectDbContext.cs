@@ -25,6 +25,7 @@ namespace AlmuzainiCMS.DataBaseContext.DataBaseContext
         public DbSet<CompanyHistory> CompanyHistory { get; set; }
         public DbSet<ChairmanMessage> ChairmanMessage { get; set; }
         public DbSet<MissionVisionValues> MissionVisionValues { get; set; }
+        public DbSet<ValuesItem> ValuesItems  { get; set; }
 
     }
 }

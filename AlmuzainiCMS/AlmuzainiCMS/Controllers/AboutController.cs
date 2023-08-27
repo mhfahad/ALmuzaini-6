@@ -660,21 +660,14 @@ namespace AlmuzainiCMS.Controllers
         [HttpGet]
         public IActionResult MissionVisionValues()
         {
-            GetMissionVisionValues();
+            PrepareViewData();
             return View();
         }
 
-        private async void GetMissionVisionValues()
+        private async void PrepareViewData()  
         {
-            MissionVisionValues missionVisionValues = new MissionVisionValues();
-
-            //bool valueExists = await _missionVisionValuesManager.MissionVisionValuesExists();
-            //if (valueExists)
-            //{
-               
-            //}
-
-            missionVisionValues = await _missionVisionValuesManager.GetMissionVisionValues();
+            MissionVisionValues missionVisionValues = await GetMissionVisionValues();
+            ICollection<ValuesItem> valuesItem = await GetMissionVisionValuesItem();
             ViewBag.MissionVisionValuesBannerImageFileName = missionVisionValues?.MissionVisionBannerImagePath ?? "";
             ViewBag.VisionText = missionVisionValues?.VisionText;
             ViewBag.VisionImagePath = missionVisionValues?.VisionImagePath;
@@ -682,16 +675,39 @@ namespace AlmuzainiCMS.Controllers
             ViewBag.MissionImagePath = missionVisionValues?.MissionImagePath;
             ViewBag.ValuesImagePath = missionVisionValues?.ValuesImagePath;
             ViewBag.ValuesText = missionVisionValues?.ValuesText;
-        
-        
-        
-        
-        
-        
-        
+            ViewBag.ValuesItems = valuesItem;
+            //ViewData["ValuesItemList"] = valuesItem;
+
+        }
+
+
+        private async Task<MissionVisionValues> GetMissionVisionValues()
+        {
+            MissionVisionValues missionVisionValues = new MissionVisionValues();
+
+            missionVisionValues = await _missionVisionValuesManager.GetMissionVisionValues();
+            return await Task.FromResult(missionVisionValues);
         
         }
 
+        private async Task<ICollection<ValuesItem>> GetMissionVisionValuesItem()   
+        {
+            ICollection<ValuesItem> missionVisionValuesItems = new List<ValuesItem>();
+
+            missionVisionValuesItems = await _missionVisionValuesManager.GetMissionVisionValuesItems();
+            return await Task.FromResult(missionVisionValuesItems);
+
+        }
+
+        private async Task<ValuesItem> GetMissionVisionValuesItemBySerialNo(string serialNo)
+        {
+            ValuesItem valuesItem = new ValuesItem();
+            int serial = Convert.ToInt32(serialNo);
+
+            valuesItem = await _missionVisionValuesManager.GetMissionVisionValuesItemsBySerialNo(serial);
+            return await Task.FromResult(valuesItem);
+
+        }
         [HttpPost]
         public async Task<JsonResult> UpdateMissionBanner(MissionVisionValuesRequestDTO model)
         {
@@ -945,6 +961,95 @@ namespace AlmuzainiCMS.Controllers
 
 
         }
+
+
+        [HttpPost]
+        public async Task<JsonResult> AddValuesItem(string newValue)    
+        {
+            MissionVisionValues missionVisionValues = await GetMissionVisionValues();
+            ValuesItem valuesItem;
+            bool result = false;
+            if(missionVisionValues != null)
+            {
+                if (!string.IsNullOrWhiteSpace(newValue))
+                {
+                    valuesItem = new ValuesItem   
+                    {
+                        Id = Guid.NewGuid(),
+                        ValuesItemText = newValue,
+                        MissionVisionValuesId = missionVisionValues.Id,
+                        MissionVisionValues = missionVisionValues
+                    };
+                    //missionVisionValues.ValuesItems.Add(valuesItem);
+
+                     result = await _missionVisionValuesManager.UpdateValuesItem(valuesItem);
+
+                }
+
+                
+
+            }
+            
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Values Item updated successfully.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Values Item updated failed.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+
+           
+        }
+
+        [HttpDelete]
+        public async Task<JsonResult> DeleteValuesItem(string itemSerialNo)
+        {
+            ValuesItem valuesItem = await GetMissionVisionValuesItemBySerialNo(itemSerialNo);
+            
+            bool result = false;
+            if (!string.IsNullOrEmpty(valuesItem.ValuesItemText))
+            {
+                 result = await _missionVisionValuesManager.DeleteValuesItem(valuesItem);
+
+            }
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Values Item deleted successfully.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Values Item delete failed.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+        }
+
 
         //public void GetCompanyProfileBanner(string folderName, string subfolder, string typefolder, string filetypefolder)
         //{

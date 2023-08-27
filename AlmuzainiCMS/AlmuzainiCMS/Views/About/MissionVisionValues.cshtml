@@ -90,7 +90,9 @@
                 <form enctype="multipart/form-data">
                     <div class="input-group flex-nowrap">
                         <div class="w-100 mt-1 mb-2">
-                            <label for="MissionText">Our Mission Text</label>
+                            <h6 class="lebel">
+                                <label for="MissionText">Our Mission Text</label>
+                            </h6>
                             <textarea class="form-control" cols="20" rows="4" id="MissionText" name="MissionText" contenteditable="true">@ViewBag.MissionText</textarea>
                         </div>
                     </div>
@@ -129,9 +131,47 @@
                     <div class="input-group flex-nowrap">
                         <div class="w-100 mt-1 mb-2">
                             <label for="ValuesText">Our Values Text</label>
-                            <textarea class="form-control" cols="20" rows="4" id="ValuesText" name="ValuesText" contenteditable="true">@ViewBag.ValuesText</textarea>
+                            @*<textarea id="valuesTextEditor" name="editor" rows="10" cols="80" id="ValuesText" name="ValuesText" contenteditable="true">@ViewBag.ValuesText</textarea>*@
+                            <textarea class="form-control" cols="20" rows="4"  id="ValuesText" name="ValuesText" contenteditable="true"  >@ViewBag.ValuesText</textarea>
                         </div>
                     </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <h6>Values Item List:</h6>
+                            
+                            <ul id="valuesItemsList" class="col-sm-12 col-md-12 mt-2 mb-1">
+                                @foreach (var item in ViewBag.ValuesItems)
+                                {
+                                 
+                                    <li class="d-block col-sm-12 col-md-12 mt-3 mb-3" >
+
+                                        @item.ValuesItemText <button type="button" value="@item.SerialNo" class="remove-item float-end btn btn-outline-secondary mr-0">Remove</button>
+                                        
+                                        
+                                    </li>
+                                        
+                                }
+                            </ul>
+
+
+
+                    
+                        </div>
+
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        
+                        <div class="col-sm-9 col-md-11 mt-1 mb-2" >
+                            <label for="NewValue">Values Item </label>
+                            <input type="text" class="form-control" id="NewValue" name="NewValue" ></input>
+                            
+                        </div>
+                        <div class="col-sm-3 col-md-1" style="margin-top: 1.75rem">
+                            <button type="button" id="updateValuesItemButton" class="btn float-end btn-outline-secondary d-block w-100">Add</button>
+                        </div>
+                        
+                    </div>
+                    
                     <div class="input-group flex-nowrap">
                         <div class="custom-file w-100">
                             <input type="file" name="ValuesImageFile" />
@@ -160,8 +200,9 @@
 
 
 @section Scripts {
-   
+    
     <script>
+
 
         document.getElementById("UploadMissionBannerButton").addEventListener("click", function () {
             var formData = new FormData();
@@ -279,9 +320,9 @@
                 success: function (response) {
                     if (response.success) {
                         toastr.success(response.message);
-                        var redirectUrl = response.redirectUrl;
+                        //var redirectUrl = response.redirectUrl;
 
-                        window.location.href = redirectUrl;
+                        //window.location.href = redirectUrl;
                     } else {
                         toastr.error("Our Mission update failed.");
                     }
@@ -294,7 +335,90 @@
 
         })
 
+         
+        //AddValuesItem
+        document.getElementById("updateValuesItemButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var valuesItemText = document.getElementById("NewValue").value;
 
+
+
+            formData.append("newValue", valuesItemText);
+           
+
+            $.ajax({
+                url: "@Url.Action("AddValuesItem", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        toastr.error("Values Item update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Values Item.");
+                }
+            });
+
+
+        })
+
+        var clickableButtons = document.getElementsByClassName("remove-item");
+
+        // Iterate through the elements and attach a click event listener
+        for (var i = 0; i < clickableButtons.length; i++) {
+            clickableButtons[i].addEventListener("click", function () {
+                
+               var buttonValue = event.target.value;
+                var listItem = this.closest("li"); 
+                if (listItem) {
+                    listItem.remove(); 
+                }
+                var formData = new FormData();
+
+                formData.append("itemSerialNo", buttonValue);
+
+
+                $.ajax({
+                    url: "@Url.Action("DeleteValuesItem", "About")",
+                    type: "DELETE",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+                            var redirectUrl = response.redirectUrl;
+
+                            window.location.href = redirectUrl;
+                        } else {
+                            toastr.error("Values Item Delete failed.");
+                        }
+                    },
+                    error: function () {
+                        toastr.error("An error occurred while deleting Values Item.");
+                    }
+                });
+
+
+
+            });
+        }
+
+        //$(document).ready(function () {
+        //    $('.remove-item').click(function () {
+        //        var itemId = $(this).data('id');
+        //        $(this).closest('li').remove();
+        //        // You can also send an AJAX request to the server to remove the item from the database
+        //    });
+        //});
 
 
 
