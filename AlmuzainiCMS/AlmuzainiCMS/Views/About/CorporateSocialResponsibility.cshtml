@@ -1,0 +1,177 @@
+﻿
+@{
+    ViewData["Title"] = "CorporateSocialResponsibility";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Corporate Social Responsibility</h1>
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Company Social Responsibily Image</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.CompanySocialResponsibilyImageFileNames.Length > 0)
+                {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                     <img class="img-fluid" src="@Url.Content(ViewBag.CompanySocialResponsibilyImageFileNames)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+                }
+                else
+                {
+                        <p>No files available.</p>
+                }
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="Files" multiple />
+                        </div>
+                        <button type="button" id="UploadCorpoarteSocialResponsibilityImageButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Corporate Social Responsibily</h4>
+                <form enctype="text/plain">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FirstSection">First Section </label>
+                            <textarea class="form-control" cols="20" id="FirstSection" name="FirstSection" rows="4" contenteditable="true">@ViewBag.FirstSection</textarea>
+                        </div>                        
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="SecondSection">Second Section </label>
+                            <textarea class="form-control" cols="20" id="SecondSection" name="SecondSection" rows="4" contenteditable="true" >@ViewBag.SecondSection</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="ThirdSection">Third Section </label>
+                            <textarea class="form-control" cols="20" id="ThirdSection" name="ThirdSection" rows="4" contenteditable="true" >@ViewBag.ThirdSection</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FourthSection">Fourth Section </label>
+                            <textarea class="form-control" cols="20" id="FourthSection" name="FourthSection" rows="4" contenteditable="true" >@ViewBag.FourthSection</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FifthSection">Fifth Section </label>
+                            <textarea class="form-control" cols="20" id="FifthSection" name="FifthSection" rows="4" contenteditable="true" >@ViewBag.FifthSection</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="SixthSection">Sixth Section </label>
+                            <textarea class="form-control" cols="20" id="SixthSection" name="SixthSection" rows="4" contenteditable="true" >@ViewBag.SixthSection</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="SeventhSection">Seventh Section </label>
+                            <textarea class="form-control" cols="20" id="SeventhSection" name="SeventhSection" rows="4" contenteditable="true" >@ViewBag.SeventhSection</textarea>
+                        </div>
+                    </div>
+                    <button type="button" id="uploadCorporateSocialResponsibilySection" class="btn btn-outline-secondary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+            document.getElementById("uploadCorporateSocialResponsibilySection").addEventListener("click", function () {
+
+            var formData = new FormData();
+            var firstSection = document.getElementById("FirstSection").value;
+            var secondSection = document.getElementById("SecondSection").value;
+            var thirdSection = document.getElementById("ThirdSection").value;
+            var fourthSection = document.getElementById("FourthSection").value;
+            var fifthSection = document.getElementById("FifthSection").value;
+            var sixthSection = document.getElementById("SixthSection").value;
+            var seventhSection = document.getElementById("SeventhSection").value;        
+
+            formData.append("FirstSection", firstSection);
+            formData.append("SecondSection", secondSection);
+            formData.append("ThirdSection", thirdSection);
+            formData.append("FourthSection", fourthSection);
+            formData.append("FifthSection", secondSection);
+            formData.append("SixthSection", thirdSection);
+            formData.append("SeventhSection", fourthSection);
+
+            $.ajax({
+                url: "@Url.Action("UpdateCorporateSocialResponsibilitySection", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                    }
+                });
+            });
+
+            document.getElementById("UploadCorpoarteSocialResponsibilityImageButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var filesInput = document.querySelector('input[type="file"][name="Files"]');
+            formData.append("CorporateSocialResponsibilyImageFile", filesInput.files[0]);
+                
+
+            $.ajax({
+                url: "@Url.Action("UploadCorporateSocialResponsibilityImage", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                           
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                    }
+                });
+            });
+
+
+    </script>
+}

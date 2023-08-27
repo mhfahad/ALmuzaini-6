@@ -74,6 +74,8 @@ builder.Services.AddScoped<IChairmanMessageRepository, ChairmanMessageRepository
 
 builder.Services.AddScoped<IMissionVisionValuesManager, MissionVisionValuesManager>();
 builder.Services.AddScoped<IMissionVisionValuesRepository, MissionVisionValuesRepository>();
+builder.Services.AddScoped<ICorporateSocialResponsibilityManager, CorporateSocialResponsibilityManager>();
+builder.Services.AddScoped<ICorporateSocialResponsibilityRepository, CorporateSocialResponsibilityRepository>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddDistributedMemoryCache();
