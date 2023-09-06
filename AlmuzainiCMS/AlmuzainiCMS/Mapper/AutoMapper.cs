@@ -18,6 +18,8 @@ namespace AlmuzainiCMS.Mapper
             CreateMap<ChairmansMessageRequestDTO, ChairmanMessage>();
             CreateMap<MissionVisionValuesRequestDTO, MissionVisionValues>();
             CreateMap<CorporateSocialResponsibilityDTO, CorporateSocialResponsibility>();
+            CreateMap<ForeignCurrencyRequestDTO, ForeignCurrency>();
+            CreateMap<CorporateRequestDTO, Corporate>();
         }
     }
 }

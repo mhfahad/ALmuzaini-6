@@ -1,0 +1,538 @@
+﻿
+@{
+    ViewData["Title"] = "ForeignCurrency";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ForeignCurrency</h1>
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Currency Banner</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.CurrencyBannerPath.Length > 0)
+                {
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="carousel-item-active">
+                                @*<li>@fileName</li>*@
+                                <img class="img-fluid" src="@Url.Content(ViewBag.CurrencyBannerPath)" alt="First Slide">
+                            </div>
+                        </div>
+                    </div>
+                        
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="CurrencyBannerFiles" multiple />
+                        </div>
+                        <button type="button" id="UploadCurrencyBannerButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Foreign Currency</h4>
+                <form enctype="text/plain">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="InnerSectionPageHeader">Inner Section Title </label>
+                            <textarea class="form-control" cols="20" id="InnerSectionPageHeader" name="InnerSectionPageHeader" rows="4" contenteditable="true">@ViewBag.InnerSectionPageHeader</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="InnerSectionPageDescription">Inner Section Description </label>
+                            <textarea class="form-control" cols="20" id="InnerSectionPageDescription" name="InnerSectionPageDescription" rows="4" contenteditable="true">@ViewBag.InnerSectionPageDescription</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FCDeliveryText">Foreign Currency Delivery Text </label>
+                            <textarea class="form-control" cols="20" id="FCDeliveryText" name="FCDeliveryText" rows="4" contenteditable="true">@ViewBag.FCDeliveryText</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FCExchangeTextFirstSection">Foreign Currency Exchange Text First Section </label>
+                            <textarea class="form-control" cols="20" id="FCExchangeTextFirstSection" name="FCExchangeTextFirstSection" rows="4" contenteditable="true">@ViewBag.FCExchangeTextFirstSection</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FCExchangeTextSecondSection">Foreign Currency Exchange Text Second Section </label>
+                            <textarea class="form-control" cols="20" id="FCExchangeTextSecondSection" name="FCExchangeTextSecondSection" rows="4" contenteditable="true">@ViewBag.FCExchangeTextSecondSection</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FCExchangeTextThirdSection">Foreign Currency Exchange Text Third Section </label>
+                            <textarea class="form-control" cols="20" id="FCExchangeTextThirdSection" name="FCExchangeTextThirdSection" rows="4" contenteditable="true">@ViewBag.FCExchangeTextThirdSection</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="BuySellCurrencyText">Buy Sell Currency Text </label>
+                            <textarea class="form-control" cols="20" id="BuySellCurrencyText" name="BuySellCurrencyText" rows="4" contenteditable="true">@ViewBag.BuySellCurrencyText</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="BuySellCurrencyLinkOneText">Buy Sell Currency Link One Text </label>
+                            <textarea class="form-control" cols="20" id="BuySellCurrencyLinkOneText" name="BuySellCurrencyLinkOneText" rows="4" contenteditable="true">@ViewBag.BuySellCurrencyLinkOneText</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="BuySellCurrencyLinkOne">Buy Sell Currency Link One </label>
+                            <textarea class="form-control" cols="20" id="BuySellCurrencyLinkOne" name="BuySellCurrencyLinkOne" rows="4" contenteditable="true">@ViewBag.BuySellCurrencyLinkOne</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="BuySellCurrencyLinkTwoText">Buy Sell Currency Link Two Text </label>
+                            <textarea class="form-control" cols="20" id="BuySellCurrencyLinkTwoText" name="BuySellCurrencyLinkTwoText" rows="4" contenteditable="true">@ViewBag.BuySellCurrencyLinkTwoText</textarea>
+                        </div>
+                    </div>
+                   @* <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="BuySellCurrencyLinkTwo">Buy Sell Currency Link Two </label>
+                            <textarea class="form-control" cols="20" id="BuySellCurrencyLinkTwo" name="BuySellCurrencyLinkTwo" rows="4" contenteditable="true">@ViewBag.BuySellCurrencyLinkTwo</textarea>
+                        </div>
+                    </div>*@
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="BuySellCurrencyLinkTwo">Buy Sell Currency Link Two </label>
+                            <textarea class="form-control" cols="20" id="BuySellCurrencyLinkTwo" name="BuySellCurrencyLinkTwo" rows="4" contenteditable="true">@ViewBag.FCExchangeTextFirstSection</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="BuySellCurrencyORText">Buy Sell Currency OR Text </label>
+                            <textarea class="form-control" cols="20" id="BuySellCurrencyORText" name="BuySellCurrencyORText" rows="4" contenteditable="true">@ViewBag.BuySellCurrencyORText</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="ORDescriptionText">OR Description Text </label>
+                            <textarea class="form-control" cols="20" id="ORDescriptionText" name="ORDescriptionText" rows="4" contenteditable="true">@ViewBag.ORDescriptionText</textarea>
+                        </div>
+                    </div>
+                    <button type="button" id="uploadForeignCurrencySection" class="btn btn-outline-secondary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Foreign Currency Delivery</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.FCDeliveryImagePath.Length > 0)
+                {
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="carousel-item-active">
+                                
+                                <img class="img-fluid" src="@Url.Content(ViewBag.FCDeliveryImagePath)" alt="First Slide">
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="FCDeliveryImageFile" multiple />
+                        </div>
+                        <button type="button" id="UploadForeignCurrencyDeliveryButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">QR Code</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.QRCodeImagePath.Length > 0)
+                {
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="carousel-item-active">
+                                
+                                <img class="img-fluid" src="@Url.Content(ViewBag.QRCodeImagePath)" alt="First Slide">
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="QRCodeImageFile" multiple />
+                        </div>
+                        <button type="button" id="UploadQRCodeImageFileButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Branch Image</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.BranchImagePath.Length > 0)
+                {
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="carousel-item-active">
+                                
+                                <img class="img-fluid" src="@Url.Content(ViewBag.BranchImagePath)" alt="First Slide">
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="BranchImageFile" multiple />
+                        </div>
+                        <button type="button" id="UploadBranchImageFileButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Slider</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.SliderFileNames.Length > 0)
+                {
+                    @foreach (var fileName in ViewBag.SliderFileNames)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                    
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/Services/ForeignCurrency/Slider/"+ fileName)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                <div class="row">
+                    <div class="form-group col-sm-3 col-md-3 mb-4">
+                        <label class="mr-sm-2">Select Position</label>
+                        <select class="form-select mr-sm-2" id="ddlSliderSelect">
+                            <option selected="" value="0">All</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                           
+                        </select>
+                    </div>
+                </div>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="Files" multiple />
+                        </div>
+                        <button type="button" id="uploadSliderButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        document.getElementById("UploadCurrencyBannerButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var position = 1;
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="CurrencyBannerFiles"]');  
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadCCurrencyBanner", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+
+                //uploadForeignCurrencySection
+        document.getElementById("uploadForeignCurrencySection").addEventListener("click", function () {
+            
+            var formData = new FormData();
+            var InnerSectionPageHeader = document.getElementById("InnerSectionPageHeader").value;
+            var InnerSectionPageDescription = document.getElementById("InnerSectionPageDescription").value;
+            var FCDeliveryText = document.getElementById("FCDeliveryText").value;
+            var FCExchangeTextFirstSection = document.getElementById("FCExchangeTextFirstSection").value;
+
+            var FCExchangeTextSecondSection = document.getElementById("FCExchangeTextSecondSection").value;
+            var FCExchangeTextThirdSection = document.getElementById("FCExchangeTextThirdSection").value;
+            var BuySellCurrencyText = document.getElementById("BuySellCurrencyText").value;
+            var BuySellCurrencyLinkOneText = document.getElementById("BuySellCurrencyLinkOneText").value;
+
+            var BuySellCurrencyLinkOne = document.getElementById("BuySellCurrencyLinkOne").value;
+            var BuySellCurrencyLinkTwoText = document.getElementById("BuySellCurrencyLinkTwoText").value;
+            var BuySellCurrencyLinkTwo = document.getElementById("BuySellCurrencyLinkTwo").value;
+            var BuySellCurrencyORText = document.getElementById("BuySellCurrencyORText").value;
+            var ORDescriptionText = document.getElementById("ORDescriptionText").value;
+
+            formData.append("InnerSectionPageHeader", InnerSectionPageHeader);
+            formData.append("InnerSectionPageDescription", InnerSectionPageDescription);
+            formData.append("FCDeliveryText", FCDeliveryText);
+            formData.append("FCExchangeTextFirstSection", FCExchangeTextFirstSection);
+
+            formData.append("FCExchangeTextSecondSection", FCExchangeTextSecondSection);
+            formData.append("FCExchangeTextThirdSection", FCExchangeTextThirdSection);
+            formData.append("BuySellCurrencyText", BuySellCurrencyText);
+            formData.append("BuySellCurrencyLinkOneText", BuySellCurrencyLinkOneText);
+
+            formData.append("BuySellCurrencyLinkOne", BuySellCurrencyLinkOne);
+            formData.append("BuySellCurrencyLinkTwoText", BuySellCurrencyLinkTwoText);
+            formData.append("BuySellCurrencyLinkTwo", BuySellCurrencyLinkTwo);
+            formData.append("BuySellCurrencyORText", BuySellCurrencyORText);
+            formData.append("ORDescriptionText", ORDescriptionText);
+
+            $.ajax({
+                url: "@Url.Action("UpdateForeignCurrencySection", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                       
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+
+        document.getElementById("UploadForeignCurrencyDeliveryButton").addEventListener("click", function () {
+            var formData = new FormData();
+           
+            var FCDeliveryImageFile = document.querySelector('input[type="file"][name="FCDeliveryImageFile"]');
+
+
+            formData.append("FCDeliveryImageFile", FCDeliveryImageFile.files[0]);
+
+            $.ajax({
+                url: "@Url.Action("UpdateForeignCurrencyDeliveryBanner", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+                        window.location.href = redirectUrl;
+                    } else {
+                        toastr.error("Expertise update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Foreign Currency Delivery Banner.");
+                }
+            });
+
+
+        })
+
+        //UploadQRCodeImageFileButton
+
+        document.getElementById("UploadQRCodeImageFileButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+            var QRCodeImageFile = document.querySelector('input[type="file"][name="QRCodeImageFile"]');
+
+
+            formData.append("QRCodeImageFile", QRCodeImageFile.files[0]);
+
+            $.ajax({
+                url: "@Url.Action("UpdateQRCodeImageFile", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+                        window.location.href = redirectUrl;
+                    } else {
+                        toastr.error("QR Code Image update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating QR Code Image.");
+                }
+            });
+
+
+        })
+
+        //UploadBranchImageFileButton
+        document.getElementById("UploadBranchImageFileButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+            var BranchImageFile = document.querySelector('input[type="file"][name="BranchImageFile"]');
+
+
+            formData.append("BranchImageFile", BranchImageFile.files[0]);
+
+            $.ajax({
+                url: "@Url.Action("UpdateBranchImageFile", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+                        window.location.href = redirectUrl;
+                    } else {
+                        toastr.error("Branch Image update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Branch Image.");
+                }
+            });
+
+
+        })
+
+        //uploadSliderButton
+
+        document.getElementById("uploadSliderButton").addEventListener("click", function () {
+            debugger;
+            var formData = new FormData();
+            var position = $("#ddlSliderSelect option:selected").val();
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="Files"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadSlider", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                       
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+
+    </script>
+}

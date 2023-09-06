@@ -76,6 +76,8 @@ builder.Services.AddScoped<IMissionVisionValuesManager, MissionVisionValuesManag
 builder.Services.AddScoped<IMissionVisionValuesRepository, MissionVisionValuesRepository>();
 builder.Services.AddScoped<ICorporateSocialResponsibilityManager, CorporateSocialResponsibilityManager>();
 builder.Services.AddScoped<ICorporateSocialResponsibilityRepository, CorporateSocialResponsibilityRepository>();
+builder.Services.AddScoped<IForeignCurrencyManager, ForeignCurrencyManager>();
+builder.Services.AddScoped<IForeignCurrencyRepository, ForeignCurrencyRepository>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddDistributedMemoryCache();
