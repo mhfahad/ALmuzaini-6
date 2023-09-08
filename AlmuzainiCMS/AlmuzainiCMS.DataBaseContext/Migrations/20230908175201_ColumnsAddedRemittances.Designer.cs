@@ -4,6 +4,7 @@ using AlmuzainiCMS.DataBaseContext.DataBaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlmuzainiCMS.DataBaseContext.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    partial class ProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230908175201_ColumnsAddedRemittances")]
+    partial class ColumnsAddedRemittances
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -740,16 +742,10 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.Property<string>("VideoOneText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("VideoOneThumbnailImagePath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("VideoTwoLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VideoTwoText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VideoTwoThumbnailImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

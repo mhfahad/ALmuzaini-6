@@ -78,6 +78,10 @@ builder.Services.AddScoped<ICorporateSocialResponsibilityManager, CorporateSocia
 builder.Services.AddScoped<ICorporateSocialResponsibilityRepository, CorporateSocialResponsibilityRepository>();
 builder.Services.AddScoped<IForeignCurrencyManager, ForeignCurrencyManager>();
 builder.Services.AddScoped<IForeignCurrencyRepository, ForeignCurrencyRepository>();
+builder.Services.AddScoped<IRemittancesRepository, RemittancesRepository>();
+builder.Services.AddScoped<IRemittancesManager, RemittancesManager>();
+builder.Services.AddScoped<IValueAddedBenifitsRepository, ValueAddedBenifitsRepository>();
+builder.Services.AddScoped<IValueAddedBenifitsManager, ValueAddedBenifitsManager>();
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddDistributedMemoryCache();

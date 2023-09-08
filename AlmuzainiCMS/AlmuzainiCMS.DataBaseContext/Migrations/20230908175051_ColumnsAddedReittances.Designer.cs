@@ -4,6 +4,7 @@ using AlmuzainiCMS.DataBaseContext.DataBaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlmuzainiCMS.DataBaseContext.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    partial class ProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230908175051_ColumnsAddedReittances")]
+    partial class ColumnsAddedReittances
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -692,13 +694,7 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.Property<string>("RemitNowImageOne")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RemitNowImageOneText")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("RemitNowImageTwo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RemitNowImageTwoText")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RemitNowText")
@@ -740,16 +736,10 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.Property<string>("VideoOneText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("VideoOneThumbnailImagePath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("VideoTwoLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VideoTwoText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VideoTwoThumbnailImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

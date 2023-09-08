@@ -20,6 +20,8 @@ namespace AlmuzainiCMS.Mapper
             CreateMap<CorporateSocialResponsibilityDTO, CorporateSocialResponsibility>();
             CreateMap<ForeignCurrencyRequestDTO, ForeignCurrency>();
             CreateMap<CorporateRequestDTO, Corporate>();
-        }
+            CreateMap<RemittancesRequestDTO, Remittences>();
+            CreateMap<ValueAddedBinifitsRequestDTO, ValueAddedBenifits>();
+        }  
     }
 }

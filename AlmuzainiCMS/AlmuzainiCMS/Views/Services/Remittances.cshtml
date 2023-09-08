@@ -1,0 +1,902 @@
+﻿
+@{
+    ViewData["Title"] = "Remittances";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Remittances</h1>
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Remittances Banner</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.BannerImagePath.Length > 0)
+                {
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="carousel-item-active">
+
+                                <img class="img-fluid" src="@Url.Content(ViewBag.BannerImagePath)" alt="First Slide">
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="RemittancesBannerImageFile" multiple />
+                        </div>
+                        <button type="button" id="UploadRemittancesBannerImageFileButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Remittances</h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="InnerSectionTitle">Inner Section Title </label>
+                            <textarea class="form-control" cols="20" id="InnerSectionTitle" name="InnerSectionTitle" rows="4" contenteditable="true">@ViewBag.InnerSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="InnerSectionDescription">Inner Section Description </label>
+                            <textarea class="form-control" cols="20" id="InnerSectionDescription" name="InnerSectionDescription" rows="4" contenteditable="true">@ViewBag.InnerSectionDescription</textarea>
+                        </div>
+                    </div>
+                    <button type="button" id="uploadInnerSection" class="btn btn-outline-secondary">Update</button>
+               
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">First Section Left</h4>
+
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FirstSectionLeftTitle">First Section Left Title </label>
+                            <textarea class="form-control" cols="20" id="FirstSectionLeftTitle" name="FirstSectionLeftTitle" rows="4" contenteditable="true">@ViewBag.FirstSectionLeftTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FirstSectionLeftText">First Section Left Text </label>
+                            <textarea class="form-control" cols="20" id="FirstSectionLeftText" name="FirstSectionLeftText" rows="4" contenteditable="true">@ViewBag.FirstSectionLeftText</textarea>
+                        </div>
+                    </div>
+                    
+                    @*<div class="input-group mt-1 mb-2 custom-file-button">
+                        <label class="input-group-text" for="FirstSectionLeftImageFile" role="button">First Section Left Image</label>
+                        <label for="FirstSectionLeftImageFile" class="form-control" id="FirstSectionLeftImageFileLabel" role="button"></label>
+                        <input type="file" class="d-none" id="FirstSectionLeftImageFile" name="FirstSectionLeftImageFile"  accept="image/*">
+                    </div>*@
+                     <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.FirstSectionLeftImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.FirstSectionLeftImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="FirstSectionLeftImageFile" multiple />
+                        </div>
+                        
+                    </div>
+
+                
+                    <button type="button" id="uploadFirstSectionLeft" class="btn btn-outline-secondary">Update</button>
+                </form>
+                
+               
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">First Section Right</h4>
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FirstSectionRightTitle">First Section Right Title</label>
+                            <textarea class="form-control" cols="20" id="FirstSectionRightTitle" name="FirstSectionRightTitle" rows="4" contenteditable="true">@ViewBag.FirstSectionRightTitle</textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FirstSectionRightText">First Section Right Text </label>
+                            <textarea class="form-control" cols="20" id="FirstSectionRightText" name="FirstSectionRightText" rows="4" contenteditable="true">@ViewBag.FirstSectionRightText</textarea>
+                        </div>
+                    </div>
+                    @*<div class="input-group mt-1 mb-2 custom-file-button">
+                        <label class="input-group-text" for="FirstSectionRightImageFile" role="button">First Section Right Image</label>
+                        <label for="FirstSectionRightImageFile" class="form-control" id="FirstSectionRightImageFileLabel" role="button"></label>
+                        <input type="file" class="d-none" id="FirstSectionRightImageFile" name="FirstSectionRightImageFile" accept="image/*">
+                    </div>*@
+                    @if (ViewBag.FirstSectionRightImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.FirstSectionRightImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="FirstSectionRightImageFile" multiple />
+                        </div>
+                        
+                    </div>
+                    <button type="button" id="uploadFirstSectionRight" class="btn btn-outline-secondary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Second Section </h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="SecondSectionTitle">Second Section Title </label>
+                            <textarea class="form-control" cols="20" id="SecondSectionTitle" name="SecondSectionTitle" rows="4" contenteditable="true">@ViewBag.SecondSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="SecondSectionText">Second Section Text</label>
+                            <textarea class="form-control" cols="20" id="SecondSectionText" name="SecondSectionText" rows="4" contenteditable="true">@ViewBag.SecondSectionText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.SecondSectionImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.SecondSectionImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="SecondSectionImageFile" multiple />
+                        </div>
+
+                    </div>
+
+                    <button type="button" id="uploadSecondSection" class="btn btn-outline-secondary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Third Section </h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="ThirdSectionTitle">Third Section Title</label>
+                            <textarea class="form-control" cols="20" id="ThirdSectionTitle" name="ThirdSectionTitle" rows="4" contenteditable="true">@ViewBag.ThirdSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="ThirdSectionText">Third Section Text</label>
+                            <textarea class="form-control" cols="20" id="ThirdSectionText" name="ThirdSectionText" rows="4" contenteditable="true">@ViewBag.ThirdSectionText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.ThirdSectionImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.ThirdSectionImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="ThirdSectionImageFile" multiple />
+                        </div>
+
+                    </div>
+                    <button type="button" id="uploadThirdSection" class="btn btn-outline-secondary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Fourth Section </h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FourthSectionLeftTitle">Fourth Section Left Title</label>
+                            <textarea class="form-control" cols="20" id="FourthSectionLeftTitle" name="FourthSectionLeftTitle" rows="4" contenteditable="true">@ViewBag.FourthSectionLeftTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FourthSectionLeftText">Fourth Section Left Text</label>
+                            <textarea class="form-control" cols="20" id="FourthSectionLeftText" name="FourthSectionLeftText" rows="4" contenteditable="true">@ViewBag.FourthSectionLeftText</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FourthSectionRightTitle">Fourth Section Right Title</label>
+                            <textarea class="form-control" cols="20" id="FourthSectionRightTitle" name="FourthSectionRightTitle" rows="4" contenteditable="true">@ViewBag.FourthSectionRightTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="FourthSectionRightText">Fourth Section RightText</label>
+                            <textarea class="form-control" cols="20" id="FourthSectionRightText" name="FourthSectionRightText" rows="4" contenteditable="true">@ViewBag.FourthSectionRightText</textarea>
+                        </div>
+                    </div>
+                    <button type="button" id="uploadFourthSection" class="btn btn-outline-secondary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Remit Now Section </h4>
+
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RemitNowText">Remit Now Text</label>
+                            <textarea class="form-control" cols="20" id="RemitNowText" name="RemitNowText" rows="4" contenteditable="true">@ViewBag.RemitNowText</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RemitNowImageOneText">Remit Now Image One Text</label>
+                            <textarea class="form-control" cols="20" id="RemitNowImageOneText" name="RemitNowImageOneText" rows="4" contenteditable="true">@ViewBag.RemitNowImageOneText</textarea>
+                        </div>
+                    </div>
+                   
+                    @if (ViewBag.RemitNowImageOne.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.RemitNowImageOne)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="RemitNowImageOneFile" multiple />
+                        </div>
+
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RemitNowImageTwoText">Remit Now Image Two Text</label>
+                            <textarea class="form-control" cols="20" id="RemitNowImageTwoText" name="RemitNowImageTwoText" rows="4" contenteditable="true">@ViewBag.RemitNowImageTwoText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.RemitNowImageTwo.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.RemitNowImageTwo)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="RemitNowImageTwoFile" multiple />
+                        </div>
+
+                    </div>
+                    <button type="button" id="uploadRemitNowSection" class="btn btn-outline-secondary">Update</button>
+                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Video Section </h4>
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="VideoOneText">Video One Text</label>
+                            <textarea class="form-control" cols="20" id="VideoOneText" name="VideoOneText" rows="4" contenteditable="true">@ViewBag.VideoOneText</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="VideoOneLink">Video One Link</label>
+                            <textarea class="form-control" cols="20" id="VideoOneLink" name="VideoOneLink" rows="4" contenteditable="true">@ViewBag.VideoOneLink</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.VideoOneThumbnailImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.VideoOneThumbnailImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="VideoOneThumbnailImageFile" multiple />
+                        </div>
+
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="VideoTwoText">Video Two Text</label>
+                            <textarea class="form-control" cols="20" id="VideoTwoText" name="VideoTwoText" rows="4" contenteditable="true">@ViewBag.VideoTwoText</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="VideoTwoLink">Video Two Link</label>
+                            <textarea class="form-control" cols="20" id="VideoTwoLink" name="VideoTwoLink" rows="4" contenteditable="true">@ViewBag.VideoTwoLink</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.VideoTwoThumbnailImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.VideoTwoThumbnailImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">  
+                            <input type="file" name="VideoTwoThumbnailImageFile" multiple />  
+                        </div>
+
+                    </div>
+                   
+                   
+                    <button type="button" id="uploadVideoLink" class="btn btn-outline-secondary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Slider</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.RemittancesSliderFileNames.Length > 0)
+                {
+                    @foreach (var fileName in ViewBag.RemittancesSliderFileNames) 
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/Services/Remittances/Slider/"+ fileName)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                <div class="row">
+                    <div class="form-group col-sm-3 col-md-3 mb-4">
+                        <label class="mr-sm-2">Select Position</label>
+                        <select class="form-select mr-sm-2" id="ddlSliderSelect">
+                            <option selected="" value="0">All</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+
+                        </select>
+                    </div>
+                </div>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="Files" multiple />
+                        </div>
+                        <button type="button" id="uploadSliderButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+        document.getElementById("UploadRemittancesBannerImageFileButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var position = 1;
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="RemittancesBannerImageFile"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadRemittancesBanner", "Services")",  
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading Remittances Banner.");
+                }
+            });
+        });
+
+        document.getElementById("uploadInnerSection").addEventListener("click", function () {
+            var formData = new FormData();
+            var innerSectionTitle = document.getElementById("InnerSectionTitle").value;
+            var innerSectionDescription = document.getElementById("InnerSectionDescription").value;  
+
+            formData.append("InnerSectionTitle", innerSectionTitle);
+            formData.append("InnerSectionDescription",innerSectionDescription);
+
+            $.ajax({
+                url: "@Url.Action("UpdateInnerSection", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Inner Section update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Inner Section.");
+                }
+            });
+
+
+        })
+
+        document.getElementById("uploadFirstSectionLeft").addEventListener("click", function () {
+            var formData = new FormData();
+            var firstSectionLeftTitle = document.getElementById("FirstSectionLeftTitle").value;
+            var firstSectionLeftText = document.getElementById("FirstSectionLeftText").value;
+            var firstSectionLeftImageFile = document.querySelector('input[type="file"][name="FirstSectionLeftImageFile"]');
+            formData.append("FirstSectionLeftTitle", firstSectionLeftTitle);
+            formData.append("FirstSectionLeftText", firstSectionLeftText);
+            if (firstSectionLeftImageFile.value.length > 0) {
+                formData.append("FirstSectionLeftImageFile", firstSectionLeftImageFile.files[0]);
+
+            }
+
+            $.ajax({
+                url: "@Url.Action("UpdateFirstSectionLeft", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("First Section Left update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating First Section Left.");
+                }
+            });
+
+
+        });
+        document.getElementById("uploadFirstSectionRight").addEventListener("click", function () {
+            debugger;
+            var formData = new FormData();
+            var firstSectionRightTitle = document.getElementById("FirstSectionRightTitle").value;
+            var firstSectionRightText = document.getElementById("FirstSectionRightText").value;
+            var firstSectionRightImageFile = document.querySelector('input[type="file"][name="FirstSectionRightImageFile"]');
+            formData.append("FirstSectionRightTitle", firstSectionRightTitle);
+            formData.append("FirstSectionRightText", firstSectionRightText);
+            if (firstSectionRightImageFile.value.length > 0) {
+                 formData.append("FirstSectionRightImageFile", firstSectionRightImageFile.files[0]);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UpdateFirstSectionRight", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("First Section Right update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating First Section Right.");
+                }
+            });
+
+
+        });
+
+        document.getElementById("uploadSecondSection").addEventListener("click", function () {
+            var formData = new FormData();
+            var secondSectionTitle = document.getElementById("SecondSectionTitle").value;
+            var secondSectionText = document.getElementById("SecondSectionText").value;
+            var secondSectionImageFile = document.querySelector('input[type="file"][name="SecondSectionImageFile"]');
+            formData.append("SecondSectionTitle", secondSectionTitle);
+            formData.append("SecondSectionText", secondSectionText);
+            if (secondSectionImageFile.value.length > 0) {
+                formData.append("SecondSectionImageFile", secondSectionImageFile.files[0]);
+
+
+            }
+
+            $.ajax({
+                url: "@Url.Action("UpdateSecondSection", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Second Section update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Second Section.");
+                }
+            });
+
+
+        });
+        document.getElementById("uploadThirdSection").addEventListener("click", function () {
+            var formData = new FormData();
+            var thirdSectionTitle = document.getElementById("ThirdSectionTitle").value;
+            var thirdSectionText = document.getElementById("ThirdSectionText").value;
+            var thirdSectionImageFile = document.querySelector('input[type="file"][name="ThirdSectionImageFile"]');
+            formData.append("ThirdSectionTitle", thirdSectionTitle);
+            formData.append("ThirdSectionText", thirdSectionText);
+            if (thirdSectionImageFile.value.length > 0) {
+                formData.append("ThirdSectionImageFile", thirdSectionImageFile.files[0]);
+
+            }
+            
+
+            $.ajax({
+                url: "@Url.Action("UpdateThirdSection", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Third Section update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Third Section.");  
+                }
+            });
+
+
+        });
+
+        document.getElementById("uploadFourthSection").addEventListener("click", function () {
+            var formData = new FormData();
+            var fourthSectionLeftTitle = document.getElementById("FourthSectionLeftTitle").value;
+            var fourthSectionLeftText = document.getElementById("FourthSectionLeftText").value;
+            var fourthSectionRightTitle = document.getElementById("FourthSectionRightTitle").value;
+            var fourthSectionRightText = document.getElementById("FourthSectionRightText").value;
+           
+            formData.append("FourthSectionLeftTitle", fourthSectionLeftTitle);
+            formData.append("FourthSectionLeftText", fourthSectionLeftText);
+
+            formData.append("FourthSectionRightTitle", fourthSectionRightTitle);
+            formData.append("FourthSectionRightText", fourthSectionRightText);
+
+            $.ajax({
+                url: "@Url.Action("UpdateFourthSection", "Services")",  
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Fourth Section update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Fourth Section.");  
+                }
+            });
+
+
+        });
+
+        document.getElementById("uploadRemitNowSection").addEventListener("click", function () {
+            var formData = new FormData();
+            var remitNowText = document.getElementById("RemitNowText").value;
+            var remitNowImageOneText = document.getElementById("RemitNowImageOneText").value;
+            var remitNowImageTwoText = document.getElementById("RemitNowImageTwoText").value;
+            formData.append("RemitNowText", remitNowText);
+            formData.append("RemitNowImageOneText", remitNowImageOneText);
+            formData.append("RemitNowImageTwoText", remitNowImageTwoText);
+          
+            var remitNowImageOneFile = document.querySelector('input[type="file"][name="RemitNowImageOneFile"]');
+            var remitNowImageTwoFile = document.querySelector('input[type="file"][name="RemitNowImageTwoFile"]');
+           
+            if (remitNowImageOneFile.value.length > 0 ) {
+                formData.append("RemitNowImageOneFile", remitNowImageOneFile.files[0]);
+               
+            }
+            if (remitNowImageTwoFile.value.length > 0) {
+                formData.append("RemitNowImageTwoFile", remitNowImageTwoFile.files[0]);
+               
+            }
+            
+
+            $.ajax({
+                url: "@Url.Action("UpdateRemitNow", "Services")",  
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Remit Now update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Remit Now.");
+                }
+            });
+
+
+        });
+        document.getElementById("uploadSliderButton").addEventListener("click", function () {
+            
+            var formData = new FormData();
+            var position = $("#ddlSliderSelect option:selected").val();
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="Files"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadRemittancesSlider", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+
+        document.getElementById("uploadVideoLink").addEventListener("click", function () {
+            var formData = new FormData();
+            var videoOneText = document.getElementById("VideoOneText").value;
+            var videoOneLink = document.getElementById("VideoOneLink").value;
+
+            var videoTwoText = document.getElementById("VideoTwoText").value;
+            var videoTwoLink = document.getElementById("VideoTwoLink").value;
+
+            formData.append("VideoOneText", videoOneText);
+            formData.append("VideoOneLink", videoOneLink);
+            formData.append("VideoTwoText", videoTwoText);
+            formData.append("VideoTwoLink", videoTwoLink);
+
+            var videoOneThumbnailImageFile = document.querySelector('input[type="file"][name="VideoOneThumbnailImageFile"]');
+            var videoTwoThumbnailImageFile = document.querySelector('input[type="file"][name="VideoTwoThumbnailImageFile"]');
+           
+            if (remitNowImageOneFile.value.length > 0 ) {
+                formData.append("VideoOneThumbnailImageFile", videoOneThumbnailImageFile.files[0]);
+               
+            }
+            if (remitNowImageTwoFile.value.length > 0) {
+                formData.append("VideoTwoThumbnailImageFile", videoTwoThumbnailImageFile.files[0]);
+               
+            }
+
+
+
+            $.ajax({
+                url: "@Url.Action("UpdateVideoLink", "Services")",  
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Video Link update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Video Link.");  
+                }
+            });
+
+
+        });
+
+
+
+    </script>
+}

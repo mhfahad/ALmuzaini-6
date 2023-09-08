@@ -293,7 +293,7 @@
         })
 
         //updateTechnologyButton
-         document.getElementById("updateTechnologyButton").addEventListener("click", function () {
+        document.getElementById("updateTechnologyButton").addEventListener("click", function () {
             var formData = new FormData();
             var technologyText = document.getElementById("TechnologyText").value;
 
@@ -310,7 +310,7 @@
                 contentType: false,
                 success: function (response) {
                     if (response.success) {
-                       
+
                         toastr.success(response.message);
                     } else {
                         toastr.error("Technology update failed.");

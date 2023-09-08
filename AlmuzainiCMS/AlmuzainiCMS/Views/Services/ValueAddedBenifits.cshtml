@@ -1,0 +1,767 @@
+﻿
+@{
+    ViewData["Title"] = "ValueAddedBenifits";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>ValueAddedBenifits</h1>
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Value Added Benifits Banner</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.BannerImagePath.Length > 0)
+                {
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="carousel-item-active">
+
+                                <img class="img-fluid" src="@Url.Content(ViewBag.BannerImagePath)" alt="First Slide">
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="ValueAddedBinifitsBannerImageFile" multiple />
+                        </div>
+                        <button type="button" id="UploadValueAddedBinifitsBannerImageFileButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Inner Section </h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="InnerSectionTitle">Inner Section Title </label>
+                            <textarea class="form-control" cols="20" id="InnerSectionTitle" name="InnerSectionTitle" rows="4" contenteditable="true">@ViewBag.InnerSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="InnerSectionDescription">Inner Section Description </label>
+                            <textarea class="form-control" cols="20" id="InnerSectionDescription" name="InnerSectionDescription" rows="4" contenteditable="true">@ViewBag.InnerSectionDescription</textarea>
+                        </div>
+                    </div>
+                    <button type="button" id="uploadValueAddedBenifitsInnerSection" class="btn btn-outline-secondary">Update</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">First Section Left  </h4>
+
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSectionFirstTitle">First Section Left Title </label>
+                            <textarea class="form-control" cols="20" id="LeftSectionFirstTitle" name="LeftSectionFirstTitle" rows="4" contenteditable="true">@ViewBag.LeftSectionFirstTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSectionFirstText">First Section Left Text </label>
+                            <textarea class="form-control" cols="20" id="LeftSectionFirstText" name="LeftSectionFirstText" rows="4" contenteditable="true">@ViewBag.LeftSectionFirstText</textarea>
+                        </div>
+                    </div>
+
+                    
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.LeftSectionFirstImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.LeftSectionFirstImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="LeftSectionFirstImageFile" multiple />
+                        </div>
+
+                    </div>
+
+
+                    <button type="button" id="uploadVABLeftSectionFirst" class="btn btn-outline-secondary">Update</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Second Section Left  </h4>
+
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSectionSecondTitle">Second Section Left Title </label>
+                            <textarea class="form-control" cols="20" id="LeftSectionSecondTitle" name="LeftSectionSecondTitle" rows="4" contenteditable="true">@ViewBag.LeftSectionSecondTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSectionSecondText">Second Section Left Text </label>
+                            <textarea class="form-control" cols="20" id="LeftSectionSecondText" name="LeftSectionSecondText" rows="4" contenteditable="true">@ViewBag.LeftSectionSecondText</textarea>
+                        </div>
+                    </div>
+
+
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.LeftSectionSecondImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.LeftSectionSecondImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="LeftSectionSecondImageFile" multiple />
+                        </div>
+
+                    </div>
+
+
+                    <button type="button" id="uploadVABLeftSectionSecond" class="btn btn-outline-secondary">Update</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Third Section Left  </h4>
+
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSectionThirdTitle">Third Section Left Title </label>
+                            <textarea class="form-control" cols="20" id="LeftSectionThirdTitle" name="LeftSectionThirdTitle" rows="4" contenteditable="true">@ViewBag.LeftSectionThirdTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSectionThirdText">Third Section Left Text </label>
+                            <textarea class="form-control" cols="20" id="LeftSectionThirdText" name="LeftSectionThirdText" rows="4" contenteditable="true">@ViewBag.LeftSectionThirdText</textarea>
+                        </div>
+                    </div>
+
+
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.LeftSectionThirdImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.LeftSectionThirdImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="LeftSectionThirdImageFile" multiple />
+                        </div>
+
+                    </div>
+
+
+                    <button type="button" id="uploadVABLeftSectionThird" class="btn btn-outline-secondary">Update</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">First Section Right</h4>
+
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSectionFirstTitle">First Section Right Title </label>
+                            <textarea class="form-control" cols="20" id="RightSectionFirstTitle" name="RightSectionFirstTitle" rows="4" contenteditable="true">@ViewBag.RightSectionFirstTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSectionFirstText">First Section Right Text </label>
+                            <textarea class="form-control" cols="20" id="RightSectionFirstText" name="RightSectionFirstText" rows="4" contenteditable="true">@ViewBag.RightSectionFirstText</textarea>
+                        </div>
+                    </div>
+
+
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.RightSectionFirstImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.RightSectionFirstImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="RightSectionFirstImageFile" multiple />
+                        </div>
+
+                    </div>
+
+
+                    <button type="button" id="uploadVABRightSectionFirst" class="btn btn-outline-secondary">Update</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Second Section Right</h4>
+
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSectionSecondTitle">Second Section Right Title </label>
+                            <textarea class="form-control" cols="20" id="RightSectionSecondTitle" name="RightSectionSecondTitle" rows="4" contenteditable="true">@ViewBag.RightSectionSecondTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSectionFirstText">Second Section Right Text </label>
+                            <textarea class="form-control" cols="20" id="RightSectionSecondText" name="RightSectionSecondText" rows="4" contenteditable="true">@ViewBag.RightSectionSecondText</textarea>
+                        </div>
+                    </div>
+
+
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.RightSectionSecondImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.RightSectionSecondImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="RightSectionSecondImageFile" multiple />
+                        </div>
+
+                    </div>
+
+
+                    <button type="button" id="uploadVABRightSectionSecond" class="btn btn-outline-secondary">Update</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Third Section Right</h4>
+
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSectionThirdTitle">Third Section Right Title </label>
+                            <textarea class="form-control" cols="20" id="RightSectionThirdTitle" name="RightSectionThirdTitle" rows="4" contenteditable="true">@ViewBag.RightSectionThirdTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSectionThirdText">Third Section Right Text </label>
+                            <textarea class="form-control" cols="20" id="RightSectionThirdText" name="RightSectionThirdText" rows="4" contenteditable="true">@ViewBag.RightSectionThirdText</textarea>
+                        </div>
+                    </div>
+
+
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.RightSectionThirdImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.RightSectionThirdImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="RightSectionThirdImageFile" multiple />
+                        </div>
+
+                    </div>
+
+
+                    <button type="button" id="uploadVABRightSectionThird" class="btn btn-outline-secondary">Update</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Fourth Section Right</h4>
+
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSectionFourthTitle">Fourth Section Right Title </label>
+                            <textarea class="form-control" cols="20" id="RightSectionFourthTitle" name="RightSectionFourthTitle" rows="4" contenteditable="true">@ViewBag.RightSectionFourthTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSectionFourthText">Fourth Section Right Text </label>
+                            <textarea class="form-control" cols="20" id="RightSectionFourthText" name="RightSectionFourthText" rows="4" contenteditable="true">@ViewBag.RightSectionFourthText</textarea>
+                        </div>
+                    </div>
+
+
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.RightSectionFourthImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.RightSectionFourthImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="RightSectionFourthImageFile" multiple />
+                        </div>
+
+                    </div>
+
+
+                    <button type="button" id="uploadVABRightSectionFourth" class="btn btn-outline-secondary">Update</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        document.getElementById("UploadValueAddedBinifitsBannerImageFileButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var position = 1;
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="ValueAddedBinifitsBannerImageFile"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadValueAddedBenifitsBanner", "Services")",  
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading Value Added Benifits Banner.");
+                }
+            });
+        });
+
+        document.getElementById("uploadValueAddedBenifitsInnerSection").addEventListener("click", function () {
+            var formData = new FormData();
+            var innerSectionTitle = document.getElementById("InnerSectionTitle").value;
+            var innerSectionDescription = document.getElementById("InnerSectionDescription").value;  
+
+            formData.append("InnerSectionTitle", innerSectionTitle);
+            formData.append("InnerSectionDescription",innerSectionDescription);
+
+            $.ajax({
+                url: "@Url.Action("UpdateValueAddedBenifitsInnerSection", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Inner Section update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Inner Section.");
+                }
+            });
+
+
+        })
+
+        document.getElementById("uploadVABLeftSectionFirst").addEventListener("click", function () {
+            var formData = new FormData();
+            var firstSectionLeftTitle = document.getElementById("LeftSectionFirstTitle").value;
+            var firstSectionLeftText = document.getElementById("LeftSectionFirstText").value;
+            var firstSectionLeftImageFile = document.querySelector('input[type="file"][name="LeftSectionFirstImageFile"]');
+            formData.append("LeftSectionFirstTitle", firstSectionLeftTitle);
+            formData.append("LeftSectionFirstText", firstSectionLeftText);
+            if (firstSectionLeftImageFile.value.length > 0) {
+                formData.append("LeftSectionFirstImageFile", firstSectionLeftImageFile.files[0]);
+
+            }
+
+            $.ajax({
+                url: "@Url.Action("UpdateValueAddedBenifitsLeftSectionFirst", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("First Section Left update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating First Section Left.");
+                }
+            });
+
+
+        });
+        document.getElementById("uploadVABLeftSectionSecond").addEventListener("click", function () {
+            var formData = new FormData();
+            var leftSectionSecondTitle = document.getElementById("LeftSectionSecondTitle").value;
+            var leftSectionSecondText = document.getElementById("LeftSectionSecondText").value;
+            var leftSectionSecondImageFile = document.querySelector('input[type="file"][name="LeftSectionSecondImageFile"]');
+            formData.append("LeftSectionSecondTitle", leftSectionSecondTitle);
+            formData.append("LeftSectionSecondText", leftSectionSecondText);
+            if (leftSectionSecondImageFile.value.length > 0) {
+                formData.append("LeftSectionSecondImageFile", leftSectionSecondImageFile.files[0]);
+
+            }
+
+            $.ajax({
+                url: "@Url.Action("UpdateValueAddedBenifitsLeftSectionSecond", "Services")",  
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Second Section Left update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Second Section Left.");
+                }
+            });
+
+
+        });
+        document.getElementById("uploadVABLeftSectionThird").addEventListener("click", function () {
+            var formData = new FormData();
+            var leftSectionThirdTitle = document.getElementById("LeftSectionThirdTitle").value;
+            var leftSectionThirdText = document.getElementById("LeftSectionThirdText").value;
+            var leftSectionThirdImageFile = document.querySelector('input[type="file"][name="LeftSectionThirdImageFile"]');
+            formData.append("LeftSectionThirdTitle", leftSectionThirdTitle);
+            formData.append("LeftSectionThirdText", leftSectionThirdText);
+            if (leftSectionThirdImageFile.value.length > 0) {
+                formData.append("LeftSectionThirdImageFile", leftSectionThirdImageFile.files[0]);
+
+            }
+
+            $.ajax({
+                url: "@Url.Action("UpdateValueAddedBenifitsLeftSectionThird", "Services")",  
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Third Section Left update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Third Section Left.");
+                }
+            });
+
+
+        });
+
+        document.getElementById("uploadVABRightSectionFirst").addEventListener("click", function () {
+            var formData = new FormData();
+            var rightSectionFirstTitle = document.getElementById("RightSectionFirstTitle").value;
+            var rightSectionFirstText = document.getElementById("RightSectionFirstText").value;
+            var rightSectionFirstImageFile = document.querySelector('input[type="file"][name="RightSectionFirstImageFile"]');
+            formData.append("RightSectionFirstTitle", rightSectionFirstTitle);
+            formData.append("RightSectionFirstText", rightSectionFirstText);
+            if (rightSectionFirstImageFile.value.length > 0) {
+                formData.append("RightSectionFirstImageFile", rightSectionFirstImageFile.files[0]);
+
+            }
+
+            $.ajax({
+                url: "@Url.Action("UpdateValueAddedBenifitsRightSectionFirst", "Services")",  
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("First Section Right update failed.");
+                    }
+                },
+                error: function () {  
+                    toastr.error("An error occurred while updating First Section Right.");
+                }
+            });
+
+
+        });
+        document.getElementById("uploadVABRightSectionSecond").addEventListener("click", function () {
+            var formData = new FormData();
+            var rightSectionSecondTitle = document.getElementById("RightSectionSecondTitle").value;
+            var rightSectionSecondText = document.getElementById("RightSectionSecondText").value;
+            var rightSectionSecondImageFile = document.querySelector('input[type="file"][name="RightSectionSecondImageFile"]');
+            formData.append("RightSectionSecondTitle", rightSectionSecondTitle);
+            formData.append("RightSectionSecondText", rightSectionSecondText);
+            if (rightSectionSecondImageFile.value.length > 0) {
+                formData.append("RightSectionSecondImageFile", rightSectionSecondImageFile.files[0]);
+
+            }
+
+            $.ajax({
+                url: "@Url.Action("UpdateValueAddedBenifitsRightSectionSecond", "Services")",  
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Second Section Right update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Second Section Right.");
+                }
+            });
+
+
+        });
+        document.getElementById("uploadVABRightSectionThird").addEventListener("click", function () {
+            var formData = new FormData();
+            var rightSectionThirdTitle = document.getElementById("RightSectionThirdTitle").value;
+            var rightSectionThirdText = document.getElementById("RightSectionThirdText").value;
+            var rightSectionThirdImageFile = document.querySelector('input[type="file"][name="RightSectionThirdImageFile"]');
+            formData.append("RightSectionThirdTitle", rightSectionThirdTitle);
+            formData.append("RightSectionThirdText", rightSectionThirdText);
+            if (rightSectionThirdImageFile.value.length > 0) {
+                formData.append("RightSectionThirdImageFile", rightSectionThirdImageFile.files[0]);
+
+            }
+
+            $.ajax({
+                url: "@Url.Action("UpdateValueAddedBenifitsRightSectionThird", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Third Section Right update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Third Section Right.");  
+                }
+            });
+
+
+        });
+
+        document.getElementById("uploadVABRightSectionFourth").addEventListener("click", function () {
+            var formData = new FormData();
+            var rightSectionFourthTitle = document.getElementById("RightSectionFourthTitle").value;
+            var rightSectionFourthText = document.getElementById("RightSectionFourthText").value;
+            var rightSectionFourthImageFile = document.querySelector('input[type="file"][name="RightSectionFourthImageFile"]');
+            formData.append("RightSectionFourthTitle", rightSectionFourthTitle);
+            formData.append("RightSectionFourthText", rightSectionFourthText);
+            if (rightSectionFourthImageFile.value.length > 0) {
+                formData.append("RightSectionFourthImageFile", rightSectionFourthImageFile.files[0]);  
+
+            }
+
+            $.ajax({
+                url: "@Url.Action("UpdateValueAddedBenifitsRightSectionFourth", "Services")",  
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Third Section Right update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Third Section Right.");
+                }
+            });
+
+
+        });
+
+
+    </script>
+}

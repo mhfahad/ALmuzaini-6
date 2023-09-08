@@ -17,7 +17,14 @@ namespace AlmuzainiCMS.Models.Models
         public string? InnerSectionTitle { get; set; }
         public string? InnerSectionDescription { get; set; }
 
-        
+
+        public string? LeftSectionFirstTitle { get; set; }
+        public string? LeftSectionSecondTitle { get; set; }
+        public string? LeftSectionThirdTitle { get; set; }
+        public string? RightSectionFirstTitle { get; set; }
+        public string? RightSectionSecondTitle { get; set; }
+        public string? RightSectionThirdTitle { get; set; }
+        public string? RightSectionFourthTitle { get; set; }
         public string? LeftSectionFirstText  { get; set; }   
         public string? LeftSectionFirstImagePath { get; set; }
         public string? LeftSectionSecondText { get; set; }
