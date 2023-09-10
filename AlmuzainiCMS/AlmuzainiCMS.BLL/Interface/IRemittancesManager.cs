@@ -10,6 +10,8 @@ namespace AlmuzainiCMS.BLL.Interface
     public interface IRemittancesManager
     {
         Task<Remittences> GetRemittances();
+
+
         Task<bool> UpdateBannerImagePath(Remittences remittances);
         Task<bool> UpdateFirstSectionLeft(Remittences remittances);
         Task<bool> UpdateFirstSectionRight(Remittences remittancesmodel);

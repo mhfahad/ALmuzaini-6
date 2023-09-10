@@ -25,14 +25,12 @@ namespace AlmuzainiCMS.Models.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }    
-        public int SerialNo { get; set; }
+      
         public string? ImagePath { get; set; }
         public string? Title { get; set; }
         public string? Description { get; set; }   
         public DateTime? CreatedAt { get; set; }
 
-        public Guid? PromotionId { get; set; }
-        public Promotion? Promotion { get; set; }    
-
+      
     }
 }

@@ -22,6 +22,12 @@ namespace AlmuzainiCMS.Mapper
             CreateMap<CorporateRequestDTO, Corporate>();
             CreateMap<RemittancesRequestDTO, Remittences>();
             CreateMap<ValueAddedBinifitsRequestDTO, ValueAddedBenifits>();
+            CreateMap<ApplicationPageRequestDTO, ApplicationPage>();
+            CreateMap<COntactUsRequestDTO, ContactUs>();
+            CreateMap<PromotionRequestDTO, Promotion>();
+            CreateMap<PromotionNewsRequestDTO, PromotionNews>();
+            CreateMap<NewsSectionRequestDTO, NewsSection>();
+            CreateMap<NewsSectionNewsRequestDTO, NewsSectionNews>();
         }  
     }
 }

@@ -1,0 +1,248 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>News</h1>
+
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">News Banner</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.BannerImagePath.Length > 0)
+                {
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="carousel-item-active">
+
+                                <img class="img-fluid" src="@Url.Content(ViewBag.BannerImagePath)" alt="First Slide">
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="NewsBannerImageFile" multiple />
+                        </div>
+                        <button type="button" id="UploadNewsBannerImageFileButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">News</h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="InnerSectionTitle">Inner Section Title </label>
+                            <textarea class="form-control" cols="20" id="InnerSectionTitle" name="InnerSectionTitle" rows="2" contenteditable="true">@ViewBag.InnerSectionTitle</textarea>
+                        </div>
+                    </div>
+
+                    <button type="button" id="uploadNewsInnerSection" class="btn btn-outline-secondary">Update</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <h4 class="card-title">LATEST NEWS</h4>
+            <h6 class="lebel">Live News</h6>
+            @if (ViewBag.NewsLatestNews.Count > 0)
+            {
+                @foreach (var news in ViewBag.NewsLatestNews)
+                {
+                    <div class="col-sm-4 col-lg-3">
+                        <img class="card-img-top img-fluid" src="@Url.Content(news.ImagePath)"
+                     alt="Card image cap">
+                        <div class="card-body">
+                            <h4 class="card-title">@news.Title</h4>
+                            <p class="card-text">
+                                @news.Description
+                            </p>
+                            <h6 class="card-text text-muted">Last updated @news.UpdatedAt</h6>
+                        </div>
+                    </div>
+
+
+                }
+            }
+            else
+            {
+                <p>No files available.</p>
+            }
+
+            <form enctype="multipart/form-data">
+                <div class="row">
+                    <div class="input-group flex-nowrap">
+                        <div class="form-group col-sm-12 col-md-12 mb-5">
+                            <h6 class="card-subtitle">Add News</h6>
+                            <div class="form-group">
+                                <input type="text" id="newsTitle" name="newsTitle" placeholder="News Title....." class="form-control">
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="form-group col-sm-12 col-md-12 mb-6">
+                            <div class="form-group">
+                                <textarea class="form-control" id="newsDescription" name="newsDescription" rows="3" placeholder="News Body....."></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group flex-nowrap">
+                    <div class="custom-file w-100">
+                        <input type="file" name="newsImage" id="newsImage" />
+                    </div>
+                    <button type="button" id="uploadNews" class="btn btn-outline-secondary">Upload</button>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+@section Scripts{
+    <script>
+        document.getElementById("uploadNews").addEventListener("click", function () {
+            debugger;
+            var newsTitle = document.getElementById("newsTitle").value;
+            var newsDescription = document.getElementById("newsDescription").value;
+            var newsImage = document.getElementById("newsImage").files[0];
+
+            var formData = new FormData();
+            formData.append("Title", newsTitle);
+            formData.append("Description", newsDescription);
+            formData.append("ImageFile", newsImage);
+
+            $.ajax({
+                url: "@Url.Action("UploadNews", "News")",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
+                },
+                error: function (error) {
+                    console.error(error);
+                }
+
+
+            });
+        });
+
+
+        document.getElementById("UploadNewsBannerImageFileButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var position = 1;
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="NewsBannerImageFile"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadNewsBanner", "News")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                        
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading Value Added News Banner.");
+                }
+            });
+        });
+
+        document.getElementById("uploadNewsInnerSection").addEventListener("click", function () {
+            var formData = new FormData();
+            var innerSectionTitle = document.getElementById("InnerSectionTitle").value;
+
+            formData.append("InnerSectionTitle", innerSectionTitle);
+
+
+            $.ajax({
+                url: "@Url.Action("UpdateInnerSection", "News")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Inner Section update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Inner Section.");
+                }
+            });
+
+
+        });
+
+
+
+
+
+
+
+    </script>
+
+}

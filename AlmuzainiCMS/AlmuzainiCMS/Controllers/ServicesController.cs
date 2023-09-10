@@ -18,9 +18,10 @@ namespace AlmuzainiCMS.Controllers
         private readonly IForeignCurrencyManager _foreignCurrencyManager;
         private readonly IRemittancesManager _remittancesManager;
         private readonly IValueAddedBenifitsManager _valueAddedBenifitsManager;
-
+        private readonly IApplicationPageManager _applicationPageManager;
         public ServicesController(ILogger<ServicesController> logger, IMapper mapper, IWebHostEnvironment webHostEnvironment,
-            IForeignCurrencyManager foreignCurrencyManager, IRemittancesManager remittancesManager, IValueAddedBenifitsManager valueAddedBenifitsManager)
+            IForeignCurrencyManager foreignCurrencyManager, IRemittancesManager remittancesManager, IValueAddedBenifitsManager valueAddedBenifitsManager,
+            IApplicationPageManager applicationPageManager)
         {
             _logger = logger;
             _mapper = mapper;
@@ -28,6 +29,7 @@ namespace AlmuzainiCMS.Controllers
             _foreignCurrencyManager = foreignCurrencyManager;
             _remittancesManager = remittancesManager;
             _valueAddedBenifitsManager = valueAddedBenifitsManager;
+            _applicationPageManager = applicationPageManager;
         }
         public IActionResult Index()
         {
@@ -49,7 +51,7 @@ namespace AlmuzainiCMS.Controllers
         {
             GetCorporateSection();
             GetCorporateSlider("uploads", "original", "Services/Corporate/Slider");
-            GetRequiredDocuments();
+            //GetRequiredDocuments();
             return View();
         }
 
@@ -129,13 +131,20 @@ namespace AlmuzainiCMS.Controllers
             ViewBag.BannerImagePath = valueAddedBenifits?.BannerImagePath ?? "";
             ViewBag.InnerSectionTitle = valueAddedBenifits?.InnerSectionTitle ?? "";
             ViewBag.InnerSectionDescription = valueAddedBenifits?.InnerSectionDescription ?? "";
-
+            ViewBag.LeftSectionFirstTitle = valueAddedBenifits?.LeftSectionFirstTitle ?? "";
             ViewBag.LeftSectionFirstText =  valueAddedBenifits?.LeftSectionFirstText ?? "";
             ViewBag.LeftSectionFirstImagePath = valueAddedBenifits?.LeftSectionFirstImagePath ?? "";
             ViewBag.LeftSectionSecondImagePath = valueAddedBenifits?.LeftSectionSecondImagePath ?? "";
+            ViewBag.LeftSectionSecondTitle = valueAddedBenifits?.LeftSectionSecondTitle ?? "";
+
             ViewBag.LeftSectionSecondText = valueAddedBenifits?.LeftSectionSecondText ?? "";
             ViewBag.LeftSectionThirdImagePath = valueAddedBenifits?.LeftSectionThirdImagePath ?? "";
             ViewBag.LeftSectionThirdText = valueAddedBenifits?.LeftSectionThirdText ?? "";
+            ViewBag.LeftSectionThirdTitle = valueAddedBenifits?.LeftSectionThirdTitle ?? "";
+            ViewBag.RightSectionFirstTitle = valueAddedBenifits?.RightSectionFirstTitle ?? "";
+            ViewBag.RightSectionSecondTitle = valueAddedBenifits?.RightSectionSecondTitle ?? "";
+            ViewBag.RightSectionThirdTitle = valueAddedBenifits?.RightSectionThirdTitle ?? "";
+            ViewBag.RightSectionFourthTitle = valueAddedBenifits?.RightSectionFourthTitle ?? "";
 
             ViewBag.RightSectionFirstText = valueAddedBenifits?.RightSectionFirstText ?? "";
             ViewBag.RightSectionFirstImagePath = valueAddedBenifits?.RightSectionFirstImagePath?? "";
@@ -1859,6 +1868,82 @@ namespace AlmuzainiCMS.Controllers
         }
 
 
+        public async Task<JsonResult> UploadApplicationBanner(MultipleFileUploadVM model)
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "Services", "ApplicationPage", "Banner");
+            //string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "TopSlider");
+
+            string filePosition = model.position;
+
+            //DeleteAllFilesOfFolder(filePath, filePosition);
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+
+            string filePathToSave = string.Empty;
+            foreach (var file in model.Files)
+            {
+                if (file != null && file.Length > 0)
+                {
+
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                    //string fileExtension = Path.GetExtension(file.FileName);
+                    string fileExtension = ".webp";
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal;
+
+                    if (model.position != "0")
+                    {
+                        totalfilesOriginal = Convert.ToInt32(model.position);
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
+
+                    }
+                    else
+                    {
+                        totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+
+                    }
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+
+                }
+            }
+            var bannerImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+            ApplicationPage applicationPage = new ApplicationPage();
+            applicationPage.BannerImagePath = bannerImagePath;
+            //companyHistory.ExpertiseImagePath = filePathToSave;
+            bool result = await _applicationPageManager.UpdateBannerImagePath(applicationPage);
+
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Application Banner updated successfully.",
+                    redirectUrl = Url.Action("Applications", "Services")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Application Banner updated failed.",
+                    redirectUrl = Url.Action("Applications", "Services")
+                };
+                return Json(response);
+            }
+        }
+
         public async Task<JsonResult> UploadValueAddedBenifitsBanner(MultipleFileUploadVM model)
         {
             string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
@@ -1933,6 +2018,25 @@ namespace AlmuzainiCMS.Controllers
                 };
                 return Json(response);
             }
+        }
+
+
+        [HttpPost]
+        
+        public async Task<JsonResult> UpdateApplicationInnerSection(ApplicationPageRequestDTO model)
+        {
+            var applicationPage = _mapper.Map<ApplicationPage>(model);
+            bool result = await _applicationPageManager.UpdateInnerSection(applicationPage);
+
+            var response = new
+            {
+                Success = true,
+                Message = "Application Inner section updated successfully.",
+                redirectUrl = Url.Action("Applications", "Services")
+            };
+
+
+            return Json(response);
         }
 
         [HttpPost]
@@ -2423,7 +2527,7 @@ namespace AlmuzainiCMS.Controllers
 
                     var thirdSectionRightImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
 
-                    valueAddedBenifits.RightSectionSecondImagePath = thirdSectionRightImagePath;
+                    valueAddedBenifits.RightSectionThirdImagePath = thirdSectionRightImagePath;
 
                 }
 
@@ -2553,6 +2657,921 @@ namespace AlmuzainiCMS.Controllers
 
             //return Json(response);
         }
+
+        [HttpGet]
+        public IActionResult Applications()
+        {
+            GetApplicationPage();
+            return View();
+        }
+
+        public async void GetApplicationPage()
+        {
+            ApplicationPage applicationPage = new ApplicationPage();
+            applicationPage = await _applicationPageManager.GetApplicationPage();
+            GetApplicationPageSlider("uploads", "original", "Services/ApplicationPage/Slider");
+            GetApplicationPageIcons("uploads", "original", "Services/ApplicationPage/ApplicationIcon");
+            ICollection<UserGuide> userGuides = await GetApplicationPAgeUserGuide();   
+
+           
+            ViewBag.BannerImagePath = applicationPage?.BannerImagePath ?? "";
+            ViewBag.InnerSectionTitle = applicationPage?.InnerSectionTitle ?? "";
+            ViewBag.ABoutBoxDescription = applicationPage?.ABoutBoxDescription ?? "";
+            ViewBag.ApplePlayStoreIconImagePath = applicationPage?.ApplePlayStoreIconImagePath ?? "";
+            ViewBag.GooglePlayStoreIconImagePath = applicationPage?.GooglePlayStoreIconImagePath ?? "";
+            ViewBag.AppGalleryIconImagePath = applicationPage?.AppGalleryIconImagePath ?? "";
+            ViewBag.UserGuideTitle = applicationPage?.UserGuideTitle ?? "";
+            ViewBag.ApplicationIconOneTitle = applicationPage?.ApplicationIconOneTitle ?? "";
+
+            ViewBag.ApplicationIconOneImagePath = applicationPage?.ApplicationIconOneImagePath ?? "";
+            ViewBag.ApplicationIconTwoTitle = applicationPage?.ApplicationIconTwoTitle ?? "";
+            ViewBag.ApplicationIconTwoImagePath = applicationPage?.ApplicationIconTwoImagePath ?? "";
+            ViewBag.ApplicationIconThreeTitle = applicationPage?.ApplicationIconThreeTitle ?? "";
+            ViewBag.ApplicationIconThreeImagePath = applicationPage?.ApplicationIconThreeImagePath ?? "";
+            ViewBag.ApplicationIconFourTitle = applicationPage?.ApplicationIconFourTitle ?? "";
+            ViewBag.ApplicationIconFourImagePath = applicationPage?.ApplicationIconFourImagePath ?? "";
+            ViewBag.ApplicationIconFiveTitle = applicationPage?.ApplicationIconFiveTitle ?? "";
+            ViewBag.ApplicationIconFiveImagePath = applicationPage?.ApplicationIconFiveImagePath ?? "";
+            ViewBag.AppFeaturesSectionOneTitle = applicationPage?.AppFeaturesSectionOneTitle?? "";
+            ViewBag.AppFeaturesSectionOneDescriptionSectionOne = applicationPage?.AppFeaturesSectionOneDescriptionSectionOne ?? "";
+            ViewBag.AppFeaturesSectionOneDescriptionSectionTwo = applicationPage?.AppFeaturesSectionOneDescriptionSectionTwo ?? "";
+            ViewBag.AppFeaturesSectionOneImagePath = applicationPage?.AppFeaturesSectionOneImagePath ?? "";
+            ViewBag.AppFeaturesSectionTwoTitle = applicationPage?.AppFeaturesSectionTwoTitle ?? "";
+            ViewBag.AppFeaturesSectionTwoDescriptionSectionOne = applicationPage?.AppFeaturesSectionTwoDescriptionSectionOne ?? "";
+            ViewBag.AppFeaturesSectionTwoDescriptionSectionTwo = applicationPage?.AppFeaturesSectionTwoDescriptionSectionTwo ?? "";
+            ViewBag.AppFeaturesSectionTwoImagePath = applicationPage?.AppFeaturesSectionTwoImagePath ?? "";
+            ViewBag.AppFeaturesSectionThreeTitle = applicationPage?.AppFeaturesSectionThreeTitle ?? "";
+            ViewBag.AppFeaturesSectionThreeDescriptionSectionOne = applicationPage?.AppFeaturesSectionThreeDescriptionSectionOne ?? "";
+            ViewBag.AppFeaturesSectionThreeDescriptionSectionTwo = applicationPage?.AppFeaturesSectionThreeDescriptionSectionTwo ?? "";
+            ViewBag.AppFeaturesSectionThreeImagePath = applicationPage?.AppFeaturesSectionThreeImagePath ?? "";
+            ViewBag.AppFeaturesSectionFourthTitle = applicationPage?.AppFeaturesSectionFourthTitle ?? "";
+            ViewBag.AppFeaturesSectionFourthDescriptionSectionOne = applicationPage?.AppFeaturesSectionFourthDescriptionSectionOne ?? "";
+            ViewBag.AppFeaturesSectionFourthDescriptionSectionTwo = applicationPage?.AppFeaturesSectionFourthDescriptionSectionTwo ?? "";
+            ViewBag.AppFeaturesSectionFourthImagePath = applicationPage?.AppFeaturesSectionFourthImagePath ?? "";
+
+            ViewBag.AppTutorialsSectionTitle = applicationPage?.AppTutorialsSectionTitle ?? "";
+            ViewBag.VideoOneTitle = applicationPage?.VideoOneTitle ?? "";
+            ViewBag.VideoOneLink = applicationPage?.VideoOneLink ?? "";
+            ViewBag.VideoOneThumbnailImagePath = applicationPage?.VideoOneThumbnailImagePath ?? "";
+            ViewBag.VideoTwoTitle = applicationPage?.VideoTwoTitle ?? "";
+            ViewBag.VideoTwoLink = applicationPage?.VideoTwoLink ?? "";
+            ViewBag.VideoTwoThumbnailImagePath = applicationPage?.VideoTwoThumbnailImagePath ?? "";
+            ViewBag.VideoThreeTitle = applicationPage?.VideoThreeTitle ?? "";
+            ViewBag.VideoThreeLink = applicationPage?.VideoThreeLink ?? "";
+            ViewBag.VideoThreeThumbnailImagePath = applicationPage?.VideoThreeThumbnailImagePath ?? "";
+            ViewBag.VideoFourTitle = applicationPage?.VideoFourTitle ?? "";
+            ViewBag.VideoFourLink = applicationPage?.VideoFourLink ?? "";
+            ViewBag.VideoFourThumbnailImagePath = applicationPage?.VideoFourThumbnailImagePath ?? "";
+            ViewBag.VideoFiveTitle = applicationPage?.VideoFiveTitle ?? "";
+            ViewBag.VideoFiveLink = applicationPage?.VideoFiveLink ?? "";
+            ViewBag.VideoFiveThumbnailImagePath = applicationPage?.VideoFiveThumbnailImagePath ?? "";
+
+            ViewBag.UserGuides = userGuides;
+
+        }
+
+        private void GetApplicationPageIcons(string v1, string v2, string v3)
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, v1);
+            string folderPath = Path.Combine(uploadsFolder, v2, v3);
+            // Replace with the actual folder path
+
+            if (Directory.Exists(folderPath))
+            {
+                string[] fileNames = Directory.GetFiles(folderPath)
+                    .Select(Path.GetFileName)
+                    .ToArray();
+
+                ViewBag.ApplicationPageIconFileNames = fileNames;
+            }
+            else
+            {
+                ViewBag.ApplicationPageIconFileNames = new string[0]; // No files available
+            }
+        }
+
+        private async Task<ICollection<UserGuide>> GetApplicationPAgeUserGuide()
+        {
+            ICollection<UserGuide> userGuides = new List<UserGuide>();
+
+            userGuides = await _applicationPageManager.GetUserGuides();
+            return await Task.FromResult(userGuides);
+        }
+
+        private void GetApplicationPageSlider(string v1, string v2, string v3)
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, v1);
+            string folderPath = Path.Combine(uploadsFolder, v2, v3);
+            // Replace with the actual folder path
+
+            if (Directory.Exists(folderPath))
+            {
+                string[] fileNames = Directory.GetFiles(folderPath)
+                    .Select(Path.GetFileName)
+                    .ToArray();
+
+                ViewBag.ApplicationPageSliderFileNames = fileNames;
+            }
+            else
+            {
+                ViewBag.ApplicationPageSliderFileNames = new string[0]; // No files available
+            }
+        }
+        [HttpPost]
+        public async Task<JsonResult> UpdateAboutBoxDescriptionSection(ApplicationPageRequestDTO model)
+        {
+            try
+            {
+                var applicationPage = _mapper.Map<ApplicationPage>(model);
+
+                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+                string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "Services", "ApplicationPage", "AboutBox");
+                //string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "TopSlider");
+
+
+
+                //DeleteAllFilesOfFolder(filePath, filePosition);
+
+
+                string filePathToSave = string.Empty;
+
+                if (model?.ApplePlayStoreIconImageFile != null && model?.ApplePlayStoreIconImageFile.Length > 0)
+                {
+                    DeleteAllFilesOfFolderWithPosition(filePath, "1");
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + model?.ApplePlayStoreIconImageFile.FileName;
+                    //string fileExtension = Path.GetExtension(file.FileName);
+                    string fileExtension = ".svg";
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    //int totalfilesOriginal;
+
+                    //totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                    filePathToSave = Path.Combine(filePath, ("1").ToString() + fileExtension);
+
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                    {
+                        model?.ApplePlayStoreIconImageFile.CopyTo(fileStream);
+                    }
+
+                    var appleplayImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+
+                    applicationPage.ApplePlayStoreIconImagePath = appleplayImagePath;   
+
+                }
+
+                if (model?.GooglePlayStoreImageFile != null && model?.GooglePlayStoreImageFile.Length > 0)
+                {
+                    DeleteAllFilesOfFolderWithPosition(filePath, "2");
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + model?.GooglePlayStoreImageFile.FileName;
+                    //string fileExtension = Path.GetExtension(file.FileName);
+                    string fileExtension = ".svg";
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    
+                    filePathToSave = Path.Combine(filePath, ("2").ToString() + fileExtension);
+
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                    {
+                        model?.GooglePlayStoreImageFile.CopyTo(fileStream);   
+                    }
+
+                    var googlelayImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+
+                    applicationPage.GooglePlayStoreIconImagePath = googlelayImagePath;
+
+                }
+                if (model?.AppGalleryImageFile != null && model?.AppGalleryImageFile.Length > 0)
+                {
+                    DeleteAllFilesOfFolderWithPosition(filePath, "3");
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + model?.AppGalleryImageFile.FileName;
+                    //string fileExtension = Path.GetExtension(file.FileName);
+                    string fileExtension = ".svg";
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+
+                    filePathToSave = Path.Combine(filePath, ("3").ToString() + fileExtension);
+
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                    {
+                        model?.AppGalleryImageFile.CopyTo(fileStream);
+                    }
+
+                    var appGalleryImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+
+                    applicationPage.AppGalleryIconImagePath = appGalleryImagePath;
+
+                }
+
+
+                bool result = await _applicationPageManager.UpdateAboutBoxDescriptionSection(applicationPage);
+
+                if (result == true)
+                {
+                    var response = new
+                    {
+                        Success = true,
+                        Message = "About Box Description Section updated successfully.",
+                        redirectUrl = Url.Action("Applications", "Services")
+                    };
+                    return Json(response);
+                }
+                else
+                {
+                    var response = new
+                    {
+                        Success = true,
+                        Message = "About Box Description Section updated failed.",
+                        redirectUrl = Url.Action("Applications", "Services")
+                    };
+                    return Json(response);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "About Box Description Section updated failed.",
+                    redirectUrl = Url.Action("Applications", "Services")
+                };
+                return Json(response);
+            }
+
+
+            //return Json(response);
+        }
+
+
+
+        [HttpPost]
+        public async Task<JsonResult> AddUserGuides(string newValue)  
+        {
+            ApplicationPage applicationPage = await GetApplications();   
+            UserGuide userGuide;
+            bool result = false;
+            if (applicationPage != null)
+            {
+                if (!string.IsNullOrWhiteSpace(newValue))
+                {
+                    userGuide = new UserGuide
+                    {
+                        Id = Guid.NewGuid(),
+                        UserGuideText = newValue,
+                        ApplicationPageId = applicationPage.Id,
+                        Application = applicationPage
+                    };
+                    //missionVisionValues.ValuesItems.Add(valuesItem);
+
+                    result = await _applicationPageManager.UpdateUserGuides(userGuide);
+
+                }
+
+
+
+            }
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "User Guides updated successfully.",
+                    redirectUrl = Url.Action("Applications", "Services")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "User Guides updated failed.",
+                    redirectUrl = Url.Action("Applications", "Services")  
+                };
+                return Json(response);
+            }
+
+
+        }
+
+        [HttpDelete]
+        public async Task<JsonResult> DeleteUserGuides(string itemSerialNo)  
+        {
+            UserGuide userGuide = await GetUserGuidesBySerialNo(itemSerialNo);
+
+            bool result = false;
+            if (!string.IsNullOrEmpty(userGuide.UserGuideText))
+            {
+                result = await _applicationPageManager.DeleteUserGuides(userGuide);
+
+            }
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "User Guides deleted successfully.",
+                    redirectUrl = Url.Action("Applications", "Services")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "User Guides delete failed.",  
+                    redirectUrl = Url.Action("Applications", "Services")
+                };
+                return Json(response);
+            }
+        }
+
+        private async Task<UserGuide> GetUserGuidesBySerialNo(string itemSerialNo)  
+        {
+            UserGuide userGuide = new UserGuide();
+            int serial = Convert.ToInt32(itemSerialNo);
+            userGuide = await _applicationPageManager.GetUserGuidesBySerialNo(serial);
+            return await Task.FromResult(userGuide);
+        }
+
+
+        private async Task<ApplicationPage> GetApplications()
+        {
+            ApplicationPage applicationPage = new ApplicationPage();
+            applicationPage = await _applicationPageManager.GetApplicationPage();
+            return await Task.FromResult(applicationPage);
+        }
+
+
+        [HttpPost]
+        public async Task<JsonResult> UploadApplicationPageSliderButton(MultipleFileUploadVM model)  
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            //Services/ForeignCurrency/Slider
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "Services", "ApplicationPage", "Slider");
+           
+            string filePosition = model.position;
+            //DeleteAllFilesOfFolder(filePath, filePosition);
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+
+
+            ApplicationPage applicationPage = new ApplicationPage();
+
+            foreach (var file in model.Files)
+            {
+                if (file != null && file.Length > 0)
+                {
+
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                    string fileExtension = ".webp";
+
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal;
+                    string filePathToSave = string.Empty;
+                    if (model.position != "0")
+                    {
+                        totalfilesOriginal = Convert.ToInt32(model.position);
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
+
+                        var ImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+
+                        if (totalfilesOriginal.ToString() == "1")
+                        {
+                            applicationPage.SliderOneImagePath = ImagePath;
+                        }
+
+                        if (totalfilesOriginal.ToString() == "2")
+                        {
+                            applicationPage.SliderTwoImagePath = ImagePath;
+                        }
+
+                        if (totalfilesOriginal.ToString() == "3")
+                        {
+                            applicationPage.SliderThreeImagePath = ImagePath;
+                        }
+
+                        if (totalfilesOriginal.ToString() == "4")
+                        {
+                            applicationPage.SliderFourImagePath = ImagePath;
+                        }
+
+
+
+                    }
+                    else
+                    {
+                        
+
+                        totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+                        var ImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+
+                        if ((totalfilesOriginal + 1).ToString() == "1")
+                        {
+                            applicationPage.SliderOneImagePath = ImagePath;
+                        }
+
+                        if ((totalfilesOriginal + 1).ToString() == "2")
+                        {
+                            applicationPage.SliderOneImagePath = ImagePath;
+                        }
+
+                        if ((totalfilesOriginal + 1).ToString() == "3")
+                        {
+                            applicationPage.SliderOneImagePath = ImagePath;
+                        }
+
+                        if ((totalfilesOriginal + 1).ToString() == "4")
+                        {
+                            applicationPage.SliderFourImagePath = ImagePath;
+                        }
+
+
+                    }
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+
+                }
+            }
+
+            bool result = await _applicationPageManager.UpdateApplicationSlider(applicationPage);
+
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Slider Image updated successfully.",
+                    redirectUrl = Url.Action("Applications", "Services")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Slider Image updated failed.",
+                    redirectUrl = Url.Action("Applications", "Services")
+                };
+                return Json(response);
+            }
+
+
+
+        }
+
+
+
+        [HttpPost]
+        public async Task<JsonResult> UploadApplicationPageIconButton(MultipleFileUploadVM model)
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            //Services/ForeignCurrency/Slider
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "Services", "ApplicationPage", "ApplicationIcon");
+
+            string filePosition = model.position;
+            //DeleteAllFilesOfFolder(filePath, filePosition);
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+
+
+            ApplicationPage applicationPage = new ApplicationPage();
+
+            foreach (var file in model.Files)
+            {
+                if (file != null && file.Length > 0)
+                {
+
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                    string fileExtension = ".webp";
+
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal;
+                    string filePathToSave = string.Empty;
+                    if (model.position != "0")
+                    {
+                        totalfilesOriginal = Convert.ToInt32(model.position);
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
+
+                        var ImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+
+                        if (totalfilesOriginal.ToString() == "1")
+                        {
+                            applicationPage.ApplicationIconOneImagePath = ImagePath;
+                        }
+
+                        if (totalfilesOriginal.ToString() == "2")
+                        {
+                            applicationPage.ApplicationIconTwoImagePath = ImagePath;
+                        }
+
+                        if (totalfilesOriginal.ToString() == "3")
+                        {
+                            applicationPage.ApplicationIconThreeImagePath = ImagePath;
+                        }
+
+                        if (totalfilesOriginal.ToString() == "4")
+                        {
+                            applicationPage.ApplicationIconFourImagePath = ImagePath;
+                        }
+                        if (totalfilesOriginal.ToString() == "5")
+                        {
+                            applicationPage.ApplicationIconFiveImagePath = ImagePath;
+                        }
+                        if (totalfilesOriginal.ToString() == "6")
+                        {
+                            applicationPage.ApplicationIconSixImagePath = ImagePath;
+                        }
+
+                    }
+                    else
+                    {
+
+
+                        totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+                        var ImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+
+                        if ((totalfilesOriginal + 1).ToString() == "1")
+                        {
+                            applicationPage.ApplicationIconOneImagePath = ImagePath;
+                        }
+
+                        if ((totalfilesOriginal + 1).ToString() == "2")
+                        {
+                            applicationPage.ApplicationIconTwoImagePath = ImagePath;
+                        }
+
+                        if ((totalfilesOriginal + 1).ToString() == "3")
+                        {
+                            applicationPage.ApplicationIconThreeImagePath = ImagePath;
+                        }
+
+                        if ((totalfilesOriginal + 1).ToString() == "4")
+                        {
+                            applicationPage.ApplicationIconFourImagePath = ImagePath;
+                        }
+                        if ((totalfilesOriginal + 1).ToString() == "5")
+                        {
+                            applicationPage.ApplicationIconFiveImagePath = ImagePath;
+                        }
+                        if ((totalfilesOriginal + 1).ToString() == "6")
+                        {
+                            applicationPage.ApplicationIconSixImagePath = ImagePath;
+                        }
+
+
+                    }
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+
+                }
+            }
+
+            bool result = await _applicationPageManager.UpdateApplicationIcon(applicationPage);
+
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Application Icon updated successfully.",
+                    redirectUrl = Url.Action("Applications", "Services")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Application Icon updated failed.",
+                    redirectUrl = Url.Action("Applications", "Services")
+                };
+                return Json(response);
+            }
+
+
+
+        }
+
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateApplicationAppFeaturesSection(ApplicationPageRequestDTO model)  
+        {
+            try
+            {
+                var applicationPage = _mapper.Map<ApplicationPage>(model);
+
+                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+                string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "Services", "ApplicationPage", "AppFeatures");
+                //string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "TopSlider");
+
+
+
+                //DeleteAllFilesOfFolder(filePath, filePosition);
+
+
+                string filePathToSave = string.Empty;
+
+                if (model?.AppFeaturesSectionOneImageFile != null && model?.AppFeaturesSectionOneImageFile.Length > 0)
+                {
+                    DeleteAllFilesOfFolderWithPosition(filePath, "1");
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + model?.AppFeaturesSectionOneImageFile.FileName;
+                    //string fileExtension = Path.GetExtension(file.FileName);
+                    string fileExtension = ".webp";
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal;
+
+                    totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                    filePathToSave = Path.Combine(filePath, ("1").ToString() + fileExtension);
+
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                    {
+                        model?.AppFeaturesSectionOneImageFile.CopyTo(fileStream);
+                    }
+
+                    var appFeaturesSectionOneImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+
+                    applicationPage.AppFeaturesSectionOneImagePath = appFeaturesSectionOneImagePath;
+
+                }
+
+                if (model?.AppFeaturesSectionTwoImageFile != null && model?.AppFeaturesSectionTwoImageFile.Length > 0)
+                {
+                    DeleteAllFilesOfFolderWithPosition(filePath, "2");
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + model?.AppFeaturesSectionTwoImageFile.FileName;
+                    //string fileExtension = Path.GetExtension(file.FileName);
+                    string fileExtension = ".webp";
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal;
+
+                    
+                    filePathToSave = Path.Combine(filePath, ("2").ToString() + fileExtension);
+
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                    {
+                        model?.AppFeaturesSectionTwoImageFile.CopyTo(fileStream);
+                    }
+
+                    var appFeaturesSectionTwoImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+
+                    applicationPage.AppFeaturesSectionTwoImagePath  = appFeaturesSectionTwoImagePath;
+
+                }
+                if (model?.AppFeaturesSectionThreeImageFile != null && model?.AppFeaturesSectionThreeImageFile.Length > 0)
+                {
+                    DeleteAllFilesOfFolderWithPosition(filePath, "3");
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + model?.AppFeaturesSectionThreeImageFile.FileName;
+                    //string fileExtension = Path.GetExtension(file.FileName);
+                    string fileExtension = ".webp";
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal;
+
+                    totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                    filePathToSave = Path.Combine(filePath, ("3").ToString() + fileExtension);
+
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                    {
+                        model?.AppFeaturesSectionThreeImageFile.CopyTo(fileStream);
+                    }
+
+                    var appFeaturesSectionThreeImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+
+                    applicationPage.AppFeaturesSectionThreeImagePath = appFeaturesSectionThreeImagePath;
+
+                }
+                if (model?.AppFeaturesSectionFourthImageFile != null && model?.AppFeaturesSectionFourthImageFile.Length > 0)
+                {
+                    DeleteAllFilesOfFolderWithPosition(filePath, "4");
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + model?.AppFeaturesSectionFourthImageFile.FileName;
+                    //string fileExtension = Path.GetExtension(file.FileName);
+                    string fileExtension = ".webp";
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal;
+
+                    totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                    filePathToSave = Path.Combine(filePath, ("4").ToString() + fileExtension);
+
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                    {
+                        model?.AppFeaturesSectionFourthImageFile.CopyTo(fileStream);
+                    }
+
+                    var appFeaturesSectionFourthImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+
+                    applicationPage.AppFeaturesSectionFourthImagePath = appFeaturesSectionFourthImagePath;
+
+                }
+
+
+
+
+                bool result = await _applicationPageManager.UpdateAppFeaturesSection(applicationPage);
+
+                if (result == true)
+                {
+                    var response = new
+                    {
+                        Success = true,
+                        Message = "App Features Section updated successfully.",
+                        redirectUrl = Url.Action("Applications", "Services")
+                    };
+                    return Json(response);
+                }
+                else
+                {
+                    var response = new
+                    {
+                        Success = true,
+                        Message = "App Features Section updated failed.",
+                        redirectUrl = Url.Action("Applications", "Services")
+                    };
+                    return Json(response);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "First section left updated failed.",
+                    redirectUrl = Url.Action("Remittances", "Services")
+                };
+                return Json(response);
+            }
+
+
+            //return Json(response);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateApplicationPageVideoLink(ApplicationPageRequestDTO model)
+        {
+            var applicationPage = _mapper.Map<ApplicationPage>(model);
+
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "Services", "ApplicationPage", "VideosThumbnail");
+
+
+            string filePathToSave = string.Empty;
+
+            if (model?.VideoOneThumbnailImageFile != null && model?.VideoOneThumbnailImageFile.Length > 0)
+            {
+                DeleteAllFilesOfFolderWithPosition(filePath, "1");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + model?.VideoOneThumbnailImageFile.FileName;
+                //string fileExtension = Path.GetExtension(file.FileName);
+                string fileExtension = ".webp";
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+                int totalfilesOriginal;
+
+                totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                filePathToSave = Path.Combine(filePath, (1).ToString() + fileExtension);
+
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    model?.VideoOneThumbnailImageFile.CopyTo(fileStream);
+                }
+
+                var videoOneThumbnailImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+
+                applicationPage.VideoOneThumbnailImagePath = videoOneThumbnailImagePath;
+            }
+
+            if (model?.VideoTwoThumbnailImageFile != null && model?.VideoTwoThumbnailImageFile.Length > 0)
+            {
+                DeleteAllFilesOfFolderWithPosition(filePath, "2");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + model?.VideoTwoThumbnailImageFile.FileName;
+                //string fileExtension = Path.GetExtension(file.FileName);
+                string fileExtension = ".webp";
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+                int totalfilesOriginal;
+
+                totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                filePathToSave = Path.Combine(filePath, (2).ToString() + fileExtension);
+
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    model?.VideoTwoThumbnailImageFile.CopyTo(fileStream);
+                }
+
+                var videoTwoThumbnailImageFilePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+
+                applicationPage.VideoOneThumbnailImagePath = videoTwoThumbnailImageFilePath;
+            }
+
+
+            if (model?.VideoThreeThumbnailImageFile != null && model?.VideoThreeThumbnailImageFile.Length > 0)
+            {
+                DeleteAllFilesOfFolderWithPosition(filePath, "3");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + model?.VideoThreeThumbnailImageFile.FileName;
+                //string fileExtension = Path.GetExtension(file.FileName);
+                string fileExtension = ".webp";
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+                int totalfilesOriginal;
+
+                totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                filePathToSave = Path.Combine(filePath, (3).ToString() + fileExtension);
+
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    model?.VideoThreeThumbnailImageFile.CopyTo(fileStream);
+                }
+
+                var videoThreeThumbnailImageFilePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+
+                applicationPage.VideoThreeThumbnailImagePath = videoThreeThumbnailImageFilePath;
+            }
+            if (model?.VideoFourThumbnailImageFile != null && model?.VideoFourThumbnailImageFile.Length > 0)
+            {
+                DeleteAllFilesOfFolderWithPosition(filePath, "4");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + model?.VideoFourThumbnailImageFile.FileName;
+                //string fileExtension = Path.GetExtension(file.FileName);
+                string fileExtension = ".webp";
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+                int totalfilesOriginal;
+
+                totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                filePathToSave = Path.Combine(filePath, (4).ToString() + fileExtension);
+
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    model?.VideoFourThumbnailImageFile.CopyTo(fileStream);
+                }
+
+                var videoThreeThumbnailImageFilePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+
+                applicationPage.VideoFourThumbnailImagePath = videoThreeThumbnailImageFilePath;
+            }
+
+
+            bool result = await _applicationPageManager.UpdateApplicationPageVideoLink(applicationPage);
+
+            var response = new
+            {
+                Success = true,
+                Message = "Video Link updated successfully.",
+                redirectUrl = Url.Action("Applications", "Services")
+            };
+
+
+            return Json(response);
+        }
+
 
     }
 }

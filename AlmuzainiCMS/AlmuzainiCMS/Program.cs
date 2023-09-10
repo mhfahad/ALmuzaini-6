@@ -82,6 +82,16 @@ builder.Services.AddScoped<IRemittancesRepository, RemittancesRepository>();
 builder.Services.AddScoped<IRemittancesManager, RemittancesManager>();
 builder.Services.AddScoped<IValueAddedBenifitsRepository, ValueAddedBenifitsRepository>();
 builder.Services.AddScoped<IValueAddedBenifitsManager, ValueAddedBenifitsManager>();
+builder.Services.AddScoped<IApplicationPageManager, ApplicationPageManager>();
+builder.Services.AddScoped<IApplicationPageRepository, ApplicationPageRepository>();
+
+builder.Services.AddScoped<IPromotionsManager, PromotionsManager>();
+builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
+builder.Services.AddScoped<INewsPageManager, NewsPageManager>();
+builder.Services.AddScoped<INewsPageRepository, NewsPageRepository>();
+builder.Services.AddScoped<IContactUsManager, ContactUsManager>();
+builder.Services.AddScoped<IContactUsRepository, ContactUsRepository>();
+
 builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
 builder.Services.AddDistributedMemoryCache();

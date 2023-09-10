@@ -41,7 +41,7 @@ namespace AlmuzainiCMS.DataBaseContext.DataBaseContext
         public DbSet<NewsSection> NewsSections { get; set; }
         public DbSet<NewsSectionNews> NewsSectionNews { get; set; }   
 
-
+        public DbSet<ContactUs> ContactUs { get; set; }
 
 
     }
