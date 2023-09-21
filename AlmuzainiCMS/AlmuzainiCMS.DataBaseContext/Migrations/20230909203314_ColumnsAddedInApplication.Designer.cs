@@ -4,6 +4,7 @@ using AlmuzainiCMS.DataBaseContext.DataBaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlmuzainiCMS.DataBaseContext.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    partial class ProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230909203314_ColumnsAddedInApplication")]
+    partial class ColumnsAddedInApplication
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -290,155 +292,6 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("CompanyHistory");
-                });
-
-            modelBuilder.Entity("AlmuzainiCMS.Models.Models.ContactUs", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("BannerImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("InnerSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubFiveSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubFiveSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubFiveSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubFourSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubFourSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubFourSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubOneSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubOneSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubOneSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubThreeSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubThreeSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubThreeSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubTwoSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubTwoSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubTwoSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionFiveImageath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionFiveText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionFiveTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionFourImageath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionFourText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionFourTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionOneImageath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionOneText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionOneTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionThreeImageath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionThreeText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionThreeTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionTwoImageath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionTwoText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionTwoTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubFourSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubFourSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubFourSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubOneSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubOneSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubOneSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubThreeSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubThreeSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubThreeSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubTwoSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubTwoSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubTwoSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ContactUs");
                 });
 
             modelBuilder.Entity("AlmuzainiCMS.Models.Models.Corporate", b =>
@@ -795,6 +648,9 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.Property<Guid?>("PromotionId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("SerialNo")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -1125,9 +981,11 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
 
             modelBuilder.Entity("AlmuzainiCMS.Models.Models.PromotionNews", b =>
                 {
-                    b.HasOne("AlmuzainiCMS.Models.Models.Promotion", null)
+                    b.HasOne("AlmuzainiCMS.Models.Models.Promotion", "Promotion")
                         .WithMany("PromotionNews")
                         .HasForeignKey("PromotionId");
+
+                    b.Navigation("Promotion");
                 });
 
             modelBuilder.Entity("AlmuzainiCMS.Models.Models.RequiredDocument", b =>

@@ -111,7 +111,7 @@ namespace AlmuzainiCMS.BLL.BLL
             var _httpClient = _httpClientFactory.CreateClient("GetTTRate");
             _httpClient.DefaultRequestHeaders.Add("RequestID", $"{RequestBody.RequestId++}");
             var newPostJson = JsonConvert.SerializeObject(item);
-            var payload = new StringContent(newPostJson, Encoding.UTF8, Application.Json);
+            var payload = new StringContent(newPostJson, Encoding.UTF8, System.Net.Mime.MediaTypeNames.Application.Json);
             var response = await _httpClient.PostAsync(_httpClient.BaseAddress, payload);
             if (response.IsSuccessStatusCode)
             {

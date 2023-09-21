@@ -1,0 +1,942 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Contact Us</h1>
+
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Contact Us Banner</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.BannerImagePath.Length > 0)
+                {
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="carousel-item-active">
+
+                                <img class="img-fluid" src="@Url.Content(ViewBag.BannerImagePath)" alt="First Slide">
+                            </div>
+                        </div>
+                    </div>
+
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="ContactUsBannerImageFile" multiple />
+                        </div>
+                        <button type="button" id="UploadBannerImageFileButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Contact Us</h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="InnerSectionTitle">Inner Section Title </label>
+                            <textarea class="form-control" cols="20" id="InnerSectionTitle" name="InnerSectionTitle" rows="2" contenteditable="true">@ViewBag.InnerSectionTitle</textarea>
+                        </div>
+                    </div>
+
+                    <button type="button" id="uploadContactInnerSection" class="btn btn-outline-secondary">Update</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Left Section </h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSectionTitle">Left Section Title</label>
+                            <textarea class="form-control" cols="20" id="LeftSectionTitle" name="LeftSectionTitle" rows="4" contenteditable="true">@ViewBag.LeftSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSubOneSectionTitle">Left Sub One Section Title</label>
+                            <textarea class="form-control" cols="20" id="LeftSubOneSectionTitle" name="LeftSubOneSectionTitle" rows="4" contenteditable="true">@ViewBag.LeftSubOneSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSubOneSectionText">Left Sub One Section Text</label>
+                            <textarea class="form-control" cols="20" id="LeftSubOneSectionText" name="LeftSubOneSectionText" rows="4" contenteditable="true">@ViewBag.LeftSubOneSectionText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.LeftSubOneSectionIconPath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.LeftSubOneSectionIconPath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="LeftSubOneSectionIconFile" multiple />
+                        </div>
+
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSubTwoSectionTitle">Left Sub Two Section Title</label>
+                            <textarea class="form-control" cols="20" id="LeftSubTwoSectionTitle" name="LeftSubTwoSectionTitle" rows="4" contenteditable="true">@ViewBag.LeftSubTwoSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSubTwoSectionText">Left Sub Two Section Text</label>
+                            <textarea class="form-control" cols="20" id="LeftSubTwoSectionText" name="LeftSubTwoSectionText" rows="4" contenteditable="true">@ViewBag.LeftSubTwoSectionText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.LeftSubTwoSectionIconPath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.LeftSubTwoSectionIconPath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="LeftSubTwoSectionIconFile" multiple />
+                        </div>
+
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSubThreeSectionTitle">Left Sub Three Section Title</label>
+                            <textarea class="form-control" cols="20" id="LeftSubThreeSectionTitle" name="LeftSubThreeSectionTitle" rows="4" contenteditable="true">@ViewBag.LeftSubThreeSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSubThreeSectionText">Left Sub Three Section Text</label>
+                            <textarea class="form-control" cols="20" id="LeftSubThreeSectionText" name="LeftSubThreeSectionText" rows="4" contenteditable="true">@ViewBag.LeftSubThreeSectionText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.LeftSubThreeSectionIconPath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.LeftSubThreeSectionIconPath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="LeftSubThreeSectionIconFile" multiple />
+                        </div>
+
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSubFourSectionTitle">Left Sub Four Section Title</label>
+                            <textarea class="form-control" cols="20" id="LeftSubFourSectionTitle" name="LeftSubFourSectionTitle" rows="4" contenteditable="true">@ViewBag.LeftSubFourSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSubFourSectionText">Left Sub Four Section Text</label>
+                            <textarea class="form-control" cols="20" id="LeftSubFourSectionText" name="LeftSubFourSectionText" rows="4" contenteditable="true">@ViewBag.LeftSubFourSectionText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.LeftSubFourSectionIconPath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.LeftSubFourSectionIconPath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="LeftSubFourSectionIconFile" multiple />
+                        </div>
+
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSubFiveSectionTitle">Left Sub Five Section Title</label>
+                            <textarea class="form-control" cols="20" id="LeftSubFiveSectionTitle" name="LeftSubFiveSectionTitle" rows="4" contenteditable="true">@ViewBag.LeftSubFiveSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="LeftSubFiveSectionText">Left Sub Five Section Text</label>
+                            <textarea class="form-control" cols="20" id="LeftSubFiveSectionText" name="LeftSubFiveSectionText" rows="4" contenteditable="true">@ViewBag.LeftSubFiveSectionText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.LeftSubFiveSectionIconPath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.LeftSubFiveSectionIconPath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="LeftSubFiveSectionIconFile" multiple />
+                        </div>
+
+                    </div>
+
+
+                    <button type="button" id="uploadContactUsLeftSection" class="btn btn-outline-secondary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Right Section </h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSectionTitle">Right Section Title</label>
+                            <textarea class="form-control" cols="20" id="RightSectionTitle" name="RightSectionTitle" rows="4" contenteditable="true">@ViewBag.RightSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSubOneSectionTitle">Right Sub One Section Title</label>
+                            <textarea class="form-control" cols="20" id="RightSubOneSectionTitle" name="RightSubOneSectionTitle" rows="4" contenteditable="true">@ViewBag.RightSubOneSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSubOneSectionText">Right Sub One Section Text</label>
+                            <textarea class="form-control" cols="20" id="RightSubOneSectionText" name="RightSubOneSectionText" rows="4" contenteditable="true">@ViewBag.RightSubOneSectionText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.RightSubOneSectionIconPath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.RightSubOneSectionIconPath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="RightSubOneSectionIconFile" multiple />
+                        </div>
+
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSubTwoSectionTitle">Right Sub Two Section Title</label>
+                            <textarea class="form-control" cols="20" id="RightSubTwoSectionTitle" name="RightSubTwoSectionTitle" rows="4" contenteditable="true">@ViewBag.RightSubTwoSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSubTwoSectionText">Right Sub Two Section Text</label>
+                            <textarea class="form-control" cols="20" id="RightSubTwoSectionText" name="RightSubTwoSectionText" rows="4" contenteditable="true">@ViewBag.RightSubTwoSectionText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.RightSubTwoSectionIconPath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.RightSubTwoSectionIconPath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="RightSubTwoSectionIconFile" multiple />
+                        </div>
+
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSubThreeSectionTitle">Right Sub Three Section Title</label>
+                            <textarea class="form-control" cols="20" id="RightSubThreeSectionTitle" name="RightSubThreeSectionTitle" rows="4" contenteditable="true">@ViewBag.RightSubThreeSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSubThreeSectionText">Right Sub Three Section Text</label>
+                            <textarea class="form-control" cols="20" id="RightSubThreeSectionText" name="RightSubThreeSectionText" rows="4" contenteditable="true">@ViewBag.RightSubThreeSectionText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.RightSubThreeSectionIconPath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.RightSubThreeSectionIconPath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="RightSubThreeSectionIconFile" multiple />
+                        </div>
+
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSubFourSectionTitle">Right Sub Four Section Title</label>
+                            <textarea class="form-control" cols="20" id="RightSubFourSectionTitle" name="RightSubFourSectionTitle" rows="4" contenteditable="true">@ViewBag.RightSubFourSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="RightSubFourSectionText">Right Sub Four Section Text</label>
+                            <textarea class="form-control" cols="20" id="RightSubFourSectionText" name="RightSubFourSectionText" rows="4" contenteditable="true">@ViewBag.RightSubFourSectionText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.RightSubFourSectionIconPath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.RightSubFourSectionIconPath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="RightSubFourSectionIconFile" multiple />
+                        </div>
+
+                    </div>
+                   
+
+
+                    <button type="button" id="uploadContactUsRightSection" class="btn btn-outline-secondary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">News Section </h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="NewsSectionOneTitle">News Section One Title </label>
+                            <textarea class="form-control" cols="20" id="NewsSectionOneTitle" name="NewsSectionOneTitle" rows="4" contenteditable="true">@ViewBag.NewsSectionOneTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="NewsSectionOneText">News Section One Text</label>
+                            <textarea class="form-control" cols="20" id="NewsSectionOneText" name="NewsSectionOneText" rows="4" contenteditable="true">@ViewBag.NewsSectionOneText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.NewsSectionOneImageath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.NewsSectionOneImageath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="NewsSectionOneImagFile" multiple />
+                        </div>
+
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="NewsSectionTwoTitle">News Section Two Title </label>
+                            <textarea class="form-control" cols="20" id="NewsSectionTwoTitle" name="NewsSectionTwoTitle" rows="4" contenteditable="true">@ViewBag.NewsSectionTwoTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="NewsSectionTwoText">News Section Two Text</label>
+                            <textarea class="form-control" cols="20" id="NewsSectionTwoText" name="NewsSectionTwoText" rows="4" contenteditable="true">@ViewBag.NewsSectionTwoText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.NewsSectionTwoImageath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.NewsSectionTwoImageath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="NewsSectionTwoImagFile" multiple />
+                        </div>
+
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="NewsSectionThreeTitle">News Section Three Title </label>
+                            <textarea class="form-control" cols="20" id="NewsSectionThreeTitle" name="NewsSectionThreeTitle" rows="4" contenteditable="true">@ViewBag.NewsSectionThreeTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="NewsSectionThreeText">News Section Three Text</label>
+                            <textarea class="form-control" cols="20" id="NewsSectionThreeText" name="NewsSectionThreeText" rows="4" contenteditable="true">@ViewBag.NewsSectionThreeText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.NewsSectionThreeImageath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.NewsSectionThreeImageath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="NewsSectionThreeImagFile" multiple />
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="NewsSectionFourTitle">News Section Four Title </label>
+                            <textarea class="form-control" cols="20" id="NewsSectionFourTitle" name="NewsSectionFourTitle" rows="4" contenteditable="true">@ViewBag.NewsSectionFourTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="NewsSectionFourText">News Section Four Text</label>
+                            <textarea class="form-control" cols="20" id="NewsSectionFourText" name="NewsSectionFourText" rows="4" contenteditable="true">@ViewBag.NewsSectionFourText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.NewsSectionFourImageath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.NewsSectionFourImageath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="NewsSectionFourImagFile" multiple />
+                        </div>
+
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="NewsSectionFiveTitle">News Section Five Title </label>
+                            <textarea class="form-control" cols="20" id="NewsSectionFiveTitle" name="NewsSectionFiveTitle" rows="4" contenteditable="true">@ViewBag.NewsSectionFiveTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="NewsSectionFiveText">News Section Five Text</label>
+                            <textarea class="form-control" cols="20" id="NewsSectionFiveText" name="NewsSectionFiveText" rows="4" contenteditable="true">@ViewBag.NewsSectionFiveText</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.NewsSectionFiveImageath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.NewsSectionFiveImageath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="NewsSectionFiveImagFile" multiple />
+                        </div>
+
+                    </div>
+
+
+
+                    <button type="button" id="uploadNewsSection" class="btn btn-outline-secondary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        document.getElementById("UploadBannerImageFileButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var position = 1;
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="ContactUsBannerImageFile"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadBanner", "ContactUs")",  
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading  Banner.");
+                }
+            });
+        });
+
+        document.getElementById("uploadContactInnerSection").addEventListener("click", function () {
+            var formData = new FormData();
+            var innerSectionTitle = document.getElementById("InnerSectionTitle").value;
+          
+            formData.append("InnerSectionTitle", innerSectionTitle);
+            
+
+            $.ajax({
+                url: "@Url.Action("UpdateInnerSection", "ContactUs")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Inner Section update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Inner Section.");
+                }
+            });
+
+
+        });
+
+
+         document.getElementById("uploadContactUsLeftSection").addEventListener("click", function () {
+            var formData = new FormData();
+            var LeftSectionTitle = document.getElementById("LeftSectionTitle").value;
+
+            var LeftSubOneSectionTitle = document.getElementById("LeftSubOneSectionTitle").value;
+            var LeftSubOneSectionText = document.getElementById("LeftSubOneSectionText").value;
+            var LeftSubTwoSectionTitle = document.getElementById("LeftSubTwoSectionTitle").value;
+            var LeftSubTwoSectionText = document.getElementById("LeftSubTwoSectionText").value;            
+            var LeftSubThreeSectionTitle = document.getElementById("LeftSubThreeSectionTitle").value;
+            var LeftSubThreeSectionText = document.getElementById("LeftSubThreeSectionText").value;           
+            var LeftSubFourSectionTitle = document.getElementById("LeftSubFourSectionTitle").value;
+            var LeftSubFourSectionText = document.getElementById("LeftSubFourSectionText").value;
+            var LeftSubFiveSectionTitle = document.getElementById("LeftSubFiveSectionTitle").value;
+            var LeftSubFiveSectionText = document.getElementById("LeftSubFiveSectionText").value;
+
+            formData.append("LeftSectionTitle", LeftSectionTitle);
+            formData.append("LeftSubOneSectionTitle", LeftSubOneSectionTitle);
+            formData.append("LeftSubOneSectionText", LeftSubOneSectionText);
+            formData.append("LeftSubTwoSectionTitle", LeftSubTwoSectionTitle);
+            formData.append("LeftSubTwoSectionText", LeftSubTwoSectionText);
+            formData.append("LeftSubThreeSectionTitle", LeftSubThreeSectionTitle);
+            formData.append("LeftSubThreeSectionText", LeftSubThreeSectionText);
+            formData.append("LeftSubFourSectionTitle", LeftSubFourSectionTitle);
+            formData.append("LeftSubFourSectionText", LeftSubFourSectionText);
+            formData.append("LeftSubFiveSectionTitle", LeftSubFiveSectionTitle);
+            formData.append("LeftSubFiveSectionText", LeftSubFiveSectionText);
+          
+
+            var LeftSubOneSectionIconFile = document.querySelector('input[type="file"][name="LeftSubOneSectionIconFile"]');
+           
+            var LeftSubTwoSectionIconFile = document.querySelector('input[type="file"][name="LeftSubTwoSectionIconFile"]');
+
+            var LeftSubThreeSectionIconFile = document.querySelector('input[type="file"][name="LeftSubThreeSectionIconFile"]');
+
+            var LeftSubFourSectionIconFile = document.querySelector('input[type="file"][name="LeftSubFourSectionIconFile"]');
+            var LeftSubFiveSectionIconFile = document.querySelector('input[type="file"][name="LeftSubFiveSectionIconFile"]');
+
+            
+
+            //formData.append("LeftSectionFirstText", firstSectionLeftText);
+            if (LeftSubOneSectionIconFile.value.length > 0) {
+                formData.append("LeftSubOneSectionIconFile", LeftSubOneSectionIconFile.files[0]);
+
+            }
+            if (LeftSubTwoSectionIconFile.value.length > 0) {
+                formData.append("LeftSubTwoSectionIconFile", LeftSubTwoSectionIconFile.files[0]);
+
+            }
+            if (LeftSubThreeSectionIconFile.value.length > 0) {
+                formData.append("LeftSubThreeSectionIconFile", LeftSubThreeSectionIconFile.files[0]);
+
+            }
+            if (LeftSubFourSectionIconFile.value.length > 0) {
+                formData.append("LeftSubFourSectionIconFile", LeftSubFourSectionIconFile.files[0]);
+
+            }
+            if (LeftSubFiveSectionIconFile.value.length > 0) {
+                formData.append("LeftSubFiveSectionIconFile", LeftSubFiveSectionIconFile.files[0]);
+
+            }
+            $.ajax({
+                url: "@Url.Action("UpdateContactUsLeftSection", "ContactUs")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                         var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        toastr.error("Contact Us  update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Contac tUs.");
+                }
+            });
+
+
+        });
+
+
+        document.getElementById("uploadContactUsRightSection").addEventListener("click", function () {
+            var formData = new FormData();
+            var RightSectionTitle = document.getElementById("RightSectionTitle").value;
+
+            var RightSubOneSectionTitle = document.getElementById("RightSubOneSectionTitle").value;
+            var RightSubOneSectionText = document.getElementById("RightSubOneSectionText").value;
+            var RightSubTwoSectionTitle = document.getElementById("RightSubTwoSectionTitle").value;
+            var RightSubTwoSectionText = document.getElementById("RightSubTwoSectionText").value;
+            var RightSubThreeSectionTitle = document.getElementById("RightSubThreeSectionTitle").value;
+            var RightSubThreeSectionText = document.getElementById("RightSubThreeSectionText").value;
+            var RightSubFourSectionTitle = document.getElementById("RightSubFourSectionTitle").value;
+            var RightSubFourSectionText = document.getElementById("RightSubFourSectionText").value;
+        
+            formData.append("RightSectionTitle", RightSectionTitle);
+            formData.append("RightSubOneSectionTitle", RightSubOneSectionTitle);
+            formData.append("RightSubOneSectionText", RightSubOneSectionText);
+            formData.append("RightSubTwoSectionTitle", RightSubTwoSectionTitle);
+            formData.append("RightSubTwoSectionText", RightSubTwoSectionText);
+            formData.append("RightSubThreeSectionTitle", RightSubThreeSectionTitle);
+            formData.append("RightSubThreeSectionText", RightSubThreeSectionText);
+            formData.append("RightSubFourSectionTitle", RightSubFourSectionTitle);
+            formData.append("RightSubFourSectionText", RightSubFourSectionText);
+          
+
+            var RightSubOneSectionIconFile = document.querySelector('input[type="file"][name="RightSubOneSectionIconFile"]');
+
+            var RightSubTwoSectionIconFile = document.querySelector('input[type="file"][name="RightSubTwoSectionIconFile"]');
+
+            var RightSubThreeSectionIconFile = document.querySelector('input[type="file"][name="RightSubThreeSectionIconFile"]');
+
+            var RightSubFourSectionIconFile = document.querySelector('input[type="file"][name="RightSubFourSectionIconFile"]');
+          
+
+            //formData.append("RightSectionFirstText", firstSectionRightText);
+            if (RightSubOneSectionIconFile.value.length > 0) {
+                formData.append("RightSubOneSectionIconFile", RightSubOneSectionIconFile.files[0]);
+
+            }
+            if (RightSubTwoSectionIconFile.value.length > 0) {
+                formData.append("RightSubTwoSectionIconFile", RightSubTwoSectionIconFile.files[0]);
+
+            }
+            if (RightSubThreeSectionIconFile.value.length > 0) {
+                formData.append("RightSubThreeSectionIconFile", RightSubThreeSectionIconFile.files[0]);
+
+            }
+            if (RightSubFourSectionIconFile.value.length > 0) {
+                formData.append("RightSubFourSectionIconFile", RightSubFourSectionIconFile.files[0]);
+
+            }
+          
+            $.ajax({
+                url: "@Url.Action("UpdateContactUsRightSection", "ContactUs")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                         var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        toastr.error("Contact Us  update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Contac tUs.");
+                }
+            });
+
+
+        });
+
+        document.getElementById("uploadNewsSection").addEventListener("click", function () {
+              debugger;
+            var formData = new FormData();
+            var NewsSectionOneTitle = document.getElementById("NewsSectionOneTitle").value;
+            var NewsSectionOneText = document.getElementById("NewsSectionOneText").value;
+            var NewsSectionTwoTitle = document.getElementById("NewsSectionTwoTitle").value;
+            var NewsSectionTwoText = document.getElementById("NewsSectionTwoText").value;
+            var NewsSectionThreeTitle = document.getElementById("NewsSectionThreeTitle").value;
+            var NewsSectionThreeText = document.getElementById("NewsSectionThreeText").value;
+            var NewsSectionFourTitle = document.getElementById("NewsSectionFourTitle").value;
+            var NewsSectionFourText = document.getElementById("NewsSectionFourText").value;
+            var NewsSectionFiveTitle = document.getElementById("NewsSectionFiveTitle").value;
+            var NewsSectionFiveText = document.getElementById("NewsSectionFiveText").value;
+
+            
+            formData.append("NewsSectionOneTitle", NewsSectionOneTitle);
+            formData.append("NewsSectionOneText", NewsSectionOneText);
+            formData.append("NewsSectionTwoTitle", NewsSectionTwoTitle);
+            formData.append("NewsSectionTwoText", NewsSectionTwoText);
+            formData.append("NewsSectionThreeTitle", NewsSectionThreeTitle);
+            
+            formData.append("NewsSectionThreeText", NewsSectionThreeText);
+            formData.append("NewsSectionFourTitle", NewsSectionFourTitle);
+            formData.append("NewsSectionFourText", NewsSectionFourText);
+            formData.append("NewsSectionFiveTitle", NewsSectionFiveTitle);
+            formData.append("NewsSectionFiveText", NewsSectionFiveText);
+
+
+            var NewsSectionOneImagFile = document.querySelector('input[type="file"][name="NewsSectionOneImagFile"]');
+            var NewsSectionTwoImagFile = document.querySelector('input[type="file"][name="NewsSectionTwoImagFile"]');
+            var NewsSectionThreeImagFile = document.querySelector('input[type="file"][name="NewsSectionThreeImagFile"]');
+            var NewsSectionFourImagFile = document.querySelector('input[type="file"][name="NewsSectionFourImagFile"]');
+            var NewsSectionFiveImagFile = document.querySelector('input[type="file"][name="NewsSectionFiveImagFile"]');  
+           
+            if (NewsSectionOneImagFile.value.length > 0 ) {
+                formData.append("NewsSectionOneImagFile", NewsSectionOneImagFile.files[0]);
+               
+            }
+            if (NewsSectionTwoImagFile.value.length > 0) {
+                formData.append("NewsSectionTwoImagFile", NewsSectionTwoImagFile.files[0]);
+               
+            }
+            if (NewsSectionThreeImagFile.value.length > 0) {
+                formData.append("NewsSectionThreeImagFile", NewsSectionThreeImagFile.files[0]);
+               
+            }
+            if (NewsSectionFourImagFile.value.length > 0) {
+                formData.append("NewsSectionFourImagFile", NewsSectionFourImagFile.files[0]);
+               
+            }
+            if (NewsSectionFiveImagFile.value.length > 0) {
+                formData.append("NewsSectionFiveImagFile", NewsSectionFiveImagFile.files[0]);  
+               
+            }
+
+
+            $.ajax({
+                url: "@Url.Action("UpdateNewsSection", "ContactUs")",  
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        toastr.error("News Section update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating News Section.");  
+                }
+            });
+
+
+        });
+
+
+
+
+    </script>
+}

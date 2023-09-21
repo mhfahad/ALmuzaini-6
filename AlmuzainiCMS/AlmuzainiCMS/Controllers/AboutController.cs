@@ -16,10 +16,12 @@ namespace AlmuzainiCMS.Controllers
         private readonly ICompanyHistoryManager _companyHistoryManager;
         private readonly IChairmanMessageManager _chairmanMessageManager;
         private readonly IMissionVisionValuesManager _missionVisionValuesManager; 
+        private readonly ICorporateSocialResponsibilityManager _corporateSocialResponsibilityManager;
 
 
         public AboutController(ILogger<AboutController> logger, IMapper mapper, IWebHostEnvironment webHostEnvironment,
-            ICompanyHistoryManager companyHistoryManager,IChairmanMessageManager chairmanMessageManager ,IMissionVisionValuesManager missionVisionValuesManager)
+            ICompanyHistoryManager companyHistoryManager,IChairmanMessageManager chairmanMessageManager ,
+            IMissionVisionValuesManager missionVisionValuesManager , ICorporateSocialResponsibilityManager corporateSocialResponsibilityManager)
         {
             _logger = logger;
             _mapper = mapper;
@@ -27,6 +29,7 @@ namespace AlmuzainiCMS.Controllers
             _companyHistoryManager = companyHistoryManager;  
             _missionVisionValuesManager = missionVisionValuesManager;
             _chairmanMessageManager = chairmanMessageManager;
+            _corporateSocialResponsibilityManager = corporateSocialResponsibilityManager ;  
         }
 
         public IActionResult Index()
@@ -1048,6 +1051,109 @@ namespace AlmuzainiCMS.Controllers
                 };
                 return Json(response);
             }
+        }
+
+        [HttpGet]
+        public IActionResult CorporateSocialResponsibility()
+        {
+            PrepareCorporateSocialResponsibilityView();
+            return View();
+        }
+
+        private async void PrepareCorporateSocialResponsibilityView()
+        {
+            CorporateSocialResponsibility corporateSocialResponsibility = new CorporateSocialResponsibility();
+            corporateSocialResponsibility = await  _corporateSocialResponsibilityManager.GetCorporateSocialResponsibility();
+
+            ViewBag.FirstSection = corporateSocialResponsibility?.FirstSection ?? "";
+            ViewBag.SecondSection = corporateSocialResponsibility?.SecondSection ?? "";
+            ViewBag.ThirdSection = corporateSocialResponsibility?.ThirdSection ?? "";
+            ViewBag.FourthSection = corporateSocialResponsibility?.FourthSection ?? "";
+            ViewBag.FifthSection = corporateSocialResponsibility?.FifthSection ?? "";
+            ViewBag.SixthSection = corporateSocialResponsibility?.SixthSection ?? "";
+            ViewBag.SeventhSection = corporateSocialResponsibility?.SeventhSection ?? "";
+
+            ViewBag.CompanySocialResponsibilyImageFileNames = corporateSocialResponsibility?.CorporateSocialResponsibilityImagePath ?? "";
+           
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UploadCorporateSocialResponsibilityImage(CorporateSocialResponsibilityDTO model)
+        {
+            var corporateSocialResponsibility = _mapper.Map<CorporateSocialResponsibility>(model);
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "CorporateSocialResponsibility");
+            string filePosition = "1";
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            string filePathToSave = string.Empty;
+
+            var file = model.CorporateSocialResponsibilyImageFile;
+
+            if (file != null && file.Length > 0)
+            {
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string fileExtension = ".webp";
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+
+                filePathToSave = Path.Combine(filePath, filePosition + fileExtension);
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                var corporateSocialResponsibilityImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+                corporateSocialResponsibility.CorporateSocialResponsibilityImagePath = corporateSocialResponsibilityImagePath;
+            }
+
+
+            bool result = await _corporateSocialResponsibilityManager.UpdateCorporateSocialResponsibilityImage(corporateSocialResponsibility);
+
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Corporate Social Responsibily Image updated successfully.",
+                    redirectUrl = Url.Action("CorporateSocialResponsibility", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Corporate Social Responsibily Image updated failed.",
+                    redirectUrl = Url.Action("CorporateSocialResponsibility", "About")
+                };
+                return Json(response);
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateCorporateSocialResponsibilitySection(CorporateSocialResponsibilityDTO model )
+        {
+            var corporateSocialResponsibility = _mapper.Map<CorporateSocialResponsibility>(model);
+            var result = await _corporateSocialResponsibilityManager.UpdateCorporateSocialResponsibilitySection(corporateSocialResponsibility);
+
+            var response = new
+            {
+                Success = true,
+                Message = "Company History section updated successfully.",
+                redirectUrl = Url.Action("CorporateSocialResponsibility", "About")
+            };
+
+
+            return Json(response);
         }
 
 

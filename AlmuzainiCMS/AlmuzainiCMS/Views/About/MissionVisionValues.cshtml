@@ -159,19 +159,31 @@
                         </div>
 
                     </div>
-                    <div class="input-group flex-nowrap">
-                        
-                        <div class="col-sm-9 col-md-11 mt-1 mb-2" >
-                            <label for="NewValue">Values Item </label>
-                            <input type="text" class="form-control" id="NewValue" name="NewValue" ></input>
-                            
+                    @*<div class="input-group flex-nowrap">
+                        <div class="col-sm-10 col-md-11 mt-1 mb-2">
+                                <label for="NewValue">Values Item </label>
+                                <input type="text" class="form-control" id="NewValue" name="NewValue"></input>
+
                         </div>
-                        <div class="col-sm-3 col-md-1" style="margin-top: 1.75rem">
-                            <button type="button" id="updateValuesItemButton" class="btn float-end btn-outline-secondary d-block w-100">Add</button>
+                        <div class="col-sm-2 col-md-1" style="margin-top: 1.75rem">
+                                <button type="button" id="updateValuesItemButton" class="btn btn-outline-secondary d-block w-100">Add</button>
                         </div>
-                        
+                                
+
+                    </div>*@
+                     <div class="input-group flex-nowrap mt-2 mb-1">
+                        <label for="NewValue">Values Item </label>
+                     </div>
+                    <div class="input-group flex-nowrap mt-2 mb-2">
+                         
+                         <input type="text" class="form-control" id="NewValue" name="NewValue" placeholder="Enter Values Item "></input>
+                         <button type="button" id="updateValuesItemButton" class="btn btn-outline-secondary ">Update</button>       
+
+                               
                     </div>
-                    
+                        
+
+                        
                     <div class="input-group flex-nowrap">
                         <div class="custom-file w-100">
                             <input type="file" name="ValuesImageFile" />

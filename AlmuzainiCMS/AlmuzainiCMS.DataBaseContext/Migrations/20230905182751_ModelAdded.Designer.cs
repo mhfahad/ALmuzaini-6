@@ -4,6 +4,7 @@ using AlmuzainiCMS.DataBaseContext.DataBaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlmuzainiCMS.DataBaseContext.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    partial class ProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230905182751_ModelAdded")]
+    partial class ModelAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -154,16 +156,10 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.Property<string>("VideoFiveLink")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("VideoFiveThumbnailImagePath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("VideoFiveTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VideoFourLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VideoFourThumbnailImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VideoFourTitle")
@@ -172,25 +168,16 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.Property<string>("VideoOneLink")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("VideoOneThumbnailImagePath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("VideoOneTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VideoThreeLink")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("VideoThreeThumbnailImagePath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("VideoThreeTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VideoTwoLink")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VideoTwoThumbnailImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VideoTwoTitle")
@@ -292,155 +279,6 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.ToTable("CompanyHistory");
                 });
 
-            modelBuilder.Entity("AlmuzainiCMS.Models.Models.ContactUs", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("BannerImagePath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("InnerSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubFiveSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubFiveSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubFiveSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubFourSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubFourSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubFourSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubOneSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubOneSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubOneSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubThreeSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubThreeSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubThreeSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubTwoSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubTwoSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSubTwoSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionFiveImageath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionFiveText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionFiveTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionFourImageath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionFourText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionFourTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionOneImageath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionOneText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionOneTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionThreeImageath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionThreeText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionThreeTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionTwoImageath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionTwoText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NewsSectionTwoTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubFourSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubFourSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubFourSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubOneSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubOneSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubOneSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubThreeSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubThreeSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubThreeSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubTwoSectionIconPath")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubTwoSectionText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSubTwoSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ContactUs");
-                });
-
             modelBuilder.Entity("AlmuzainiCMS.Models.Models.Corporate", b =>
                 {
                     b.Property<Guid>("Id")
@@ -460,9 +298,6 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("InnerSectionTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RequiredDocumentsText")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SliderFourImagePath")
@@ -566,12 +401,6 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BuySellCurrencyLinkOne")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BuySellCurrencyLinkOneText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BuySellCurrencyLinkTwo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("BuySellCurrencyLinkTwoText")
@@ -795,6 +624,9 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.Property<Guid?>("PromotionId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<int>("SerialNo")
+                        .HasColumnType("int");
+
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
@@ -853,13 +685,7 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.Property<string>("RemitNowImageOne")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RemitNowImageOneText")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("RemitNowImageTwo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RemitNowImageTwoText")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RemitNowText")
@@ -901,16 +727,10 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.Property<string>("VideoOneText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("VideoOneThumbnailImagePath")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("VideoTwoLink")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("VideoTwoText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VideoTwoThumbnailImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -1030,16 +850,10 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.Property<string>("LeftSectionFirstText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LeftSectionFirstTitle")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("LeftSectionSecondImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LeftSectionSecondText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LeftSectionSecondTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LeftSectionThirdImagePath")
@@ -1048,16 +862,10 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.Property<string>("LeftSectionThirdText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LeftSectionThirdTitle")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("RightSectionFirstImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RightSectionFirstText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSectionFirstTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RightSectionFourthImagePath")
@@ -1066,25 +874,16 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.Property<string>("RightSectionFourthText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RightSectionFourthTitle")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("RightSectionSecondImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RightSectionSecondText")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RightSectionSecondTitle")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("RightSectionThirdImagePath")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RightSectionThirdText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RightSectionThirdTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -1125,9 +924,11 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
 
             modelBuilder.Entity("AlmuzainiCMS.Models.Models.PromotionNews", b =>
                 {
-                    b.HasOne("AlmuzainiCMS.Models.Models.Promotion", null)
+                    b.HasOne("AlmuzainiCMS.Models.Models.Promotion", "Promotion")
                         .WithMany("PromotionNews")
                         .HasForeignKey("PromotionId");
+
+                    b.Navigation("Promotion");
                 });
 
             modelBuilder.Entity("AlmuzainiCMS.Models.Models.RequiredDocument", b =>
