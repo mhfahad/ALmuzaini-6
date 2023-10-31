@@ -24,7 +24,7 @@ namespace AlmuzainiCMS.DAL.DAL
             MissionVisionValues missionVisionValues = new MissionVisionValues();
             if(_context.MissionVisionValues.Count() > 0)
             {
-                missionVisionValues = _context.MissionVisionValues.Include(a => a.ValuesItems).FirstOrDefault();
+                missionVisionValues = _context.MissionVisionValues.Include(a => a.ValuesItems).ToList().FirstOrDefault();
                     //.SingleOrDefault(b => b.Id == missionVisionValues.Id);
             }
 

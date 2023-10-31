@@ -5,6 +5,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace AlmuzainiCMS.Models.Models
 {
@@ -15,7 +17,8 @@ namespace AlmuzainiCMS.Models.Models
         public Guid Id { get; set; }
         public string? BannerImagePath { get; set; }
         public string? InnerSectionTitle { get; set; }
-
+        [JsonIgnore]
+        [IgnoreDataMember]
         public ICollection<PromotionNews>? PromotionNews { get; set; }   
 
 

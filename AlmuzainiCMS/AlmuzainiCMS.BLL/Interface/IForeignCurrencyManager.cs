@@ -25,5 +25,6 @@ namespace AlmuzainiCMS.BLL.Interface
         Task<bool> UpdateCorporateBanner(Corporate corporate);
         Task<bool> UpdateCorporateSection(Corporate model);
         Task<bool> UpdateCorporateSliderImageFile(Corporate corporate);
+
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,6 +24,8 @@ namespace AlmuzainiCMS.Models.Models
         public string? ValuesImagePath { get; set; }
         public string? ValuesText { get; set; }
 
+        [JsonIgnore]
+        [IgnoreDataMember]
         public ICollection<ValuesItem>? ValuesItems { get; set; }
 
 
