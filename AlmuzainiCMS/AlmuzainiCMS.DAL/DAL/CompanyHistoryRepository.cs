@@ -21,6 +21,7 @@ namespace AlmuzainiCMS.DAL.DAL
 
         public Task<CompanyHistory> GetCompanyHistorySection()
         {
+
             CompanyHistory companyHistory = _context.CompanyHistory.FirstOrDefault();    
             return Task.FromResult(companyHistory);
         }
