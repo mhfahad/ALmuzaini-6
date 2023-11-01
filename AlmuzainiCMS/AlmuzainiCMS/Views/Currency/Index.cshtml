@@ -1,0 +1,65 @@
+﻿
+@model ICollection<AlmuzainiCMS.Models.Models.GetTTRateResult>
+
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <div></div>
+                <form class="mt-4" action="CurrencySync" method="post">
+                    <div>
+                        <button type="submit" id="syncButton" class="btn btn-primary btn-lg">Synchronous</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Slider Rates</h4>
+        <div class="table-responsive">
+            <table class="table">
+                <thead class="bg-info text-white">
+            <tr>
+                <th>
+                    <label>Currency Code</label>
+                </th>
+                <th>
+                    <label>Amount</label>
+                </th>
+                <th>
+                    <label>LC Amount</label>
+                </th>
+                <th>
+                    <label>FC Amount</label>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var currencyRate in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => currencyRate.currencyCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => currencyRate.rate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => currencyRate.lcAmount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => currencyRate.fcAmount)
+                    </td>
+                </tr>
+            }       
+        </tbody>
+    </table>
+        </div>
+    </div>
+</div>
+

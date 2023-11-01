@@ -1,367 +1,716 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
-{
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Top Slider</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.TopSliderFileNames.Length > 0)
+                {
+                    @foreach (var fileName in ViewBag.TopSliderFileNames)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                    @*<li>@fileName</li>*@
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/TopSlider/"+ fileName)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                <div class="row">
+                    <div class="form-group col-sm-3 col-md-3 mb-4">
+                        <label class="mr-sm-2">Select Position</label>
+                        <select class="form-select mr-sm-2" id="ddlTopSliderSelect">
+                            <option selected="" value="0">All</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                            <option value="5">Five</option>
+                            <option value="6">Six</option>
+                            <option value="7">Seven</option>
+                            <option value="8">Eight</option>
+                            <option value="9">Nine</option>
+                        </select>
+                    </div>
+                </div>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="Files" multiple />
+                        </div>
+                        <button type="button" id="uploadSliderButton" class="btn btn-outline-secondary">Upload</button>
+                        </div>
+                    
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <div class="col-sm-12 col-md-12">
         <div class="card">
             <div class="card-body">
                 <div class="row">
-                    <h4 class="card-title">Top Slider</h4>
-
+                    <h4 class="card-title">Rate Calculator</h4>
                     <h6 class="lebel">Live Images</h6>
-
-                    <div class="col-lg-3">
-                        <div class="card">
-
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                     src="../assets/images/big/img1.jpg" alt="First slide">
+                    @if (ViewBag.RateCalculatorFileNames.Length > 0)
+                    {
+                        @foreach (var fileName in ViewBag.RateCalculatorFileNames)
+                        {
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="carousel-item-active">
+                                        @*<li>@fileName</li>*@
+                                        <img class="img-fluid" src="@Url.Content("../Uploads/original/RateCalculator/"+ fileName)" alt="First Slide">
+                                    </div>
+                                </div>
                             </div>
 
+
+
+                        }
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="row">
+                        <div class="form-group col-sm-3 col-md-3 mb-4">
+                            <label class="mr-sm-2">Select Position</label>
+                            <select class="form-select mr-sm-2" id="ddlRateCalculatorSelection">
+                                <option selected="" value="0">All</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                                <option value="4">Four</option>
+                                <option value="5">Five</option>
+                                <option value="6">Six</option>
+                                <option value="7">Seven</option>
+                                <option value="8">Eight</option>
+                                <option value="9">Nine</option>
+
+                            </select>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="card">
-
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                     src="../assets/images/big/img2.jpg" alt="First slide">
+                    <form enctype="multipart/form-data">
+                        <div class="input-group flex-nowrap">
+                            <div class="custom-file w-100">
+                                <input type="file" name="RateCalculatorFiles" multiple />
                             </div>
-
+                            <button type="button" id="uploadRateCalculatorButton" class="btn btn-outline-secondary">Upload</button>
                         </div>
-                    </div><div class="col-lg-3">
-                        <div class="card">
 
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                     src="../assets/images/big/img3.jpg" alt="First slide">
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="card-title">Middle Slider</h4>
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.MiddleSliderFileNames.Length > 0)
+                    {
+                        @foreach (var fileName in ViewBag.MiddleSliderFileNames)
+                        {
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="carousel-item-active">
+                                        @*<li>@fileName</li>*@
+                                        <img class="img-fluid" src="@Url.Content("../Uploads/original/MiddleSlider/"+ fileName)" alt="First Slide">
+                                    </div>
+                                </div>
                             </div>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="card">
 
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                     src="../assets/images/big/img3.jpg" alt="First slide">
-                            </div>
 
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="card">
+                        }
 
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                     src="../assets/images/big/img1.jpg" alt="First slide">
-                            </div>
-
-                        </div>
-                    </div><div class="col-lg-3">
-                        <div class="card">
-
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                     src="../assets/images/big/img2.jpg" alt="First slide">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="card">
-
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                     src="../assets/images/big/img1.jpg" alt="First slide">
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="col-lg-3">
-                        <div class="card">
-
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                     src="../assets/images/big/img2.jpg" alt="First slide">
-                            </div>
-
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="row">
+                        <div class="form-group col-sm-3 col-md-3 mb-4">
+                            <label class="mr-sm-2">Select Position</label>
+                            <select class="form-select mr-sm-2" id="ddlMiddleSliderSelection">
+                                <option selected="" value="0">All</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                                <option value="4">Four</option>
+                                <option value="5">Five</option>
+                                <option value="6">Six</option>
+                                <option value="7">Seven</option>
+                                <option value="8">Eight</option>
+                                <option value="9">Nine</option>
+                            </select>
                         </div>
                     </div>
-                    <div class="col-lg-3">
-                        <div class="card">
-
-                            <div class="carousel-item active">
-                                <img class="img-fluid"
-                                     src="../assets/images/big/img3.jpg" alt="First slide">
+                    <form enctype="multipart/form-data">
+                        <div class="input-group flex-nowrap">
+                            <div class="custom-file w-100">
+                                <input type="file" name="MiddleSliderFiles" multiple />
                             </div>
-
+                            <button type="button" id="uploadMiddleSliderButton" class="btn btn-outline-secondary">Upload</button>
                         </div>
-                    </div>
+
+                    </form>
 
 
                 </div>
-                <div class="row" id="selectImg">
 
-                    <h6 class="lebel">Selected Images</h6>
+            </div>
 
-                    <div class="col-lg-3">
+        </div>
+
+    </div>
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="card-title">Round Buttons</h4>
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.RoundButtonsFileNames.Length > 0)
+                    {
+                        @foreach (var fileName in ViewBag.RoundButtonsFileNames)
+                        {
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="carousel-item-active">
+                                        @*<li>@fileName</li>*@
+                                        <img class="img-fluid" src="@Url.Content("../Uploads/original/RoundButtons/"+ fileName)" alt="First Slide">
+                                    </div>
+                                </div>
+                            </div>
 
 
-                        <div class="carousel-item active">
-                            <img class="img-fluid" id="thumbnil1" src="../assets/images/big/no-img.jpg" alt="image" />
+
+                        }
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                
+                    <div class="row">
+                        <div class="form-group col-sm-3 col-md-3 mb-4">
+                            <label class="mr-sm-2">Select Position</label>
+                            <select class="form-select mr-sm-2" id="ddlRoundButtonsSelection">
+                                <option selected="" value="0">All</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                                <option value="4">Four</option>
+                                <option value="5">Five</option>
+                                <option value="6">Six</option>
+                                <option value="7">Seven</option>
+                                <option value="8">Eight</option>
+                                <option value="9">Nine</option>
+                            </select>
+                        </div>
+                    </div>
+                    <form enctype="multipart/form-data">
+                        <div class="input-group flex-nowrap">
+                            <div class="custom-file w-100">
+                                <input type="file" name="RoundButtonsFiles" multiple />
+                            </div>
+                            <button type="button" id="uploadRoundButtonsButton" class="btn btn-outline-secondary">Upload</button>
                         </div>
 
+                    </form>
 
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="card-title">Last Slider</h4>
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.LastSliderFileNames.Length > 0)
+                    {
+                        @foreach (var fileName in ViewBag.LastSliderFileNames)
+                        {
+                            <div class="col-lg-3">
+                                <div class="card">
+                                    <div class="carousel-item-active">
+                                        @*<li>@fileName</li>*@
+                                        <img class="img-fluid" src="@Url.Content("../Uploads/original/LastSlider/"+ fileName)" alt="First Slide">
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        }
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="row">
+                        <div class="form-group col-sm-3 col-md-3 mb-4">
+                            <label class="mr-sm-2">Select Position</label>
+                            <select class="form-select mr-sm-2" id="ddlLastSliderSelection">
+                                <option selected="" value="0">All</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                                <option value="4">Four</option>
+                                <option value="5">Five</option>
+                                <option value="6">Six</option>
+                                <option value="7">Seven</option>
+                                <option value="8">Eight</option>
+                                <option value="9">Nine</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-lg-3">
-
-
-                        <div class="carousel-item active">
-                            <img class="img-fluid" id="thumbnil2" src="../assets/images/big/no-img.jpg" alt="image" />
+                    <form enctype="multipart/form-data">
+                        <div class="input-group flex-nowrap">
+                            <div class="custom-file w-100">
+                                <input type="file" name="LastSliderFiles" multiple />
+                            </div>
+                            <button type="button" id="uploadLastSliderButton" class="btn btn-outline-secondary">Upload</button>
                         </div>
 
+                    </form>
 
-                    </div>
-                    <div class="col-lg-3">
+                </div>
 
+            </div>
 
-                        <div class="carousel-item active">
-                            <img class="img-fluid" id="thumbnil3" src="../assets/images/big/no-img.jpg" alt="image" />
+        </div>
+
+    </div>
+    <div class="col-sm-12 col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <h4 class="card-title">Videos</h4>
+                    
+                    <form enctype="multipart/form-data">
+                        <div class="input-group flex-nowrap">
+                            <div class="custom-file w-100">
+                                <input type="file" name="VideoFiles" />
+                            </div>
+                           @* <button type="button" id="uploadVideoButton" class="btn btn-outline-secondary">Upload</button>*@
                         </div>
 
+                    </form>
 
-                    </div>
-                    <div class="col-lg-3">
-
-
-                        <div class="carousel-item active">
-                            <img class="img-fluid" id="thumbnil4" src="../assets/images/big/no-img.jpg" alt="image" />
+                </div>
+                <div class="row mt-2">
+                    <h4 class="card-title">Videos Thumb Image</h4>
+                    
+                    <form enctype="multipart/form-data">
+                        <div class="input-group flex-nowrap">
+                            <div class="custom-file w-100">
+                                <input type="file" name="VideoThumbFiles" />
+                            </div>
+                            <button type="button" id="uploadVideoButton" class="btn btn-outline-secondary">Upload</button>
                         </div>
 
+                    </form>
 
-                    </div>
-                    <div class="col-lg-3">
+                </div>
+            <div class="row">
+                <div class="form-group col-sm-3 col-md-3 mb-4">
+                    <label class="mr-sm-2">Select Position</label>
+                    <select class="form-select mr-sm-2" id="ddlVideoSelection">
+                        <option selected="" value="0">All</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                        <option value="4">Four</option>
+                        <option value="5">Five</option>
+                        <option value="6">Six</option>
+                        <option value="7">Seven</option>
+                        <option value="8">Eight</option>
+                        <option value="9">Nine</option>
+                    </select>
+                </div>
+            </div>
 
+            </div>
 
-                        <div class="carousel-item active">
-                            <img class="img-fluid" id="thumbnil5" src="../assets/images/big/no-img.jpg" alt="image" />
+        </div>
+
+    </div>
+    <div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">LATEST NEWS</h4>
+                <h6 class="lebel">Live News</h6>
+                @if (ViewBag.LatestNews.Count > 0)
+                {
+                    @foreach (var news in ViewBag.LatestNews)
+                    {
+                        <div class="col-sm-4 col-lg-3">
+                        <img class="card-img-top img-fluid" src="@Url.Content("../Uploads/original/NewsImage/"+ news.ImagePath)"
+                             alt="Card image cap">
+                        <div class="card-body">
+                                <h4 class="card-title">@news.Title</h4>
+                            <p class="card-text">
+                                @news.Description
+                            </p>
+                            <h6 class="card-text text-muted">Last updated @news.UpdatedAt</h6>
+                            </div>
                         </div>
+                       
 
-                    </div>
-                    <div class="col-lg-3">
+                    }
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
 
+                <form enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="input-group flex-nowrap">
+                        <div class="form-group col-sm-4 col-md-4 mb-5">
+                            <h6 class="card-subtitle">Add News</h6>
+                            <div class="form-group">
+                                <input type="text" id="newsTitle" name="newsTitle" placeholder="News Title....." class="form-control">
+                            </div>
 
-                        <div class="carousel-item active">
-                            <img class="img-fluid" id="thumbnil6" src="../assets/images/big/no-img.jpg" alt="image" />
                         </div>
-
-
-                    </div>
-                    <div class="col-lg-3">
-
-
-                        <div class="carousel-item active">
-                            <img class="img-fluid" id="thumbnil7" src="../assets/images/big/no-img.jpg" alt="image" />
                         </div>
+                        <div class="input-group flex-nowrap">
+                        <div class="form-group col-sm-5 col-md-5 mb-6">
+                            <div class="form-group">
+                                <textarea class="form-control" id="newsDescription" name="newsDescription" rows="3" placeholder="News Body....."></textarea>
+                            </div>
 
-                    </div>
-                    <div class="col-lg-3">
-
-
-                        <div class="carousel-item active">
-                            <img class="img-fluid" id="thumbnil8" src="../assets/images/big/no-img.jpg" alt="image" />
+                            </div>
                         </div>
-
                     </div>
-                    <div class="col-lg-3">
-
-
-                        <div class="carousel-item active">
-                            <img class="img-fluid" id="thumbnil9" src="../assets/images/big/no-img.jpg" alt="image" />
-                        </div>
-
-                    </div>
-
+                 
                     <div class="input-group flex-nowrap">
                         <div class="custom-file w-100">
-                           
-                            <input class="form-control" type="file" id="formFileTopSlider" name="ImageData" onchange="fileCheck(this);" multiple />
+                            <input type="file" name="newsImage" id="newsImage" />
                         </div>
-                        <button class="btn btn-outline-secondary" onclick="UploadTopSlider(this);" id="upBtnTopSlider" type="button">
-                            Upload
-                        </button>
+                        <button type="button" id="uploadNews" class="btn btn-outline-secondary">Upload</button>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12 col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">
-                    Rate Calculator
-                </h4>
 
-
-                <div class="input-group flex-nowrap">
-                    <div class="custom-file w-100">
-                        <input class="form-control" type="file" id="formFileRateCalculator">
-                    </div>
-                    <button class="btn btn-outline-secondary" type="button">
-                        Button
-                    </button>
-                </div>
+                </form>
 
             </div>
+
         </div>
+
     </div>
-    <div class="col-sm-12 col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Middle Slider</h4>
 
+</div>
 
-                <div class="input-group flex-nowrap">
-                    <div class="custom-file w-100">
-                        <input class="form-control" type="file" id="formFileMiddleSlider">
-                    </div>
-                    <button class="btn btn-outline-secondary" type="button">
-                        Button
-                    </button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12 col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Round Buttons</h4>
-
-
-                <div class="input-group flex-nowrap">
-                    <div class="custom-file w-100">
-                        <input class="form-control" type="file" id="formFile">
-                    </div>
-                    <button class="btn btn-outline-secondary" type="button">
-                        Button
-                    </button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12 col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Last Slider</h4>
-
-
-                <div class="input-group flex-nowrap">
-                    <div class="custom-file w-100">
-                        <input class="form-control" type="file" id="formFile">
-                    </div>
-                    <button class="btn btn-outline-secondary" type="button">
-                        Button
-                    </button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-    <div class="col-sm-12 col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">VIDEOS</h4>
-
-
-                <div class="input-group flex-nowrap">
-                    <div class="custom-file w-100">
-                        <input class="form-control" type="file" id="formFile">
-                    </div>
-                    <button class="btn btn-outline-secondary" type="button">
-                        Button
-                    </button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-}
 @section Scripts{
 
-    @* <script src="~/Scripts/jquery.validate.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-*@
-    <script type="text/javascript">
+    <script>
 
-        function fileCheck(obj) {
-            var fileExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp', 'webp'];
-            if ($.inArray($(obj).val().split('.').pop().toLowerCase(), fileExtension) == -1) {
-                alert("Only '.jpeg','.jpg', '.png', '.gif', '.bmp','.webp' formats are allowed.");
-
-            }
-
-            else {
-                //var hideSection = '<div class="ROW" id="selectImg"><h6 class="lebel">Selected Images</h6 > <div class="col-lg-3" > <div class="card" > <div class="carousel-item active" > <img class="img-fluid" id = "thumbnil1" src = "" alt = "image" /> </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil2" src="" alt="image" / > </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil3" src="" alt="image" / > </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil4" src="" alt="image" / > </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil5" src="" alt="image" / > </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil6" src="" alt="image" / > </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil7" src="" alt="image" / > </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil8" src="" alt="image" / > </div> </div > </div> <div class="col-lg-3"> <div class="card"> <div class="carousel-item active"> <img class="img-fluid" id="thumbnil9" src="" alt="image" / > </div> </div > </div></div>'
-                //const div = document.createElement('div');
-                //div.innerHTML = '';
-
-                //document.getElementById("selectImg").appendChild(div);
-
-                //div.innerHTML = hideSection;
-
-                //document.getElementById("selectImg").appendChild(div);
-
-                var files = formFileTopSlider.files;
-                var j = 1
-                for (var i = 0; i <= files.length; i++) {
-
-                    var file = files[i];
-                    var imgid = "thumbnil" + j;
-                    var img = document.getElementById(imgid);
-                    img.file = file;
-                    var reader = new FileReader();
-                    reader.onload = (function (aImg) {
-                        return function (e) {
-                            aImg.src = e.target.result;
-                        };
-                    })(img);
-                    reader.readAsDataURL(file);
-                    j++;
-                }
-            }
-
-        }
-        function UploadTopSlider(obj) {
-            event.preventDefault();
-            var ImgFile = formFileTopSlider.files;
+        
+        document.getElementById("uploadSliderButton").addEventListener("click", function () {
             var formData = new FormData();
-            console.log(ImgFile);
-            for (var i = 0; i <= ImgFile.length; i++) {
-            formData.append('ImgFiles', ImgFile[i]);
-            //formData.append('MyProperty', 12);
+            var position = $("#ddlTopSliderSelect option:selected").val();
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="Files"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
             }
-            console.log(formData);
 
             $.ajax({
+                url: "@Url.Action("UploadTopSlider", "Home")",
                 type: "POST",
-                url: "/Home/UploadTopSlider",
-                data: { 'ImgFile': ImgFile }, // In the controller it receives IFormFile image
+                data: formData,
                 processData: false,
                 contentType: false,
-                success: function () {
-                    alart("Done");
-                    
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    }
                 },
-                error: function (errorMessage) {
-                    console.log(errorMessage);
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
                 }
             });
-        }
-    </script>
+        });
+        
 
+            //uploadRateCalculatorButton
+        document.getElementById("uploadRateCalculatorButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="RateCalculatorFiles"]');
+            var position = $("#ddlRateCalculatorSelection option:selected").val();
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+               
+            }
+
+             formData.append("position", position)
+
+            $.ajax({
+                url: "@Url.Action("UploadRateCalculator", "Home")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                    
+                        toastr.success(response.message);
+                        
+                        var redirectUrl = response.redirectUrl;
+                      
+                        window.location.href = redirectUrl;
+                       
+                        
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+
+        //uploadMiddleSliderButton
+        document.getElementById("uploadMiddleSliderButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+            // Append each selected file to the FormData object   
+            var filesInput = document.querySelector('input[type="file"][name="MiddleSliderFiles"]');
+            var position = $("#ddlMiddleSliderSelection option:selected").val();
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+               
+            }
+
+             formData.append("position", position)
+
+            $.ajax({
+                url: "@Url.Action("UploadMiddleSlider", "Home")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+        
+
+            //uploadRoundButtonsButton
+        document.getElementById("uploadRoundButtonsButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+            // Append each selected file to the FormData object  ddlRoundButtonsSelection
+            var filesInput = document.querySelector('input[type="file"][name="RoundButtonsFiles"]');
+            var position = $("#ddlRoundButtonsSelection option:selected").val();
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+
+            }
+
+            formData.append("position", position)
+
+            $.ajax({
+                url: "@Url.Action("UploadRoundButtons", "Home")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+        
+
+
+            //uploadLastSliderButton
+        document.getElementById("uploadLastSliderButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+            // Append each selected file to the FormData object  ddlLastSliderSelection
+            var filesInput = document.querySelector('input[type="file"][name="LastSliderFiles"]');
+            var position = $("#ddlLastSliderSelection option:selected").val();
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+
+            }
+
+            formData.append("position", position)
+
+            $.ajax({
+                url: "@Url.Action("UploadLastSlider", "Home")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+        
+
+            //uploadVideoButton
+
+        document.getElementById("uploadVideoButton").addEventListener("click", function () {
+            var formData = new FormData();
+
+            // Append each selected file to the FormData object
+            var videoFilesInput = document.querySelector('input[type="file"][name="VideoFiles"]');
+            var videoThumbImageInput = document.querySelector('input[type="file"][name="VideoThumbFiles"]');
+            var position = $("#ddlVideoSelection option:selected").val();
+            formData.append("VideoFile", videoFilesInput.files[0]);
+            formData.append("VideoThumbFile", videoThumbImageInput.files[0]);
+            formData.append("Position", position);
+            //for (var i = 0; i < filesInput.files.length; i++) {
+            //    formData.append("Files", filesInput.files[i]);
+            //}
+
+            $.ajax({
+                url: "@Url.Action("UploadVideo", "Home")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+
+
+        document.getElementById("uploadNews").addEventListener("click", function(){
+            debugger;
+            var newsTitle = document.getElementById("newsTitle").value;
+            var newsDescription = document.getElementById("newsDescription").value;
+            var newsImage = document.getElementById("newsImage").files[0];
+
+            var formData = new FormData();
+            formData.append("Title", newsTitle);
+            formData.append("Description", newsDescription);
+            formData.append("Image", newsImage);
+
+            $.ajax({
+                url: "@Url.Action("UploadNews", "Home")",
+                type: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                    }
+                },
+                error: function(error){
+                    console.error(error);
+                }
+
+
+            });
+        });
+
+        
+
+
+    </script>
 }

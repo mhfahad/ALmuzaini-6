@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmuzainiCMS.DataBaseContex
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmuzainiCMS.Models", "AlmuzainiCMS.Models\AlmuzainiCMS.Models.csproj", "{6BF6D857-6D2D-4012-8772-1AC381CA0071}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlmuzainiCMS.BLL", "AlmuzainiCMS.BLL\AlmuzainiCMS.BLL.csproj", "{EC6463E3-6C98-4251-A0AC-689A28E5BD34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmuzainiCMS.BLL", "AlmuzainiCMS.BLL\AlmuzainiCMS.BLL.csproj", "{EC6463E3-6C98-4251-A0AC-689A28E5BD34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlmuzainiCMS.DAL", "AlmuzainiCMS.DAL\AlmuzainiCMS.DAL.csproj", "{A8C35BDE-08E4-4746-9BBF-280992A0D460}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlmuzainiCMS.DAL", "AlmuzainiCMS.DAL\AlmuzainiCMS.DAL.csproj", "{A8C35BDE-08E4-4746-9BBF-280992A0D460}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlMuzainiCMS.API", "AlMuzainiCMS.API\AlMuzainiCMS.API.csproj", "{E14DD2D2-6BAA-4FA3-809A-BB1A4173C02C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A8C35BDE-08E4-4746-9BBF-280992A0D460}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8C35BDE-08E4-4746-9BBF-280992A0D460}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8C35BDE-08E4-4746-9BBF-280992A0D460}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E14DD2D2-6BAA-4FA3-809A-BB1A4173C02C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E14DD2D2-6BAA-4FA3-809A-BB1A4173C02C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E14DD2D2-6BAA-4FA3-809A-BB1A4173C02C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E14DD2D2-6BAA-4FA3-809A-BB1A4173C02C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
