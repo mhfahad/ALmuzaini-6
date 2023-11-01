@@ -85,8 +85,13 @@ builder.Services.AddScoped<IValueAddedBenifitsManager, ValueAddedBenifitsManager
 builder.Services.AddScoped<IApplicationPageManager, ApplicationPageManager>();
 builder.Services.AddScoped<IApplicationPageRepository, ApplicationPageRepository>();
 
+builder.Services.AddScoped<IBranchManager, BranchManager>();
+builder.Services.AddScoped<IBranchRepository, BranchRepository>();
+
 builder.Services.AddScoped<IPromotionsManager, PromotionsManager>();
 builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
+
+
 builder.Services.AddScoped<INewsPageManager, NewsPageManager>();
 builder.Services.AddScoped<INewsPageRepository, NewsPageRepository>();
 builder.Services.AddScoped<IContactUsManager, ContactUsManager>();

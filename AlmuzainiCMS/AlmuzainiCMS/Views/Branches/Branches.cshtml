@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewData["Title"] = "Branches";
+}
+
+<h1>Branches</h1>
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Branches Top Banner Image</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.BranchesTopBannerImageFileNames.Length > 0)
+                {
+                    <div class="col-lg-3">
+                        <div class="card">
+                            <div class="carousel-item-active">
+                                <img class="img-fluid" src="@Url.Content(ViewBag.BranchesTopBannerImageFileNames)" alt="First Slide">
+                            </div>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="BranchesTopBannerImageFiles" multiple />
+                        </div>
+                        <button type="button" id="UploadBanchesTopBannerImageButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+
+
+        document.getElementById("UploadBanchesTopBannerImageButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var position = 1;
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="BranchesTopBannerImageFiles"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadBanchesTopBanner", "Branches")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading Value Added Promotion Banner.");
+                }
+            });
+        });
+
+
+
+    </script>
+
+}
