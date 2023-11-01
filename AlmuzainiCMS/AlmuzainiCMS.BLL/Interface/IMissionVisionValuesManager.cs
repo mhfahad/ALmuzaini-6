@@ -11,6 +11,20 @@ namespace AlmuzainiCMS.BLL.Interface
     {
         Task<bool> MissionVisionValuesExists();
         Task<bool> UpdateMissionVisionValuesBanner(MissionVisionValues missionVisionValues);
-        Task<MissionVisionValues> GetMissionVisionValues();  
+        Task<MissionVisionValues> GetMissionVisionValues();
+        Task<ICollection<ValuesItem>> GetMissionVisionValuesItems();
+        Task<ValuesItem> GetMissionVisionValuesItemsBySerialNo(int serialNo);
+
+        Task<bool> UpdateVision(MissionVisionValues missionVisionValues);
+        Task<bool> UpdateMission(MissionVisionValues missionVisionValues);
+        Task<bool> UpdateValues(MissionVisionValues missionVisionValues);   
+        Task<bool> UpdateValuesItem(ValuesItem missionVisionValues);
+        Task<bool> DeleteValuesItem(ValuesItem valuesItem);
+
+
+
+
+
+
     }
 }

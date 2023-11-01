@@ -16,10 +16,12 @@ namespace AlmuzainiCMS.Controllers
         private readonly ICompanyHistoryManager _companyHistoryManager;
         private readonly IChairmanMessageManager _chairmanMessageManager;
         private readonly IMissionVisionValuesManager _missionVisionValuesManager; 
+        private readonly ICorporateSocialResponsibilityManager _corporateSocialResponsibilityManager;
 
 
         public AboutController(ILogger<AboutController> logger, IMapper mapper, IWebHostEnvironment webHostEnvironment,
-            ICompanyHistoryManager companyHistoryManager,IChairmanMessageManager chairmanMessageManager ,IMissionVisionValuesManager missionVisionValuesManager)
+            ICompanyHistoryManager companyHistoryManager,IChairmanMessageManager chairmanMessageManager ,
+            IMissionVisionValuesManager missionVisionValuesManager , ICorporateSocialResponsibilityManager corporateSocialResponsibilityManager)
         {
             _logger = logger;
             _mapper = mapper;
@@ -27,6 +29,7 @@ namespace AlmuzainiCMS.Controllers
             _companyHistoryManager = companyHistoryManager;  
             _missionVisionValuesManager = missionVisionValuesManager;
             _chairmanMessageManager = chairmanMessageManager;
+            _corporateSocialResponsibilityManager = corporateSocialResponsibilityManager ;  
         }
 
         public IActionResult Index()
@@ -660,24 +663,54 @@ namespace AlmuzainiCMS.Controllers
         [HttpGet]
         public IActionResult MissionVisionValues()
         {
-            GetMissionVisionValues();
+            PrepareViewData();
             return View();
         }
 
-        private async void GetMissionVisionValues()
+        private async void PrepareViewData()  
+        {
+            MissionVisionValues missionVisionValues = await GetMissionVisionValues();
+            ICollection<ValuesItem> valuesItem = await GetMissionVisionValuesItem();
+            ViewBag.MissionVisionValuesBannerImageFileName = missionVisionValues?.MissionVisionBannerImagePath ?? "";
+            ViewBag.VisionText = missionVisionValues?.VisionText;
+            ViewBag.VisionImagePath = missionVisionValues?.VisionImagePath;
+            ViewBag.MissionText = missionVisionValues?.MissionText;
+            ViewBag.MissionImagePath = missionVisionValues?.MissionImagePath;
+            ViewBag.ValuesImagePath = missionVisionValues?.ValuesImagePath;
+            ViewBag.ValuesText = missionVisionValues?.ValuesText;
+            ViewBag.ValuesItems = valuesItem;
+            //ViewData["ValuesItemList"] = valuesItem;
+
+        }
+
+
+        private async Task<MissionVisionValues> GetMissionVisionValues()
         {
             MissionVisionValues missionVisionValues = new MissionVisionValues();
 
-            //bool valueExists = await _missionVisionValuesManager.MissionVisionValuesExists();
-            //if (valueExists)
-            //{
-               
-            //}
-
             missionVisionValues = await _missionVisionValuesManager.GetMissionVisionValues();
-            ViewBag.MissionVisionValuesBannerImageFileName = missionVisionValues?.MissionVisionBannerImagePath ?? "";
+            return await Task.FromResult(missionVisionValues);
+        
         }
 
+        private async Task<ICollection<ValuesItem>> GetMissionVisionValuesItem()   
+        {
+            ICollection<ValuesItem> missionVisionValuesItems = new List<ValuesItem>();
+
+            missionVisionValuesItems = await _missionVisionValuesManager.GetMissionVisionValuesItems();
+            return await Task.FromResult(missionVisionValuesItems);
+
+        }
+
+        private async Task<ValuesItem> GetMissionVisionValuesItemBySerialNo(string serialNo)
+        {
+            ValuesItem valuesItem = new ValuesItem();
+            int serial = Convert.ToInt32(serialNo);
+
+            valuesItem = await _missionVisionValuesManager.GetMissionVisionValuesItemsBySerialNo(serial);
+            return await Task.FromResult(valuesItem);
+
+        }
         [HttpPost]
         public async Task<JsonResult> UpdateMissionBanner(MissionVisionValuesRequestDTO model)
         {
@@ -739,6 +772,388 @@ namespace AlmuzainiCMS.Controllers
                 return Json(response);
             }
 
+        }
+
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateVision(MissionVisionValuesRequestDTO model)
+        {
+            var missionVisionValues = _mapper.Map<MissionVisionValues>(model);
+
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "MissionVisionValues", "OurVision");
+            string filePosition = "1";
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            string filePathToSave = string.Empty;
+
+            var file = model.VisionImageFile;
+
+            if (file != null && file.Length > 0)
+            {
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string fileExtension = ".webp";
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+
+                filePathToSave = Path.Combine(filePath, filePosition + fileExtension);
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                var visionImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+                missionVisionValues.VisionImagePath = visionImagePath;
+            }
+
+
+            //companyHistory.ExpertiseImagePath = filePathToSave;
+            bool result = await _missionVisionValuesManager.UpdateVision(missionVisionValues);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Our Vision updated successfully.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Our Vision updated failed.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+
+
+        }
+
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateMission(MissionVisionValuesRequestDTO model)   
+        {
+            var missionVisionValues = _mapper.Map<MissionVisionValues>(model);
+
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "MissionVisionValues", "OurMission");
+            string filePosition = "1";
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            string filePathToSave = string.Empty;
+
+            var file = model.MissionImageFile;
+
+            if (file != null && file.Length > 0)
+            {
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string fileExtension = ".webp";
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+
+                filePathToSave = Path.Combine(filePath, filePosition + fileExtension);
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                var missionImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+                missionVisionValues.MissionImagePath = missionImagePath;
+            }
+
+
+            //companyHistory.ExpertiseImagePath = filePathToSave;
+            bool result = await _missionVisionValuesManager.UpdateMission(missionVisionValues);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Our Mission updated successfully.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Our Mission updated failed.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+
+
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateValues(MissionVisionValuesRequestDTO model)
+        {
+            var missionVisionValues = _mapper.Map<MissionVisionValues>(model);
+
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "MissionVisionValues", "OurValues");
+            string filePosition = "1";
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            string filePathToSave = string.Empty;
+
+            var file = model.ValuesImageFile;
+
+            if (file != null && file.Length > 0)
+            {
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string fileExtension = ".webp";
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+
+                filePathToSave = Path.Combine(filePath, filePosition + fileExtension);
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                var valuesImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+                missionVisionValues.ValuesImagePath = valuesImagePath;
+            }
+
+
+            //companyHistory.ExpertiseImagePath = filePathToSave;
+            bool result = await _missionVisionValuesManager.UpdateValues(missionVisionValues);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Our Values updated successfully.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Our Values updated failed.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+
+
+        }
+
+
+        [HttpPost]
+        public async Task<JsonResult> AddValuesItem(string newValue)    
+        {
+            MissionVisionValues missionVisionValues = await GetMissionVisionValues();
+            ValuesItem valuesItem;
+            bool result = false;
+            if(missionVisionValues != null)
+            {
+                if (!string.IsNullOrWhiteSpace(newValue))
+                {
+                    valuesItem = new ValuesItem   
+                    {
+                        Id = Guid.NewGuid(),
+                        ValuesItemText = newValue,
+                        MissionVisionValuesId = missionVisionValues.Id,
+                        MissionVisionValues = missionVisionValues
+                    };
+                    //missionVisionValues.ValuesItems.Add(valuesItem);
+
+                     result = await _missionVisionValuesManager.UpdateValuesItem(valuesItem);
+
+                }
+
+                
+
+            }
+            
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Values Item updated successfully.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Values Item updated failed.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+
+           
+        }
+
+        [HttpDelete]
+        public async Task<JsonResult> DeleteValuesItem(string itemSerialNo)
+        {
+            ValuesItem valuesItem = await GetMissionVisionValuesItemBySerialNo(itemSerialNo);
+            
+            bool result = false;
+            if (!string.IsNullOrEmpty(valuesItem.ValuesItemText))
+            {
+                 result = await _missionVisionValuesManager.DeleteValuesItem(valuesItem);
+
+            }
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Values Item deleted successfully.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Values Item delete failed.",
+                    redirectUrl = Url.Action("MissionVisionValues", "About")
+                };
+                return Json(response);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult CorporateSocialResponsibility()
+        {
+            PrepareCorporateSocialResponsibilityView();
+            return View();
+        }
+
+        private async void PrepareCorporateSocialResponsibilityView()
+        {
+            CorporateSocialResponsibility corporateSocialResponsibility = new CorporateSocialResponsibility();
+            corporateSocialResponsibility = await  _corporateSocialResponsibilityManager.GetCorporateSocialResponsibility();
+
+            ViewBag.FirstSection = corporateSocialResponsibility?.FirstSection ?? "";
+            ViewBag.SecondSection = corporateSocialResponsibility?.SecondSection ?? "";
+            ViewBag.ThirdSection = corporateSocialResponsibility?.ThirdSection ?? "";
+            ViewBag.FourthSection = corporateSocialResponsibility?.FourthSection ?? "";
+            ViewBag.FifthSection = corporateSocialResponsibility?.FifthSection ?? "";
+            ViewBag.SixthSection = corporateSocialResponsibility?.SixthSection ?? "";
+            ViewBag.SeventhSection = corporateSocialResponsibility?.SeventhSection ?? "";
+
+            ViewBag.CompanySocialResponsibilyImageFileNames = corporateSocialResponsibility?.CorporateSocialResponsibilityImagePath ?? "";
+           
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UploadCorporateSocialResponsibilityImage(CorporateSocialResponsibilityDTO model)
+        {
+            var corporateSocialResponsibility = _mapper.Map<CorporateSocialResponsibility>(model);
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "CorporateSocialResponsibility");
+            string filePosition = "1";
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+            string filePathToSave = string.Empty;
+
+            var file = model.CorporateSocialResponsibilyImageFile;
+
+            if (file != null && file.Length > 0)
+            {
+
+                string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                string fileExtension = ".webp";
+
+                if (!Directory.Exists(filePath))
+                {
+                    Directory.CreateDirectory(filePath);
+                }
+
+
+                filePathToSave = Path.Combine(filePath, filePosition + fileExtension);
+                using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                var corporateSocialResponsibilityImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+                corporateSocialResponsibility.CorporateSocialResponsibilityImagePath = corporateSocialResponsibilityImagePath;
+            }
+
+
+            bool result = await _corporateSocialResponsibilityManager.UpdateCorporateSocialResponsibilityImage(corporateSocialResponsibility);
+
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Corporate Social Responsibily Image updated successfully.",
+                    redirectUrl = Url.Action("CorporateSocialResponsibility", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Corporate Social Responsibily Image updated failed.",
+                    redirectUrl = Url.Action("CorporateSocialResponsibility", "About")
+                };
+                return Json(response);
+            }
+
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateCorporateSocialResponsibilitySection(CorporateSocialResponsibilityDTO model )
+        {
+            var corporateSocialResponsibility = _mapper.Map<CorporateSocialResponsibility>(model);
+            var result = await _corporateSocialResponsibilityManager.UpdateCorporateSocialResponsibilitySection(corporateSocialResponsibility);
+
+            var response = new
+            {
+                Success = true,
+                Message = "Company History section updated successfully.",
+                redirectUrl = Url.Action("CorporateSocialResponsibility", "About")
+            };
+
+
+            return Json(response);
         }
 
 

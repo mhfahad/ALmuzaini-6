@@ -16,6 +16,18 @@ namespace AlmuzainiCMS.Mapper
             CreateMap<CurrencyCodeRequestDto, CurrencyCode>();
             CreateMap<CompanyHistoryRequestDTO, CompanyHistory>();
             CreateMap<ChairmansMessageRequestDTO, ChairmanMessage>();
-        }
+            CreateMap<MissionVisionValuesRequestDTO, MissionVisionValues>();
+            CreateMap<CorporateSocialResponsibilityDTO, CorporateSocialResponsibility>();
+            CreateMap<ForeignCurrencyRequestDTO, ForeignCurrency>();
+            CreateMap<CorporateRequestDTO, Corporate>();
+            CreateMap<RemittancesRequestDTO, Remittences>();
+            CreateMap<ValueAddedBinifitsRequestDTO, ValueAddedBenifits>();
+            CreateMap<ApplicationPageRequestDTO, ApplicationPage>();
+            CreateMap<COntactUsRequestDTO, ContactUs>();
+            CreateMap<PromotionRequestDTO, Promotion>();
+            CreateMap<PromotionNewsRequestDTO, PromotionNews>();
+            CreateMap<NewsSectionRequestDTO, NewsSection>();
+            CreateMap<NewsSectionNewsRequestDTO, NewsSectionNews>();
+        }  
     }
 }

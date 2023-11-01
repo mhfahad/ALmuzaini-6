@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AlmuzainiCMS.Models.Models;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,4 +34,18 @@ namespace AlmuzainiCMS.Models.RequestDto
 
 
     }
+
+
+    public class ValuesItemDTO   
+    {
+        public Guid Id { get; set; }
+
+        public string? ValuesItemText { get; set; }
+
+        public Guid MissionVisionValuesId { get; set; }
+        public MissionVisionValues? MissionVisionValues { get; set; }
+
+
+    }
+
 }

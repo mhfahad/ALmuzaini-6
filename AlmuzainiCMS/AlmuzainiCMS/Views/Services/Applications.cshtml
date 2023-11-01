@@ -1,0 +1,1148 @@
+﻿
+@{
+    ViewData["Title"] = "Applications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Applications</h1>
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Application Page Banner</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.BannerImagePath.Length > 0)
+                {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.BannerImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                }
+                else
+                {
+                        <p>No files available.</p>
+                }
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="ApplicationBannerImageFile" multiple />
+                        </div>
+                        <button type="button" id="UploadApplicationBannerImageFileButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Application</h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="InnerSectionTitle">Inner Section Title </label>
+                            <textarea class="form-control" cols="20" id="InnerSectionTitle" name="InnerSectionTitle" rows="2" contenteditable="true">@ViewBag.InnerSectionTitle</textarea>
+                        </div>
+                    </div>
+                    
+                    <button type="button" id="uploadApplicationInnerSection" class="btn btn-outline-secondary">Update</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">About Box</h4>
+
+
+                <form enctype="multipart/form-data">
+                    
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="ABoutBoxDescription">About Box Description </label>
+                            <textarea class="form-control" cols="20" id="ABoutBoxDescription" name="ABoutBoxDescription" rows="6" contenteditable="true">@ViewBag.ABoutBoxDescription</textarea>
+                        </div>
+                    </div>
+
+                    
+                    <h6 class="lebel">Apple Play Store Live Images</h6>
+                    @if (ViewBag.ApplePlayStoreIconImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.ApplePlayStoreIconImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="ApplePlayStoreIconImageFile" multiple />
+                        </div>
+
+                    </div>
+
+                    <h6 class="lebel">Google Play Store Live Images</h6>
+                    @if (ViewBag.GooglePlayStoreIconImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.GooglePlayStoreIconImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="GooglePlayStoreImageFile" multiple />
+                        </div>
+
+                    </div>
+                    <h6 class="lebel">App Gallery Live Images</h6>
+                    @if (ViewBag.AppGalleryIconImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.AppGalleryIconImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="AppGalleryImageFile" multiple />
+                        </div>
+
+                    </div>
+                    <button type="button" id="updateAboutBoxDescriptionLeft" class="btn btn-outline-secondary">Update</button>
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Application User Guides</h4>
+                <form enctype="text/plain">
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="UserGuideTitle">User Guide Title </label>
+                            <textarea class="form-control" cols="20" id="UserGuideTitle" name="UserGuideTitle" rows="2" contenteditable="true">@ViewBag.UserGuideTitle</textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <h6>User Guides List:</h6>
+
+                            <ul id="valuesItemsList" class="col-sm-12 col-md-12 mt-2 mb-1">
+                                @foreach (var item in ViewBag.UserGuides)
+                                {
+
+                                    <li class="d-block col-sm-12 col-md-12 mt-3 mb-3">
+
+                                        @item.UserGuideText <button type="button" value="@item.SerialNo" class="remove-item float-end btn btn-outline-secondary mr-0">Remove</button>
+
+
+                                    </li>
+
+                                }
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="input-group flex-nowrap mt-2 mb-1">
+                        <label for="NewValue">Add User Guides </label>
+                    </div>
+                    <div class="input-group flex-nowrap mt-2 mb-2">
+
+                        <input type="text" class="form-control" id="NewValue" name="NewValue" placeholder="Enter User Guides"></input>
+                        <button type="button" id="updateUserGuidesButton" class="btn btn-outline-secondary ">Update</button>
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Slider</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.ApplicationPageSliderFileNames.Length > 0)
+                {
+                    @foreach (var fileName in ViewBag.ApplicationPageSliderFileNames)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/Services/ApplicationPage/Slider/"+ fileName)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                <div class="row">
+                    <div class="form-group col-sm-3 col-md-3 mb-4">
+                        <label class="mr-sm-2">Select Position</label>
+                        <select class="form-select mr-sm-2" id="ddlSliderSelect">
+                            <option selected="" value="0">All</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+
+                        </select>
+                    </div>
+                </div>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="ApplicationPageSliderFiles" multiple />
+                        </div>
+                        <button type="button" id="uploadApplicationPageSliderButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Application Icon</h4>
+
+
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.ApplicationPageIconFileNames.Length > 0)
+                {
+                    @foreach (var fileName in ViewBag.ApplicationPageIconFileNames)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/Services/ApplicationPage/ApplicationIcon/"+ fileName)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                <div class="row">
+                    <div class="form-group col-sm-3 col-md-3 mb-4">
+                        <label class="mr-sm-2">Select Position</label>
+                        <select class="form-select mr-sm-2" id="ddlSliderSelect">
+                            <option selected="" value="0">All</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                            <option value="5">Five</option>
+                            <option value="6">Six</option>
+                           
+
+                        </select>
+                    </div>
+                </div>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="ApplicationPageIconFiles" multiple />
+                        </div>
+                        <button type="button" id="uploadApplicationPageIconButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">App Fratures</h4>
+                <form enctype="text/plain">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="AppFeaturesSectionTitle">Title </label>
+                            <textarea class="form-control" cols="20" id="AppFeaturesSectionTitle" name="AppFeaturesSectionTitle" rows="2" contenteditable="true">@ViewBag.AppFeaturesSectionTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="AppFeaturesSectionOneTitle">App Features One Title </label>
+                            <textarea class="form-control" cols="20" id="AppFeaturesSectionOneTitle" name="AppFeaturesSectionOneTitle" rows="2" contenteditable="true">@ViewBag.AppFeaturesSectionOneTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="AppFeaturesSectionOneDescriptionSectionOne">App Features One Description One </label>
+                            <textarea class="form-control" cols="20" id="AppFeaturesSectionOneDescriptionSectionOne" name="AppFeaturesSectionOneDescriptionSectionOne" rows="4" contenteditable="true">@ViewBag.AppFeaturesSectionOneDescriptionSectionOne</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="AppFeaturesSectionOneDescriptionSectionTwo">App Features One Description Two </label>
+                            <textarea class="form-control" cols="20" id="AppFeaturesSectionOneDescriptionSectionTwo" name="AppFeaturesSectionOneDescriptionSectionTwo" rows="4" contenteditable="true">@ViewBag.AppFeaturesSectionOneDescriptionSectionTwo</textarea>
+                        </div>
+                    </div>
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.AppFeaturesSectionOneImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.AppFeaturesSectionOneImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="AppFeaturesSectionOneImageFile"  />
+                        </div>
+
+                    </div>
+                    
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="AppFeaturesSectionTwoTitle">App Features Two Title </label>
+                            <textarea class="form-control" cols="20" id="AppFeaturesSectionTwoTitle" name="AppFeaturesSectionTwoTitle" rows="2" contenteditable="true">@ViewBag.AppFeaturesSectionTwoTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="AppFeaturesSectionTwoDescriptionSectionOne">App Features Two Description One </label>
+                            <textarea class="form-control" cols="20" id="AppFeaturesSectionTwoDescriptionSectionOne" name="AppFeaturesSectionTwoDescriptionSectionOne" rows="4" contenteditable="true">@ViewBag.AppFeaturesSectionTwoDescriptionSectionOne</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="AppFeaturesSectionTwoDescriptionSectionTwo">App Features Two Description Two </label>
+                            <textarea class="form-control" cols="20" id="AppFeaturesSectionTwoDescriptionSectionTwo" name="AppFeaturesSectionTwoDescriptionSectionTwo" rows="4" contenteditable="true">@ViewBag.AppFeaturesSectionTwoDescriptionSectionTwo</textarea>
+                        </div>
+                    </div>
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.AppFeaturesSectionTwoImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.AppFeaturesSectionTwoImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="AppFeaturesSectionTwoImageFile" />
+                        </div>
+
+                    </div>
+
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="AppFeaturesSectionThreeTitle">App Features Three Title </label>
+                            <textarea class="form-control" cols="20" id="AppFeaturesSectionThreeTitle" name="AppFeaturesSectionThreeTitle" rows="2" contenteditable="true">@ViewBag.AppFeaturesSectionThreeTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="AppFeaturesSectionThreeDescriptionSectionOne">App Features Two Description One </label>
+                            <textarea class="form-control" cols="20" id="AppFeaturesSectionThreeDescriptionSectionOne" name="AppFeaturesSectionThreeDescriptionSectionOne" rows="4" contenteditable="true">@ViewBag.AppFeaturesSectionThreeDescriptionSectionOne</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="AppFeaturesSectionThreeDescriptionSectionTwo">App Features Two Description Two </label>
+                            <textarea class="form-control" cols="20" id="AppFeaturesSectionThreeDescriptionSectionTwo" name="AppFeaturesSectionThreeDescriptionSectionTwo" rows="4" contenteditable="true">@ViewBag.AppFeaturesSectionThreeDescriptionSectionTwo</textarea>
+                        </div>
+                    </div>
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.AppFeaturesSectionThreeImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.AppFeaturesSectionThreeImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="AppFeaturesSectionThreeImageFile" />
+                        </div>
+
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="AppFeaturesSectionFourthTitle">App Features Fourth Title </label>
+                            <textarea class="form-control" cols="20" id="AppFeaturesSectionFourthTitle" name="AppFeaturesSectionFourthTitle" rows="2" contenteditable="true">@ViewBag.AppFeaturesSectionFourthTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="AppFeaturesSectionFourthDescriptionSectionOne">App Features Fourth Description One </label>
+                            <textarea class="form-control" cols="20" id="AppFeaturesSectionFourthDescriptionSectionOne" name="AppFeaturesSectionFourthDescriptionSectionOne" rows="4" contenteditable="true">@ViewBag.AppFeaturesSectionFourthDescriptionSectionOne</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="AppFeaturesSectionFourthDescriptionSectionTwo">App Features Fourth Description Two </label>
+                            <textarea class="form-control" cols="20" id="AppFeaturesSectionFourthDescriptionSectionTwo" name="AppFeaturesSectionFourthDescriptionSectionTwo" rows="4" contenteditable="true">@ViewBag.AppFeaturesSectionFourthDescriptionSectionTwo</textarea>
+                        </div>
+                    </div>
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.AppFeaturesSectionFourthImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.AppFeaturesSectionFourthImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="AppFeaturesSectionFourthImageFile" />
+                        </div>
+
+                    </div>
+
+                    <button type="button" id="uploadApplicationAppFeaturesSection" class="btn btn-outline-secondary">Update</button>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">App Tutorials Section </h4>
+
+                <form enctype="multipart/form-data">
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="AppTutorialsSectionTitle">Title</label>
+                            <textarea class="form-control" cols="20" id="AppTutorialsSectionTitle" name="AppTutorialsSectionTitle" rows="2" contenteditable="true">@ViewBag.AppTutorialsSectionTitle</textarea>
+                        </div>
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="VideoOneTitle">Video One Title</label>
+                            <textarea class="form-control" cols="20" id="VideoOneTitle" name="VideoOneTitle" rows="2" contenteditable="true">@ViewBag.VideoOneTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="VideoOneLink">Video One Link</label>
+                            <textarea class="form-control" cols="20" id="VideoOneLink" name="VideoOneLink" rows="2" contenteditable="true">@ViewBag.VideoOneLink</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.VideoOneThumbnailImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.VideoOneThumbnailImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="VideoOneThumbnailImageFile"  />
+                        </div>
+
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="VideoTwoTitle">Video Two Title</label>
+                            <textarea class="form-control" cols="20" id="VideoTwoTitle" name="VideoTwoTitle" rows="2" contenteditable="true">@ViewBag.VideoTwoTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="VideoTwoLink">Video Two Link</label>
+                            <textarea class="form-control" cols="20" id="VideoTwoLink" name="VideoTwoLink" rows="2" contenteditable="true">@ViewBag.VideoTwoLink</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.VideoTwoThumbnailImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.VideoTwoThumbnailImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="VideoTwoThumbnailImageFile" />
+                        </div>
+
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="VideoThreeTitle">Video Three Title</label>
+                            <textarea class="form-control" cols="20" id="VideoThreeTitle" name="VideoThreeTitle" rows="2" contenteditable="true">@ViewBag.VideoThreeTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="VideoThreeLink">Video Two Link</label>
+                            <textarea class="form-control" cols="20" id="VideoThreeLink" name="VideoThreeLink" rows="2" contenteditable="true">@ViewBag.VideoThreeLink</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.VideoThreeThumbnailImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.VideoThreeThumbnailImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="VideoThreeThumbnailImageFile" />
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="VideoFourTitle">Video Four Title</label>
+                            <textarea class="form-control" cols="20" id="VideoFourTitle" name="VideoFourTitle" rows="2" contenteditable="true">@ViewBag.VideoFourTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="VideoFourLink">Video Four Link</label>
+                            <textarea class="form-control" cols="20" id="VideoFourLink" name="VideoFourLink" rows="2" contenteditable="true">@ViewBag.VideoFourLink</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.VideoFourThumbnailImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.VideoFourThumbnailImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="VideoFourThumbnailImageFile" />
+                        </div>
+
+                    </div>
+
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="VideoFiveTitle">Video Five Title</label>
+                            <textarea class="form-control" cols="20" id="VideoFiveTitle" name="VideoFiveTitle" rows="2" contenteditable="true">@ViewBag.VideoFiveTitle</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="VideoFiveLink">Video Four Link</label>
+                            <textarea class="form-control" cols="20" id="VideoFiveLink" name="VideoFiveLink" rows="2" contenteditable="true">@ViewBag.VideoFiveLink</textarea>
+                        </div>
+                    </div>
+                    @if (ViewBag.VideoFiveThumbnailImagePath.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.VideoFiveThumbnailImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    }
+                    else
+                    {
+                        <p>No files available.</p>
+                    }
+                    <div class="input-group mt-1 mb-2 flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="VideoFiveThumbnailImageFile" />
+                        </div>
+
+                    </div>
+
+                    <button type="button" id="uploadApplicationPageVideoLink" class="btn btn-outline-secondary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        document.getElementById("UploadApplicationBannerImageFileButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var position = 1;
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="ApplicationBannerImageFile"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadApplicationBanner", "Services")",  
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading Value Added Application Banner.");
+                }
+            });
+        });
+
+        document.getElementById("uploadApplicationInnerSection").addEventListener("click", function () {
+            var formData = new FormData();
+            var innerSectionTitle = document.getElementById("InnerSectionTitle").value;
+          
+            formData.append("InnerSectionTitle", innerSectionTitle);
+            
+
+            $.ajax({
+                url: "@Url.Action("UpdateApplicationInnerSection", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Inner Section update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Inner Section.");
+                }
+            });
+
+
+        });
+
+        document.getElementById("updateAboutBoxDescriptionLeft").addEventListener("click", function () {
+            var formData = new FormData();
+            var aboutBoxDescription = document.getElementById("ABoutBoxDescription").value;
+           // var firstSectionLeftText = document.getElementById("LeftSectionFirstText").value;
+            var applePlayStoreIcon = document.querySelector('input[type="file"][name="ApplePlayStoreIconImageFile"]');
+            var googlePlayStoreImage = document.querySelector('input[type="file"][name="GooglePlayStoreImageFile"]');
+            var appGalleryImage  = document.querySelector('input[type="file"][name="AppGalleryImageFile"]');
+            formData.append("ABoutBoxDescription", aboutBoxDescription);
+            //formData.append("LeftSectionFirstText", firstSectionLeftText);
+            if (applePlayStoreIcon.value.length > 0) {
+                formData.append("ApplePlayStoreIconImageFile", applePlayStoreIcon.files[0]);
+
+            }
+            if (googlePlayStoreImage.value.length > 0) {
+                formData.append("GooglePlayStoreImageFile", googlePlayStoreImage.files[0]);
+
+            }
+            if (appGalleryImage.value.length > 0) {
+                formData.append("AppGalleryImageFile", appGalleryImage.files[0]);
+
+            }
+
+            $.ajax({
+                url: "@Url.Action("UpdateAboutBoxDescriptionSection", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("About Box Description Section  update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating About Box Description Section .");
+                }
+            });
+
+
+        });
+
+        document.getElementById("updateUserGuidesButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var userGuideTitle = document.getElementById("UserGuideTitle").value;
+
+            var valuesItemText = document.getElementById("NewValue").value;
+
+            formData.append("userGuideTitle", userGuideTitle);  
+            formData.append("newValue", valuesItemText);
+
+
+            $.ajax({
+                url: "@Url.Action("AddUserGuides", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        toastr.error("User Guides update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating User Guides.");
+                }
+            });
+
+
+        })
+
+        var clickableButtons = document.getElementsByClassName("remove-item");
+
+        // Iterate through the elements and attach a click event listener
+        for (var i = 0; i < clickableButtons.length; i++) {
+            clickableButtons[i].addEventListener("click", function () {
+
+                var buttonValue = event.target.value;
+                var listItem = this.closest("li");
+                if (listItem) {
+                    listItem.remove();
+                }
+                var formData = new FormData();
+
+                formData.append("itemSerialNo", buttonValue);
+
+
+                $.ajax({
+                    url: "@Url.Action("DeleteUserGuides", "Services")",
+                    type: "DELETE",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+                            var redirectUrl = response.redirectUrl;
+
+                            window.location.href = redirectUrl;
+                        } else {
+                            toastr.error("Values Item Delete failed.");
+                        }
+                    },
+                    error: function () {
+                        toastr.error("An error occurred while deleting Values Item.");
+                    }
+                });
+
+
+
+            });
+        }
+
+
+        document.getElementById("uploadApplicationPageSliderButton").addEventListener("click", function () {
+            debugger;
+            var formData = new FormData();
+            var position = $("#ddlSliderSelect option:selected").val();
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="ApplicationPageSliderFiles"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadApplicationPageSliderButton", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                       
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+
+        document.getElementById("uploadApplicationPageIconButton").addEventListener("click", function () {
+            debugger;
+            var formData = new FormData();
+            var position = $("#ddlSliderSelect option:selected").val();
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="ApplicationPageIconFiles"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadApplicationPageIconButton", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        // Display toast notification
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+                       
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+
+        document.getElementById("uploadApplicationAppFeaturesSection").addEventListener("click", function () {
+            var formData = new FormData();
+            var appFeaturesSectionTitle = document.getElementById("AppFeaturesSectionTitle").value;
+
+            var appFeaturesSectionOneTitle = document.getElementById("AppFeaturesSectionOneTitle").value;
+            var appFeaturesSectionOneDescriptionSectionOne = document.getElementById("AppFeaturesSectionOneDescriptionSectionOne").value;
+            var appFeaturesSectionOneDescriptionSectionTwo = document.getElementById("AppFeaturesSectionOneDescriptionSectionTwo").value;
+            
+            var appFeaturesSectionTwoTitle = document.getElementById("AppFeaturesSectionTwoTitle").value;
+            var appFeaturesSectionTwoDescriptionSectionOne = document.getElementById("AppFeaturesSectionTwoDescriptionSectionOne").value;
+            var appFeaturesSectionTwoDescriptionSectionTwo = document.getElementById("AppFeaturesSectionTwoDescriptionSectionTwo").value;
+            
+
+            var appFeaturesSectionThreeTitle = document.getElementById("AppFeaturesSectionThreeTitle").value;
+            var appFeaturesSectionThreeDescriptionSectionOne = document.getElementById("AppFeaturesSectionThreeDescriptionSectionOne").value;
+            var appFeaturesSectionThreeDescriptionSectionTwo = document.getElementById("AppFeaturesSectionThreeDescriptionSectionTwo").value;
+            
+            var appFeaturesSectionFourthTitle = document.getElementById("AppFeaturesSectionFourthTitle").value;
+            var appFeaturesSectionFourthDescriptionSectionOne = document.getElementById("AppFeaturesSectionFourthDescriptionSectionOne").value;
+            var appFeaturesSectionFourthDescriptionSectionTwo = document.getElementById("AppFeaturesSectionFourthDescriptionSectionTwo").value;
+
+           
+            var appFeaturesSectionOneImageFile = document.querySelector('input[type="file"][name="AppFeaturesSectionOneImageFile"]');
+           
+            var appFeaturesSectionTwoImageFile = document.querySelector('input[type="file"][name="AppFeaturesSectionTwoImageFile"]');
+
+            var appFeaturesSectionThreeImageFile = document.querySelector('input[type="file"][name="AppFeaturesSectionThreeImageFile"]');
+
+            var appFeaturesSectionFourthImageFile = document.querySelector('input[type="file"][name="AppFeaturesSectionFourthImageFile"]');
+
+            formData.append("AppFeaturesSectionTitle", appFeaturesSectionTitle);
+            formData.append("AppFeaturesSectionOneTitle", appFeaturesSectionOneTitle);
+            formData.append("AppFeaturesSectionOneDescriptionSectionOne", appFeaturesSectionOneDescriptionSectionOne);
+            formData.append("AppFeaturesSectionOneDescriptionSectionTwo", appFeaturesSectionOneDescriptionSectionTwo);
+            formData.append("AppFeaturesSectionTwoTitle", appFeaturesSectionTwoTitle);
+            formData.append("AppFeaturesSectionTwoDescriptionSectionOne", appFeaturesSectionTwoDescriptionSectionOne);
+            formData.append("AppFeaturesSectionTwoDescriptionSectionTwo", appFeaturesSectionTwoDescriptionSectionTwo);
+            formData.append("AppFeaturesSectionThreeTitle", appFeaturesSectionThreeTitle);
+            formData.append("AppFeaturesSectionThreeDescriptionSectionOne", appFeaturesSectionThreeDescriptionSectionOne);
+            formData.append("AppFeaturesSectionThreeDescriptionSectionTwo", appFeaturesSectionThreeDescriptionSectionTwo);
+            formData.append("AppFeaturesSectionFourthTitle", appFeaturesSectionFourthTitle);
+            formData.append("AppFeaturesSectionFourthDescriptionSectionOne", appFeaturesSectionFourthDescriptionSectionOne);
+            formData.append("AppFeaturesSectionFourthDescriptionSectionTwo", appFeaturesSectionFourthDescriptionSectionTwo);
+
+
+            //formData.append("LeftSectionFirstText", firstSectionLeftText);
+            if (appFeaturesSectionOneImageFile.value.length > 0) {
+                formData.append("AppFeaturesSectionOneImageFile", appFeaturesSectionOneImageFile.files[0]);
+
+            }
+            if (appFeaturesSectionTwoImageFile.value.length > 0) {
+                formData.append("AppFeaturesSectionTwoImageFile", appFeaturesSectionTwoImageFile.files[0]);
+
+            }
+            if (appFeaturesSectionThreeImageFile.value.length > 0) {
+                formData.append("AppFeaturesSectionThreeImageFile", appFeaturesSectionThreeImageFile.files[0]);
+
+            }
+            if (appFeaturesSectionFourthImageFile.value.length > 0) {
+                formData.append("AppFeaturesSectionFourthImageFile", appFeaturesSectionFourthImageFile.files[0]);
+
+            }
+
+            $.ajax({
+                url: "@Url.Action("UpdateApplicationAppFeaturesSection", "Services")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Application App Features Section  update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating AApplication App Features Section .");
+                }
+            });
+
+
+        });
+
+        document.getElementById("uploadApplicationPageVideoLink").addEventListener("click", function () {
+              debugger;
+            var formData = new FormData();
+            var appTutorialsSectionTitle = document.getElementById("AppTutorialsSectionTitle").value;
+            var videoOneText = document.getElementById("VideoOneTitle").value;
+            var videoOneLink = document.getElementById("VideoOneLink").value;
+
+            var videoTwoText = document.getElementById("VideoTwoTitle").value;
+            var videoTwoLink = document.getElementById("VideoTwoLink").value;
+            var videoThreeText = document.getElementById("VideoThreeTitle").value;
+            var videoThreeLink = document.getElementById("VideoThreeLink").value;
+
+            var videoFourText = document.getElementById("VideoFourTitle").value;
+            var videoFoueLink = document.getElementById("VideoFourLink").value;
+            var videoFiveText = document.getElementById("VideoFiveTitle").value;
+            var videoFiveLink = document.getElementById("VideoFiveLink").value;
+
+            formData.append("AppTutorialsSectionTitle", appTutorialsSectionTitle);
+            formData.append("VideoOneTitle", videoOneText);
+            formData.append("VideoOneLink", videoOneLink);
+            formData.append("VideoTwoTitle", videoTwoText);
+            formData.append("VideoTwoLink", videoTwoLink);
+            
+            formData.append("VideoThreeTitle", videoThreeText);
+            formData.append("VideoThreeLink", videoThreeLink);
+            formData.append("VideoFourTitle", videoFourText);
+            formData.append("VideoFourLink", videoFoueLink);
+            formData.append("VideoFiveTitle", videoFiveText);
+            formData.append("VideoFiveLink", videoFiveLink);
+
+            var videoOneThumbnailImageFile = document.querySelector('input[type="file"][name="VideoOneThumbnailImageFile"]');
+            var videoTwoThumbnailImageFile = document.querySelector('input[type="file"][name="VideoTwoThumbnailImageFile"]');
+            var videoThreeThumbnailImageFile = document.querySelector('input[type="file"][name="VideoThreeThumbnailImageFile"]');
+            var videoFourThumbnailImageFile = document.querySelector('input[type="file"][name="VideoFourThumbnailImageFile"]');
+            var videoFiveThumbnailImageFile = document.querySelector('input[type="file"][name="VideoFiveThumbnailImageFile"]');  
+           
+            if (videoOneThumbnailImageFile.value.length > 0 ) {
+                formData.append("VideoOneThumbnailImageFile", videoOneThumbnailImageFile.files[0]);
+               
+            }
+            if (videoTwoThumbnailImageFile.value.length > 0) {
+                formData.append("VideoTwoThumbnailImageFile", videoTwoThumbnailImageFile.files[0]);
+               
+            }
+            if (videoThreeThumbnailImageFile.value.length > 0 ) {
+                formData.append("VideoThreeThumbnailImageFile", videoThreeThumbnailImageFile.files[0]);
+               
+            }
+            if (videoFourThumbnailImageFile.value.length > 0) {
+                formData.append("VideoFourThumbnailImageFile", videoFourThumbnailImageFile.files[0]);
+               
+            }
+            if (videoFiveThumbnailImageFile.value.length > 0) {
+                formData.append("VideoFiveThumbnailImageFile", videoFiveThumbnailImageFile.files[0]);  
+               
+            }
+
+
+            $.ajax({
+                url: "@Url.Action("UpdateApplicationPageVideoLink", "Services")",  
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Video Link update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Video Link.");  
+                }
+            });
+
+
+        });
+
+
+    </script>
+
+}
+                    

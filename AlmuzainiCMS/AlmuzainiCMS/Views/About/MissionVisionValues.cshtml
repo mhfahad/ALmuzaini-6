@@ -44,16 +44,185 @@
     </div>
 </div>
 
-@section Scripts {
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Our Vision</h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="OurVisionText">Our Vision Text</label>
+                            <textarea class="form-control" cols="20" rows="4" id="OurVisionText" name="OurVisionText" contenteditable="true">@ViewBag.VisionText</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="VisionImageFile" />
+                        </div>
+                        <button type="button" id="updateVisionButton" class="btn btn-outline-secondary">Update</button>
+                    </div>
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.VisionImagePath?.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                   @* <img class="img-fluid" src="@Url.Content("../Uploads/original/CompanyHistory/ExpertiseImage/"+ fileName)" alt="First Slide">*@
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.VisionImagePath)" alt="First Slide">
+                                </div>
+                            </div>
 
+                        </div>
+                    }
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Our Mission</h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <h6 class="lebel">
+                                <label for="MissionText">Our Mission Text</label>
+                            </h6>
+                            <textarea class="form-control" cols="20" rows="4" id="MissionText" name="MissionText" contenteditable="true">@ViewBag.MissionText</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="MissionImageFile" />
+                        </div>
+                        <button type="button" id="updateMissionButton" class="btn btn-outline-secondary">Update</button>
+                    </div>
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.MissionImagePath?.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                    
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.MissionImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Our Values</h4>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <label for="ValuesText">Our Values Text</label>
+                            @*<textarea id="valuesTextEditor" name="editor" rows="10" cols="80" id="ValuesText" name="ValuesText" contenteditable="true">@ViewBag.ValuesText</textarea>*@
+                            <textarea class="form-control" cols="20" rows="4"  id="ValuesText" name="ValuesText" contenteditable="true"  >@ViewBag.ValuesText</textarea>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="w-100 mt-1 mb-2">
+                            <h6>Values Item List:</h6>
+                            
+                            <ul id="valuesItemsList" class="col-sm-12 col-md-12 mt-2 mb-1">
+                                @foreach (var item in ViewBag.ValuesItems)
+                                {
+                                 
+                                    <li class="d-block col-sm-12 col-md-12 mt-3 mb-3" >
+
+                                        @item.ValuesItemText <button type="button" value="@item.SerialNo" class="remove-item float-end btn btn-outline-secondary mr-0">Remove</button>
+                                        
+                                        
+                                    </li>
+                                        
+                                }
+                            </ul>
+
+
+
+                    
+                        </div>
+
+                    </div>
+                    @*<div class="input-group flex-nowrap">
+                        <div class="col-sm-10 col-md-11 mt-1 mb-2">
+                                <label for="NewValue">Values Item </label>
+                                <input type="text" class="form-control" id="NewValue" name="NewValue"></input>
+
+                        </div>
+                        <div class="col-sm-2 col-md-1" style="margin-top: 1.75rem">
+                                <button type="button" id="updateValuesItemButton" class="btn btn-outline-secondary d-block w-100">Add</button>
+                        </div>
+                                
+
+                    </div>*@
+                     <div class="input-group flex-nowrap mt-2 mb-1">
+                        <label for="NewValue">Values Item </label>
+                     </div>
+                    <div class="input-group flex-nowrap mt-2 mb-2">
+                         
+                         <input type="text" class="form-control" id="NewValue" name="NewValue" placeholder="Enter Values Item "></input>
+                         <button type="button" id="updateValuesItemButton" class="btn btn-outline-secondary ">Update</button>       
+
+                               
+                    </div>
+                        
+
+                        
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="ValuesImageFile" />
+                        </div>
+                        <button type="button" id="updateValuesButton" class="btn btn-outline-secondary">Update</button>
+                    </div>
+                    <h6 class="lebel">Live Images</h6>
+                    @if (ViewBag.ValuesImagePath?.Length > 0)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+
+                                    <img class="img-fluid" src="@Url.Content(ViewBag.ValuesImagePath)" alt="First Slide">
+                                </div>
+                            </div>
+
+                        </div>
+                    }
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    
     <script>
+
+
         document.getElementById("UploadMissionBannerButton").addEventListener("click", function () {
             var formData = new FormData();
 
 
             var imageFile = document.querySelector('input[type="file"][name="BannerFiles"]');
 
-            formData.append("MissionBannerImageFile", imageFile.files[0]);
+            formData.append("MissionVisionBannerImageFile", imageFile.files[0]);
 
             $.ajax({
                 url: "@Url.Action("UpdateMissionBanner", "About")",
@@ -64,6 +233,9 @@
                 success: function(response){
                     if(response.success){
                         toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
                     }else{
                         toastr.error("Mission Vision and Values Banner update failed.");
                     }
@@ -75,6 +247,192 @@
 
 
         })
+
+        document.getElementById("updateVisionButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var visionText = document.getElementById("OurVisionText").value;
+
+            var imageFile = document.querySelector('input[type="file"][name="VisionImageFile"]');
+
+            formData.append("VisionText", visionText);
+            formData.append("VisionImageFile", imageFile.files[0]);
+
+            $.ajax({
+                url: "@Url.Action("UpdateVision", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response){
+                    if(response.success){
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    }else{
+                        toastr.error("Our Vision update failed.");
+                    }
+                },
+                error: function(){
+                    toastr.error("An error occurred while updating Our Vision.");
+                }
+            });
+
+
+        })
+
+        document.getElementById("updateMissionButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var missionText = document.getElementById("MissionText").value;
+
+            var imageFile = document.querySelector('input[type="file"][name="MissionImageFile"]');
+
+            formData.append("MissionText", missionText);
+            formData.append("MissionImageFile", imageFile.files[0]);
+
+            $.ajax({
+                url: "@Url.Action("UpdateMission", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        toastr.error("Our Mission update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Our Mission.");
+                }
+            });
+
+
+        })
+
+        document.getElementById("updateValuesButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var valuesText = document.getElementById("ValuesText").value;
+
+            var imageFile = document.querySelector('input[type="file"][name="ValuesImageFile"]');
+
+            formData.append("ValuesText", valuesText);
+            formData.append("ValuesImageFile", imageFile.files[0]);
+
+            $.ajax({
+                url: "@Url.Action("UpdateValues", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        //var redirectUrl = response.redirectUrl;
+
+                        //window.location.href = redirectUrl;
+                    } else {
+                        toastr.error("Our Mission update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Our Mission.");
+                }
+            });
+
+
+        })
+
+         
+        //AddValuesItem
+        document.getElementById("updateValuesItemButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var valuesItemText = document.getElementById("NewValue").value;
+
+
+
+            formData.append("newValue", valuesItemText);
+           
+
+            $.ajax({
+                url: "@Url.Action("AddValuesItem", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        toastr.error("Values Item update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Values Item.");
+                }
+            });
+
+
+        })
+
+        var clickableButtons = document.getElementsByClassName("remove-item");
+
+        // Iterate through the elements and attach a click event listener
+        for (var i = 0; i < clickableButtons.length; i++) {
+            clickableButtons[i].addEventListener("click", function () {
+                
+               var buttonValue = event.target.value;
+                var listItem = this.closest("li"); 
+                if (listItem) {
+                    listItem.remove(); 
+                }
+                var formData = new FormData();
+
+                formData.append("itemSerialNo", buttonValue);
+
+
+                $.ajax({
+                    url: "@Url.Action("DeleteValuesItem", "About")",
+                    type: "DELETE",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+                            var redirectUrl = response.redirectUrl;
+
+                            window.location.href = redirectUrl;
+                        } else {
+                            toastr.error("Values Item Delete failed.");
+                        }
+                    },
+                    error: function () {
+                        toastr.error("An error occurred while deleting Values Item.");
+                    }
+                });
+
+
+
+            });
+        }
+
+        //$(document).ready(function () {
+        //    $('.remove-item').click(function () {
+        //        var itemId = $(this).data('id');
+        //        $(this).closest('li').remove();
+        //        // You can also send an AJAX request to the server to remove the item from the database
+        //    });
+        //});
+
+
 
     </script>
 }

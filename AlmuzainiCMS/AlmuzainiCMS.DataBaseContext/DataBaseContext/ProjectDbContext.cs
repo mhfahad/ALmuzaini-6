@@ -25,6 +25,24 @@ namespace AlmuzainiCMS.DataBaseContext.DataBaseContext
         public DbSet<CompanyHistory> CompanyHistory { get; set; }
         public DbSet<ChairmanMessage> ChairmanMessage { get; set; }
         public DbSet<MissionVisionValues> MissionVisionValues { get; set; }
+        public DbSet<ValuesItem> ValuesItems  { get; set; }
+        public DbSet<CorporateSocialResponsibility> CorporateSocialResponsibilities { get; set; }
+        public DbSet<ForeignCurrency> ForeignCurrency { get; set; }
+        public DbSet<Corporate> Corporate { get; set; }
+        public DbSet<RequiredDocument> RequiredDocuments { get; set; }   
+        public DbSet<Remittences> Remittences { get; set; } 
+        public DbSet<ValueAddedBenifits> ValueAddedBenifits { get; set; } 
+        
+        public DbSet<ApplicationPage> ApplicationPages { get; set; }    
+        public DbSet<UserGuide> UserGuides { get; set; }    
+        public DbSet<Promotion> Promotions { get; set; }
+        public DbSet<PromotionNews> PromotionNews { get; set; }
+ 
+        public DbSet<NewsSection> NewsSections { get; set; }
+        public DbSet<NewsSectionNews> NewsSectionNews { get; set; }   
+
+        public DbSet<ContactUs> ContactUs { get; set; }
+
 
     }
 }

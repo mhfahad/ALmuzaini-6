@@ -3,7 +3,7 @@
     ViewData["Title"] = "CompanyHistory";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<h1>Company History</h1>
 <div class="col-sm-12 col-md-12">
     <div class="card">
         <div class="card-body">
@@ -293,7 +293,7 @@
         })
 
         //updateTechnologyButton
-         document.getElementById("updateTechnologyButton").addEventListener("click", function () {
+        document.getElementById("updateTechnologyButton").addEventListener("click", function () {
             var formData = new FormData();
             var technologyText = document.getElementById("TechnologyText").value;
 
@@ -310,7 +310,7 @@
                 contentType: false,
                 success: function (response) {
                     if (response.success) {
-                       
+
                         toastr.success(response.message);
                     } else {
                         toastr.error("Technology update failed.");
@@ -361,7 +361,7 @@
 
 
         document.getElementById("uploadCompanyHistorySection").addEventListener("click", function () {
-            debugger;
+            
             var formData = new FormData();
             var firstSection = document.getElementById("FirstSection").value;
             var secondSection = document.getElementById("SecondSection").value;

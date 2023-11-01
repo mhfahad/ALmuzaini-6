@@ -35,6 +35,8 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+     @*<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+     <link href="~/ckeditor/contents.css" rel="stylesheet" />*@
 </head>
 
 <body>
@@ -267,7 +269,7 @@
                                 </li>
                                 <li class="sidebar-item">
                                     <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                                        <i data-feather="info" class="feather-icon"></i><span class="hide-menu">About Us</span>
+                                        <span class="hide-menu">About Us</span>
                                     </a>
                                     <ul aria-expanded="false" class="collapse base-level-line">
                                         <li class="sidebar-item">
@@ -292,7 +294,7 @@
                                             </a>
                                         </li>
                                         <li class="sidebar-item">
-                                            <a href="~/About/ChairmansMessage" class="sidebar-link">
+                                            <a href="~/About/CorporateSocialResponsibility" class="sidebar-link">
                                                 <span class="hide-menu">
                                                     Corporate Social Responsibility
                                                 </span>
@@ -303,7 +305,71 @@
                                     </ul>
 
                                 </li>
-                               
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                        <span class="hide-menu">Services</span>
+                                    </a>
+                                    <ul aria-expanded="false" class="collapse base-level-line">
+                                        <li class="sidebar-item">
+                                            <a href="~/Services/ForeignCurrency" class="sidebar-link">
+                                                <span class="hide-menu">
+                                                    Foreign Currency
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a href="~/Services/Corporate" class="sidebar-link">  
+                                                <span class="hide-menu">
+                                                    Corporate
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a href="~/Services/Remittances" class="sidebar-link">
+                                                <span class="hide-menu">
+                                                    Remittances
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a href="~/Services/ValueAddedBenifits" class="sidebar-link">
+                                                <span class="hide-menu">
+                                                    Value Added Benifits
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <li class="sidebar-item">
+                                            <a href="~/Services/Applications" class="sidebar-link">
+                                                <span class="hide-menu">
+                                                    Application
+                                                </span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="~/Promotions/Index" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Promotions
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="~/News/Index" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            News
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="~/ContactUs/Index" class="sidebar-link">
+                                        <span class="hide-menu">
+                                            Contact Us
+                                        </span>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li class="sidebar-item">
@@ -335,7 +401,7 @@
                                 </li>
                             </ul>
                         </li>
-                       
+
                         <li class="list-divider"></li>
                         <li class="nav-small-cap"><span class="hide-menu">Authentication</span></li>
 
@@ -409,6 +475,7 @@
     <script src="~/dist/js/pages/dashboards/dashboard1.min.js"></script>    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 <footer class="footer text-center text-muted">
