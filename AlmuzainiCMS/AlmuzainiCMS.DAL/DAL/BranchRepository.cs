@@ -18,10 +18,23 @@ namespace AlmuzainiCMS.DAL.DAL
             _context = context;
         }
 
+        public async Task<bool> AddBranchTopText(BranchTopText topText)
+        {
+            _context.BranchTopTexts.Add(topText);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
         public Branch GetBranchTopBanner()
         {
             Branch branch = _context.Branches.FirstOrDefault();
             return branch;
+        }
+
+        public List<BranchTopText> GetBranchTopText()
+        {
+            List<BranchTopText> topTextList = _context.BranchTopTexts.ToList() ?? new List<BranchTopText>();
+
+            return topTextList;
         }
 
         public async Task<bool> UpdateBranchBannerImagePath(Branch branch)

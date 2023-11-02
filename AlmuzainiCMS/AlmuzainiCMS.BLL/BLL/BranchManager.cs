@@ -19,12 +19,36 @@ namespace AlmuzainiCMS.BLL.BLL
             _repository = repository;
         }
 
+        public async Task<bool> AddBranchTopText(BranchTopText topText)
+        {
+            try
+            {
+                bool result = await _repository.AddBranchTopText(topText);
+
+                return await Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+
+                return await Task.FromResult(false);
+
+            }
+        }
+
         public Branch GetBranchTopBanner()
         {
             Branch branch = new Branch();
 
             branch = _repository.GetBranchTopBanner();
             return branch;
+        }
+
+        public List<BranchTopText> GetBranchTopText()
+        {
+            List<BranchTopText> branchTopText = new List<BranchTopText>();
+
+            branchTopText = _repository.GetBranchTopText();
+            return branchTopText;
         }
 
         public async Task<bool> UpdateBranchBannerImagePath(Branch branch)

@@ -1,34 +1,34 @@
-﻿using AlmuzainiCMS.BLL.BLL;
-using AlmuzainiCMS.BLL.Interface;
-using AlMuzainiCMS.API.Models;
+﻿using AlmuzainiCMS.BLL.Interface;
+using AlmuzainiCMS.Models;
 using AlmuzainiCMS.Models.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace AlMuzainiCMS.API.Controllers
+namespace AlmuzainiCMS.Controllers
 {
-    [Route("api/[controller]/[action]")]
-
+    [Route("api/[controller]")]
     [ApiController]
-
-    public class BranchController : ControllerBase
+    public class BranchAPIController : ControllerBase
     {
-
         private readonly IBranchManager _branchManager;
         private readonly ILogger<ServicesController> _logger;
+        private readonly ICurrencySyncManager _manager;
 
 
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public BranchController(ILogger<ServicesController> logger, IWebHostEnvironment webHostEnvironment, IBranchManager branchManager)
+        public BranchAPIController(ILogger<ServicesController> logger, IWebHostEnvironment webHostEnvironment, IBranchManager branchManager)
         {
             _branchManager = branchManager;
             _logger = logger;
             _hostingEnvironment = webHostEnvironment;
         }
 
+        [AllowAnonymous]
 
-        [HttpGet(Name = "Branches")]
+        [HttpGet("Branches")]
         public async Task<APIServiceResponse> Branches()
         {
             APIServiceResponse objResponse = new APIServiceResponse();
@@ -50,5 +50,6 @@ namespace AlMuzainiCMS.API.Controllers
                 throw;
             }
         }
+
     }
 }
