@@ -4,6 +4,7 @@ using AlmuzainiCMS.Models.Models;
 using AlmuzainiCMS.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using AlmuzainiCMS.Models.RequestDto;
 
 namespace AlmuzainiCMS.Controllers
 {
@@ -25,13 +26,46 @@ namespace AlmuzainiCMS.Controllers
 
         public IActionResult Branches()
         {
-            Branch branch = _branchManager.GetBranchTopBanner();
+            GetTopBranchSlider("uploads", "original", "Branch", "Banner");
 
-            ViewBag.BranchesTopBannerImageFileNames = branch?.BranchesTopBannerImagePath ?? "";
+            GetBranchToptitleandText();
+
+            //Branch branch = _branchManager.GetBranchTopBanner();
+
+            //ViewBag.BranchesTopBannerImageFileNames = branch?.BranchesTopBannerImagePath ?? "";
 
             return View();
         }
 
+        private void GetBranchToptitleandText()
+        {
+            List<BranchTopText> branchTopTexts = _branchManager.GetBranchTopText();
+
+        }
+
+
+        public void GetTopBranchSlider(string folderName, string subfolder, string typefolder, string mainfolder)
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
+            string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, mainfolder);
+            // Replace with the actual folder path
+
+            if (Directory.Exists(folderPath))
+            {
+                string[] fileNames = Directory.GetFiles(folderPath)
+                    .Select(Path.GetFileName)
+                    .ToArray();
+
+                ViewBag.BranchesTopBannerImageFileNames = fileNames;
+            }
+            else
+            {
+                ViewBag.BranchesTopBannerImageFileNames = new string[0]; // No files available
+            }
+
+        }
+
+        [HttpPost]
 
         public async Task<JsonResult> UploadBanchesTopBanner(MultipleFileUploadVM model)
         {
@@ -102,7 +136,7 @@ namespace AlmuzainiCMS.Controllers
                 {
                     Success = true,
                     Message = "Promotion Banner updated failed.",
-                    redirectUrl = Url.Action("Branches", "Promotions")
+                    redirectUrl = Url.Action("Branches", "Branches")
                 };
                 return Json(response);
             }
@@ -140,6 +174,32 @@ namespace AlmuzainiCMS.Controllers
             {
                 throw new Exception("File Delete Failed");
             }
+
+        }
+
+
+        [HttpPost]
+
+        public async Task<JsonResult> uploadTopText(BranchTopTextRequestDTO model)
+        {
+            BranchTopText topText = new BranchTopText
+            {
+                Title = model.Title ?? "",
+                Description = model.Description ?? "",
+                CreatedAt = DateTime.Now
+
+            };
+
+            bool result = await _branchManager.AddBranchTopText(topText);
+
+            var response = new
+            {
+                Success = true,
+                Message = "Top Text uploaded successfully.",
+                redirectUrl = Url.Action("Branches", "Branches")
+            };
+
+            return Json(response);
 
         }
     }

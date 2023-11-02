@@ -37,6 +37,7 @@ namespace AlmuzainiCMS.DataBaseContext.DataBaseContext
         public DbSet<UserGuide> UserGuides { get; set; }
 
         public DbSet<Branch> Branches { get; set; }
+        public DbSet<BranchTopText> BranchTopTexts { get; set; }
 
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<PromotionNews> PromotionNews { get; set; }

@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "Branches";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Branches</h1>
@@ -12,19 +13,36 @@
                 <h6 class="lebel">Live Images</h6>
                 @if (ViewBag.BranchesTopBannerImageFileNames.Length > 0)
                 {
-                    <div class="col-lg-3">
-                        <div class="card">
-                            <div class="carousel-item-active">
-                                <img class="img-fluid" src="@Url.Content(ViewBag.BranchesTopBannerImageFileNames)" alt="First Slide">
+                    @foreach (var fileName in ViewBag.BranchesTopBannerImageFileNames)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                    @*<li>@fileName</li>*@
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/Branch/Banner/"+ fileName)" alt="First Slide">
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+                    }
                 }
                 else
                 {
                     <p>No files available.</p>
                 }
-
+                <div class="row">
+                    <div class="form-group col-sm-3 col-md-3 mb-4">
+                        <label class="mr-sm-2">Select Position</label>
+                        <select class="form-select mr-sm-2" id="ddlTopBranchBannerSelect">
+                            <option selected="" value="0">All</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                            <option value="5">Five</option>
+                        </select>
+                    </div>
+                </div>
                 <form enctype="multipart/form-data">
                     <div class="input-group flex-nowrap">
                         <div class="custom-file w-100">
@@ -40,13 +58,49 @@
 </div>
 
 
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <h4 class="card-title">Banner Top Title and Text</h4>
+
+            <form enctype="multipart/form-data">
+                <div class="row">
+                    <div class="input-group flex-nowrap">
+                        <div class="form-group col-sm-12 col-md-12 mb-5">
+                            <div class="form-group">
+                                <input type="text" id="topTextTitle" name="topTextTitle" placeholder="Title....." class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="form-group col-sm-12 col-md-12 mb-6">
+                            <div class="form-group">
+                                <textarea class="form-control" id="topTextDescription" name="topTextDescription" rows="5" placeholder="Top text Body....."></textarea>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" id="uploadTopText" class="btn btn-outline-secondary">Update</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 @section Scripts{
     <script>
 
 
         document.getElementById("UploadBanchesTopBannerImageButton").addEventListener("click", function () {
             var formData = new FormData();
-            var position = 1;
+            var position = $("#ddlTopBranchBannerSelect option:selected").val();
+            //var position = 1;
             // Append each selected file to the FormData object
             var filesInput = document.querySelector('input[type="file"][name="BranchesTopBannerImageFiles"]');
             for (var i = 0; i < filesInput.files.length; i++) {
@@ -79,6 +133,37 @@
             });
         });
 
+
+        document.getElementById("uploadTopText").addEventListener("click", function () {
+
+            var topTextTitle = document.getElementById("topTextTitle").value;
+            var topTextDescription = document.getElementById("topTextDescription").value;
+
+            var formData = new FormData();
+            formData.append("Title", topTextTitle);
+            formData.append("Description", topTextDescription);
+
+            $.ajax({
+                url: "@Url.Action("uploadTopText", "Branches")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Top Text update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Top Text.");
+                }
+
+
+            });
+        });
 
 
     </script>

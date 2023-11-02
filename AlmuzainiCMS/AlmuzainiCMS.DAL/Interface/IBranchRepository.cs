@@ -9,6 +9,8 @@ namespace AlmuzainiCMS.DAL.Interface
 {
     public interface IBranchRepository
     {
+        Task<bool> AddBranchTopText(BranchTopText topText);
+        List<BranchTopText> GetBranchTopText();
         Branch GetBranchTopBanner();
         Task<bool> UpdateBranchBannerImagePath(Branch branch);
     }
