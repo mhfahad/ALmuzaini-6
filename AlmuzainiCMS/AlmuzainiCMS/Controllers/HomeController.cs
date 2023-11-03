@@ -571,7 +571,7 @@ namespace AlmuzainiCMS.Controllers
                 {
 
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    string fileExtension = Path.GetExtension(file.FileName);
+                    string fileExtension = ".webp";
 
                     if (!Directory.Exists(videoImageThumbFilePath))
                     {
