@@ -19,6 +19,19 @@ namespace AlmuzainiCMS.BLL.BLL
             _repository = repository;
         }
 
+        public async Task<bool> DeleteBranchById(Guid id)
+        {
+            try
+            {
+                bool result = await _repository.DeleteBranchById(id);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public async Task<bool> AddBranchdetails(BranchDetail details)
         {
             try
@@ -33,6 +46,11 @@ namespace AlmuzainiCMS.BLL.BLL
                 return await Task.FromResult(false);
 
             }
+        }
+
+        public async Task<BranchDetail> GetBranchById(Guid id)
+        {
+            return await _repository.GetBranchById(id);
         }
 
         public async Task<bool> AddBranchTopText(BranchTopText topText)
@@ -87,5 +105,6 @@ namespace AlmuzainiCMS.BLL.BLL
                 return await Task.FromResult(false);
             }
         }
+
     }
 }

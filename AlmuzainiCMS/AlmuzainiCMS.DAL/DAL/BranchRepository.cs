@@ -18,6 +18,24 @@ namespace AlmuzainiCMS.DAL.DAL
             _context = context;
         }
 
+        public async Task<bool> DeleteBranchById(Guid id)
+        {
+            var branch = await _context.BranchDetails.FindAsync(id);
+            if (branch != null)
+            {
+                _context.BranchDetails.Remove(branch);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<BranchDetail> GetBranchById(Guid id)
+        {
+            return await _context.BranchDetails.FirstOrDefaultAsync(b => b.Id == id);
+        }
+
+
         public async Task<bool> AddBranchdetails(BranchDetail details)
         {
             _context.BranchDetails.Add(details);
