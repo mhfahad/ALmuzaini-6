@@ -292,5 +292,50 @@ namespace AlmuzainiCMS.Controllers
 
             ViewBag.LiveBranches = latestBranchList; // No files available
         }
+
+        public async Task<JsonResult> GetBranchById(Guid id)
+        {
+            BranchDetail branch = await _branchManager.GetBranchById(id);
+
+            if (branch != null)
+            {
+                return Json(new
+                {
+                    area = branch.Area,
+                    address = branch.Adress,
+                    time = branch.Time,
+                    map = branch.Map
+                });
+            }
+            else
+            {
+                return Json(new { error = "Branch not found" });
+            }
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> DeleteBranch(Guid id)
+        {
+            bool result = await _branchManager.DeleteBranchById(id);
+
+            if (result)
+            {
+                return Json(new
+                {
+                    success = true,
+                    message = "Branch detail deleted successfully."
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Failed to delete branch detail."
+                });
+            }
+        }
+
+
     }
 }

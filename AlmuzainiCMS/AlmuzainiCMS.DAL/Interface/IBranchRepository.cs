@@ -17,5 +17,7 @@ namespace AlmuzainiCMS.DAL.Interface
 
         Task<bool> AddBranchdetails(BranchDetail details);
         List<BranchDetail> GetBranchDetails();
+        Task<BranchDetail> GetBranchById(Guid id);
+        Task<bool> DeleteBranchById(Guid id);
     }
 }

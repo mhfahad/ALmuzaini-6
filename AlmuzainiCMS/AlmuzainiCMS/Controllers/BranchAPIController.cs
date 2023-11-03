@@ -38,7 +38,7 @@ namespace AlmuzainiCMS.Controllers
                 branch = _branchManager.GetBranchTopBanner();
                 objResponse.ResponseStatus = true;
                 objResponse.ResponseDateTime = DateTime.Now.ToString();
-                objResponse.SuccessMsg = "Fetched Promotions Successfully!";
+                objResponse.SuccessMsg = "Fetched Branch Image Successfully!";
                 objResponse.ResponseBusinessData = JsonConvert.SerializeObject(branch).ToString();
                 objResponse.ResponseCode = 200;
 

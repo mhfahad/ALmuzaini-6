@@ -8,6 +8,8 @@ namespace AlmuzainiCMS.Models.RequestDto
 {
     public class BranchDetailRequestDTO
     {
+        public Guid Id  { get; set; }
+
         public string? Area { get; set; }
         public string? Adress { get; set; }
         public string? Time { get; set; }
