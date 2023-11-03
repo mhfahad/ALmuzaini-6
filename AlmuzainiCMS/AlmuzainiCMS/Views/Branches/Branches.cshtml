@@ -68,14 +68,14 @@
                     <div class="input-group flex-nowrap">
                         <div class="form-group col-sm-12 col-md-12 mb-5">
                             <div class="form-group">
-                                <input type="text" id="topTextTitle" name="topTextTitle" placeholder="Title....." class="form-control">
+                                <input type="text" id="topTextTitle" name="topTextTitle" placeholder="Title....." value="@ViewBag.Title" class="form-control">
                             </div>
                         </div>
                     </div>
                     <div class="input-group flex-nowrap">
                         <div class="form-group col-sm-12 col-md-12 mb-6">
                             <div class="form-group">
-                                <textarea class="form-control" id="topTextDescription" name="topTextDescription" rows="5" placeholder="Top text Body....."></textarea>
+                                <textarea class="form-control" id="topTextDescription" name="topTextDescription" rows="5" placeholder="Top text Body.....">@ViewBag.Description</textarea>
                             </div>
 
                         </div>
@@ -90,6 +90,97 @@
 
     </div>
 
+</div>
+
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Branches Details</h4>
+
+                <h6 class="lebel">Live Branches</h6>
+
+                @if (ViewBag.LiveBranches.Count > 0)
+                {
+                    @foreach (var branch in ViewBag.LiveBranches)
+                    {
+                        <div class="col-sm-4 col-lg-3">
+                            <div class="card-body">
+                                <h4 class="card-title">@branch.Area</h4>
+                                <p class="card-text">
+                                    @branch.Adress
+                                </p>
+                                <p class="card-text">
+                                    @branch.Time
+                                </p>
+
+                                <a href="@branch.Map" target="_blank">@branch.Map</a>
+
+                                <h6 class="card-text text-muted">Last updated @branch.UpdatedAt</h6>
+                            </div>
+                        </div>
+
+
+                    }
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                
+                <div class="row">
+                    <div class="form-group col-sm-3 col-md-3 mb-4">
+                        <label class="mr-sm-2">Select Area</label>
+                        <select class="form-select mr-sm-2" id="ddlBranchSelect">
+                            <option value="All">All</option>
+                            <option value="Ahmadi">Ahmadi</option>
+                            <option value="AlAsima">AlAsima</option>
+                            <option value="Farwaniya">Farwaniya</option>
+                            <option value="Hawalli">Hawalli</option>
+                            <option value="Jahra">Jahra</option>
+                            <option value="Mubarak">Mubarak</option>
+                        </select>
+                    </div>
+                </div>
+
+                <form enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="input-group flex-nowrap">
+                            <div class="form-group col-sm-12 col-md-12 mb-5">
+                                <div class="form-group">
+                                    <input type="text" id="branchArea" name="branchArea" placeholder="Branch Area....." class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group flex-nowrap">
+                            <div class="form-group col-sm-12 col-md-12 mb-5">
+                                <div class="form-group">
+                                    <input type="text" id="branchAddress" name="branchAddress" placeholder="Branch Address...." class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group flex-nowrap">
+                            <div class="form-group col-sm-12 col-md-12 mb-5">
+                                <div class="form-group">
+                                    <input type="text" id="branchTime" name="branchTime" placeholder="Branch opening and closing detailes....." class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group flex-nowrap">
+                            <div class="form-group col-sm-12 col-md-12 mb-5">
+                                <div class="form-group">
+                                    <input type="text" id="branchMapLink" name="branchMapLink" placeholder="Provide branch map link....." class="form-control">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="uploadBranchInfo" class="btn btn-outline-secondary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -145,6 +236,48 @@
 
             $.ajax({
                 url: "@Url.Action("uploadTopText", "Branches")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Top Text update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Top Text.");
+                }
+
+
+            });
+        });
+
+
+        document.getElementById("uploadBranchInfo").addEventListener("click", function () { 
+
+            var formData = new FormData();
+
+            var position = $("#ddlBranchSelect option:selected").val();
+
+            var branchArea = document.getElementById("branchArea").value;
+            var branchAddress = document.getElementById("branchAddress").value;
+            var branchTime = document.getElementById("branchTime").value;
+            var branchMapLink = document.getElementById("branchMapLink").value;
+
+
+            formData.append("Area", branchArea);
+            formData.append("Adress", branchAddress);
+            formData.append("Time", branchTime);
+            formData.append("Map", branchMapLink);
+            formData.append("position", position);
+
+
+            $.ajax({
+                url: "@Url.Action("uploadBranchInfo", "Branches")",
                 type: "POST",
                 data: formData,
                 processData: false,

@@ -11,7 +11,11 @@ namespace AlmuzainiCMS.DAL.Interface
     {
         Task<bool> AddBranchTopText(BranchTopText topText);
         List<BranchTopText> GetBranchTopText();
+
         Branch GetBranchTopBanner();
         Task<bool> UpdateBranchBannerImagePath(Branch branch);
+
+        Task<bool> AddBranchdetails(BranchDetail details);
+        List<BranchDetail> GetBranchDetails();
     }
 }

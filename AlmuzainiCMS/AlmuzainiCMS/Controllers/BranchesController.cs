@@ -30,9 +30,7 @@ namespace AlmuzainiCMS.Controllers
 
             GetBranchToptitleandText();
 
-            //Branch branch = _branchManager.GetBranchTopBanner();
-
-            //ViewBag.BranchesTopBannerImageFileNames = branch?.BranchesTopBannerImagePath ?? "";
+            GetBranch();
 
             return View();
         }
@@ -40,6 +38,13 @@ namespace AlmuzainiCMS.Controllers
         private void GetBranchToptitleandText()
         {
             List<BranchTopText> branchTopTexts = _branchManager.GetBranchTopText();
+
+            branchTopTexts = branchTopTexts.OrderByDescending(b => b.CreatedAt).ToList();
+
+            BranchTopText latestTopText = branchTopTexts.FirstOrDefault();
+
+            ViewBag.Title = latestTopText?.Title;
+            ViewBag.Description = latestTopText?.Description;
 
         }
 
@@ -201,6 +206,91 @@ namespace AlmuzainiCMS.Controllers
 
             return Json(response);
 
+        }
+
+
+        [HttpPost]
+
+        public async Task<JsonResult> uploadBranchInfo(BranchDetailRequestDTO model)
+        {
+            BranchDetail branchDetail = new BranchDetail
+            {
+                Area = model.Area ?? "",
+                Adress = model.Adress ?? "",
+                Time = model.Time ?? "",
+                Map = model.Map ?? "",
+                CreatedAt = DateTime.Now
+
+            };
+
+            bool result = await _branchManager.AddBranchdetails(branchDetail);
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Branch details uploaded successfully.",
+                    redirectUrl = Url.Action("Branches", "Branches")
+                };
+
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Branch details upload failed.",
+                    redirectUrl = Url.Action("Branches", "Branches")
+                };
+
+                return Json(response);
+            }
+
+        }
+
+        private void GetBranch()
+        {
+            List<BranchDetail> branch = _branchManager.GetBranchDetails();
+
+            List<LatestBranchVM> latestBranchList = new List<LatestBranchVM>();
+
+            foreach (BranchDetail branchItem in branch)
+            {
+
+
+                TimeSpan timeDifference = (TimeSpan)(DateTime.Now - branchItem.CreatedAt);
+
+                int days = timeDifference.Days;
+                int hours = timeDifference.Hours;
+
+                int minutes = timeDifference.Minutes;
+                int seconds = timeDifference.Seconds;
+
+                string updatedAt = days > 1 ? days.ToString() + " days ago" : days == 1 ? " yesterday" : hours > 1 ? hours.ToString() + " hours ago" : hours == 1 ? hours.ToString() + " hour ago" : minutes > 1 ? minutes.ToString() + " minutes ago" : minutes == 1 ? minutes.ToString() + " minute ago" : seconds.ToString() + " seconds ago";
+
+
+
+                LatestBranchVM latestBranchItem = new LatestBranchVM
+                {
+                    Id = branchItem.Id,
+                    Area = branchItem.Area,
+                    Adress = branchItem.Adress,
+                    Time = branchItem.Time,
+                    Map = branchItem.Map,
+
+                    //UpdatedAt = $"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds ago"
+                    UpdatedAt = updatedAt
+                };
+
+                latestBranchList.Add(latestBranchItem);
+
+
+            }
+
+            ViewBag.LiveBranches = latestBranchList; // No files available
         }
     }
 }

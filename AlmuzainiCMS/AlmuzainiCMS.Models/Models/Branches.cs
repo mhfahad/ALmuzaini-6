@@ -27,7 +27,19 @@ namespace AlmuzainiCMS.Models.Models
         public string? Description { get; set; }
 
         public DateTime? CreatedAt { get; set; }
+    }
 
+    public class BranchDetail
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
 
+        public string? Area { get; set; }
+        public string? Adress { get; set; }
+        public string? Time { get; set; }
+        public string? Map { get; set; }
+
+        public DateTime? CreatedAt { get; set; }
     }
 }
