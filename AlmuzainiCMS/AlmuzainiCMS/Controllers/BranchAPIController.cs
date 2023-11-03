@@ -51,5 +51,51 @@ namespace AlmuzainiCMS.Controllers
             }
         }
 
+        [HttpGet("BranchTopText")]
+        public async Task<APIServiceResponse> BranchTopText()
+        {
+            APIServiceResponse objResponse = new APIServiceResponse();
+            try
+            {
+                ICollection<BranchTopText> branchTopText = new List<BranchTopText>();
+                branchTopText = _branchManager.GetBranchTopText();
+                objResponse.ResponseStatus = true;
+                objResponse.ResponseDateTime = DateTime.Now.ToString();
+                objResponse.SuccessMsg = "Fetched Branch Top Text Successfully!";
+                objResponse.ResponseBusinessData = JsonConvert.SerializeObject(branchTopText).ToString();
+                objResponse.ResponseCode = 200;
+
+                return objResponse;
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("BranchDetail")]
+        public async Task<APIServiceResponse> BranchDetail()
+        {
+            APIServiceResponse objResponse = new APIServiceResponse();
+            try
+            {
+                ICollection<BranchDetail> branchDetail = new List<BranchDetail>();
+                branchDetail = _branchManager.GetBranchDetails();
+                objResponse.ResponseStatus = true;
+                objResponse.ResponseDateTime = DateTime.Now.ToString();
+                objResponse.SuccessMsg = "Fetched Branch Details Successfully!";
+                objResponse.ResponseBusinessData = JsonConvert.SerializeObject(branchDetail).ToString();
+                objResponse.ResponseCode = 200;
+
+                return objResponse;
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
     }
 }
