@@ -230,7 +230,16 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<double?>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Longitude")
+                        .HasColumnType("float");
+
                     b.Property<string>("Map")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SelectedDropdownValue")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Time")

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlmuzainiCMS.DataBaseContext.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    [Migration("20231103112835_AddBranchdetailToDB")]
-    partial class AddBranchdetailToDB
+    [Migration("20231105150024_AddUpdatedBranchDetailsToDB")]
+    partial class AddUpdatedBranchDetailsToDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -232,7 +232,16 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
+                    b.Property<double?>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Longitude")
+                        .HasColumnType("float");
+
                     b.Property<string>("Map")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SelectedDropdownValue")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Time")

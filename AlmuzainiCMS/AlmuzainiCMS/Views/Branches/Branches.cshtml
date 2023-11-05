@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Branches";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -114,6 +113,12 @@
                                 <p class="card-text">
                                     @branch.Time
                                 </p>
+                                <p class="card-text">
+                                    @branch.Latitude
+                                </p>
+                                <p class="card-text">
+                                    @branch.Longitude
+                                </p>
 
                                 <a href="@branch.Map" target="_blank">@branch.Map</a>
 
@@ -133,24 +138,25 @@
                 {
                     <p>No files available.</p>
                 }
-                
-                <div class="row">
-                    <div class="form-group col-sm-3 col-md-3 mb-4">
-                        <label class="mr-sm-2">Select Area</label>
-                        <select class="form-select mr-sm-2" id="ddlBranchSelect">
-                            <option value="All">All</option>
-                            <option value="Ahmadi">Ahmadi</option>
-                            <option value="AlAsima">AlAsima</option>
-                            <option value="Farwaniya">Farwaniya</option>
-                            <option value="Hawalli">Hawalli</option>
-                            <option value="Jahra">Jahra</option>
-                            <option value="Mubarak">Mubarak</option>
-                        </select>
-                    </div>
-                </div>
 
                 <form enctype="multipart/form-data">
                     <div class="row">
+                        <div class="input-group flex-nowrap">
+                            <div class="form-group col-sm-12 col-md-12 mb-5">
+                                <div class="form-group">
+                                    <label class="mr-sm-2">Select Area</label>
+                                    <select class="form-select mr-sm-2" id="branchDropdown" name="branchDropdown">
+                                        <option value="All">All</option>
+                                        <option value="Ahmadi">Ahmadi</option>
+                                        <option value="AlAsima">AlAsima</option>
+                                        <option value="Farwaniya">Farwaniya</option>
+                                        <option value="Hawalli">Hawalli</option>
+                                        <option value="Jahra">Jahra</option>
+                                        <option value="Mubarak">Mubarak</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <div class="input-group flex-nowrap">
                             <div class="form-group col-sm-12 col-md-12 mb-5">
                                 <div class="form-group">
@@ -169,6 +175,20 @@
                             <div class="form-group col-sm-12 col-md-12 mb-5">
                                 <div class="form-group">
                                     <input type="text" id="branchTime" name="branchTime" placeholder="Branch opening and closing detailes....." class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group flex-nowrap">
+                            <div class="form-group col-sm-12 col-md-12 mb-5">
+                                <div class="form-group">
+                                    <input type="text" id="branchLatitude" name="branchLatitude" placeholder="Branch latitude....." class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group flex-nowrap">
+                            <div class="form-group col-sm-12 col-md-12 mb-5">
+                                <div class="form-group">
+                                    <input type="text" id="branchLongitude" name="branchLongitude" placeholder="Branch longitude....." class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -270,10 +290,13 @@
                     method: "GET",
                     data: { id: branchId },
                     success: function (response) {
-                        
+
+                        $("#branchDropdown").val(response.selectedDropdownValue);
                         $("#branchArea").val(response.area);
                         $("#branchAddress").val(response.address);
                         $("#branchTime").val(response.time);
+                        $("#branchLatitude").val(response.latitude);
+                        $("#branchLongitude").val(response.longitude);
                         $("#branchMapLink").val(response.map);
                     },
                     error: function () {
@@ -284,23 +307,26 @@
         });
 
 
-        document.getElementById("uploadBranchInfo").addEventListener("click", function () { 
+        document.getElementById("uploadBranchInfo").addEventListener("click", function () {
 
             var formData = new FormData();
 
-            var position = $("#ddlBranchSelect option:selected").val();
-
+            //var position = $("#ddlBranchSelect option:selected").val();
+            var branchDropdown = document.getElementById("branchDropdown").value;
             var branchArea = document.getElementById("branchArea").value;
             var branchAddress = document.getElementById("branchAddress").value;
             var branchTime = document.getElementById("branchTime").value;
+            var branchLatitude = document.getElementById("branchLatitude").value;
+            var branchLongitude = document.getElementById("branchLongitude").value;
             var branchMapLink = document.getElementById("branchMapLink").value;
 
-
+            formData.append("SelectedDropdownValue", branchDropdown);
             formData.append("Area", branchArea);
             formData.append("Adress", branchAddress);
             formData.append("Time", branchTime);
+            formData.append("Latitude", branchLatitude);
+            formData.append("Longitude", branchLongitude);
             formData.append("Map", branchMapLink);
-            formData.append("position", position);
 
 
             $.ajax({
