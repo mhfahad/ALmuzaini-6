@@ -24,6 +24,9 @@ namespace AlmuzainiCMS.Mapper
             CreateMap<ValueAddedBinifitsRequestDTO, ValueAddedBenifits>();
             CreateMap<ApplicationPageRequestDTO, ApplicationPage>();
             CreateMap<COntactUsRequestDTO, ContactUs>();
+            CreateMap<BranchRequestDTO, Branch>();
+            CreateMap<BranchTopTextRequestDTO, BranchTopText>();
+            CreateMap<BranchDetailRequestDTO, BranchDetail>();
             CreateMap<PromotionRequestDTO, Promotion>();
             CreateMap<PromotionNewsRequestDTO, PromotionNews>();
             CreateMap<NewsSectionRequestDTO, NewsSection>();

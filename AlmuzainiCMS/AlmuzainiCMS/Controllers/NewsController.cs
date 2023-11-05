@@ -114,7 +114,7 @@ namespace AlmuzainiCMS.Controllers
 
             }
 
-            var imagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+            var imagePath =  filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
             //NewsSectionNews news = new NewsSectionNews();
             //news.ImagePath = imagePath;
             //companyHistory.ExpertiseImagePath = filePathToSave;

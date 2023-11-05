@@ -34,7 +34,12 @@ namespace AlmuzainiCMS.DataBaseContext.DataBaseContext
         public DbSet<ValueAddedBenifits> ValueAddedBenifits { get; set; } 
         
         public DbSet<ApplicationPage> ApplicationPages { get; set; }    
-        public DbSet<UserGuide> UserGuides { get; set; }    
+        public DbSet<UserGuide> UserGuides { get; set; }
+
+        public DbSet<Branch> Branches { get; set; }
+        public DbSet<BranchTopText> BranchTopTexts { get; set; }
+        public DbSet<BranchDetail> BranchDetails { get; set; }
+
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<PromotionNews> PromotionNews { get; set; }
  

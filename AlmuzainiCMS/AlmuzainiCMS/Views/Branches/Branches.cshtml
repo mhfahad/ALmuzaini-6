@@ -1,0 +1,360 @@
+﻿
+@{
+    ViewData["Title"] = "Branches";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Branches</h1>
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Branches Top Banner Image</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.BranchesTopBannerImageFileNames.Length > 0)
+                {
+                    @foreach (var fileName in ViewBag.BranchesTopBannerImageFileNames)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                    @*<li>@fileName</li>*@
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/Branch/Banner/"+ fileName)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                <div class="row">
+                    <div class="form-group col-sm-3 col-md-3 mb-4">
+                        <label class="mr-sm-2">Select Position</label>
+                        <select class="form-select mr-sm-2" id="ddlTopBranchBannerSelect">
+                            <option selected="" value="0">All</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                            <option value="5">Five</option>
+                        </select>
+                    </div>
+                </div>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="BranchesTopBannerImageFiles" multiple />
+                        </div>
+                        <button type="button" id="UploadBanchesTopBannerImageButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <h4 class="card-title">Banner Top Title and Text</h4>
+
+            <form enctype="multipart/form-data">
+                <div class="row">
+                    <div class="input-group flex-nowrap">
+                        <div class="form-group col-sm-12 col-md-12 mb-5">
+                            <div class="form-group">
+                                <input type="text" id="topTextTitle" name="topTextTitle" placeholder="Title....." value="@ViewBag.Title" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group flex-nowrap">
+                        <div class="form-group col-sm-12 col-md-12 mb-6">
+                            <div class="form-group">
+                                <textarea class="form-control" id="topTextDescription" name="topTextDescription" rows="5" placeholder="Top text Body.....">@ViewBag.Description</textarea>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" id="uploadTopText" class="btn btn-outline-secondary">Update</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Branches Details</h4>
+
+                <h6 class="lebel">Live Branches</h6>
+
+                @if (ViewBag.LiveBranches.Count > 0)
+                {
+                    @foreach (var branch in ViewBag.LiveBranches)
+                    {
+                        <div class="col-sm-4 col-lg-3">
+                            <div class="card-body">
+                                <h4 class="card-title">@branch.Area</h4>
+                                <p class="card-text">
+                                    @branch.Adress
+                                </p>
+                                <p class="card-text">
+                                    @branch.Time
+                                </p>
+
+                                <a href="@branch.Map" target="_blank">@branch.Map</a>
+
+                                <h6 class="card-text text-muted">Last updated @branch.UpdatedAt</h6>
+
+                                <a href="javascript:void(0);" class="edit-branch" data-id="@branch.Id" style="color:blueviolet;">Edit</a>
+                                <a href="javascript:void(0);" class="delete-branch" data-id="@branch.Id" style="color: red;">Delete</a>
+
+
+                            </div>
+                        </div>
+
+
+                    }
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                
+                <div class="row">
+                    <div class="form-group col-sm-3 col-md-3 mb-4">
+                        <label class="mr-sm-2">Select Area</label>
+                        <select class="form-select mr-sm-2" id="ddlBranchSelect">
+                            <option value="All">All</option>
+                            <option value="Ahmadi">Ahmadi</option>
+                            <option value="AlAsima">AlAsima</option>
+                            <option value="Farwaniya">Farwaniya</option>
+                            <option value="Hawalli">Hawalli</option>
+                            <option value="Jahra">Jahra</option>
+                            <option value="Mubarak">Mubarak</option>
+                        </select>
+                    </div>
+                </div>
+
+                <form enctype="multipart/form-data">
+                    <div class="row">
+                        <div class="input-group flex-nowrap">
+                            <div class="form-group col-sm-12 col-md-12 mb-5">
+                                <div class="form-group">
+                                    <input type="text" id="branchArea" name="branchArea" placeholder="Branch Area....." class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group flex-nowrap">
+                            <div class="form-group col-sm-12 col-md-12 mb-5">
+                                <div class="form-group">
+                                    <input type="text" id="branchAddress" name="branchAddress" placeholder="Branch Address...." class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group flex-nowrap">
+                            <div class="form-group col-sm-12 col-md-12 mb-5">
+                                <div class="form-group">
+                                    <input type="text" id="branchTime" name="branchTime" placeholder="Branch opening and closing detailes....." class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group flex-nowrap">
+                            <div class="form-group col-sm-12 col-md-12 mb-5">
+                                <div class="form-group">
+                                    <input type="text" id="branchMapLink" name="branchMapLink" placeholder="Provide branch map link....." class="form-control">
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="uploadBranchInfo" class="btn btn-outline-secondary">Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+
+
+        document.getElementById("UploadBanchesTopBannerImageButton").addEventListener("click", function () {
+            var formData = new FormData();
+            var position = $("#ddlTopBranchBannerSelect option:selected").val();
+            //var position = 1;
+            // Append each selected file to the FormData object
+            var filesInput = document.querySelector('input[type="file"][name="BranchesTopBannerImageFiles"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadBanchesTopBanner", "Branches")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        // Handle error case
+                        toastr.error("File upload failed.");
+
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading Value Added Promotion Banner.");
+                }
+            });
+        });
+
+
+        document.getElementById("uploadTopText").addEventListener("click", function () {
+
+            var topTextTitle = document.getElementById("topTextTitle").value;
+            var topTextDescription = document.getElementById("topTextDescription").value;
+
+            var formData = new FormData();
+            formData.append("Title", topTextTitle);
+            formData.append("Description", topTextDescription);
+
+            $.ajax({
+                url: "@Url.Action("uploadTopText", "Branches")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Top Text update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Top Text.");
+                }
+
+
+            });
+        });
+
+        document.querySelectorAll(".edit-branch").forEach(function (editButton) {
+            editButton.addEventListener("click", function () {
+                var branchId = this.getAttribute("data-id");
+
+                $.ajax({
+                    url: "/Branches/GetBranchById",
+                    method: "GET",
+                    data: { id: branchId },
+                    success: function (response) {
+                        
+                        $("#branchArea").val(response.area);
+                        $("#branchAddress").val(response.address);
+                        $("#branchTime").val(response.time);
+                        $("#branchMapLink").val(response.map);
+                    },
+                    error: function () {
+                        console.log("Failed to fetch branch data.");
+                    }
+                });
+            });
+        });
+
+
+        document.getElementById("uploadBranchInfo").addEventListener("click", function () { 
+
+            var formData = new FormData();
+
+            var position = $("#ddlBranchSelect option:selected").val();
+
+            var branchArea = document.getElementById("branchArea").value;
+            var branchAddress = document.getElementById("branchAddress").value;
+            var branchTime = document.getElementById("branchTime").value;
+            var branchMapLink = document.getElementById("branchMapLink").value;
+
+
+            formData.append("Area", branchArea);
+            formData.append("Adress", branchAddress);
+            formData.append("Time", branchTime);
+            formData.append("Map", branchMapLink);
+            formData.append("position", position);
+
+
+            $.ajax({
+                url: "@Url.Action("uploadBranchInfo", "Branches")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Top Text update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Top Text.");
+                }
+
+
+            });
+        });
+
+
+        document.querySelectorAll(".delete-branch").forEach(function (deleteButton) {
+            deleteButton.addEventListener("click", function () {
+                var branchId = this.getAttribute("data-id");
+
+                // Confirm the deletion
+                var confirmDelete = confirm("Are you sure you want to delete this branch detail?");
+                if (confirmDelete) {
+                    $.ajax({
+                        url: "/Branches/DeleteBranch",
+                        method: "POST",
+                        data: { id: branchId },
+                        success: function (response) {
+                            if (response.success) {
+                                toastr.success(response.message);
+
+                            } else {
+                                toastr.error("Failed to delete branch detail.");
+                            }
+                        },
+                        error: function () {
+                            toastr.error("An error occurred while deleting branch detail.");
+                        }
+                    });
+                }
+            });
+        });
+
+
+
+    </script>
+
+}

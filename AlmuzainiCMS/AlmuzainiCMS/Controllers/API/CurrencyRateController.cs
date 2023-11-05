@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.DotNet.MSIdentity.Shared;
 
-namespace AlmuzainiCMS.Controllers
+namespace AlmuzainiCMS.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -50,7 +50,7 @@ namespace AlmuzainiCMS.Controllers
         public async Task<IActionResult> AddUpdateRequestId([FromBody] CurrencyRequestCreateDto model)
         {
             var result = await _manager.AddRequestIdAsync(model);
-            if(result) return Ok(result);
+            if (result) return Ok(result);
             return BadRequest();
         }
 
