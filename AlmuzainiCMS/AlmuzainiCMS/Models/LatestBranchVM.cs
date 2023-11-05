@@ -5,6 +5,7 @@
         public Guid Id { get; set; }
 
         public string SelectedDropdownValue { get; set; }
+        public string BusinessType { get; set; }
         public string Area { get; set; }
         public string Adress { get; set; }
         public string Time { get; set; }

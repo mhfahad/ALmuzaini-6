@@ -216,6 +216,7 @@ namespace AlmuzainiCMS.Controllers
             BranchDetail branchDetail = new BranchDetail
             {
                 SelectedDropdownValue = model.SelectedDropdownValue,
+                BusinessType = model.BusinessType,
                 Area = model.Area ?? "",
                 Adress = model.Adress ?? "",
                 Time = model.Time ?? "",
@@ -279,6 +280,8 @@ namespace AlmuzainiCMS.Controllers
                 LatestBranchVM latestBranchItem = new LatestBranchVM
                 {
                     Id = branchItem.Id,
+                    SelectedDropdownValue = branchItem.SelectedDropdownValue,
+                    BusinessType = branchItem.BusinessType,
                     Area = branchItem.Area,
                     Adress = branchItem.Adress,
                     Time = branchItem.Time,
@@ -307,6 +310,7 @@ namespace AlmuzainiCMS.Controllers
                 return Json(new
                 {
                     selectedDropdownValue = branch.SelectedDropdownValue,
+                    businessType = branch.BusinessType,
                     area = branch.Area,
                     address = branch.Adress,
                     time = branch.Time,

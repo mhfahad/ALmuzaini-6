@@ -106,11 +106,14 @@
                     {
                         <div class="col-sm-4 col-lg-3">
                             <div class="card-body">
-                                <h4 class="card-title">@branch.Area</h4>
+                                <h4 class="card-title">@branch.SelectedDropdownValue</h4>
+                                <p class="card-text">
+                                    @branch.Area
+                                </p>
                                 <p class="card-text">
                                     @branch.Adress
                                 </p>
-                                <p class="card-text">
+                                @*<p class="card-text">
                                     @branch.Time
                                 </p>
                                 <p class="card-text">
@@ -118,7 +121,7 @@
                                 </p>
                                 <p class="card-text">
                                     @branch.Longitude
-                                </p>
+                                </p>*@
 
                                 <a href="@branch.Map" target="_blank">@branch.Map</a>
 
@@ -141,68 +144,74 @@
 
                 <form enctype="multipart/form-data">
                     <div class="row">
-                        <div class="input-group flex-nowrap">
-                            <div class="form-group col-sm-12 col-md-12 mb-5">
-                                <div class="form-group">
-                                    <label class="mr-sm-2">Select Area</label>
-                                    <select class="form-select mr-sm-2" id="branchDropdown" name="branchDropdown">
-                                        <option value="All">All</option>
-                                        <option value="Ahmadi">Ahmadi</option>
-                                        <option value="AlAsima">AlAsima</option>
-                                        <option value="Farwaniya">Farwaniya</option>
-                                        <option value="Hawalli">Hawalli</option>
-                                        <option value="Jahra">Jahra</option>
-                                        <option value="Mubarak">Mubarak</option>
-                                    </select>
-                                </div>
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3">
+                                <label for="branchDropdown" style="font-weight:bold">Select Area</label>
+                                <select class="form-select" id="branchDropdown" name="branchDropdown">
+                                    <option value="All">All</option>
+                                    <option value="Ahmadi">Ahmadi</option>
+                                    <option value="AlAsima">AlAsima</option>
+                                    <option value="Farwaniya">Farwaniya</option>
+                                    <option value="Hawalli">Hawalli</option>
+                                    <option value="Jahra">Jahra</option>
+                                    <option value="Mubarak">Mubarak</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="input-group flex-nowrap">
-                            <div class="form-group col-sm-12 col-md-12 mb-5">
-                                <div class="form-group">
-                                    <input type="text" id="branchArea" name="branchArea" placeholder="Branch Area....." class="form-control">
-                                </div>
+                        <div class="col-sm-6">
+                            <div class="form-group mb-3">
+                                <label for="BusinessTypeDropdown" style="font-weight:bold">Select Business Type</label>
+                                <select class="form-select" id="BusinessTypeDropdown" name="BusinessTypeDropdown">
+                                    <option value="Commercial">Commercial</option>
+                                    <option value="Co-Ops">Co-Ops</option>
+                                </select>
                             </div>
                         </div>
-                        <div class="input-group flex-nowrap">
-                            <div class="form-group col-sm-12 col-md-12 mb-5">
-                                <div class="form-group">
-                                    <input type="text" id="branchAddress" name="branchAddress" placeholder="Branch Address...." class="form-control">
-                                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group mb-3">
+                                <label for="branchArea" style="font-weight:bold">Branch</label>
+                                <input type="text" id="branchArea" name="branchArea" placeholder="Branch name....." class="form-control">
                             </div>
                         </div>
-                        <div class="input-group flex-nowrap">
-                            <div class="form-group col-sm-12 col-md-12 mb-5">
-                                <div class="form-group">
-                                    <input type="text" id="branchTime" name="branchTime" placeholder="Branch opening and closing detailes....." class="form-control">
-                                </div>
+                        <div class="col-sm-4">
+                            <div class="form-group mb-3">
+                                <label for="branchAddress" style="font-weight:bold">Address</label>
+                                <input type="text" id="branchAddress" name="branchAddress" placeholder="Branch Address...." class="form-control">
                             </div>
                         </div>
-                        <div class="input-group flex-nowrap">
-                            <div class="form-group col-sm-12 col-md-12 mb-5">
-                                <div class="form-group">
-                                    <input type="text" id="branchLatitude" name="branchLatitude" placeholder="Branch latitude....." class="form-control">
-                                </div>
+                        <div class="col-sm-4">
+                            <div class="form-group mb-3">
+                                <label for="branchTime" style="font-weight:bold">Opening and Closing Details</label>
+                                <input type="text" id="branchTime" name="branchTime" placeholder="Branch opening and closing details....." class="form-control">
                             </div>
                         </div>
-                        <div class="input-group flex-nowrap">
-                            <div class="form-group col-sm-12 col-md-12 mb-5">
-                                <div class="form-group">
-                                    <input type="text" id="branchLongitude" name="branchLongitude" placeholder="Branch longitude....." class="form-control">
-                                </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group mb-3">
+                                <label for="branchLatitude" style="font-weight:bold">Latitude</label>
+                                <input type="text" id="branchLatitude" name="branchLatitude" placeholder="Branch latitude....." class="form-control">
                             </div>
                         </div>
-                        <div class="input-group flex-nowrap">
-                            <div class="form-group col-sm-12 col-md-12 mb-5">
-                                <div class="form-group">
-                                    <input type="text" id="branchMapLink" name="branchMapLink" placeholder="Provide branch map link....." class="form-control">
-                                </div>
-
+                        <div class="col-sm-4">
+                            <div class="form-group mb-3">
+                                <label for="branchLongitude" style="font-weight:bold">Longitude</label>
+                                <input type="text" id="branchLongitude" name="branchLongitude" placeholder="Branch longitude....." class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group mb-3">
+                                <label for="branchMapLink" style="font-weight:bold">Map Link</label>
+                                <input type="text" id="branchMapLink" name="branchMapLink" placeholder="Provide branch map link....." class="form-control">
                             </div>
                         </div>
                     </div>
                     <button type="button" id="uploadBranchInfo" class="btn btn-outline-secondary">Update</button>
                 </form>
+
+
             </div>
         </div>
     </div>
@@ -292,6 +301,7 @@
                     success: function (response) {
 
                         $("#branchDropdown").val(response.selectedDropdownValue);
+                        $("#BusinessTypeDropdown").val(response.businessType);
                         $("#branchArea").val(response.area);
                         $("#branchAddress").val(response.address);
                         $("#branchTime").val(response.time);
@@ -313,6 +323,7 @@
 
             //var position = $("#ddlBranchSelect option:selected").val();
             var branchDropdown = document.getElementById("branchDropdown").value;
+            var BusinessTypeDropdown = document.getElementById("BusinessTypeDropdown").value;
             var branchArea = document.getElementById("branchArea").value;
             var branchAddress = document.getElementById("branchAddress").value;
             var branchTime = document.getElementById("branchTime").value;
@@ -321,6 +332,7 @@
             var branchMapLink = document.getElementById("branchMapLink").value;
 
             formData.append("SelectedDropdownValue", branchDropdown);
+            formData.append("BusinessType", BusinessTypeDropdown);
             formData.append("Area", branchArea);
             formData.append("Adress", branchAddress);
             formData.append("Time", branchTime);
