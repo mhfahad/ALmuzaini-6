@@ -215,9 +215,12 @@ namespace AlmuzainiCMS.Controllers
         {
             BranchDetail branchDetail = new BranchDetail
             {
+                SelectedDropdownValue = model.SelectedDropdownValue,
                 Area = model.Area ?? "",
                 Adress = model.Adress ?? "",
                 Time = model.Time ?? "",
+                Latitude = model.Latitude,
+                Longitude = model.Longitude,
                 Map = model.Map ?? "",
                 CreatedAt = DateTime.Now
 
@@ -279,6 +282,8 @@ namespace AlmuzainiCMS.Controllers
                     Area = branchItem.Area,
                     Adress = branchItem.Adress,
                     Time = branchItem.Time,
+                    Latitude = (double)branchItem.Latitude,
+                    Longitude = (double)branchItem.Longitude,
                     Map = branchItem.Map,
 
                     //UpdatedAt = $"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds ago"
@@ -301,9 +306,12 @@ namespace AlmuzainiCMS.Controllers
             {
                 return Json(new
                 {
+                    selectedDropdownValue = branch.SelectedDropdownValue,
                     area = branch.Area,
                     address = branch.Adress,
                     time = branch.Time,
+                    latitude = branch.Latitude,
+                    longitude = branch.Longitude,
                     map = branch.Map
                 });
             }
