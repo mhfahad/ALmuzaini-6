@@ -88,6 +88,9 @@ builder.Services.AddScoped<IApplicationPageRepository, ApplicationPageRepository
 builder.Services.AddScoped<IBranchManager, BranchManager>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 
+builder.Services.AddScoped<IHomeManager, HomeManager>();
+builder.Services.AddScoped<IHomeRepository, HomeRepository>();
+
 builder.Services.AddScoped<IPromotionsManager, PromotionsManager>();
 builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
 
