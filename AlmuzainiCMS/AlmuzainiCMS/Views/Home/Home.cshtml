@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -52,322 +51,356 @@
                             <input type="file" name="Files" multiple />
                         </div>
                         <button type="button" id="uploadSliderButton" class="btn btn-outline-secondary">Upload</button>
-                        </div>
-                    
-                    </form>
-                </div>
+                    </div>
+
+                </form>
             </div>
         </div>
     </div>
+</div>
 
 
 
-    <div class="col-sm-12 col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <h4 class="card-title">Rate Calculator</h4>
-                    <h6 class="lebel">Live Images</h6>
-                    @if (ViewBag.RateCalculatorFileNames.Length > 0)
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Rate Calculator</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.RateCalculatorFileNames.Length > 0)
+                {
+                    @foreach (var fileName in ViewBag.RateCalculatorFileNames)
                     {
-                        @foreach (var fileName in ViewBag.RateCalculatorFileNames)
-                        {
-                            <div class="col-lg-3">
-                                <div class="card">
-                                    <div class="carousel-item-active">
-                                        @*<li>@fileName</li>*@
-                                        <img class="img-fluid" src="@Url.Content("../Uploads/original/RateCalculator/"+ fileName)" alt="First Slide">
-                                    </div>
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                    @*<li>@fileName</li>*@
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/RateCalculator/"+ fileName)" alt="First Slide">
                                 </div>
                             </div>
-
-
-
-                        }
-
-                    }
-                    else
-                    {
-                        <p>No files available.</p>
-                    }
-                    <div class="row">
-                        <div class="form-group col-sm-3 col-md-3 mb-4">
-                            <label class="mr-sm-2">Select Position</label>
-                            <select class="form-select mr-sm-2" id="ddlRateCalculatorSelection">
-                                <option selected="" value="0">All</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                                <option value="4">Four</option>
-                                <option value="5">Five</option>
-                                <option value="6">Six</option>
-                                <option value="7">Seven</option>
-                                <option value="8">Eight</option>
-                                <option value="9">Nine</option>
-
-                            </select>
                         </div>
+
+
+
+                    }
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                <div class="row">
+                    <div class="form-group col-sm-3 col-md-3 mb-4">
+                        <label class="mr-sm-2">Select Position</label>
+                        <select class="form-select mr-sm-2" id="ddlRateCalculatorSelection">
+                            <option selected="" value="0">All</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                            <option value="5">Five</option>
+                            <option value="6">Six</option>
+                            <option value="7">Seven</option>
+                            <option value="8">Eight</option>
+                            <option value="9">Nine</option>
+
+                        </select>
                     </div>
-                    <form enctype="multipart/form-data">
-                        <div class="input-group flex-nowrap">
-                            <div class="custom-file w-100">
-                                <input type="file" name="RateCalculatorFiles" multiple />
-                            </div>
-                            <button type="button" id="uploadRateCalculatorButton" class="btn btn-outline-secondary">Upload</button>
-                        </div>
-
-                    </form>
-
                 </div>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="RateCalculatorFiles" multiple />
+                        </div>
+                        <button type="button" id="uploadRateCalculatorButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
 
             </div>
 
         </div>
 
     </div>
-    <div class="col-sm-12 col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <h4 class="card-title">Middle Slider</h4>
-                    <h6 class="lebel">Live Images</h6>
-                    @if (ViewBag.MiddleSliderFileNames.Length > 0)
+
+</div>
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Middle Slider</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.MiddleSliderFileNames.Length > 0)
+                {
+                    @foreach (var fileName in ViewBag.MiddleSliderFileNames)
                     {
-                        @foreach (var fileName in ViewBag.MiddleSliderFileNames)
-                        {
-                            <div class="col-lg-3">
-                                <div class="card">
-                                    <div class="carousel-item-active">
-                                        @*<li>@fileName</li>*@
-                                        <img class="img-fluid" src="@Url.Content("../Uploads/original/MiddleSlider/"+ fileName)" alt="First Slide">
-                                    </div>
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                    @*<li>@fileName</li>*@
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/MiddleSlider/"+ fileName)" alt="First Slide">
                                 </div>
                             </div>
-
-
-
-                        }
-
-                    }
-                    else
-                    {
-                        <p>No files available.</p>
-                    }
-                    <div class="row">
-                        <div class="form-group col-sm-3 col-md-3 mb-4">
-                            <label class="mr-sm-2">Select Position</label>
-                            <select class="form-select mr-sm-2" id="ddlMiddleSliderSelection">
-                                <option selected="" value="0">All</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                                <option value="4">Four</option>
-                                <option value="5">Five</option>
-                                <option value="6">Six</option>
-                                <option value="7">Seven</option>
-                                <option value="8">Eight</option>
-                                <option value="9">Nine</option>
-                            </select>
                         </div>
+
+
+
+                    }
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                <div class="row">
+                    <div class="form-group col-sm-3 col-md-3 mb-4">
+                        <label class="mr-sm-2">Select Position</label>
+                        <select class="form-select mr-sm-2" id="ddlMiddleSliderSelection">
+                            <option selected="" value="0">All</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                            <option value="5">Five</option>
+                            <option value="6">Six</option>
+                            <option value="7">Seven</option>
+                            <option value="8">Eight</option>
+                            <option value="9">Nine</option>
+                        </select>
                     </div>
-                    <form enctype="multipart/form-data">
-                        <div class="input-group flex-nowrap">
-                            <div class="custom-file w-100">
-                                <input type="file" name="MiddleSliderFiles" multiple />
-                            </div>
-                            <button type="button" id="uploadMiddleSliderButton" class="btn btn-outline-secondary">Upload</button>
-                        </div>
-
-                    </form>
-
-
                 </div>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="MiddleSliderFiles" multiple />
+                        </div>
+                        <button type="button" id="uploadMiddleSliderButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+
 
             </div>
 
         </div>
 
     </div>
-    <div class="col-sm-12 col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <h4 class="card-title">Round Buttons</h4>
-                    <h6 class="lebel">Live Images</h6>
-                    @if (ViewBag.RoundButtonsFileNames.Length > 0)
+
+</div>
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Round Buttons</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.RoundButtonsFileNames.Length > 0)
+                {
+                    @foreach (var fileName in ViewBag.RoundButtonsFileNames)
                     {
-                        @foreach (var fileName in ViewBag.RoundButtonsFileNames)
-                        {
-                            <div class="col-lg-3">
-                                <div class="card">
-                                    <div class="carousel-item-active">
-                                        @*<li>@fileName</li>*@
-                                        <img class="img-fluid" src="@Url.Content("../Uploads/original/RoundButtons/"+ fileName)" alt="First Slide">
-                                    </div>
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                    @*<li>@fileName</li>*@
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/RoundButtons/"+ fileName)" alt="First Slide">
                                 </div>
                             </div>
-
-
-
-                        }
-
-                    }
-                    else
-                    {
-                        <p>No files available.</p>
-                    }
-                
-                    <div class="row">
-                        <div class="form-group col-sm-3 col-md-3 mb-4">
-                            <label class="mr-sm-2">Select Position</label>
-                            <select class="form-select mr-sm-2" id="ddlRoundButtonsSelection">
-                                <option selected="" value="0">All</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                                <option value="4">Four</option>
-                                <option value="5">Five</option>
-                                <option value="6">Six</option>
-                                <option value="7">Seven</option>
-                                <option value="8">Eight</option>
-                                <option value="9">Nine</option>
-                            </select>
                         </div>
+
+
+
+                    }
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+
+                <div class="row">
+                    <div class="form-group col-sm-3 col-md-3 mb-4">
+                        <label class="mr-sm-2">Select Position</label>
+                        <select class="form-select mr-sm-2" id="ddlRoundButtonsSelection">
+                            <option selected="" value="0">All</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                            <option value="5">Five</option>
+                            <option value="6">Six</option>
+                            <option value="7">Seven</option>
+                            <option value="8">Eight</option>
+                            <option value="9">Nine</option>
+                        </select>
                     </div>
-                    <form enctype="multipart/form-data">
-                        <div class="input-group flex-nowrap">
-                            <div class="custom-file w-100">
-                                <input type="file" name="RoundButtonsFiles" multiple />
-                            </div>
-                            <button type="button" id="uploadRoundButtonsButton" class="btn btn-outline-secondary">Upload</button>
-                        </div>
-
-                    </form>
-
                 </div>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="RoundButtonsFiles" multiple />
+                        </div>
+                        <button type="button" id="uploadRoundButtonsButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
 
             </div>
 
         </div>
 
     </div>
-    <div class="col-sm-12 col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <h4 class="card-title">Last Slider</h4>
-                    <h6 class="lebel">Live Images</h6>
-                    @if (ViewBag.LastSliderFileNames.Length > 0)
+
+</div>
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Last Slider</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.LastSliderFileNames.Length > 0)
+                {
+                    @foreach (var fileName in ViewBag.LastSliderFileNames)
                     {
-                        @foreach (var fileName in ViewBag.LastSliderFileNames)
-                        {
-                            <div class="col-lg-3">
-                                <div class="card">
-                                    <div class="carousel-item-active">
-                                        @*<li>@fileName</li>*@
-                                        <img class="img-fluid" src="@Url.Content("../Uploads/original/LastSlider/"+ fileName)" alt="First Slide">
-                                    </div>
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                    @*<li>@fileName</li>*@
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/LastSlider/"+ fileName)" alt="First Slide">
                                 </div>
                             </div>
-
-
-
-                        }
-
-                    }
-                    else
-                    {
-                        <p>No files available.</p>
-                    }
-                    <div class="row">
-                        <div class="form-group col-sm-3 col-md-3 mb-4">
-                            <label class="mr-sm-2">Select Position</label>
-                            <select class="form-select mr-sm-2" id="ddlLastSliderSelection">
-                                <option selected="" value="0">All</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                                <option value="4">Four</option>
-                                <option value="5">Five</option>
-                                <option value="6">Six</option>
-                                <option value="7">Seven</option>
-                                <option value="8">Eight</option>
-                                <option value="9">Nine</option>
-                            </select>
                         </div>
+
+
+
+                    }
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+                <div class="row">
+                    <div class="form-group col-sm-3 col-md-3 mb-4">
+                        <label class="mr-sm-2">Select Position</label>
+                        <select class="form-select mr-sm-2" id="ddlLastSliderSelection">
+                            <option selected="" value="0">All</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                            <option value="4">Four</option>
+                            <option value="5">Five</option>
+                            <option value="6">Six</option>
+                            <option value="7">Seven</option>
+                            <option value="8">Eight</option>
+                            <option value="9">Nine</option>
+                        </select>
                     </div>
-                    <form enctype="multipart/form-data">
-                        <div class="input-group flex-nowrap">
-                            <div class="custom-file w-100">
-                                <input type="file" name="LastSliderFiles" multiple />
-                            </div>
-                            <button type="button" id="uploadLastSliderButton" class="btn btn-outline-secondary">Upload</button>
-                        </div>
-
-                    </form>
-
                 </div>
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="LastSliderFiles" multiple />
+                        </div>
+                        <button type="button" id="uploadLastSliderButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
 
             </div>
 
         </div>
 
     </div>
-    <div class="col-sm-12 col-md-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <h4 class="card-title">Videos</h4>
-                    
-                    <form enctype="multipart/form-data">
-                        <div class="input-group flex-nowrap">
-                            <div class="custom-file w-100">
-                                <input type="file" name="VideoFiles" />
+
+</div>
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+
+                <h4 class="card-title">Videos</h4>
+
+                <h6 class="lebel">Live Videos</h6>
+
+                @if (ViewBag.LiveVideos.Count > 0)
+                {
+                    @foreach (var video in ViewBag.LiveVideos)
+                    {
+                        <div class="col-sm-4 col-lg-3">
+                            <div class="card-body">
+                                <h4 class="card-title">@video.Title</h4>
+                                @*<p class="card-text">
+                                    @video.VideoUrl
+                                </p>*@
+                                <a href="@video.VideoUrl" target="_blank">@video.VideoUrl</a>
+
+                                <h6 class="card-text text-muted">Last updated @video.UpdatedAt</h6>
                             </div>
-                           @* <button type="button" id="uploadVideoButton" class="btn btn-outline-secondary">Upload</button>*@
                         </div>
 
-                    </form>
 
-                </div>
-                <div class="row mt-2">
-                    <h4 class="card-title">Videos Thumb Image</h4>
-                    
-                    <form enctype="multipart/form-data">
+                    }
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+
+                <h4 class="card-title">Video Title and URL</h4>
+
+                <form enctype="multipart/form-data">
+                    <div class="row">
                         <div class="input-group flex-nowrap">
-                            <div class="custom-file w-100">
-                                <input type="file" name="VideoThumbFiles" />
+                            <div class="form-group col-sm-12 col-md-12 mb-5">
+                                <div class="form-group">
+                                    <label for="videoTitle">Title</label>
+                                    <input type="text" id="videoTitle" name="videoTitle" class="form-control">
+                                </div>
                             </div>
-                            <button type="button" id="uploadVideoButton" class="btn btn-outline-secondary">Upload</button>
                         </div>
+                        <div class="input-group flex-nowrap">
+                            <div class="form-group col-sm-12 col-md-12 mb-6">
+                                <div class="form-group">
+                                    <label for="videoUrl">Url</label>
+                                    <input type="text" id="videoUrl" name="videoUrl" class="form-control">
+                                </div>
 
-                    </form>
+                            </div>
+                        </div>
+                    </div>
+                </form>
 
-                </div>
+            </div>
+            <div class="row mt-2">
+                <h4 class="card-title">Videos Thumb Image</h4>
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="VideoThumbFiles" />
+                        </div>
+                        <button type="button" id="uploadVideoButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+
+            </div>
             <div class="row">
                 <div class="form-group col-sm-3 col-md-3 mb-4">
                     <label class="mr-sm-2">Select Position</label>
                     <select class="form-select mr-sm-2" id="ddlVideoSelection">
-                        <option selected="" value="0">All</option>
                         <option value="1">One</option>
                         <option value="2">Two</option>
                         <option value="3">Three</option>
-                        <option value="4">Four</option>
-                        <option value="5">Five</option>
-                        <option value="6">Six</option>
-                        <option value="7">Seven</option>
-                        <option value="8">Eight</option>
-                        <option value="9">Nine</option>
                     </select>
                 </div>
-            </div>
-
             </div>
 
         </div>
 
     </div>
-   @*  <div class="col-sm-12 col-md-12">
+
+</div>
+@*  <div class="col-sm-12 col-md-12">
     <div class="card">
         <div class="card-body">
             <div class="row">
@@ -388,7 +421,7 @@
                             <h6 class="card-text text-muted">Last updated @news.UpdatedAt</h6>
                             </div>
                         </div>
-                       
+
 
                     }
                 }
@@ -417,7 +450,7 @@
                             </div>
                         </div>
                     </div>
-                 
+
                     <div class="input-group flex-nowrap">
                         <div class="custom-file w-100">
                             <input type="file" name="newsImage" id="newsImage" />
@@ -439,7 +472,7 @@
 
     <script>
 
-        
+
         document.getElementById("uploadSliderButton").addEventListener("click", function () {
             var formData = new FormData();
             var position = $("#ddlTopSliderSelect option:selected").val();
@@ -473,9 +506,9 @@
                 }
             });
         });
-        
 
-            //uploadRateCalculatorButton
+
+        //uploadRateCalculatorButton
         document.getElementById("uploadRateCalculatorButton").addEventListener("click", function () {
             var formData = new FormData();
 
@@ -484,10 +517,10 @@
             var position = $("#ddlRateCalculatorSelection option:selected").val();
             for (var i = 0; i < filesInput.files.length; i++) {
                 formData.append("Files", filesInput.files[i]);
-               
+
             }
 
-             formData.append("position", position)
+            formData.append("position", position)
 
             $.ajax({
                 url: "@Url.Action("UploadRateCalculator", "Home")",
@@ -497,14 +530,14 @@
                 contentType: false,
                 success: function (response) {
                     if (response.success) {
-                    
+
                         toastr.success(response.message);
-                        
+
                         var redirectUrl = response.redirectUrl;
-                      
+
                         window.location.href = redirectUrl;
-                       
-                        
+
+
                     } else {
                         // Handle error case
                         toastr.error("File upload failed.");
@@ -520,15 +553,15 @@
         document.getElementById("uploadMiddleSliderButton").addEventListener("click", function () {
             var formData = new FormData();
 
-            // Append each selected file to the FormData object   
+            // Append each selected file to the FormData object
             var filesInput = document.querySelector('input[type="file"][name="MiddleSliderFiles"]');
             var position = $("#ddlMiddleSliderSelection option:selected").val();
             for (var i = 0; i < filesInput.files.length; i++) {
                 formData.append("Files", filesInput.files[i]);
-               
+
             }
 
-             formData.append("position", position)
+            formData.append("position", position)
 
             $.ajax({
                 url: "@Url.Action("UploadMiddleSlider", "Home")",
@@ -553,9 +586,9 @@
                 }
             });
         });
-        
 
-            //uploadRoundButtonsButton
+
+        //uploadRoundButtonsButton
         document.getElementById("uploadRoundButtonsButton").addEventListener("click", function () {
             var formData = new FormData();
 
@@ -592,10 +625,10 @@
                 }
             });
         });
-        
 
 
-            //uploadLastSliderButton
+
+        //uploadLastSliderButton
         document.getElementById("uploadLastSliderButton").addEventListener("click", function () {
             var formData = new FormData();
 
@@ -632,18 +665,22 @@
                 }
             });
         });
-        
 
-            //uploadVideoButton
+
+        //uploadVideoButton
 
         document.getElementById("uploadVideoButton").addEventListener("click", function () {
             var formData = new FormData();
 
             // Append each selected file to the FormData object
-            var videoFilesInput = document.querySelector('input[type="file"][name="VideoFiles"]');
+            //var videoFilesInput = document.querySelector('input[type="file"][name="VideoFiles"]');
+            var videoTitle = document.getElementById("videoTitle").value;
+            var videoUrl = document.getElementById("videoUrl").value;
             var videoThumbImageInput = document.querySelector('input[type="file"][name="VideoThumbFiles"]');
             var position = $("#ddlVideoSelection option:selected").val();
-            formData.append("VideoFile", videoFilesInput.files[0]);
+            //formData.append("VideoFile", videoFilesInput.files[0]);
+            formData.append("Title", videoTitle);
+            formData.append("VideoUrl", videoUrl);
             formData.append("VideoThumbFile", videoThumbImageInput.files[0]);
             formData.append("Position", position);
             //for (var i = 0; i < filesInput.files.length; i++) {
@@ -672,7 +709,7 @@
         });
 
 
-        document.getElementById("uploadNews").addEventListener("click", function(){
+        document.getElementById("uploadNews").addEventListener("click", function () {
             debugger;
             var newsTitle = document.getElementById("newsTitle").value;
             var newsDescription = document.getElementById("newsDescription").value;
@@ -689,7 +726,7 @@
                 data: formData,
                 contentType: false,
                 processData: false,
-                success: function(response){
+                success: function (response) {
                     if (response.success) {
                         // Display toast notification
                         toastr.success(response.message);
@@ -701,7 +738,7 @@
                         toastr.error("File upload failed.");
                     }
                 },
-                error: function(error){
+                error: function (error) {
                     console.error(error);
                 }
 
@@ -709,7 +746,7 @@
             });
         });
 
-        
+
 
 
     </script>

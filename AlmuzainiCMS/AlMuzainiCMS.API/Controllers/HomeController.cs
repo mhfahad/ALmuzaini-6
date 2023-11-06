@@ -1,4 +1,5 @@
-﻿using AlmuzainiCMS.BLL.Interface;
+﻿using AlmuzainiCMS.BLL.BLL;
+using AlmuzainiCMS.BLL.Interface;
 using AlmuzainiCMS.Models.Models;
 using AlMuzainiCMS.API.Models;
 using AutoMapper;
@@ -16,15 +17,17 @@ namespace AlMuzainiCMS.API.Controllers
         private readonly ILogger<HomeController> _logger;
 
         //private readonly IMapper _mapper;
+        private readonly IHomeManager _homeManager;
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly INewsManager _newsManager;
 
-        public HomeController(ILogger<HomeController> logger,IWebHostEnvironment webHostEnvironment, INewsManager newsManager)  
+        public HomeController(ILogger<HomeController> logger,IWebHostEnvironment webHostEnvironment, INewsManager newsManager, IHomeManager homeManager)  
         {
             _logger = logger;
             //_mapper = mapper;
             _hostingEnvironment = webHostEnvironment;
             _newsManager = newsManager;
+            _homeManager = homeManager;
 
 
 
@@ -45,6 +48,29 @@ namespace AlMuzainiCMS.API.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+
+        [HttpGet(Name = "HomeVUrls")]
+        public async Task<APIServiceResponse> HomeVUrls()
+        {
+            APIServiceResponse objResponse = new APIServiceResponse();
+            try
+            {
+                ICollection<HomeVUrl> homeVUrl = new List<HomeVUrl>();
+                homeVUrl = _homeManager.GetHomeVUrl();
+                objResponse.ResponseStatus = true;
+                objResponse.ResponseDateTime = DateTime.Now.ToString();
+                objResponse.SuccessMsg = "Fetched Video URL Successfully!";
+                objResponse.ResponseBusinessData = JsonConvert.SerializeObject(homeVUrl).ToString();
+                objResponse.ResponseCode = 200;
+
+                return objResponse;
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
 

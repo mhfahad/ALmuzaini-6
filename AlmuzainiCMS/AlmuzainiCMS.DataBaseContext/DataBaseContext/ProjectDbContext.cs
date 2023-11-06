@@ -40,6 +40,8 @@ namespace AlmuzainiCMS.DataBaseContext.DataBaseContext
         public DbSet<BranchTopText> BranchTopTexts { get; set; }
         public DbSet<BranchDetail> BranchDetails { get; set; }
 
+        public DbSet<HomeVUrl> HomeVUrls { get; set; }
+
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<PromotionNews> PromotionNews { get; set; }
  

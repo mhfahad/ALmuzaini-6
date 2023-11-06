@@ -1,6 +1,8 @@
-﻿using AlmuzainiCMS.BLL.Interface;
+﻿using AlmuzainiCMS.BLL.BLL;
+using AlmuzainiCMS.BLL.Interface;
 using AlmuzainiCMS.Models;
 using AlmuzainiCMS.Models.Models;
+using AlmuzainiCMS.Models.RequestDto;
 using AutoMapper;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -21,13 +23,15 @@ namespace AlmuzainiCMS.Controllers
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly INewsManager _newsManager;
+        private readonly IHomeManager _homeManager;
        
-        public HomeController(ILogger<HomeController> logger ,  IMapper mapper, IWebHostEnvironment webHostEnvironment, INewsManager newsManager)
+        public HomeController(ILogger<HomeController> logger ,  IMapper mapper, IWebHostEnvironment webHostEnvironment, INewsManager newsManager, IHomeManager homeManager)
         {
             _logger = logger;
             _mapper = mapper;
             _hostingEnvironment = webHostEnvironment;
-            _newsManager = newsManager; 
+            _newsManager = newsManager;
+            _homeManager = homeManager; 
              
 
 
@@ -64,6 +68,7 @@ namespace AlmuzainiCMS.Controllers
             GetLastSlider("uploads", "original", "LastSlider"); //LastSlider
             GetVideos("uploads", "original", "Videos"); //Videos
             GetLatestNews();
+            GetVideoUrl();
 
             return View();
         }
@@ -517,99 +522,238 @@ namespace AlmuzainiCMS.Controllers
 
 
 
+        //[HttpPost]
+        //[DisableRequestSizeLimit,
+        //RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue,
+        //ValueLengthLimit = int.MaxValue)]
+        //public async IActionResult UploadVideo(VideoFileUploadVM model, HomeVUrlRequestDTO model2)
+        //{
+        //    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
+        //    //string filePath = Path.Combine(uploadsFolder, "original", "Videos");
+        //    string videoImageThumbFilePath = Path.Combine(uploadsFolder, "original", "VideoImageThumb");
+        //    string filePosition = model.Position;
+        //    //DeleteAllFilesOfFolder(filePath);
+        //    //DeleteAllFilesOfFolderWithPosition(filePath , filePosition);
+        //    DeleteAllFilesOfFolderWithPosition(videoImageThumbFilePath, filePosition);
+
+        //    //foreach (var file in model.VideoFile)
+        //    //{
+        //    //    if (file != null && file.Length > 0)
+        //    //    {
+
+        //    //        string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+        //    //        string fileExtension = Path.GetExtension(file.FileName);
+
+        //    //        if (!Directory.Exists(filePath))
+        //    //        {
+        //    //            Directory.CreateDirectory(filePath);
+        //    //        }
+        //    //        string filePathToSave = string.Empty;
+        //    //        int totalfilesOriginal;
+        //    //        if (model.Position != "0")
+        //    //        {
+        //    //            totalfilesOriginal = Convert.ToInt32(model.Position);
+        //    //            filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
+
+        //    //        }
+        //    //        else
+        //    //        {
+        //    //            totalfilesOriginal = Directory.GetFiles(filePath).Count();
+        //    //            filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+
+        //    //        }
+
+        //    //        using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+        //    //        {
+        //    //            file.CopyTo(fileStream);
+        //    //        }
+        //    //    }
+        //    //}
+
+
+        //    HomeVUrl vUrl = new HomeVUrl
+        //    {
+        //        Title = model2.Title ?? "",
+        //        VideoUrl = model2.VideoUrl ?? "",
+        //        CreatedAt = DateTime.Now
+        //    };
+
+        //    bool result = await _homeManager.AddHomeVUrlText(vUrl);
+
+
+
+        //    //ThumbImageSave 
+        //    foreach (var file in model.VideoThumbFile)
+        //    {
+        //        if (file != null && file.Length > 0)
+        //        {
+
+        //            string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+        //            string fileExtension = ".webp";
+
+        //            if (!Directory.Exists(videoImageThumbFilePath))
+        //            {
+        //                Directory.CreateDirectory(videoImageThumbFilePath);
+        //            }
+        //            //int totalfilesOriginal = Directory.GetFiles(filePath).Count();
+        //            //string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+        //            string fileThumbPathToSave = string.Empty;
+        //            int totalfilesThumb;  
+        //            if (model.Position != "0")    
+        //            {
+        //                totalfilesThumb = Convert.ToInt32(model.Position);
+        //                fileThumbPathToSave = Path.Combine(videoImageThumbFilePath, (totalfilesThumb).ToString() + fileExtension);
+
+        //            }
+        //            else
+        //            {
+        //                totalfilesThumb = Directory.GetFiles(videoImageThumbFilePath).Count();
+        //                fileThumbPathToSave = Path.Combine(videoImageThumbFilePath, (totalfilesThumb + 1).ToString() + fileExtension);
+
+        //            }
+
+        //            using (var fileStream = new FileStream(fileThumbPathToSave, FileMode.Create))
+        //            {
+        //                file.CopyTo(fileStream);
+        //            }
+        //        }
+        //    }
+
+
+        //    var response = new
+        //    {
+        //        Success = true,
+        //        Message = "File uploaded successfully."
+        //    };
+
+        //    return Json(response);
+        //}
+
+
         [HttpPost]
         [DisableRequestSizeLimit,
         RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue,
         ValueLengthLimit = int.MaxValue)]
-        public IActionResult UploadVideo(VideoFileUploadVM model)
+        public async Task<IActionResult> UploadVideo([FromForm] VideoFileUploadVM model, [FromForm] HomeVUrlRequestDTO model2)
         {
-            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
-            string filePath = Path.Combine(uploadsFolder, "original", "Videos");
-            string videoImageThumbFilePath = Path.Combine(uploadsFolder, "original", "VideoImageThumb");
-            string filePosition = model.Position;
-            //DeleteAllFilesOfFolder(filePath);
-            DeleteAllFilesOfFolderWithPosition(filePath , filePosition);
-            DeleteAllFilesOfFolderWithPosition(videoImageThumbFilePath, filePosition);
-
-            foreach (var file in model.VideoFile)
+            try
             {
-                if (file != null && file.Length > 0)
+                //string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads", "original", "Videos");
+                string videoImageThumbFilePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads", "original", "VideoImageThumb");
+
+                // Delete existing files if needed
+                string filePosition = model.Position;
+
+                DeleteAllFilesOfFolderWithPosition(videoImageThumbFilePath, filePosition);
+
+
+                HomeVUrl vUrl = new HomeVUrl
                 {
-                    
-                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    string fileExtension = Path.GetExtension(file.FileName);
-                   
-                    if (!Directory.Exists(filePath))
-                    {
-                        Directory.CreateDirectory(filePath);
-                    }
-                    string filePathToSave = string.Empty;
-                    int totalfilesOriginal;
-                    if (model.Position != "0")
-                    {
-                        totalfilesOriginal = Convert.ToInt32(model.Position);
-                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
+                    Title = model2.Title ?? "",
+                    VideoUrl = model2.VideoUrl ?? "",
+                    CreatedAt = DateTime.Now
+                };
 
-                    }
-                    else
-                    {
-                        totalfilesOriginal = Directory.GetFiles(filePath).Count();
-                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+                bool result = await _homeManager.AddHomeVUrlText(vUrl);
 
-                    }
-
-                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                //ThumbImageSave 
+                foreach (var file in model.VideoThumbFile)
+                {
+                    if (file != null && file.Length > 0)
                     {
-                        file.CopyTo(fileStream);
+
+                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                        string fileExtension = ".webp";
+
+                        if (!Directory.Exists(videoImageThumbFilePath))
+                        {
+                            Directory.CreateDirectory(videoImageThumbFilePath);
+                        }
+                        string fileThumbPathToSave = string.Empty;
+                        int totalfilesThumb;
+                        if (model.Position != "0")
+                        {
+                            totalfilesThumb = Convert.ToInt32(model.Position);
+                            fileThumbPathToSave = Path.Combine(videoImageThumbFilePath, (totalfilesThumb).ToString() + fileExtension);
+
+                        }
+                        else
+                        {
+                            totalfilesThumb = Directory.GetFiles(videoImageThumbFilePath).Count();
+                            fileThumbPathToSave = Path.Combine(videoImageThumbFilePath, (totalfilesThumb + 1).ToString() + fileExtension);
+
+                        }
+
+                        using (var fileStream = new FileStream(fileThumbPathToSave, FileMode.Create))
+                        {
+                            file.CopyTo(fileStream);
+                        }
                     }
                 }
-            }
-            //ThumbImageSave 
-            foreach (var file in model.VideoThumbFile)
-            {
-                if (file != null && file.Length > 0)
+
+                var response = new
                 {
+                    Success = true,
+                    Message = "File uploaded successfully."
+                };
 
-                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    string fileExtension = ".webp";
-
-                    if (!Directory.Exists(videoImageThumbFilePath))
-                    {
-                        Directory.CreateDirectory(videoImageThumbFilePath);
-                    }
-                    //int totalfilesOriginal = Directory.GetFiles(filePath).Count();
-                    //string filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
-                    string fileThumbPathToSave = string.Empty;
-                    int totalfilesThumb;  
-                    if (model.Position != "0")    
-                    {
-                        totalfilesThumb = Convert.ToInt32(model.Position);
-                        fileThumbPathToSave = Path.Combine(videoImageThumbFilePath, (totalfilesThumb).ToString() + fileExtension);
-
-                    }
-                    else
-                    {
-                        totalfilesThumb = Directory.GetFiles(videoImageThumbFilePath).Count();
-                        fileThumbPathToSave = Path.Combine(videoImageThumbFilePath, (totalfilesThumb + 1).ToString() + fileExtension);
-
-                    }
-
-                    using (var fileStream = new FileStream(fileThumbPathToSave, FileMode.Create))
-                    {
-                        file.CopyTo(fileStream);
-                    }
-                }
+                return Json(response);
             }
-
-
-            var response = new
+            catch (Exception ex)
             {
-                Success = true,
-                Message = "File uploaded successfully."
-            };
-
-            return Json(response);
+                var errorResponse = new
+                {
+                    Success = false,
+                    Message = "Error occurred while uploading the file."
+                };
+                return Json(errorResponse);
+            }
         }
+
+
+
+        private void GetVideoUrl()
+        {
+            List<HomeVUrl> vUrl = _homeManager.GetHomeVUrl();
+
+            List<LatestVideoUrlVM> latestVideoUrl= new List<LatestVideoUrlVM>();
+
+            foreach (HomeVUrl urlItem in vUrl)
+            {
+
+
+                TimeSpan timeDifference = (TimeSpan)(DateTime.Now - urlItem.CreatedAt);
+
+                int days = timeDifference.Days;
+                int hours = timeDifference.Hours;
+
+                int minutes = timeDifference.Minutes;
+                int seconds = timeDifference.Seconds;
+
+                string updatedAt = days > 1 ? days.ToString() + " days ago" : days == 1 ? " yesterday" : hours > 1 ? hours.ToString() + " hours ago" : hours == 1 ? hours.ToString() + " hour ago" : minutes > 1 ? minutes.ToString() + " minutes ago" : minutes == 1 ? minutes.ToString() + " minute ago" : seconds.ToString() + " seconds ago";
+
+
+
+                LatestVideoUrlVM latestVideoUrlItem = new LatestVideoUrlVM
+                {
+                    Id = urlItem.Id,
+                    Title = urlItem.Title,
+                    VideoUrl = urlItem.VideoUrl,
+
+                    //UpdatedAt = $"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds ago"
+                    UpdatedAt = updatedAt
+                };
+
+                latestVideoUrl.Add(latestVideoUrlItem);
+
+
+            }
+
+            ViewBag.LiveVideos = latestVideoUrl; // No files available
+        }
+
+
+
 
         [HttpPost]
         public  async Task<JsonResult> UploadNews( NewsVM model)
