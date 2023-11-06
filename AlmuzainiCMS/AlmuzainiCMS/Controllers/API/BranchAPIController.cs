@@ -58,7 +58,7 @@ namespace AlmuzainiCMS.Controllers.API
             try
             {
                 ICollection<BranchTopText> branchTopText = new List<BranchTopText>();
-                branchTopText = _branchManager.GetBranchTopText();
+                branchTopText = _branchManager.GetBranchTopText().OrderByDescending(c=>c.CreatedAt).ToList();
                 objResponse.ResponseStatus = true;
                 objResponse.ResponseDateTime = DateTime.Now.ToString();
                 objResponse.SuccessMsg = "Fetched Branch Top Text Successfully!";
