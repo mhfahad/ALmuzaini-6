@@ -123,7 +123,7 @@
                                     @branch.Longitude
                                 </p>*@
 
-                                <a href="@branch.Map" target="_blank">@branch.Map</a>
+                                @* <a href="@branch.Map" target="_blank">@branch.Map</a> *@
 
                                 <h6 class="card-text text-muted">Last updated @branch.UpdatedAt</h6>
 
@@ -146,9 +146,8 @@
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group mb-3">
-                                <label for="branchDropdown" style="font-weight:bold">Select Area</label>
+                                <label for="branchDropdown" >Select Area</label>
                                 <select class="form-select" id="branchDropdown" name="branchDropdown">
-                                    <option value="All">All</option>
                                     <option value="Ahmadi">Ahmadi</option>
                                     <option value="AlAsima">AlAsima</option>
                                     <option value="Farwaniya">Farwaniya</option>
@@ -160,7 +159,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="form-group mb-3">
-                                <label for="BusinessTypeDropdown" style="font-weight:bold">Select Business Type</label>
+                                <label for="BusinessTypeDropdown" >Select Business Type</label>
                                 <select class="form-select" id="BusinessTypeDropdown" name="BusinessTypeDropdown">
                                     <option value="Commercial">Commercial</option>
                                     <option value="Co-Ops">Co-Ops</option>
@@ -171,19 +170,19 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group mb-3">
-                                <label for="branchArea" style="font-weight:bold">Branch</label>
+                                <label for="branchArea" >Branch</label>
                                 <input type="text" id="branchArea" name="branchArea" placeholder="Branch name....." class="form-control">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group mb-3">
-                                <label for="branchAddress" style="font-weight:bold">Address</label>
+                                <label for="branchAddress" >Address</label>
                                 <input type="text" id="branchAddress" name="branchAddress" placeholder="Branch Address...." class="form-control">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group mb-3">
-                                <label for="branchTime" style="font-weight:bold">Opening and Closing Details</label>
+                                <label for="branchTime" >Opening and Closing Details</label>
                                 <input type="text" id="branchTime" name="branchTime" placeholder="Branch opening and closing details....." class="form-control">
                             </div>
                         </div>
@@ -191,19 +190,19 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group mb-3">
-                                <label for="branchLatitude" style="font-weight:bold">Latitude</label>
+                                <label for="branchLatitude" >Latitude</label>
                                 <input type="text" id="branchLatitude" name="branchLatitude" placeholder="Branch latitude....." class="form-control">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group mb-3">
-                                <label for="branchLongitude" style="font-weight:bold">Longitude</label>
+                                <label for="branchLongitude" >Longitude</label>
                                 <input type="text" id="branchLongitude" name="branchLongitude" placeholder="Branch longitude....." class="form-control">
                             </div>
                         </div>
                         <div class="col-sm-4">
                             <div class="form-group mb-3">
-                                <label for="branchMapLink" style="font-weight:bold">Map Link</label>
+                                <label for="branchMapLink" >Map Link</label>
                                 <input type="text" id="branchMapLink" name="branchMapLink" placeholder="Provide branch map link....." class="form-control">
                             </div>
                         </div>
