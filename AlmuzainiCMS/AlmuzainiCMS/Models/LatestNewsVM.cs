@@ -8,5 +8,9 @@
 
         public string ImagePath { get; set; }
         public string UpdatedAt { get; set; }
+
+        public string FullDescription { get; set; }
+        public string TruncatedDescription { get; set; }
+
     }
 }

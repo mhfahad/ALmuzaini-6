@@ -33,12 +33,30 @@ namespace AlmuzainiCMS.BLL.BLL
             }
         }
 
+        public async Task<bool> DeleteVideoById(Guid id)
+        {
+            try
+            {
+                bool result = await _repository.DeleteVideoById(id);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public List<HomeVUrl> GetHomeVUrl()
         {
             List<HomeVUrl> homeVUrl = new List<HomeVUrl>();
 
             homeVUrl = _repository.GetHomeVUrl();
             return homeVUrl;
+        }
+
+        public async Task<HomeVUrl> GetVideoById(Guid id)
+        {
+            return await _repository.GetVideoById(id);
         }
     }
 }
