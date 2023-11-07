@@ -80,11 +80,15 @@
                      alt="Card image cap">
                         <div class="card-body">
                             <h4 class="card-title">@news.Title</h4>
-                            <p class="card-text">
-                                @news.Description
-                            </p>
+                            <p class="card-text news-description" data-full-text="@news.FullDescription">@news.TruncatedDescription</p>
+                            @if (news.TruncatedDescription.Length > 100)
+                            {
+                                <span class="see-more">See More</span>
+                            }
                             <h6 class="card-text text-muted">Last updated @news.UpdatedAt</h6>
                         </div>
+
+
                     </div>
 
 
@@ -234,15 +238,27 @@
                 }
             });
 
+        });
 
+        $(document).ready(function () {
+            $('.see-more').on('click', function () {
+                var $description = $(this).prev('.news-description');
+                var fullText = $description.data('full-text');
+                var truncatedText = $description.text();
+
+
+                if (truncatedText === fullText) {
+                    $description.text(truncatedText.slice(0, 100) + '...');
+                    $(this).text('See More');
+                } else {
+                    $description.text(fullText); 
+                    $(this).text('See Less');
+                }
+            });
         });
 
 
-
-
-
-
-
+     
     </script>
 
 }

@@ -1,6 +1,7 @@
 ﻿using AlmuzainiCMS.DAL.Interface;
 using AlmuzainiCMS.DataBaseContext.DataBaseContext;
 using AlmuzainiCMS.Models.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,11 +24,31 @@ namespace AlmuzainiCMS.DAL.DAL
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public async Task<bool> DeleteVideoById(Guid id)
+        {
+            var vUrl = await _context.HomeVUrls.FindAsync(id);
+            if (vUrl != null)
+            {
+                _context.HomeVUrls.Remove(vUrl);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
         public List<HomeVUrl> GetHomeVUrl()
         {
             List<HomeVUrl> topTextList = _context.HomeVUrls.ToList() ?? new List<HomeVUrl>();
 
             return topTextList;
         }
+
+        public async Task<HomeVUrl> GetVideoById(Guid id)
+        {
+            return await _context.HomeVUrls.FirstOrDefaultAsync(b => b.Id == id);
+        }
+
+     
+
     }
 }
