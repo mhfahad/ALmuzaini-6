@@ -129,24 +129,31 @@
         <div class="card-body">
             <div class="row">
                 <h4 class="card-title">Middle Slider</h4>
-                <h6 class="lebel">Live Images</h6>
-                @if (ViewBag.MiddleSliderFileNames.Length > 0)
+
+                @if (ViewBag.LiveMidSlide.Count > 0)
                 {
-                    @foreach (var fileName in ViewBag.MiddleSliderFileNames)
+                    @foreach (var midSlide in ViewBag.LiveMidSlide)
                     {
-                        <div class="col-lg-3">
-                            <div class="card">
-                                <div class="carousel-item-active">
-                                    @*<li>@fileName</li>*@
-                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/MiddleSlider/"+ fileName)" alt="First Slide">
-                                </div>
+                        <div class="col-sm-4 col-lg-3">
+                            <div class="card-body">
+
+                                <h4 class="card-title">
+                                    @midSlide.HeadDesc
+                                </h4>
+                                <p class="card-text">
+                                    @midSlide.Description
+                                </p>
+                                <h6 class="card-text text-muted">Last updated @midSlide.UpdatedAt</h6>
+
+                                <a href="javascript:void(0);" class="select-midSlide" data-id="@midSlide.Id" style="color:blueviolet;">Select</a>
+                                <a href="javascript:void(0);" class="delete-midSlide" data-id="@midSlide.Id" style="color: red;">Delete</a>
+
+
                             </div>
                         </div>
 
 
-
                     }
-
                 }
                 else
                 {
@@ -170,13 +177,26 @@
                     </div>
                 </div>
                 <form enctype="multipart/form-data">
-                    <div class="input-group flex-nowrap">
-                        <div class="custom-file w-100">
-                            <input type="file" name="MiddleSliderFiles" multiple />
+                    <div class="row">
+                        <div class="input-group flex-nowrap">
+                            <div class="form-group col-sm-12 col-md-12 mb-5">
+                                <div class="form-group">
+                                    <label for="midSlideHeading">Heading</label>
+                                    <input type="text" id="midSlideHeading" name="midSlideHeading" class="form-control">
+                                </div>
+                            </div>
                         </div>
-                        <button type="button" id="uploadMiddleSliderButton" class="btn btn-outline-secondary">Upload</button>
-                    </div>
+                        <div class="input-group flex-nowrap">
+                            <div class="form-group col-sm-12 col-md-12 mb-6">
+                                <div class="form-group">
+                                    <label for="midSlideDescription">Sub-Description</label>
+                                    <input type="text" id="midSlideDescription" name="midSlideDescription" class="form-control">
+                                </div>
 
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="uploadMiddleSliderButton" class="btn btn-outline-secondary">Update</button>
                 </form>
 
 
@@ -558,12 +578,14 @@
             var formData = new FormData();
 
             // Append each selected file to the FormData object
-            var filesInput = document.querySelector('input[type="file"][name="MiddleSliderFiles"]');
-            var position = $("#ddlMiddleSliderSelection option:selected").val();
-            for (var i = 0; i < filesInput.files.length; i++) {
-                formData.append("Files", filesInput.files[i]);
 
-            }
+            var midSlideHeading = document.getElementById("midSlideHeading").value;
+            var midSlideDescription = document.getElementById("midSlideDescription").value;
+
+            var position = $("#ddlMiddleSliderSelection option:selected").val();
+
+            formData.append("HeadDesc", midSlideHeading);
+            formData.append("Description", midSlideDescription);
 
             formData.append("position", position)
 
@@ -577,16 +599,61 @@
                     if (response.success) {
                         // Display toast notification
                         toastr.success(response.message);
-                        var redirectUrl = response.redirectUrl;
-
-                        window.location.href = redirectUrl;
                     } else {
                         // Handle error case
-                        toastr.error("File upload failed.");
+                        toastr.error("Middle Slider upload failed.");
                     }
                 },
                 error: function () {
                     toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+
+        document.querySelectorAll(".select-midSlide").forEach(function (selectButton) {
+            selectButton.addEventListener("click", function () {
+                var midSlideId = this.getAttribute("data-id");
+
+                $.ajax({
+                    url: "/Home/GetHomeMidSlideById",
+                    method: "GET",
+                    data: { id: midSlideId },
+                    success: function (response) {
+
+                        $("#midSlideHeading").val(response.headDesc);
+                        $("#midSlideDescription").val(response.description);
+                    },
+                    error: function () {
+                        console.log("Failed to fetch Home Middle Slider data.");
+                    }
+                });
+            });
+        });
+
+
+        document.querySelectorAll(".delete-midSlide").forEach(function (deleteButton) {
+            deleteButton.addEventListener("click", function () {
+                var midSlideId = this.getAttribute("data-id");
+
+                // Confirm the deletion
+                var confirmDelete = confirm("Are you sure you want to delete this Middle Slider?");
+                if (confirmDelete) {
+                    $.ajax({
+                        url: "/Home/DeleteMiddleSlide",
+                        method: "POST",
+                        data: { id: midSlideId },
+                        success: function (response) {
+                            if (response.success) {
+                                toastr.success(response.message);
+
+                            } else {
+                                toastr.error("Failed to delete Middle Slider detail.");
+                            }
+                        },
+                        error: function () {
+                            toastr.error("An error occurred while deleting Middle Slider detail.");
+                        }
+                    });
                 }
             });
         });
@@ -740,7 +807,7 @@
                 var videoId = this.getAttribute("data-id");
 
                 // Confirm the deletion
-                var confirmDelete = confirm("Are you sure you want to delete this branch detail?");
+                var confirmDelete = confirm("Are you sure you want to delete this video?");
                 if (confirmDelete) {
                     $.ajax({
                         url: "/Home/DeleteVideo",

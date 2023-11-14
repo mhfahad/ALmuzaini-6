@@ -41,6 +41,7 @@ namespace AlmuzainiCMS.DataBaseContext.DataBaseContext
         public DbSet<BranchDetail> BranchDetails { get; set; }
 
         public DbSet<HomeVUrl> HomeVUrls { get; set; }
+        public DbSet<HomeMidSlide> HomeMidSlides { get; set; }
 
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<PromotionNews> PromotionNews { get; set; }
