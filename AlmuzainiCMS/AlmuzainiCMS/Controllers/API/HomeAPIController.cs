@@ -50,5 +50,28 @@ namespace AlmuzainiCMS.Controllers.API
                 throw;
             }
         }
+
+        [HttpGet("MiddleSlider")]
+        public async Task<APIServiceResponse> MiddleSlider()
+        {
+            APIServiceResponse objResponse = new APIServiceResponse();
+            try
+            {
+                ICollection<HomeMidSlide> homeMidSlide = new List<HomeMidSlide>();
+                homeMidSlide = _homeManager.GetHomeMidSlide();
+                objResponse.ResponseStatus = true;
+                objResponse.ResponseDateTime = DateTime.Now.ToString();
+                objResponse.SuccessMsg = "Fetched Video URL Successfully!";
+                objResponse.ResponseBusinessData = JsonConvert.SerializeObject(homeMidSlide).ToString();
+                objResponse.ResponseCode = 200;
+
+                return objResponse;
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }
