@@ -18,6 +18,12 @@ namespace AlmuzainiCMS.DAL.DAL
             _context = context;
         }
 
+        public async Task<bool> AddHomeCompanyDetail(HomeCompanyDetail compDetail)
+        {
+            _context.HomeCompanyDetails.Add(compDetail);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
         public async Task<bool> AddHomeMidSlide(HomeMidSlide midSlide)
         {
             _context.HomeMidSlides.Add(midSlide);
@@ -52,6 +58,13 @@ namespace AlmuzainiCMS.DAL.DAL
                 return true;
             }
             return false;
+        }
+
+        public List<HomeCompanyDetail> GetHomeCompanyDetail()
+        {
+            List<HomeCompanyDetail> compDetailList = _context.HomeCompanyDetails.ToList() ?? new List<HomeCompanyDetail>();
+
+            return compDetailList;
         }
 
         public List<HomeMidSlide> GetHomeMidSlide()

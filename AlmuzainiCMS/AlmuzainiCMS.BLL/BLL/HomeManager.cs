@@ -17,6 +17,22 @@ namespace AlmuzainiCMS.BLL.BLL
             _repository = repository;
         }
 
+        public async Task<bool> AddHomeCompanyDetail(HomeCompanyDetail compDetail)
+        {
+            try
+            {
+                bool result = await _repository.AddHomeCompanyDetail(compDetail);
+
+                return await Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+
+                return await Task.FromResult(false);
+
+            }
+        }
+
         public async Task<bool> AddHomeMidSlide(HomeMidSlide midSlide)
         {
             try
@@ -73,6 +89,14 @@ namespace AlmuzainiCMS.BLL.BLL
             {
                 return false;
             }
+        }
+
+        public List<HomeCompanyDetail> GetHomeCompanyDetail()
+        {
+            List<HomeCompanyDetail> companyDetail = new List<HomeCompanyDetail>();
+
+            companyDetail = _repository.GetHomeCompanyDetail();
+            return companyDetail;
         }
 
         public List<HomeMidSlide> GetHomeMidSlide()
