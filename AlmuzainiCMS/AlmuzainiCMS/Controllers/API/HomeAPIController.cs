@@ -73,5 +73,28 @@ namespace AlmuzainiCMS.Controllers.API
                 throw;
             }
         }
+
+        [HttpGet("CompanyDetails")]
+        public async Task<APIServiceResponse> CompanyDetails()
+        {
+            APIServiceResponse objResponse = new APIServiceResponse();
+            try
+            {
+                ICollection<HomeCompanyDetail> homeCompanyDetail = new List<HomeCompanyDetail>();
+                homeCompanyDetail = _homeManager.GetHomeCompanyDetail();
+                objResponse.ResponseStatus = true;
+                objResponse.ResponseDateTime = DateTime.Now.ToString();
+                objResponse.SuccessMsg = "Fetched Home Company Detail Successfully!";
+                objResponse.ResponseBusinessData = JsonConvert.SerializeObject(homeCompanyDetail).ToString();
+                objResponse.ResponseCode = 200;
+
+                return objResponse;
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -70,6 +70,7 @@ namespace AlmuzainiCMS.Controllers
             GetLatestNews();
             GetVideoUrl();
             GetMiddleSlideList();
+            GetHomeCompanyDetail();
 
             return View();
         }
@@ -957,6 +958,79 @@ namespace AlmuzainiCMS.Controllers
             }
 
         }
+
+
+
+        [HttpPost]
+
+        public async Task<JsonResult> uploadCompanyDetail(HomeCompanyDetailRequestDTO model)
+        {
+            HomeCompanyDetail compDetail = new HomeCompanyDetail
+            {
+                Title = model.Title ?? "",
+                SubTitle = model.SubTitle ?? "",
+                BoxOneTitle = model.BoxOneTitle ?? "",
+                BoxOneDesc = model.BoxOneDesc ?? "",
+                BoxTwoTitle = model.BoxTwoTitle ?? "",
+                BoxTwoDesc = model.BoxTwoDesc ?? "",
+                BoxThreeTitle = model.BoxThreeTitle ?? "",
+                BoxThreeDesc = model.BoxThreeDesc ?? "",
+                BoxFourTitle = model.BoxFourTitle ?? "",
+                BoxFourDesc = model.BoxFourDesc ?? "",
+                CreatedAt = DateTime.Now
+
+            };
+
+            bool result = await _homeManager.AddHomeCompanyDetail(compDetail);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Home Company Detail successfully.",
+                    redirectUrl = Url.Action("Home", "Home")
+                };
+
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "File uploaded Failed.",
+                    redirectUrl = Url.Action("Home", "Home")
+                };
+
+                return Json(response);
+            }
+
+        }
+
+
+        private void GetHomeCompanyDetail()
+        {
+            List<HomeCompanyDetail> homeCompanyDetail = _homeManager.GetHomeCompanyDetail();
+
+            homeCompanyDetail = homeCompanyDetail.OrderByDescending(b => b.CreatedAt).ToList();
+
+            HomeCompanyDetail latestCompDetail = homeCompanyDetail.FirstOrDefault();
+
+            ViewBag.Title = latestCompDetail?.Title;
+            ViewBag.SubTitle = latestCompDetail?.SubTitle;
+            ViewBag.BoxOneTitle = latestCompDetail?.BoxOneTitle;
+            ViewBag.BoxOneDesc = latestCompDetail?.BoxOneDesc;
+            ViewBag.BoxTwoTitle = latestCompDetail?.BoxTwoTitle;
+            ViewBag.BoxTwoDesc = latestCompDetail?.BoxTwoDesc;
+            ViewBag.BoxThreeTitle = latestCompDetail?.BoxThreeTitle;
+            ViewBag.BoxThreeDesc = latestCompDetail?.BoxThreeDesc;
+            ViewBag.BoxFourTitle = latestCompDetail?.BoxFourTitle;
+            ViewBag.BoxFourDesc = latestCompDetail?.BoxFourDesc;
+
+        }
+
+
 
 
         public void GetTopSlider(string folderName, string subfolder, string typefolder)

@@ -21,5 +21,10 @@ namespace AlmuzainiCMS.DAL.Interface
         List<HomeMidSlide> GetHomeMidSlide();
         Task<HomeMidSlide> GetHomeMidSlideById(Guid id);
         Task<bool> DeleteHomeMidSlideById(Guid id);
+
+        //// Home Company Details
+        
+        Task<bool> AddHomeCompanyDetail(HomeCompanyDetail compDetail);
+        List<HomeCompanyDetail> GetHomeCompanyDetail();
     }
 }
