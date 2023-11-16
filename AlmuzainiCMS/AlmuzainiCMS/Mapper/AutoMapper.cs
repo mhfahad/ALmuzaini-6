@@ -30,6 +30,7 @@ namespace AlmuzainiCMS.Mapper
             CreateMap<HomeVUrlRequestDTO, HomeVUrl>();
             CreateMap<HomeMidSlideRequestDTO, HomeMidSlide>();
             CreateMap<HomeCompanyDetailRequestDTO, HomeCompanyDetail>();
+            CreateMap<RateCalculatorNoteRequestDTO, RateCalculatorNote>();
             CreateMap<PromotionRequestDTO, Promotion>();
             CreateMap<PromotionNewsRequestDTO, PromotionNews>();
             CreateMap<NewsSectionRequestDTO, NewsSection>();

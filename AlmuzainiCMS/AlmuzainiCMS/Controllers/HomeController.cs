@@ -71,6 +71,7 @@ namespace AlmuzainiCMS.Controllers
             GetVideoUrl();
             GetMiddleSlideList();
             GetHomeCompanyDetail();
+            GetRateCalculatorNote();
 
             return View();
         }
@@ -956,6 +957,56 @@ namespace AlmuzainiCMS.Controllers
             {
                 throw new Exception("File Delete Failed");
             }
+
+        }
+
+        [HttpPost]
+
+        public async Task<JsonResult> uploadRateCalculatorNote(RateCalculatorNoteRequestDTO model)
+        {
+            RateCalculatorNote notes = new RateCalculatorNote
+            {
+                RateNote = model.RateNote ?? "",
+                CreatedAt = DateTime.Now
+
+            };
+
+            bool result = await _homeManager.AddRateCalculatorNote(notes);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Note updated successfully.",
+                    redirectUrl = Url.Action("Home", "Home")
+                };
+
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "File uploaded notes.",
+                    redirectUrl = Url.Action("Home", "Home")
+                };
+
+                return Json(response);
+            }
+
+        }
+
+        private void GetRateCalculatorNote()
+        {
+            List<RateCalculatorNote> rateCalculatorNote = _homeManager.GetRateCalculatorNote();
+
+            rateCalculatorNote = rateCalculatorNote.OrderByDescending(b => b.CreatedAt).ToList();
+
+            RateCalculatorNote latestRateCalculatorNote = rateCalculatorNote.FirstOrDefault();
+
+            ViewBag.RateNote = latestRateCalculatorNote?.RateNote;
 
         }
 

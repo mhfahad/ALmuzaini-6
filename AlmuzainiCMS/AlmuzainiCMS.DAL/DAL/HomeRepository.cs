@@ -36,6 +36,12 @@ namespace AlmuzainiCMS.DAL.DAL
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public async Task<bool> AddRateCalculatorNote(RateCalculatorNote note)
+        {
+            _context.RateCalculatorNotes.Add(note);
+            return await _context.SaveChangesAsync() > 0;
+        }
+
         public async Task<bool> DeleteHomeMidSlideById(Guid id)
         {
             var mSlide = await _context.HomeMidSlides.FindAsync(id);
@@ -84,6 +90,13 @@ namespace AlmuzainiCMS.DAL.DAL
             List<HomeVUrl> topTextList = _context.HomeVUrls.ToList() ?? new List<HomeVUrl>();
 
             return topTextList;
+        }
+
+        public List<RateCalculatorNote> GetRateCalculatorNote()
+        {
+            List<RateCalculatorNote> notes = _context.RateCalculatorNotes.ToList() ?? new List<RateCalculatorNote>();
+
+            return notes;
         }
 
         public async Task<HomeVUrl> GetVideoById(Guid id)
