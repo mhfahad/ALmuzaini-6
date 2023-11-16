@@ -96,6 +96,29 @@ namespace AlMuzainiCMS.API.Controllers
             }
         }
 
+        [HttpGet(Name = "RateCalculatorNote")]
+        public async Task<APIServiceResponse> RateCalculatorNote()
+        {
+            APIServiceResponse objResponse = new APIServiceResponse();
+            try
+            {
+                ICollection<RateCalculatorNote> rateCalculatorNote = new List<RateCalculatorNote>();
+                rateCalculatorNote = _homeManager.GetRateCalculatorNote();
+                objResponse.ResponseStatus = true;
+                objResponse.ResponseDateTime = DateTime.Now.ToString();
+                objResponse.SuccessMsg = "Fetched Note Successfully!";
+                objResponse.ResponseBusinessData = JsonConvert.SerializeObject(rateCalculatorNote).ToString();
+                objResponse.ResponseCode = 200;
+
+                return objResponse;
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
 
         [HttpGet(Name = "GetHomeContent")]
         public APIServiceResponse GetHomeContent()

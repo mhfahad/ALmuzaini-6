@@ -65,6 +65,22 @@ namespace AlmuzainiCMS.BLL.BLL
             }
         }
 
+        public async Task<bool> AddRateCalculatorNote(RateCalculatorNote note)
+        {
+            try
+            {
+                bool result = await _repository.AddRateCalculatorNote(note);
+
+                return await Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+
+                return await Task.FromResult(false);
+
+            }
+        }
+
         public async Task<bool> DeleteHomeMidSlideById(Guid id)
         {
             try
@@ -118,6 +134,14 @@ namespace AlmuzainiCMS.BLL.BLL
 
             homeVUrl = _repository.GetHomeVUrl();
             return homeVUrl;
+        }
+
+        public List<RateCalculatorNote> GetRateCalculatorNote()
+        {
+            List<RateCalculatorNote> notes = new List<RateCalculatorNote>();
+
+            notes = _repository.GetRateCalculatorNote();
+            return notes;
         }
 
         public async Task<HomeVUrl> GetVideoById(Guid id)

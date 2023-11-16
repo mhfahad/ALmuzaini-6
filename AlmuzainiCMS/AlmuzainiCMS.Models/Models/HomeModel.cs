@@ -21,6 +21,17 @@ namespace AlmuzainiCMS.Models.Models
         public DateTime? CreatedAt { get; set; }
     }
 
+    public class RateCalculatorNote
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+
+        public string? RateNote { get; set; }
+
+        public DateTime? CreatedAt { get; set; }
+    }
+
     public class HomeCompanyDetail
     {
         [Key]

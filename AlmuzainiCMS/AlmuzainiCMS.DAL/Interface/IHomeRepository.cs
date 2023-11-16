@@ -26,5 +26,10 @@ namespace AlmuzainiCMS.DAL.Interface
         
         Task<bool> AddHomeCompanyDetail(HomeCompanyDetail compDetail);
         List<HomeCompanyDetail> GetHomeCompanyDetail();
+
+        //// Home Rate Calculator Note
+
+        Task<bool> AddRateCalculatorNote(RateCalculatorNote note);
+        List<RateCalculatorNote> GetRateCalculatorNote();
     }
 }

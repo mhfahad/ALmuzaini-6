@@ -124,6 +124,35 @@
     </div>
 
 </div>
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <h4 class="card-title">Rate Calculator Note</h4>
+
+            <form enctype="multipart/form-data">
+                <div class="row">
+                    <div class="input-group flex-nowrap">
+                        <div class="form-group col-sm-12 col-md-12 mb-6">
+                            <div class="form-group">
+                                <textarea class="form-control" id="rateNoteText" name="rateNoteText" rows="6" placeholder="Write text here.....">@ViewBag.RateNote</textarea>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" id="uploadRateCalculatorNote" class="btn btn-outline-secondary">Update</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
 <div class="col-sm-12 col-md-12">
     <div class="card">
         <div class="card-body">
@@ -574,6 +603,36 @@
                 error: function () {
                     toastr.error("An error occurred while uploading the file.");
                 }
+            });
+        });
+
+        document.getElementById("uploadRateCalculatorNote").addEventListener("click", function () {
+
+            var formData = new FormData();
+
+            var rateNoteText = document.getElementById("rateNoteText").value;
+
+            formData.append("RateNote", rateNoteText);
+
+            $.ajax({
+                url: "@Url.Action("uploadRateCalculatorNote", "Home")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Note update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Note.");
+                }
+
+
             });
         });
 
