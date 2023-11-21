@@ -49,7 +49,7 @@ namespace AlmuzainiCMS.DAL.DAL.CurrencyDAL
 
         public async Task<ICollection<GetTTRateResult>> GetAllCurrencyAsync()
         {
-            return await _db.GetTrateResults.ToListAsync() ?? Enumerable.Empty<GetTTRateResult>().ToList();
+            return await _db.GetTrateResults.Where(rate => rate.fcAmount != "0").ToListAsync() ?? Enumerable.Empty<GetTTRateResult>().ToList();
         }
 
         public async Task<ICollection<CurrencyCode>> GetCurrencyCodes()

@@ -753,6 +753,46 @@ namespace AlmuzainiCMS.Controllers
         }
 
 
+        public async Task<JsonResult> GetVideoById(Guid id)
+        {
+            HomeVUrl vUrl = await _homeManager.GetVideoById(id);
+
+            if (vUrl != null)
+            {
+                return Json(new
+                {
+                    title = vUrl.Title,
+                    videoUrl = vUrl.VideoUrl,
+                });
+            }
+            else
+            {
+                return Json(new { error = "Branch not found" });
+            }
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> Deletevideo(Guid id)
+        {
+            bool result = await _homeManager.DeleteVideoById(id);
+
+            if (result)
+            {
+                return Json(new
+                {
+                    success = true,
+                    message = "video detail deleted successfully."
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Failed to delete video detail."
+                });
+            }
+        }
 
 
         [HttpPost]

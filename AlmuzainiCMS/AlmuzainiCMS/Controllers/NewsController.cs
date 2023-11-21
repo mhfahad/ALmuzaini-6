@@ -60,12 +60,20 @@ namespace AlmuzainiCMS.Controllers
 
                 LatestNewsVM latestNewsItem = new LatestNewsVM
                 {
+                    //Id = newsItem.Id,
+                    //Title = newsItem.Title,
+                    //Description = newsItem.Description,
+                    //ImagePath = newsItem.ImagePath,
+                    ////UpdatedAt = $"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds ago"
+                    //UpdatedAt = updatedAt
                     Id = newsItem.Id,
                     Title = newsItem.Title,
                     Description = newsItem.Description,
                     ImagePath = newsItem.ImagePath,
-                    //UpdatedAt = $"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds ago"
-                    UpdatedAt = updatedAt
+                    UpdatedAt = updatedAt,
+                    FullDescription = newsItem.Description, // Set the full description
+                    TruncatedDescription = newsItem.Description.Length > 100 ? newsItem.Description.Substring(0, 100) + "..." : newsItem.Description // Set the truncated description
+
                 };
 
                 latestNewsNewsList.Add(latestNewsItem);

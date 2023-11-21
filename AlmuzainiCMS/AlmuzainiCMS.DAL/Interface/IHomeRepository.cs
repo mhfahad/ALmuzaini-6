@@ -11,5 +11,8 @@ namespace AlmuzainiCMS.DAL.Interface
     {
         Task<bool> AddHomeVUrlText(HomeVUrl topText);
         List<HomeVUrl> GetHomeVUrl();
+
+        Task<HomeVUrl> GetVideoById(Guid id);
+        Task<bool> DeleteVideoById(Guid id);
     }
 }

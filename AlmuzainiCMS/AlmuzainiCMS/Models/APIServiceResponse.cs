@@ -9,7 +9,5 @@
         public string ErrMsg { get; set; }
         public string RequestDateTime { get; set; }
         public string ResponseBusinessData { get; set; }
-
-
     }
 }

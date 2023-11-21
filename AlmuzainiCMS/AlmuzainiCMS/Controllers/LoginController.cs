@@ -29,12 +29,12 @@ namespace AlmuzainiCMS.Controllers
         [HttpPost]
         public ActionResult Index(UsersInfoVM user)
         {
-            //var entity = _mapper.Map<UsersInfo>(user);
-            //var rData = manager.GetUsersList(entity);
-            //if (rData == null)
-            //{
-            //    return Redirect("/Login/index");
-            //}
+            var entity = _mapper.Map<UsersInfo>(user);
+            var rData = manager.GetUsersList(entity);
+            if (rData == null)
+            {
+                return Redirect("/Login/index");
+            }
             HttpContext.Session.SetString("_userName", user.userName);
             HttpContext.Session.SetString("_userPass", user.userPass);
             return Redirect("/Home/index");
