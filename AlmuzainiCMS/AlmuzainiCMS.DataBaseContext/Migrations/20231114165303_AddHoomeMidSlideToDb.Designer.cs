@@ -4,6 +4,7 @@ using AlmuzainiCMS.DataBaseContext.DataBaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlmuzainiCMS.DataBaseContext.Migrations
 {
     [DbContext(typeof(ProjectDbContext))]
-    partial class ProjectDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231114165303_AddHoomeMidSlideToDb")]
+    partial class AddHoomeMidSlideToDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -726,50 +728,6 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.ToTable("GetTrateResults");
                 });
 
-            modelBuilder.Entity("AlmuzainiCMS.Models.Models.HomeCompanyDetail", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("BoxFourDesc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BoxFourTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BoxOneDesc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BoxOneTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BoxThreeDesc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BoxThreeTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BoxTwoDesc")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BoxTwoTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("SubTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("HomeCompanyDetails");
-                });
-
             modelBuilder.Entity("AlmuzainiCMS.Models.Models.HomeMidSlide", b =>
                 {
                     b.Property<Guid>("Id")
@@ -959,23 +917,6 @@ namespace AlmuzainiCMS.DataBaseContext.Migrations
                     b.HasIndex("PromotionId");
 
                     b.ToTable("PromotionNews");
-                });
-
-            modelBuilder.Entity("AlmuzainiCMS.Models.Models.RateCalculatorNote", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("RateNote")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("RateCalculatorNotes");
                 });
 
             modelBuilder.Entity("AlmuzainiCMS.Models.Models.Remittences", b =>

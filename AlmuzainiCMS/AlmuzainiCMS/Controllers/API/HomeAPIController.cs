@@ -50,5 +50,75 @@ namespace AlmuzainiCMS.Controllers.API
                 throw;
             }
         }
+
+        [HttpGet("MiddleSlider")]
+        public async Task<APIServiceResponse> MiddleSlider()
+        {
+            APIServiceResponse objResponse = new APIServiceResponse();
+            try
+            {
+                ICollection<HomeMidSlide> homeMidSlide = new List<HomeMidSlide>();
+                homeMidSlide = _homeManager.GetHomeMidSlide();
+                objResponse.ResponseStatus = true;
+                objResponse.ResponseDateTime = DateTime.Now.ToString();
+                objResponse.SuccessMsg = "Fetched Video URL Successfully!";
+                objResponse.ResponseBusinessData = JsonConvert.SerializeObject(homeMidSlide).ToString();
+                objResponse.ResponseCode = 200;
+
+                return objResponse;
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("CompanyDetails")]
+        public async Task<APIServiceResponse> CompanyDetails()
+        {
+            APIServiceResponse objResponse = new APIServiceResponse();
+            try
+            {
+                ICollection<HomeCompanyDetail> homeCompanyDetail = new List<HomeCompanyDetail>();
+                homeCompanyDetail = _homeManager.GetHomeCompanyDetail();
+                objResponse.ResponseStatus = true;
+                objResponse.ResponseDateTime = DateTime.Now.ToString();
+                objResponse.SuccessMsg = "Fetched Home Company Detail Successfully!";
+                objResponse.ResponseBusinessData = JsonConvert.SerializeObject(homeCompanyDetail).ToString();
+                objResponse.ResponseCode = 200;
+
+                return objResponse;
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpGet("RateCalculatorNote")]
+        public async Task<APIServiceResponse> RateCalculatorNote()
+        {
+            APIServiceResponse objResponse = new APIServiceResponse();
+            try
+            {
+                ICollection<RateCalculatorNote> rateCalculatorNote = new List<RateCalculatorNote>();
+                rateCalculatorNote = _homeManager.GetRateCalculatorNote();
+                objResponse.ResponseStatus = true;
+                objResponse.ResponseDateTime = DateTime.Now.ToString();
+                objResponse.SuccessMsg = "Fetched Notel Successfully!";
+                objResponse.ResponseBusinessData = JsonConvert.SerializeObject(rateCalculatorNote).ToString();
+                objResponse.ResponseCode = 200;
+
+                return objResponse;
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
     }
 }

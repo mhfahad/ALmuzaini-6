@@ -25,17 +25,17 @@ namespace AlmuzainiCMS.Controllers
             _hostingEnvironment = webHostEnvironment;
         }
 
-        //public override void OnActionExecuting(ActionExecutingContext filterContext)
-        //{
+        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        {
 
-        //    string? SessionName = HttpContext.Session.GetString("_userName");
-        //    string? SessionAge = HttpContext.Session.GetString("_userPass");
-        //    if (SessionAge == null || SessionName == null)
-        //    {
-        //        filterContext.Result = new RedirectResult("/Login/Index");
-        //        return;
-        //    }
-        //}
+            string? SessionName = HttpContext.Session.GetString("_userName");
+            string? SessionAge = HttpContext.Session.GetString("_userPass");
+            if (SessionAge == null || SessionName == null)
+            {
+                filterContext.Result = new RedirectResult("/Login/Index");
+                return;
+            }
+        }
 
         public IActionResult Branches()
         {

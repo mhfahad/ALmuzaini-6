@@ -73,6 +73,52 @@ namespace AlMuzainiCMS.API.Controllers
             }
         }
 
+        [HttpGet(Name = "CompanyDetails")]
+        public async Task<APIServiceResponse> CompanyDetails()
+        {
+            APIServiceResponse objResponse = new APIServiceResponse();
+            try
+            {
+                ICollection<HomeCompanyDetail> homeCompanyDetail = new List<HomeCompanyDetail>();
+                homeCompanyDetail = _homeManager.GetHomeCompanyDetail();
+                objResponse.ResponseStatus = true;
+                objResponse.ResponseDateTime = DateTime.Now.ToString();
+                objResponse.SuccessMsg = "Fetched Home Company Detail Successfully!";
+                objResponse.ResponseBusinessData = JsonConvert.SerializeObject(homeCompanyDetail).ToString();
+                objResponse.ResponseCode = 200;
+
+                return objResponse;
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet(Name = "RateCalculatorNote")]
+        public async Task<APIServiceResponse> RateCalculatorNote()
+        {
+            APIServiceResponse objResponse = new APIServiceResponse();
+            try
+            {
+                ICollection<RateCalculatorNote> rateCalculatorNote = new List<RateCalculatorNote>();
+                rateCalculatorNote = _homeManager.GetRateCalculatorNote();
+                objResponse.ResponseStatus = true;
+                objResponse.ResponseDateTime = DateTime.Now.ToString();
+                objResponse.SuccessMsg = "Fetched Note Successfully!";
+                objResponse.ResponseBusinessData = JsonConvert.SerializeObject(rateCalculatorNote).ToString();
+                objResponse.ResponseCode = 200;
+
+                return objResponse;
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
 
         [HttpGet(Name = "GetHomeContent")]
         public APIServiceResponse GetHomeContent()
@@ -399,44 +445,33 @@ namespace AlMuzainiCMS.API.Controllers
 
         }
 
-        [HttpGet(Name = "GetMiddleSlider")]
+        [HttpGet(Name = "MiddleSlider")]
 
-        public APIServiceResponse GetMiddleSlider()
+        public async Task<APIServiceResponse> MiddleSlider()
         {
             APIServiceResponse objResponse = new APIServiceResponse();
-            string rootpath = _hostingEnvironment.ContentRootPath;
-            string folderName = "uploads";
-            string subfolder = "original";
-            string typefolder = "MiddleSlider";
-
-            var parentName = Directory.GetParent(rootpath).FullName;
-            var grandParentName = Directory.GetParent(parentName).FullName;
-            string uploadsFolderPath = Path.Combine(grandParentName, "AlmuzainiCMS", "wwwroot", folderName);
-
-            string folderPath = Path.Combine(uploadsFolderPath, subfolder, typefolder);
-            string[] fileNames;
-            if (Directory.Exists(folderPath))
+            try
             {
-                fileNames = Directory.GetFiles(folderPath)
-                   .Select(Path.GetFileName)
-                   .ToArray();
+                ICollection<HomeMidSlide> homeMidSlide = new List<HomeMidSlide>();
+                homeMidSlide = _homeManager.GetHomeMidSlide();
+                objResponse.ResponseStatus = true;
+                objResponse.ResponseDateTime = DateTime.Now.ToString();
+                objResponse.SuccessMsg = "Fetched Branch Details Successfully!";
+                objResponse.ResponseBusinessData = JsonConvert.SerializeObject(homeMidSlide).ToString();
+                objResponse.ResponseCode = 200;
 
-                // fileNames;
+                return objResponse;
+
             }
-            else
+            catch (Exception ex)
             {
-                fileNames = new string[0]; // No files available
+                throw;
             }
-
-            objResponse.ResponseStatus = true;
-            objResponse.ResponseDateTime = DateTime.Now.ToString();
-            objResponse.SuccessMsg = "Middle Slider fetched Successfully!";
-            objResponse.ResponseBusinessData = JsonConvert.SerializeObject(fileNames).ToString();
-            objResponse.ResponseCode = 200;
-
-            return objResponse;
 
         }
+
+
+
 
         [HttpGet(Name = "GetRoundButtons")]
 

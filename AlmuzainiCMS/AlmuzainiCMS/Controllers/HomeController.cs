@@ -63,12 +63,15 @@ namespace AlmuzainiCMS.Controllers
 
             GetTopSlider("uploads", "original", "TopSlider");
             GetRateCalculator("uploads", "original", "RateCalculator"); //RateCalculator
-            GetMiddleSlider("uploads", "original", "MiddleSlider"); //MiddleSlider
+            //GetMiddleSlider("uploads", "original", "MiddleSlider"); //MiddleSlider
             GetRoundButtons("uploads", "original", "RoundButtons"); //RoundButtons
             GetLastSlider("uploads", "original", "LastSlider"); //LastSlider
             GetVideos("uploads", "original", "Videos"); //Videos
             GetLatestNews();
             GetVideoUrl();
+            GetMiddleSlideList();
+            GetHomeCompanyDetail();
+            GetRateCalculatorNote();
 
             return View();
         }
@@ -259,91 +262,126 @@ namespace AlmuzainiCMS.Controllers
 
 
         [HttpPost]
-        public IActionResult UploadMiddleSlider(MultipleFileUploadVM model)
+        public async Task<JsonResult> UploadMiddleSlider(HomeMidSlideRequestDTO model)
         {
-            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads");
-            string filePath = Path.Combine(uploadsFolder, "original", "MiddleSlider");
-            string thumbnailPath = Path.Combine(uploadsFolder, "thumbnails", "MiddleSlider");
-            string filePosition = model.position;
-            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
-            DeleteAllFilesOfFolderWithPosition(thumbnailPath, filePosition);
-
-            foreach (var file in model.Files)
+            HomeMidSlide homeMidSlide = new HomeMidSlide
             {
-                if (file != null && file.Length > 0)
-                {
-                    
-                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                    string fileExtension = ".webp";
+                HeadDesc = model.HeadDesc,
+                Description = model.Description,
 
-                    if (!Directory.Exists(filePath))
-                    {
-                        Directory.CreateDirectory(filePath);
-                    }
-                    int totalfilesOriginal;
-                    string filePathToSave = string.Empty;
-                    if (model.position != "0")
-                    {
-                        totalfilesOriginal = Convert.ToInt32(model.position);
-                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
+                CreatedAt = DateTime.Now
 
-                    }
-                    else
-                    {
-                        totalfilesOriginal = Directory.GetFiles(filePath).Count();
-                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
-
-                    }
-                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
-                    {
-                        file.CopyTo(fileStream);
-                    }
-
-                    //Generate a thumbnail and save it
-                    using (var imageStream = file.OpenReadStream())
-                    using (var image = Image.Load(imageStream))
-                    {
-                        var thumbnail = image.Clone(x => x.Resize(new ResizeOptions
-                        {
-                            Size = new Size(300, 300),
-                            Mode = ResizeMode.Max
-                        }));
-
-                       
-                        if (!Directory.Exists(thumbnailPath))
-                        {
-                            Directory.CreateDirectory(thumbnailPath);
-                        }
-                        int totalfiles;
-                        string thumbnailPathToSave = string.Empty;
-
-                        if (model.position != "0")
-                        {
-                            totalfiles = Convert.ToInt32(model.position);
-                            thumbnailPathToSave = Path.Combine(thumbnailPath, (totalfiles).ToString() + fileExtension);
-
-                        }
-                        else
-                        {
-                            totalfiles = Directory.GetFiles(thumbnailPath).Count();
-                            thumbnailPathToSave = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
-
-                        }
-                        //string thumbnailPathWithCount = Path.Combine(thumbnailPath, (totalfiles + 1).ToString() + fileExtension);
-                        thumbnail.Save(thumbnailPathToSave);
-                    }
-                }
-            }
-
-            var response = new
-            {
-                Success = true,
-                Message = "File uploaded successfully.",
-                redirectUrl = Url.Action("Home", "Home")
             };
 
-            return Json(response);
+            bool result = await _homeManager.AddHomeMidSlide(homeMidSlide);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Middle Slide Added successfully.",
+                    redirectUrl = Url.Action("Home", "Home")
+                };
+
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "File uploaded successfully.",
+                    redirectUrl = Url.Action("Home", "Home")
+                };
+
+                return Json(response);
+            }
         }
+
+        private void GetMiddleSlideList()
+        {
+            List<HomeMidSlide> mSlide = _homeManager.GetHomeMidSlide();
+
+            List<LatestHomeMiddleSlideVM> latestMiddleSlide = new List<LatestHomeMiddleSlideVM>();
+
+            foreach (HomeMidSlide mslideItem in mSlide)
+            {
+
+
+                TimeSpan timeDifference = (TimeSpan)(DateTime.Now - mslideItem.CreatedAt);
+
+                int days = timeDifference.Days;
+                int hours = timeDifference.Hours;
+
+                int minutes = timeDifference.Minutes;
+                int seconds = timeDifference.Seconds;
+
+                string updatedAt = days > 1 ? days.ToString() + " days ago" : days == 1 ? " yesterday" : hours > 1 ? hours.ToString() + " hours ago" : hours == 1 ? hours.ToString() + " hour ago" : minutes > 1 ? minutes.ToString() + " minutes ago" : minutes == 1 ? minutes.ToString() + " minute ago" : seconds.ToString() + " seconds ago";
+
+
+
+                LatestHomeMiddleSlideVM latestMiddleSlideItem = new LatestHomeMiddleSlideVM
+                {
+                    Id = mslideItem.Id,
+                    HeadDesc = mslideItem.HeadDesc,
+                    Description = mslideItem.Description,
+
+                    //UpdatedAt = $"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds ago"
+                    UpdatedAt = updatedAt
+                };
+
+                latestMiddleSlide.Add(latestMiddleSlideItem);
+
+
+            }
+
+            ViewBag.LiveMidSlide = latestMiddleSlide; // No files available
+        }
+
+
+        public async Task<JsonResult> GetHomeMidSlideById(Guid id)
+        {
+            HomeMidSlide vUrl = await _homeManager.GetHomeMidSlideById(id);
+
+            if (vUrl != null)
+            {
+                return Json(new
+                {
+                    headDesc = vUrl.HeadDesc,
+                    description = vUrl.Description,
+                });
+            }
+            else
+            {
+                return Json(new { error = "Middle slider item not found" });
+            }
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> DeleteMiddleSlide(Guid id)
+        {
+            bool result = await _homeManager.DeleteHomeMidSlideById(id);
+
+            if (result)
+            {
+                return Json(new
+                {
+                    success = true,
+                    message = "Middle Slider detail deleted successfully."
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Failed to delete Middle Slider detail."
+                });
+            }
+        }
+
+
 
 
         [HttpPost]
@@ -922,6 +960,129 @@ namespace AlmuzainiCMS.Controllers
 
         }
 
+        [HttpPost]
+
+        public async Task<JsonResult> uploadRateCalculatorNote(RateCalculatorNoteRequestDTO model)
+        {
+            RateCalculatorNote notes = new RateCalculatorNote
+            {
+                RateNote = model.RateNote ?? "",
+                CreatedAt = DateTime.Now
+
+            };
+
+            bool result = await _homeManager.AddRateCalculatorNote(notes);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Note updated successfully.",
+                    redirectUrl = Url.Action("Home", "Home")
+                };
+
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "File uploaded notes.",
+                    redirectUrl = Url.Action("Home", "Home")
+                };
+
+                return Json(response);
+            }
+
+        }
+
+        private void GetRateCalculatorNote()
+        {
+            List<RateCalculatorNote> rateCalculatorNote = _homeManager.GetRateCalculatorNote();
+
+            rateCalculatorNote = rateCalculatorNote.OrderByDescending(b => b.CreatedAt).ToList();
+
+            RateCalculatorNote latestRateCalculatorNote = rateCalculatorNote.FirstOrDefault();
+
+            ViewBag.RateNote = latestRateCalculatorNote?.RateNote;
+
+        }
+
+
+
+        [HttpPost]
+
+        public async Task<JsonResult> uploadCompanyDetail(HomeCompanyDetailRequestDTO model)
+        {
+            HomeCompanyDetail compDetail = new HomeCompanyDetail
+            {
+                Title = model.Title ?? "",
+                SubTitle = model.SubTitle ?? "",
+                BoxOneTitle = model.BoxOneTitle ?? "",
+                BoxOneDesc = model.BoxOneDesc ?? "",
+                BoxTwoTitle = model.BoxTwoTitle ?? "",
+                BoxTwoDesc = model.BoxTwoDesc ?? "",
+                BoxThreeTitle = model.BoxThreeTitle ?? "",
+                BoxThreeDesc = model.BoxThreeDesc ?? "",
+                BoxFourTitle = model.BoxFourTitle ?? "",
+                BoxFourDesc = model.BoxFourDesc ?? "",
+                CreatedAt = DateTime.Now
+
+            };
+
+            bool result = await _homeManager.AddHomeCompanyDetail(compDetail);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Home Company Detail successfully.",
+                    redirectUrl = Url.Action("Home", "Home")
+                };
+
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "File uploaded Failed.",
+                    redirectUrl = Url.Action("Home", "Home")
+                };
+
+                return Json(response);
+            }
+
+        }
+
+
+        private void GetHomeCompanyDetail()
+        {
+            List<HomeCompanyDetail> homeCompanyDetail = _homeManager.GetHomeCompanyDetail();
+
+            homeCompanyDetail = homeCompanyDetail.OrderByDescending(b => b.CreatedAt).ToList();
+
+            HomeCompanyDetail latestCompDetail = homeCompanyDetail.FirstOrDefault();
+
+            ViewBag.Title = latestCompDetail?.Title;
+            ViewBag.SubTitle = latestCompDetail?.SubTitle;
+            ViewBag.BoxOneTitle = latestCompDetail?.BoxOneTitle;
+            ViewBag.BoxOneDesc = latestCompDetail?.BoxOneDesc;
+            ViewBag.BoxTwoTitle = latestCompDetail?.BoxTwoTitle;
+            ViewBag.BoxTwoDesc = latestCompDetail?.BoxTwoDesc;
+            ViewBag.BoxThreeTitle = latestCompDetail?.BoxThreeTitle;
+            ViewBag.BoxThreeDesc = latestCompDetail?.BoxThreeDesc;
+            ViewBag.BoxFourTitle = latestCompDetail?.BoxFourTitle;
+            ViewBag.BoxFourDesc = latestCompDetail?.BoxFourDesc;
+
+        }
+
+
+
 
         public void GetTopSlider(string folderName, string subfolder, string typefolder)
         {
@@ -965,26 +1126,26 @@ namespace AlmuzainiCMS.Controllers
 
         }
 
-        public void GetMiddleSlider(string folderName, string subfolder, string typefolder)
-        {
-            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
-            string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder);
-            // Replace with the actual folder path
+        //public void GetMiddleSlider(string folderName, string subfolder, string typefolder)
+        //{
+        //    string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
+        //    string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder);
+        //    // Replace with the actual folder path
 
-            if (Directory.Exists(folderPath))
-            {
-                string[] fileNames = Directory.GetFiles(folderPath)
-                    .Select(Path.GetFileName)
-                    .ToArray();
+        //    if (Directory.Exists(folderPath))
+        //    {
+        //        string[] fileNames = Directory.GetFiles(folderPath)
+        //            .Select(Path.GetFileName)
+        //            .ToArray();
 
-                ViewBag.MiddleSliderFileNames = fileNames;
-            }
-            else
-            {
-                ViewBag.MiddleSliderFileNames = new string[0]; // No files available
-            }
+        //        ViewBag.MiddleSliderFileNames = fileNames;
+        //    }
+        //    else
+        //    {
+        //        ViewBag.MiddleSliderFileNames = new string[0]; // No files available
+        //    }
 
-        }
+        //}
 
         
         public void GetRoundButtons(string folderName, string subfolder, string typefolder)
