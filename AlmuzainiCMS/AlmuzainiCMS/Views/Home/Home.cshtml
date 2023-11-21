@@ -378,8 +378,8 @@
                             <div class="card-body">
                                 <h4 class="card-title">@video.Title</h4>
                                 @*<p class="card-text">
-                                    @video.VideoUrl
-                                </p>*@
+                        @video.VideoUrl
+                        </p>*@
                                 <a href="@video.VideoUrl" target="_blank">@video.VideoUrl</a>
 
                                 <h6 class="card-text text-muted">Last updated @video.UpdatedAt</h6>
@@ -455,7 +455,7 @@
 </div>
 
 
-<div class="card">
+@*<div class="card">
     <div class="card-body">
         <div class="row">
             <h4 class="card-title">Company Details and Services</h4>
@@ -564,7 +564,86 @@
 
     </div>
 
+</div>*@
+
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <h4 class="card-title">Company Details and Services</h4>
+
+            <form enctype="multipart/form-data">
+                <div class="row">
+
+
+                    <div class="form-group col-sm-12 col-md-12 mb-6">
+                        <label for="compDetailTitle">Title</label>
+                        <input type="text" id="compDetailTitle" name="compDetailTitle" value="@ViewBag.Title" class="form-control">
+                    </div>
+
+
+                    <div class="form-group col-sm-12 col-md-12 mb-6">
+                        <label for="compDetailSubTitle">Sub-Title</label>
+                        <input type="text" id="compDetailSubTitle" name="compDetailSubTitle" value="@ViewBag.SubTitle" class="form-control">
+                    </div>
+
+
+
+                    <!-- Box Titles Row -->
+                    <div class="form-group col-sm-12 col-md-3 mb-6" style="margin-top:20px;">
+                        <label for="compDetailBoxOneTitle">Box One Title</label>
+                        <input type="text" id="compDetailBoxOneTitle" name="compDetailBoxOneTitle" value="@ViewBag.BoxOneTitle" class="form-control">
+                    </div>
+
+                    <div class="form-group col-sm-12 col-md-3 mb-6" style="margin-top:20px;">
+                        <label for="compDetailBoxTwoTitle">Box Two Title</label>
+                        <input type="text" id="compDetailBoxTwoTitle" name="compDetailBoxTwoTitle" value="@ViewBag.BoxTwoTitle" class="form-control">
+                    </div>
+
+                    <div class="form-group col-sm-12 col-md-3 mb-6" style="margin-top:20px;">
+                        <label for="compDetailBoxThreeTitle">Box Three Title</label>
+                        <input type="text" id="compDetailBoxThreeTitle" name="compDetailBoxThreeTitle" value="@ViewBag.BoxThreeTitle" class="form-control">
+                    </div>
+
+                    <div class="form-group col-sm-12 col-md-3 mb-6" style="margin-top:20px;">
+                        <label for="compDetailBoxFourTitle">Box Four Title</label>
+                        <input type="text" id="compDetailBoxFourTitle" name="compDetailBoxFourTitle" value="@ViewBag.BoxFourTitle" class="form-control">
+                    </div>
+
+                    <!-- Box Descriptions Row -->
+                    <div class="form-group col-sm-12 col-md-3 mb-6">
+                        <label for="compDetailBoxOneDesc">Box One Description</label>
+                        <textarea class="form-control" id="compDetailBoxOneDesc" name="compDetailBoxOneDesc" rows="5">@ViewBag.BoxOneDesc</textarea>
+                    </div>
+
+                    <div class="form-group col-sm-12 col-md-3 mb-6">
+                        <label for="compDetailBoxTwoDesc">Box Two Description</label>
+                        <textarea class="form-control" id="compDetailBoxTwoDesc" name="compDetailBoxTwoDesc" rows="5">@ViewBag.BoxTwoDesc</textarea>
+                    </div>
+
+                    <div class="form-group col-sm-12 col-md-3 mb-6">
+                        <label for="compDetailBoxThreeDesc">Box Three Description</label>
+                        <textarea class="form-control" id="compDetailBoxThreeDesc" name="compDetailBoxThreeDesc" rows="5">@ViewBag.BoxThreeDesc</textarea>
+                    </div>
+
+                    <div class="form-group col-sm-12 col-md-3 mb-6">
+                        <label for="compDetailBoxFourDesc">Box Four Description</label>
+                        <textarea class="form-control" id="compDetailBoxFourDesc" name="compDetailBoxFourDesc" rows="5">@ViewBag.BoxFourDesc</textarea>
+                    </div>
+
+                </div>
+
+                <button type="button" id="uploadCompanyDetail" class="btn btn-outline-secondary">Update</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
 </div>
+
 
 
 @section Scripts{
@@ -1020,6 +1099,6 @@
             });
         });
 
-       
+
     </script>
 }
