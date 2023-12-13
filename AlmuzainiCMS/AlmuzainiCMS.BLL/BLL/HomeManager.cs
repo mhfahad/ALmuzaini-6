@@ -148,5 +148,21 @@ namespace AlmuzainiCMS.BLL.BLL
         {
             return await _repository.GetVideoById(id);
         }
+
+        public async Task<bool> UpdateHomeMidSlide(HomeMidSlide upMidSlide)
+        {
+            try
+            {
+                bool result = await _repository.UpdateHomeMidSlide(upMidSlide);
+
+                return await Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+
+                return await Task.FromResult(false);
+
+            }
+        }
     }
 }

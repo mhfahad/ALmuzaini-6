@@ -104,7 +104,10 @@ namespace AlmuzainiCMS.DAL.DAL
             return await _context.HomeVUrls.FirstOrDefaultAsync(b => b.Id == id);
         }
 
-     
-
+        public async Task<bool> UpdateHomeMidSlide(HomeMidSlide upMidSlide)
+        {
+            _context.HomeMidSlides.Update(upMidSlide);
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

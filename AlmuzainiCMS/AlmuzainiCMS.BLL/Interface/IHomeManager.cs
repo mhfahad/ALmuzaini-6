@@ -22,6 +22,7 @@ namespace AlmuzainiCMS.BLL.Interface
         List<HomeMidSlide> GetHomeMidSlide();
         Task<HomeMidSlide> GetHomeMidSlideById(Guid id);
         Task<bool> DeleteHomeMidSlideById(Guid id);
+        Task<bool> UpdateHomeMidSlide(HomeMidSlide upMidSlide);
 
         //// Home Company Details
 
