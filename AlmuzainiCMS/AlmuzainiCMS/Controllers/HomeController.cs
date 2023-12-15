@@ -348,6 +348,7 @@ namespace AlmuzainiCMS.Controllers
             {
                 return Json(new
                 {
+                    id = vUrl.Id,
                     headDesc = vUrl.HeadDesc,
                     description = vUrl.Description,
                 });
@@ -378,6 +379,45 @@ namespace AlmuzainiCMS.Controllers
                     success = false,
                     message = "Failed to delete Middle Slider detail."
                 });
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<JsonResult> UpdateHomeMiddleSlider(HomeMidSlideRequestDTO model)
+        {
+            HomeMidSlide homeMidSlide = new HomeMidSlide
+            {
+                HeadDesc = model.HeadDesc,
+                Description = model.Description,
+
+                CreatedAt = DateTime.Now
+
+            };
+
+            bool result = await _homeManager.UpdateHomeMidSlide(homeMidSlide);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Middle Slide Added successfully.",
+                    redirectUrl = Url.Action("Home", "Home")
+                };
+
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "File uploaded successfully.",
+                    redirectUrl = Url.Action("Home", "Home")
+                };
+
+                return Json(response);
             }
         }
 

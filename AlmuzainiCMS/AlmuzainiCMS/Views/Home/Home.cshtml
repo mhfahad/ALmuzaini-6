@@ -210,6 +210,7 @@
                         <div class="input-group flex-nowrap">
                             <div class="form-group col-sm-12 col-md-12 mb-5">
                                 <div class="form-group">
+                                    <input type="text" id="midSlideId" name="midSlideId" class="form-control">
                                     <label for="midSlideHeading">Heading</label>
                                     <input type="text" id="midSlideHeading" name="midSlideHeading" class="form-control">
                                 </div>
@@ -226,6 +227,7 @@
                         </div>
                     </div>
                     <button type="button" id="uploadMiddleSliderButton" class="btn btn-outline-secondary">Update</button>
+                    <button type="button" id="editMiddleSliderButton" class="btn btn-outline-secondary">Edit</button>
                 </form>
 
 
@@ -543,7 +545,6 @@
 
     <script>
 
-
         document.getElementById("uploadSliderButton").addEventListener("click", function () {
             var formData = new FormData();
             var position = $("#ddlTopSliderSelect option:selected").val();
@@ -699,6 +700,7 @@
         });
 
         //uploadMiddleSliderButton
+
         document.getElementById("uploadMiddleSliderButton").addEventListener("click", function () {
             var formData = new FormData();
 
@@ -722,10 +724,8 @@
                 contentType: false,
                 success: function (response) {
                     if (response.success) {
-                        // Display toast notification
                         toastr.success(response.message);
                     } else {
-                        // Handle error case
                         toastr.error("Middle Slider upload failed.");
                     }
                 },
@@ -745,6 +745,7 @@
                     data: { id: midSlideId },
                     success: function (response) {
 
+                        $("#midSlideId").val(response.id);
                         $("#midSlideHeading").val(response.headDesc);
                         $("#midSlideDescription").val(response.description);
                     },
@@ -784,7 +785,46 @@
         });
 
 
-        //uploadRoundButtonsButton
+        document.getElementById("editMiddleSliderButton").addEventListener("click", function () {
+
+            var updateData = new FormData();
+
+            var currentdate = new Date();
+
+            var updateId = $("#midSlideId").val();
+            var updatedHeading = $("#midSlideHeading").val();
+            var updatedDescription = $("#midSlideDescription").val();
+            var updatedCreatedAt = currentdate.getDate();
+
+
+            updateData.append("Id", updateId);
+            updateData.append("HeadDesc", updatedHeading);
+            updateData.append("Description", updatedDescription);
+            updateData.append("CreatedAt", updatedCreatedAt);
+
+                $.ajax({
+                url: "/Home/UpdateHomeMiddleSlider",
+                    type: "POST",
+                    data: updateData,
+                    success: function (response) {
+                        if (response.success) {
+                            console.log("Middle Slider updated successfully.");
+                        } else {
+                            console.log("Failed to update Middle Slider.");
+                        }
+                    },
+                    error: function () {
+                        console.log("An error occurred during the update.");
+                    }
+                });
+            
+        });
+
+
+
+        uploadRoundButtonsButton
+
+
         document.getElementById("uploadRoundButtonsButton").addEventListener("click", function () {
             var formData = new FormData();
 
