@@ -1,0 +1,219 @@
+﻿@{
+    ViewData["Title"] = "Koisk";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Koisk</h1>
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Koisk Banner</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.KoiskBannerPath.Length > 0)
+                {
+                    @foreach (var fileName in ViewBag.KoiskBannerPath)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/Koisk/Banner/"+ fileName)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="KoiskBannerFiles" multiple />
+                        </div>
+                        <button type="button" id="UploadKoiskBannerButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <h4 class="card-title">Koisk Details</h4>
+
+            <form enctype="multipart/form-data">
+                <div class="row">
+                    <div class="input-group flex-nowrap">
+                        <div class="form-group col-sm-12 col-md-12 mb-5">
+                            <div class="form-group">
+                                <label for="pageTitle">Page Title</label>
+                                <input type="text" id="pageTitle" name="pageTitle" value="@ViewBag.PageTitle" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-sm-12 col-md-12 mb-12">
+                        <div class="form-group">
+                            <label for="sectionHeaderText">Section Header Text</label>
+                            <input type="text" id="sectionHeaderText" name="sectionHeaderText"  value="@ViewBag.SectionHeaderText" class="form-control">
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group col-sm-12 col-md-12 mb-12">
+                        <label for="firstSectionText">First Section Text</label>
+                        <textarea class="form-control" id="firstSectionText" name="firstSectionText" rows="3">@ViewBag.FirstSectionText</textarea>
+                    </div>
+
+                    <div class="form-group col-sm-12 col-md-12 mb-12">
+                        <label for="secondSectionText">Second Section Text</label>
+                        <textarea class="form-control" id="secondSectionText" name="secondSectionText" rows="3">@ViewBag.SecondSectionText</textarea>
+                    </div>
+
+                    <div class="form-group col-sm-12 col-md-12 mb-12">
+                        <label for="thirdSectionText">ThirdSectionText</label>
+                        <textarea class="form-control" id="thirdSectionText" name="thirdSectionText" rows="3">@ViewBag.ThirdSectionText</textarea>
+                    </div>
+
+                    <div class="form-group col-sm-12 col-md-12 mb-12">
+                        <label for="fourthSectionText">Fourth Section Text</label>
+                        <textarea class="form-control" id="fourthSectionText" name="fourthSectionText" rows="3">@ViewBag.FourthSectionText</textarea>
+                    </div>
+                    <div class="form-group col-sm-12 col-md-12 mb-12">
+                        <label for="fifthSectionText">Fifth Section Text</label>
+                        <textarea class="form-control" id="fifthSectionText" name="fifthSectionText" rows="3">@ViewBag.FifthSectionText</textarea>
+                    </div>
+
+                    <div class="form-group col-sm-12 col-md-12 mb-12">
+                        <label for="sixthSectionText">Sixth Section Text</label>
+                        <textarea class="form-control" id="sixthSectionText" name="sixthSectionText" rows="3">@ViewBag.SixthSectionText</textarea>
+                    </div>
+
+                    <div class="input-group flex-nowrap" style="margin-top:50px;">
+                        <div class="form-group col-sm-12 col-md-12 mb-12">
+                            <div class="form-group">
+                                <label for="downloadText">Download Link Text</label>
+                                <input type="text" id="downloadText" name="downloadText" value="@ViewBag.DownloadText" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button type="button" style="margin-top:50px;" id="uploadKoiskDetail" class="btn btn-outline-secondary">Update</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+@section Scripts{
+
+    <script>
+
+        /////Upload Koisk Banner
+
+        document.getElementById("UploadKoiskBannerButton").addEventListener("click", function () {
+
+            var formData = new FormData();
+            var position = 1;
+
+            var filesInput = document.querySelector('input[type="file"][name="KoiskBannerFiles"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadKoiskBanner", "Branches")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        toastr.error("File upload failed.");
+
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+
+
+        //////Koisk Page Details
+
+        document.getElementById("uploadKoiskDetail").addEventListener("click", function () {
+
+            var formData = new FormData();
+
+            var pageTitle = document.getElementById("pageTitle").value;
+            var sectionHeaderText = document.getElementById("sectionHeaderText").value;
+            var firstSectionText = document.getElementById("firstSectionText").value;
+            var secondSectionText = document.getElementById("secondSectionText").value;
+            var thirdSectionText = document.getElementById("thirdSectionText").value;
+            var fourthSectionText = document.getElementById("fourthSectionText").value;
+            var fifthSectionText = document.getElementById("fifthSectionText").value;
+            var sixthSectionText = document.getElementById("sixthSectionText").value;
+            var downloadText = document.getElementById("downloadText").value;
+
+            formData.append("PageTitle", pageTitle);
+            formData.append("SectionHeaderText", sectionHeaderText);
+            formData.append("FirstSectionText", firstSectionText);
+            formData.append("SecondSectionText", secondSectionText);
+            formData.append("ThirdSectionText", thirdSectionText);
+            formData.append("FourthSectionText", fourthSectionText);
+            formData.append("FifthSectionText", fifthSectionText);
+            formData.append("SixthSectionText", sixthSectionText);
+            formData.append("DownloadText", downloadText);
+
+            $.ajax({
+                url: "@Url.Action("uploadKoiskDetail", "Branches")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                    } else {
+                        toastr.error("Koisk Details update failed.");
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while updating Details.");
+                }
+
+
+            });
+        });
+
+    </script>
+}

@@ -11,18 +11,22 @@ namespace AlmuzainiCMS.Controllers
 {
     public class BranchesController : Controller
     {
-        private readonly IBranchManager _branchManager;
         private readonly ILogger<ServicesController> _logger;
 
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public BranchesController(ILogger<ServicesController> logger, IMapper mapper, IWebHostEnvironment webHostEnvironment, IBranchManager branchManager)
+        private readonly IBranchManager _branchManager;
+        private readonly IKoiskManager _koiskManager;
+
+        public BranchesController(ILogger<ServicesController> logger, IMapper mapper, IWebHostEnvironment webHostEnvironment, IBranchManager branchManager, IKoiskManager koiskManager)
         {
-            _branchManager = branchManager;
             _logger = logger;
             _mapper = mapper;
             _hostingEnvironment = webHostEnvironment;
+
+            _branchManager = branchManager;
+            _koiskManager = koiskManager;
         }
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -47,6 +51,16 @@ namespace AlmuzainiCMS.Controllers
 
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Koisk()
+        {
+            GetTopKoiskSlider("uploads", "original", "Koisk", "Banner");
+            GetKoiskDetails();
+
+            return View();
+        }
+
 
         private void GetBranchToptitleandText()
         {
@@ -92,7 +106,6 @@ namespace AlmuzainiCMS.Controllers
 
             string filePosition = model.position;
 
-            //DeleteAllFilesOfFolder(filePath, filePosition);
             DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
 
             string filePathToSave = string.Empty;
@@ -361,6 +374,165 @@ namespace AlmuzainiCMS.Controllers
             }
         }
 
+
+
+
+
+
+        //////////////////////////////////////////////////////////
+        /////// Koisk
+        //////////////////////////////////////////////////////////
+
+        [HttpPost]
+
+        public async Task<JsonResult> UploadKoiskBanner(MultipleFileUploadVM model)
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "Koisk", "Banner");
+
+            string filePosition = model.position;
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+
+            string filePathToSave = string.Empty;
+            foreach (var file in model.Files)
+            {
+                if (file != null && file.Length > 0)
+                {
+
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                    string fileExtension = ".webp";
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal;
+
+                    if (model.position != "0")
+                    {
+                        totalfilesOriginal = Convert.ToInt32(model.position);
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
+
+                    }
+                    else
+                    {
+                        totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+
+                    }
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+
+                }
+            }
+            var koiskBannerImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+            KoiskBanner koiskBanner = new KoiskBanner();
+            koiskBanner.KoiskTopBannerImagePath = koiskBannerImagePath;
+
+            bool result = await _koiskManager.UpdateKoiskBannerImagePath(koiskBanner);
+
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Koisk Banner updated successfully.",
+                    redirectUrl = Url.Action("Koisk", "Branches")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "koisk Banner updated failed.",
+                    redirectUrl = Url.Action("Koisk", "Branches")
+                };
+                return Json(response);
+            }
+        }
+
+
+        public void GetTopKoiskSlider(string folderName, string subfolder, string typefolder, string mainfolder)
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
+            string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, mainfolder);
+
+            if (Directory.Exists(folderPath))
+            {
+                string[] fileNames = Directory.GetFiles(folderPath)
+                    .Select(Path.GetFileName)
+                    .ToArray();
+
+                ViewBag.KoiskBannerPath = fileNames;
+            }
+            else
+            {
+                ViewBag.KoiskBannerPath = new string[0];
+            }
+
+        }
+
+
+
+
+        [HttpPost]
+
+        public async Task<JsonResult> uploadKoiskDetail(KoiskDetailRequestDTO model)
+        {
+            KoiskDetail koiskDetail = new KoiskDetail
+            {
+                PageTitle = model.PageTitle ?? "",
+                SectionHeaderText = model.SectionHeaderText ?? "",
+                FirstSectionText = model.FirstSectionText ?? "",
+                SecondSectionText = model.SecondSectionText ?? "",
+                ThirdSectionText = model.ThirdSectionText ?? "",
+                FourthSectionText = model.FourthSectionText ?? "",
+                FifthSectionText = model.FifthSectionText ?? "",
+                SixthSectionText = model.SixthSectionText ?? "",
+                DownloadText = model.DownloadText ?? "",
+                CreatedAt = DateTime.Now
+
+            };
+
+        bool result = await _koiskManager.AddKoiskDetail(koiskDetail);
+
+            var response = new
+            {
+                Success = true,
+                Message = "Details uploaded successfully.",
+                redirectUrl = Url.Action("Koisk", "Branches")
+            };
+
+            return Json(response);
+
+        }
+
+
+        private void GetKoiskDetails()
+        {
+            List<KoiskDetail> koiskDetail = _koiskManager.GetKoiskDetail();
+
+            koiskDetail = koiskDetail.OrderByDescending(b => b.CreatedAt).ToList();
+
+            KoiskDetail latestkoiskDetail = koiskDetail.FirstOrDefault();
+
+            ViewBag.PageTitle = latestkoiskDetail?.PageTitle;
+            ViewBag.SectionHeaderText = latestkoiskDetail?.SectionHeaderText;
+            ViewBag.FirstSectionText = latestkoiskDetail?.FirstSectionText;
+            ViewBag.SecondSectionText = latestkoiskDetail?.SecondSectionText;
+            ViewBag.ThirdSectionText = latestkoiskDetail?.ThirdSectionText;
+            ViewBag.FourthSectionText = latestkoiskDetail?.FourthSectionText;
+            ViewBag.FifthSectionText = latestkoiskDetail?.FifthSectionText;
+            ViewBag.SixthSectionText = latestkoiskDetail?.SixthSectionText;
+            ViewBag.DownloadText = latestkoiskDetail?.DownloadText;
+        }
 
     }
 }
