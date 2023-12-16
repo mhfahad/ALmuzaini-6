@@ -16,15 +16,15 @@ namespace AlMuzainiCMS.API.Controllers
 
         private readonly IBranchManager _branchManager;
         private readonly ILogger<ServicesController> _logger;
-
-
+        private readonly IKoiskManager _koiskManager;
         private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public BranchController(ILogger<ServicesController> logger, IWebHostEnvironment webHostEnvironment, IBranchManager branchManager)
+        public BranchController(ILogger<ServicesController> logger, IWebHostEnvironment webHostEnvironment, IBranchManager branchManager, IKoiskManager koiskManager)
         {
             _branchManager = branchManager;
             _logger = logger;
             _hostingEnvironment = webHostEnvironment;
+            _koiskManager = koiskManager;
         }
 
 
@@ -93,6 +93,54 @@ namespace AlMuzainiCMS.API.Controllers
 
             }
             catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpGet(Name = "KoiskBanner")]
+        public async Task<APIServiceResponse> KoiskBanner()
+        {
+            APIServiceResponse objResponse = new APIServiceResponse();
+            try
+            {
+                KoiskBanner koiskBanner = new KoiskBanner();
+                koiskBanner = _koiskManager.GetKoiskTopBanner();
+                objResponse.ResponseStatus = true;
+                objResponse.ResponseDateTime = DateTime.Now.ToString();
+                objResponse.SuccessMsg = "Fetched Koisk Banner Successfully!";
+                objResponse.ResponseBusinessData = JsonConvert.SerializeObject(koiskBanner).ToString();
+                objResponse.ResponseCode = 200;
+
+                return objResponse;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpGet(Name = "KoiskDetail")]
+        public async Task<APIServiceResponse> KoiskDetail()
+        {
+            APIServiceResponse objResponse = new APIServiceResponse();
+            try
+            {
+                ICollection<KoiskDetail> koiskDetail = new List<KoiskDetail>();
+                koiskDetail = _koiskManager.GetKoiskDetail();
+                objResponse.ResponseStatus = true;
+                objResponse.ResponseDateTime = DateTime.Now.ToString();
+                objResponse.SuccessMsg = "Fetched Koisk Detail Successfully!";
+                objResponse.ResponseBusinessData = JsonConvert.SerializeObject(koiskDetail).ToString();
+                objResponse.ResponseCode = 200;
+
+                return objResponse;
+
+            }
+            catch (Exception)
             {
                 throw;
             }

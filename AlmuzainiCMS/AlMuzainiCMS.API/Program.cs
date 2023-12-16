@@ -49,6 +49,9 @@ builder.Services.AddScoped<IApplicationPageRepository, ApplicationPageRepository
 builder.Services.AddScoped<IBranchManager, BranchManager>();
 builder.Services.AddScoped<IBranchRepository, BranchRepository>();
 
+builder.Services.AddScoped<IKoiskManager, KoiskManager>();
+builder.Services.AddScoped<IKoiskRepository, KoiskRepository>();
+
 builder.Services.AddScoped<IHomeManager, HomeManager>();
 builder.Services.AddScoped<IHomeRepository, HomeRepository>();
 
