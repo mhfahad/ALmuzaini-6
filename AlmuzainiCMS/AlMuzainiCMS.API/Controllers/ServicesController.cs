@@ -34,7 +34,7 @@ namespace AlMuzainiCMS.API.Controllers
             _applicationPageManager = applicationPageManager;
         }
 
-        [HttpGet(Name = "ForeignCurrency")]
+        [HttpGet("ForeignCurrency")]
         public async Task<APIServiceResponse> ForeignCurrency()
         {
             APIServiceResponse objResponse = new APIServiceResponse();
@@ -58,7 +58,7 @@ namespace AlMuzainiCMS.API.Controllers
         }
 
 
-        [HttpGet(Name = "Corporate")]
+        [HttpGet("Corporate")]
         public async Task<APIServiceResponse> Corporate()   
         {
             APIServiceResponse objResponse = new APIServiceResponse();
@@ -82,7 +82,7 @@ namespace AlMuzainiCMS.API.Controllers
         }
 
 
-        [HttpGet(Name = "Remittences")]
+        [HttpGet("Remittences")]
         public async Task<APIServiceResponse> Remittences()  
         {
             APIServiceResponse objResponse = new APIServiceResponse();
@@ -106,7 +106,7 @@ namespace AlMuzainiCMS.API.Controllers
         }
 
 
-        [HttpGet(Name = "ValueAddedBenifits")]
+        [HttpGet("ValueAddedBenifits")]
         public async Task<APIServiceResponse> ValueAddedBenifits()
         {
             APIServiceResponse objResponse = new APIServiceResponse();
@@ -129,7 +129,7 @@ namespace AlMuzainiCMS.API.Controllers
             }
         }
 
-        [HttpGet(Name = "ApplicationPage")]
+        [HttpGet("ApplicationPage")]
         public async Task<APIServiceResponse> ApplicationPage()
         {
             APIServiceResponse objResponse = new APIServiceResponse();

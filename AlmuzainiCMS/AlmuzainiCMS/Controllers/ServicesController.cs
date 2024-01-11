@@ -653,7 +653,7 @@ namespace AlmuzainiCMS.Controllers
             DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
             string filePathToSave = string.Empty;
 
-            var file = model.QRCodeImageFile;
+            var file = model.BranchImageFile;
 
             if (file != null && file.Length > 0)
             {
@@ -897,22 +897,22 @@ namespace AlmuzainiCMS.Controllers
                         filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
                         var ImagePath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
 
-                        if (totalfilesOriginal.ToString() == "1")
+                        if (totalfilesOriginal.ToString() == "0")
                         {
                             corporate.SliderOneImagePath = ImagePath;
                         }
 
-                        if (totalfilesOriginal.ToString() == "2")
+                        if (totalfilesOriginal.ToString() == "1")
                         {
                             corporate.SliderTwoImagePath = ImagePath;
                         }
 
-                        if (totalfilesOriginal.ToString() == "3")
+                        if (totalfilesOriginal.ToString() == "2")
                         {
                             corporate.SliderThreeImagePath = ImagePath;
                         }
 
-                        if (totalfilesOriginal.ToString() == "4")
+                        if (totalfilesOriginal.ToString() == "3")
                         {
                             corporate.SliderFourImagePath = ImagePath;
                         }

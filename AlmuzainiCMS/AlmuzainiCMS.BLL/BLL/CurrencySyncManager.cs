@@ -118,7 +118,7 @@ namespace AlmuzainiCMS.BLL.BLL
                 var responseResult = await response.Content.ReadAsStringAsync();
                 var dRate = JsonConvert.DeserializeObject<Root>(responseResult);
                 await _repo.AddRequestIdAsync(RequestBody);
-                if (dRate!.responseHeader.responseCode == "R997")
+                if (dRate!.responseHeader.responseCode == "R997" || dRate!.GetTTRateResult.fcAmount == "0")
                 {
                     await Recall(item, RequestBody);
                 }
