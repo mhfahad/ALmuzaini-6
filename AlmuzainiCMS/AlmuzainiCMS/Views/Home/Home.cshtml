@@ -204,13 +204,15 @@
                             <option value="9">Nine</option>
                         </select>
                     </div>
+
                 </div>
                 <form enctype="multipart/form-data">
+                    <label type="text" id="midSlideId" style="display: None" name="midSlideId" class="form-control"></label>
+
                     <div class="row">
                         <div class="input-group flex-nowrap">
                             <div class="form-group col-sm-12 col-md-12 mb-5">
                                 <div class="form-group">
-                                    <input type="text" id="midSlideId" name="midSlideId" class="form-control">
                                     <label for="midSlideHeading">Heading</label>
                                     <input type="text" id="midSlideHeading" name="midSlideHeading" class="form-control">
                                 </div>
@@ -787,7 +789,6 @@
 
         document.getElementById("editMiddleSliderButton").addEventListener("click", function () {
 
-            var updateData = new FormData();
 
             var currentdate = new Date();
 
@@ -796,22 +797,24 @@
             var updatedDescription = $("#midSlideDescription").val();
             var updatedCreatedAt = currentdate.getDate();
 
+            var updateData = {
+                Id: updateId,
+                HeadDesc: updatedHeading,
+                Description: updatedDescription,
+                CreatedAt: updatedCreatedAt
+            };
 
-            updateData.append("Id", updateId);
-            updateData.append("HeadDesc", updatedHeading);
-            updateData.append("Description", updatedDescription);
-            updateData.append("CreatedAt", updatedCreatedAt);
-
-                $.ajax({
+            $.ajax({
                 url: "/Home/UpdateHomeMiddleSlider",
                     type: "POST",
                     data: updateData,
                     success: function (response) {
-                        if (response.success) {
-                            console.log("Middle Slider updated successfully.");
-                        } else {
-                            console.log("Failed to update Middle Slider.");
-                        }
+                    if (response.success) {
+                        toastr.success(response.message);
+
+                    } else {
+                        toastr.error("Failed to delete Middle Slider detail.");
+                    }
                     },
                     error: function () {
                         console.log("An error occurred during the update.");

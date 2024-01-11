@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Uploads\Home\" />
+    <Folder Include="wwwroot\Uploads\original\Koisk\Banner\" />
   </ItemGroup>
 
 </Project>

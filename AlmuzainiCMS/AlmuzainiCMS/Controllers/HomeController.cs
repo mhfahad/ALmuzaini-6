@@ -388,6 +388,7 @@ namespace AlmuzainiCMS.Controllers
         {
             HomeMidSlide homeMidSlide = new HomeMidSlide
             {
+                Id = model.Id,
                 HeadDesc = model.HeadDesc,
                 Description = model.Description,
 
