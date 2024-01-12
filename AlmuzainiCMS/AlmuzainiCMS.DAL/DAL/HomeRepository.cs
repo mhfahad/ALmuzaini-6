@@ -109,5 +109,11 @@ namespace AlmuzainiCMS.DAL.DAL
             _context.HomeMidSlides.Update(upMidSlide);
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<bool> UpdateVideo(HomeVUrl upVideo)
+        {
+            _context.HomeVUrls.Update(upVideo);
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

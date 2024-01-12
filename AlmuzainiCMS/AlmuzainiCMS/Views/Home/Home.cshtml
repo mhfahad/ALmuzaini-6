@@ -229,7 +229,8 @@
                         </div>
                     </div>
                     <button type="button" id="uploadMiddleSliderButton" class="btn btn-outline-secondary">Update</button>
-                    <button type="button" id="editMiddleSliderButton" class="btn btn-outline-secondary">Edit</button>
+                    <button type="button" id="editMiddleSliderButton" style="display: None;" class="btn btn-outline-secondary">Edit</button>
+                    <button type="button" id="cancelMiddleSliderButton" style="display: None; background-color: orangered; color: white;" class="btn btn-outline-secondary">Cancel</button>
                 </form>
 
 
@@ -376,10 +377,10 @@
 
                 @if (ViewBag.LiveVideos.Count > 0)
                 {
-                    int thmbindex = 1;
+                    @*int thmbindex = 1;*@
                     @foreach (var video in ViewBag.LiveVideos)
                     {
-                        var urlthm = "../Uploads/original/VideoImageThumb/" + @thmbindex + ".webp";
+                        var urlthm = "../Uploads/original/VideoImageThumb/" + @video.Position + ".webp";
                         <div class="col-sm-4 col-lg-3">
                             <div class="card-body">
                                 <h4 class="card-title">@video.Title</h4>
@@ -398,7 +399,7 @@
                                 <a href="javascript:void(0);" class="delete-video" data-id="@video.Id" style="color: red;">Delete</a>
                             </div>
                         </div>
-                        thmbindex++;
+                        @*thmbindex++;*@
 
                     }
                 }
@@ -410,6 +411,8 @@
                 <h4 class="card-title">Video Title and URL</h4>
 
                 <form enctype="multipart/form-data">
+                    <label type="text" id="VideoId" style="display: None" name="VideoId" class="form-control"></label>
+                    <label type="text" id="VideoPos" style="display: None" name="VideoPos" class="form-control"></label>
                     <div class="row">
                         <div class="input-group flex-nowrap">
                             <div class="col-sm-4 col-md-4 mb-5">
@@ -442,6 +445,8 @@
                         </div>
 
                         <button type="button" id="uploadVideoButton" class="btn btn-outline-secondary">Upload</button>
+                        <button type="button" id="editVideoButton" style="display: None;" class="btn btn-outline-secondary">Edit</button>
+                        <button type="button" id="cancelVideoButton" style="display: None; background-color: orangered; color: white;" class="btn btn-outline-secondary">Cancel</button>
                     </div>
 
                 </form>
@@ -750,6 +755,8 @@
                         $("#midSlideId").val(response.id);
                         $("#midSlideHeading").val(response.headDesc);
                         $("#midSlideDescription").val(response.description);
+
+                        toggleButtons('select');
                     },
                     error: function () {
                         console.log("Failed to fetch Home Middle Slider data.");
@@ -813,7 +820,7 @@
                         toastr.success(response.message);
 
                     } else {
-                        toastr.error("Failed to delete Middle Slider detail.");
+                        toastr.error("Failed to edit Middle Slider detail.");
                     }
                     },
                     error: function () {
@@ -824,8 +831,31 @@
         });
 
 
+        document.getElementById("cancelMiddleSliderButton").addEventListener("click", function () {
 
-        uploadRoundButtonsButton
+            $("#midSlideId").val('');
+            $("#midSlideHeading").val('');
+            $("#midSlideDescription").val('');
+            toggleButtons('cancel');
+        });
+
+
+        function toggleButtons(action) {
+            if (action === 'select') 
+            {
+                $('#uploadMiddleSliderButton').hide();
+                $('#editMiddleSliderButton').show();
+                $('#cancelMiddleSliderButton').show();
+            } 
+            else if (action === 'cancel') 
+            {
+                $('#uploadMiddleSliderButton').show();
+                $('#editMiddleSliderButton').hide();
+                $('#cancelMiddleSliderButton').hide();
+            }
+        }
+
+
 
 
         document.getElementById("uploadRoundButtonsButton").addEventListener("click", function () {
@@ -959,8 +989,12 @@
                     data: { id: videoId },
                     success: function (response) {
 
+                        $("#VideoId").val(response.id);
                         $("#videoTitle").val(response.title);
                         $("#videoUrl").val(response.videoUrl);
+                        $("#VideoPos").val(response.position);
+
+                        toggleButtons('select');
                     },
                     error: function () {
                         console.log("Failed to fetch Home Video data.");
@@ -996,6 +1030,69 @@
                 }
             });
         });
+
+
+        document.getElementById("editVideoButton").addEventListener("click", function () {
+
+
+            var currentdate = new Date();
+
+            var updateId = $("#VideoId").val();
+            var updatedVideoTitle = $("#videoTitle").val();
+            var updatedVideoUrl = $("#videoUrl").val();
+            var updatedPosition = $("#VideoPos").val();
+            var updatedCreatedAt = currentdate.getDate();
+
+            var updateData = {
+                Id: updateId,
+                Title: updatedVideoTitle,
+                VideoUrl: updatedVideoUrl,
+                Position: updatedPosition,
+                CreatedAt: updatedCreatedAt
+            };
+
+            $.ajax({
+                url: "/Home/EditHomeVideo",
+                type: "POST",
+                data: updateData,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+
+                    } else {
+                        toastr.error("Failed to edit Video.");
+                    }
+                },
+                error: function () {
+                    console.log("An error occurred during the update.");
+                }
+            });
+
+        });
+
+
+        document.getElementById("cancelVideoButton").addEventListener("click", function () {
+
+            $("#midSlideId").val('');
+            $("#midSlideHeading").val('');
+            $("#midSlideDescription").val('');
+            $("#midSlideDescription").val('');
+            toggleButtons('cancel');
+        });
+
+
+        function toggleButtons(action) {
+            if (action === 'select') {
+                $('#uploadVideoButton').hide();
+                $('#editVideoButton').show();
+                $('#cancelVideoButton').show();
+            }
+            else if (action === 'cancel') {
+                $('#uploadVideoButton').show();
+                $('#editVideoButton').hide();
+                $('#cancelVideoButton').hide();
+            }
+        }
 
 
         document.getElementById("uploadNews").addEventListener("click", function () {

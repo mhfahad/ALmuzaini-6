@@ -86,5 +86,11 @@ namespace AlmuzainiCMS.DAL.DAL
                 return await _context.SaveChangesAsync() > 0;
             }
         }
+
+        public async Task<bool> UpdateBranchdetails(BranchDetail brchDetail)
+        {
+            _context.BranchDetails.Update(brchDetail);
+            return await _context.SaveChangesAsync() > 0;
+        }
     }
 }

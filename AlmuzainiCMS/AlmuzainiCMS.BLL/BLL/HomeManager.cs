@@ -164,5 +164,21 @@ namespace AlmuzainiCMS.BLL.BLL
 
             }
         }
+
+        public async Task<bool> UpdateVideo(HomeVUrl upVideo)
+        {
+            try
+            {
+                bool result = await _repository.UpdateVideo(upVideo);
+
+                return await Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+
+                return await Task.FromResult(false);
+
+            }
+        }
     }
 }
