@@ -14,5 +14,11 @@ namespace AlmuzainiCMS.BLL.Interface
         List<NewsSectionNews> GetNews();
         Task<bool> UpdateBannerImagePath(NewsSection news);
         Task<bool> UpdateInnerSection(NewsSection news);
+
+        ////Latest News
+
+        Task<NewsSectionNews> GetLatestNewsById(Guid id);
+        Task<bool> DeleteLatestNewsById(Guid id);
+        Task<bool> UpdateLatestNews(NewsSectionNews uplatestNews);
     }
 }

@@ -84,6 +84,10 @@
                                 @news.Description
                             </p>
                             <h6 class="card-text text-muted">Last updated @news.UpdatedAt</h6>
+
+                            <a href="javascript:void(0);" class="select-latestPromo" data-id="@news.Id" style="color:blueviolet;">Select</a>
+                            <a href="javascript:void(0);" class="delete-latestPromo" data-id="@news.Id" style="color: red;">Delete</a>
+
                         </div>
                     </div>
 
@@ -96,6 +100,8 @@
             }
 
             <form enctype="multipart/form-data">
+                <label type="text" id="newsId" style="display: None" name="newsId" class="form-control"></label>
+                <label type="text" id="newsImg" style="display: None" name="newsImg" class="form-control"></label>
                 <div class="row">
                     <div class="input-group flex-nowrap">
                         <div class="form-group col-sm-12 col-md-12 mb-5">
@@ -121,6 +127,9 @@
                         <input type="file" name="newsImage" id="newsImage" />
                     </div>
                     <button type="button" id="uploadPromotionNews" class="btn btn-outline-secondary">Upload</button>
+
+                    <button type="button" id="editPromotionButton" style="display: None;" class="btn btn-outline-secondary">Edit</button>
+                    <button type="button" id="cancelPromotionButton" style="display: None; background-color: orangered; color: white; margin-left:5px;" class="btn btn-outline-secondary">Cancel</button>
                 </div>
 
             </form>
@@ -239,7 +248,112 @@
 
 
 
+        document.querySelectorAll(".select-latestPromo").forEach(function (selectButton) {
+            selectButton.addEventListener("click", function () {
+                var newsId = this.getAttribute("data-id");
 
+                $.ajax({
+                    url: "/Promotions/GetLatestPromotionById",
+                    method: "GET",
+                    data: { id: newsId },
+                    success: function (response) {
+
+                        $("#newsId").val(response.id);
+                        $("#newsTitle").val(response.title);
+                        $("#newsDescription").val(response.description);
+                        $("#newsImg").val(response.imagePath);
+
+                        $('#uploadPromotionNews').hide();
+                        $('#editPromotionButton').show();
+                        $('#cancelPromotionButton').show();
+                    },
+                    error: function () {
+                        console.log("Failed to fetch latest news data.");
+                    }
+                });
+            });
+        });
+
+
+        document.querySelectorAll(".delete-latestPromo").forEach(function (deleteButton) {
+            deleteButton.addEventListener("click", function () {
+                var newsId = this.getAttribute("data-id");
+
+                // Confirm the deletion
+                var confirmDelete = confirm("Are you sure you want to delete this promotion?");
+                if (confirmDelete) {
+                    $.ajax({
+                        url: "/Promotions/DeleteLatestPromotion",
+                        method: "POST",
+                        data: { id: newsId },
+                        success: function (response) {
+                            if (response.success) {
+                                toastr.success(response.message);
+
+                            } else {
+                                toastr.error("Failed to delete Middle Slider detail.");
+                            }
+                        },
+                        error: function () {
+                            toastr.error("An error occurred while deleting Middle Slider detail.");
+                        }
+                    });
+                }
+            });
+        });
+
+
+
+        document.getElementById("editPromotionButton").addEventListener("click", function () {
+
+
+            var currentdate = new Date();
+
+            var updateId = $("#newsId").val();
+            var updatedTitle = $("#newsTitle").val();
+            var updatedDescription = $("#newsDescription").val();
+            var updatedImagePath = $("#newsImg").val();
+            var updatedCreatedAt = currentdate.getDate();
+
+            var updateData = {
+                Id: updateId,
+                Title: updatedTitle,
+                Description: updatedDescription,
+                ImagePath: updatedImagePath,
+                CreatedAt: updatedCreatedAt
+            };
+
+            $.ajax({
+                url: "/Promotions/EditLatestPromotion",
+                type: "POST",
+                data: updateData,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+
+                    } else {
+                        toastr.error("Failed to edit News.");
+                    }
+                },
+                error: function () {
+                    console.log("An error occurred during the update.");
+                }
+            });
+
+        });
+
+
+        document.getElementById("cancelPromotionButton").addEventListener("click", function () {
+
+            $("#newsId").val('');
+            $("#newsTitle").val('');
+            $("#newsDescription").val('');
+            $("#newsImg").val('');
+
+            $('#uploadPromotionNews').show();
+            $('#editPromotionButton').hide();
+            $('#cancelPromotionButton').hide();
+        });
 
 
 

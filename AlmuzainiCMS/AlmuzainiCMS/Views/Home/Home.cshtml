@@ -229,6 +229,7 @@
                         </div>
                     </div>
                     <button type="button" id="uploadMiddleSliderButton" class="btn btn-outline-secondary">Update</button>
+
                     <button type="button" id="editMiddleSliderButton" style="display: None;" class="btn btn-outline-secondary">Edit</button>
                     <button type="button" id="cancelMiddleSliderButton" style="display: None; background-color: orangered; color: white;" class="btn btn-outline-secondary">Cancel</button>
                 </form>
@@ -446,7 +447,7 @@
 
                         <button type="button" id="uploadVideoButton" class="btn btn-outline-secondary">Upload</button>
                         <button type="button" id="editVideoButton" style="display: None;" class="btn btn-outline-secondary">Edit</button>
-                        <button type="button" id="cancelVideoButton" style="display: None; background-color: orangered; color: white;" class="btn btn-outline-secondary">Cancel</button>
+                        <button type="button" id="cancelVideoButton" style="display: None; background-color: orangered; color: white; margin-left:5px;" class="btn btn-outline-secondary">Cancel</button>
                     </div>
 
                 </form>
@@ -756,7 +757,9 @@
                         $("#midSlideHeading").val(response.headDesc);
                         $("#midSlideDescription").val(response.description);
 
-                        toggleButtons('select');
+                        $('#editMiddleSliderButton').show();
+                        $('#cancelMiddleSliderButton').show();
+                        $('#uploadMiddleSliderButton').hide();
                     },
                     error: function () {
                         console.log("Failed to fetch Home Middle Slider data.");
@@ -836,24 +839,13 @@
             $("#midSlideId").val('');
             $("#midSlideHeading").val('');
             $("#midSlideDescription").val('');
-            toggleButtons('cancel');
+
+
+            $('#uploadMiddleSliderButton').show();
+            $('#editMiddleSliderButton').hide();
+            $('#cancelMiddleSliderButton').hide();
         });
 
-
-        function toggleButtons(action) {
-            if (action === 'select') 
-            {
-                $('#uploadMiddleSliderButton').hide();
-                $('#editMiddleSliderButton').show();
-                $('#cancelMiddleSliderButton').show();
-            } 
-            else if (action === 'cancel') 
-            {
-                $('#uploadMiddleSliderButton').show();
-                $('#editMiddleSliderButton').hide();
-                $('#cancelMiddleSliderButton').hide();
-            }
-        }
 
 
 
@@ -994,7 +986,9 @@
                         $("#videoUrl").val(response.videoUrl);
                         $("#VideoPos").val(response.position);
 
-                        toggleButtons('select');
+                        $('#uploadVideoButton').hide();
+                        $('#editVideoButton').show();
+                        $('#cancelVideoButton').show();
                     },
                     error: function () {
                         console.log("Failed to fetch Home Video data.");
@@ -1077,22 +1071,12 @@
             $("#midSlideHeading").val('');
             $("#midSlideDescription").val('');
             $("#midSlideDescription").val('');
-            toggleButtons('cancel');
+
+            $('#uploadVideoButton').show();
+            $('#editVideoButton').hide();
+            $('#cancelVideoButton').hide();
         });
 
-
-        function toggleButtons(action) {
-            if (action === 'select') {
-                $('#uploadVideoButton').hide();
-                $('#editVideoButton').show();
-                $('#cancelVideoButton').show();
-            }
-            else if (action === 'cancel') {
-                $('#uploadVideoButton').show();
-                $('#editVideoButton').hide();
-                $('#cancelVideoButton').hide();
-            }
-        }
 
 
         document.getElementById("uploadNews").addEventListener("click", function () {

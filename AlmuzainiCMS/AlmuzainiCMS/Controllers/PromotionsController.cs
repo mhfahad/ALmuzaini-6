@@ -273,5 +273,95 @@ namespace AlmuzainiCMS.Controllers
 
 
 
+        [HttpGet]
+
+        public async Task<JsonResult> GetLatestPromotionById(Guid id)
+        {
+            PromotionNews vUrl = await _promotionsManager.GetLatestPromotionById(id);
+
+            if (vUrl != null)
+            {
+                return Json(new
+                {
+                    id = vUrl.Id,
+                    title = vUrl.Title,
+                    description = vUrl.Description,
+                    imagePath = vUrl.ImagePath
+                });
+            }
+            else
+            {
+                return Json(new { error = "News not found" });
+            }
+        }
+
+
+
+        [HttpPost]
+        public async Task<JsonResult> DeleteLatestPromotion(Guid id)
+        {
+            bool result = await _promotionsManager.DeleteLatestPromotionsById(id);
+
+            if (result)
+            {
+                return Json(new
+                {
+                    success = true,
+                    message = "News deleted successfully."
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Failed to delete News."
+                });
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<JsonResult> EditLatestPromotion(PromotionNewsRequestDTO model)
+        {
+            PromotionNews newsPromo = new PromotionNews
+            {
+                Id = model.Id,
+                Title = model.Title,
+                ImagePath = model.ImagePath,
+                Description = model.Description,
+
+                CreatedAt = DateTime.Now
+
+            };
+
+            bool result = await _promotionsManager.UpdateLatestPromotion(newsPromo);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "News Added successfully.",
+                    redirectUrl = Url.Action("Index", "Promotions")
+                };
+
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "File uploaded successfully.",
+                    redirectUrl = Url.Action("Index", "Promotions")
+                };
+
+                return Json(response);
+            }
+        }
+
+
+
     }
 }

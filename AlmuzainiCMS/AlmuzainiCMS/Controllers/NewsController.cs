@@ -4,6 +4,7 @@ using AlmuzainiCMS.Models.RequestDto;
 using AlmuzainiCMS.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using AlmuzainiCMS.BLL.BLL;
 
 namespace AlmuzainiCMS.Controllers
 {
@@ -277,7 +278,93 @@ namespace AlmuzainiCMS.Controllers
             return Json(response);
         }
 
+        [HttpGet]
 
+        public async Task<JsonResult> GetLatestNewsById(Guid id)
+        {
+            NewsSectionNews vUrl = await _newsManager.GetLatestNewsById(id);
+
+            if (vUrl != null)
+            {
+                return Json(new
+                {
+                    id = vUrl.Id,
+                    title = vUrl.Title,
+                    description = vUrl.Description,
+                    imagePath = vUrl.ImagePath
+                });
+            }
+            else
+            {
+                return Json(new { error = "News not found" });
+            }
+        }
+
+
+
+        [HttpPost]
+        public async Task<JsonResult> DeleteLatestNews(Guid id)
+        {
+            bool result = await _newsManager.DeleteLatestNewsById(id);
+
+            if (result)
+            {
+                return Json(new
+                {
+                    success = true,
+                    message = "News deleted successfully."
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = false,
+                    message = "Failed to delete News."
+                });
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<JsonResult> EditLatestNews(NewsSectionNewsRequestDTO model)
+        {
+            NewsSectionNews newsSec = new NewsSectionNews
+            {
+                Id = model.Id,
+                Title = model.Title,
+                ImagePath = model.ImagePath,
+                Description = model.Description,
+
+                CreatedAt = DateTime.Now
+
+            };
+
+            bool result = await _newsManager.UpdateLatestNews(newsSec);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "News Added successfully.",
+                    redirectUrl = Url.Action("Index", "News")
+                };
+
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "File uploaded successfully.",
+                    redirectUrl = Url.Action("Index", "News")
+                };
+
+                return Json(response);
+            }
+        }
 
     }
 }
