@@ -106,5 +106,20 @@ namespace AlmuzainiCMS.BLL.BLL
             }
         }
 
+        public async Task<bool> UpdateBranchdetails(BranchDetail brchDetail)
+        {
+            try
+            {
+                bool result = await _repository.UpdateBranchdetails(brchDetail);
+
+                return await Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+
+                return await Task.FromResult(false);
+
+            }
+        }
     }
 }

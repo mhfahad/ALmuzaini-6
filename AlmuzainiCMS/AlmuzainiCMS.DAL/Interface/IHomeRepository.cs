@@ -14,6 +14,7 @@ namespace AlmuzainiCMS.DAL.Interface
 
         Task<HomeVUrl> GetVideoById(Guid id);
         Task<bool> DeleteVideoById(Guid id);
+        Task<bool> UpdateVideo(HomeVUrl upVideo);
 
         ////// Middle Slider
 

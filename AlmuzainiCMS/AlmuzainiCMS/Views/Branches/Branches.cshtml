@@ -113,21 +113,11 @@
                                 <p class="card-text">
                                     @branch.Adress
                                 </p>
-                                @*<p class="card-text">
-                                    @branch.Time
-                                </p>
-                                <p class="card-text">
-                                    @branch.Latitude
-                                </p>
-                                <p class="card-text">
-                                    @branch.Longitude
-                                </p>*@
 
-                                @* <a href="@branch.Map" target="_blank">@branch.Map</a> *@
 
                                 <h6 class="card-text text-muted">Last updated @branch.UpdatedAt</h6>
 
-                                <a href="javascript:void(0);" class="edit-branch" data-id="@branch.Id" style="color:blueviolet;">Edit</a>
+                                <a href="javascript:void(0);" class="select-branch" data-id="@branch.Id" style="color:blueviolet;">Select</a>
                                 <a href="javascript:void(0);" class="delete-branch" data-id="@branch.Id" style="color: red;">Delete</a>
 
 
@@ -143,13 +133,16 @@
                 }
 
                 <form enctype="multipart/form-data">
+
+                    <label type="text" id="branchDetailsId" style="display: None" name="branchDetailsId" class="form-control"></label>
+
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group mb-3">
                                 <label for="branchDropdown" >Select Area</label>
                                 <select class="form-select" id="branchDropdown" name="branchDropdown">
                                     <option value="Ahmadi">Ahmadi</option>
-                                    <option value="AlAsima">AlAsima</option>
+                                    <option value="AlAsima">Al Asima</option>
                                     <option value="Farwaniya">Farwaniya</option>
                                     <option value="Hawalli">Hawalli</option>
                                     <option value="Jahra">Jahra</option>
@@ -207,7 +200,11 @@
                             </div>
                         </div>
                     </div>
+
                     <button type="button" id="uploadBranchInfo" class="btn btn-outline-secondary">Update</button>
+                    <button type="button" id="editBranchInfo" style="display: None;" class="btn btn-outline-secondary">Edit</button>
+                    <button type="button" id="cancelBranchInfo" style="display: None; background-color: orangered; color: white;" class="btn btn-outline-secondary">Cancel</button>
+
                 </form>
 
 
@@ -289,7 +286,7 @@
             });
         });
 
-        document.querySelectorAll(".edit-branch").forEach(function (editButton) {
+        document.querySelectorAll(".select-branch").forEach(function (editButton) {
             editButton.addEventListener("click", function () {
                 var branchId = this.getAttribute("data-id");
 
@@ -307,6 +304,9 @@
                         $("#branchLatitude").val(response.latitude);
                         $("#branchLongitude").val(response.longitude);
                         $("#branchMapLink").val(response.map);
+
+
+                        toggleButtons('select');
                     },
                     error: function () {
                         console.log("Failed to fetch branch data.");
@@ -390,6 +390,82 @@
             });
         });
 
+
+        document.getElementById("editBranchInfo").addEventListener("click", function () {
+
+
+            var currentdate = new Date();
+
+            var updateId = $("#branchDetailsId").val();
+            var updatedBranchDropdown = $("#branchDropdown").val();
+            var updatedBusinessTypeDropdown = $("#BusinessTypeDropdown").val();
+            var updatedBranchArea = $("#branchArea").val();
+            var updatedBranchAddress = $("#branchAddress").val();
+            var updatedBranchTime = $("#branchTime").val();
+            var updatedBranchLatitude = $("#branchLatitude").val();
+            var updatedBranchLongitude = $("#branchLongitude").val();
+            var updatedBranchMapLink = $("#branchMapLink").val();
+            var updatedCreatedAt = currentdate.getDate();
+
+            var updateData = {
+                Id: updateId,
+                SelectedDropdownValue: updatedBranchDropdown,
+                BusinessType: updatedBusinessTypeDropdown,
+                Area: updatedBranchArea,
+                Adress: updatedBranchAddress,
+                Time: updatedBranchTime,
+                Latitude: updatedBranchLatitude,
+                Longitude: updatedBranchLongitude,
+                Map: updatedBranchMapLink,
+                CreatedAt: updatedCreatedAt
+            };
+
+            $.ajax({
+                url: "/Branches/UpdateBranchDetails",
+                type: "POST",
+                data: updateData,
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+
+                    } else {
+                        toastr.error("Failed to edit branch details.");
+                    }
+                },
+                error: function () {
+                    console.log("An error occurred during the update.");
+                }
+            });
+
+        });
+
+        document.getElementById("cancelBranchInfo").addEventListener("click", function () {
+
+            $("#branchDetailsId").val('');
+            $("#branchDropdown").val('');
+            $("#BusinessTypeDropdown").val('');
+            $("#branchArea").val('');
+            $("#branchAddress").val('');
+            $("#branchTime").val('');
+            $("#branchLatitude").val('');
+            $("#branchLongitude").val('');
+            $("#branchMapLink").val('');
+            toggleButtons('cancel');
+        });
+
+
+        function toggleButtons(action) {
+            if (action === 'select') {
+                $('#uploadBranchInfo').hide();
+                $('#editBranchInfo').show();
+                $('#cancelBranchInfo').show();
+            }
+            else if (action === 'cancel') {
+                $('#uploadBranchInfo').show();
+                $('#editBranchInfo').hide();
+                $('#cancelBranchInfo').hide();
+            }
+        }
 
 
     </script>

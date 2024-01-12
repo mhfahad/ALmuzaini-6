@@ -6,6 +6,7 @@
 
         public string Title { get; set; }
         public string VideoUrl { get; set; }
+        public string Position { get; set; }
 
 
         public string UpdatedAt { get; set; }

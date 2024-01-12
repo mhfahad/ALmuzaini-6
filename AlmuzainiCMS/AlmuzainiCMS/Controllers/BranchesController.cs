@@ -375,6 +375,54 @@ namespace AlmuzainiCMS.Controllers
         }
 
 
+        [HttpPost]
+        public async Task<JsonResult> UpdateBranchDetails(BranchDetailRequestDTO model)
+        {
+            BranchDetail branchDetail = new BranchDetail
+            {
+                Id = model.Id,
+
+                SelectedDropdownValue = model.SelectedDropdownValue,
+                BusinessType = model.BusinessType,
+                Area = model.Area,
+                Adress = model.Adress,
+                Time = model.Time,
+                Latitude = model.Latitude,
+                Longitude = model.Longitude,
+                Map = model.Map,
+
+                CreatedAt = DateTime.Now
+
+            };
+
+            bool result = await _branchManager.UpdateBranchdetails(branchDetail);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Branch deatail edited successfully.",
+                    redirectUrl = Url.Action("Branches", "Branches")
+                };
+
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Branch details uploaded successfully.",
+                    redirectUrl = Url.Action("Branches", "Branches")
+                };
+
+                return Json(response);
+            }
+        }
+
+
+
 
 
 

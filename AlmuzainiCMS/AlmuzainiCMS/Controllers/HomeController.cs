@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.AspNetCore.Routing.Internal;
 using Microsoft.CodeAnalysis.Text;
 using System.Diagnostics;
+using System.Reflection;
 using System.Security.Policy;
 
 
@@ -730,6 +731,7 @@ namespace AlmuzainiCMS.Controllers
                 {
                     Title = model2.Title ?? "",
                     VideoUrl = model2.VideoUrl ?? "",
+                    Position = model2.Position ?? "",
                     CreatedAt = DateTime.Now
                 };
 
@@ -818,6 +820,7 @@ namespace AlmuzainiCMS.Controllers
                     Id = urlItem.Id,
                     Title = urlItem.Title,
                     VideoUrl = urlItem.VideoUrl,
+                    Position = urlItem.Position,
 
                     //UpdatedAt = $"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds ago"
                     UpdatedAt = updatedAt
@@ -840,8 +843,10 @@ namespace AlmuzainiCMS.Controllers
             {
                 return Json(new
                 {
+                    id = vUrl.Id,
                     title = vUrl.Title,
                     videoUrl = vUrl.VideoUrl,
+                    position = vUrl.Position,
                 });
             }
             else
@@ -850,13 +855,61 @@ namespace AlmuzainiCMS.Controllers
             }
         }
 
+
+        public void DeleteFilesWithPosition(string folderPath, string position)
+        {
+            try
+            {
+                if (Directory.Exists(folderPath))
+                {
+                    if (position == "0")
+                    {
+                        string[] files = Directory.GetFiles(folderPath);
+                        foreach (string file in files)
+                        {
+                            System.IO.File.Delete(file);
+                        }
+                    }
+                    else
+                    {
+                        string[] files = Directory.GetFiles(folderPath).Where(filePath => Path.GetFileNameWithoutExtension(filePath).Equals(position, StringComparison.OrdinalIgnoreCase)).ToArray();
+                        foreach (string file in files)
+                        {
+                            System.IO.File.Delete(file);
+                        }
+
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("File Delete Failed");
+            }
+
+        }
+
+
+
         [HttpPost]
         public async Task<JsonResult> Deletevideo(Guid id)
         {
+
+            HomeVUrl videoPosition = await _homeManager.GetVideoById(id);
+
+            //DeleteAllFilesOfFolderWithPosition("../Uploads/original/VideoImageThumb/", videoPosition.Position);
+
+            string videoPath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads", "original", "VideoImageThumb");
+
+
+            DeleteFilesWithPosition(videoPath, videoPosition.Position);
+
             bool result = await _homeManager.DeleteVideoById(id);
 
             if (result)
             {
+
                 return Json(new
                 {
                     success = true,
@@ -870,6 +923,46 @@ namespace AlmuzainiCMS.Controllers
                     success = false,
                     message = "Failed to delete video detail."
                 });
+            }
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> EditHomeVideo(HomeVUrlRequestDTO model)
+        {
+            HomeVUrl homeVUrl = new HomeVUrl
+            {
+                Id = model.Id,
+                Title = model.Title,
+                VideoUrl = model.VideoUrl,
+                Position = model.Position,
+
+                CreatedAt = DateTime.Now
+
+            };
+
+            bool result = await _homeManager.UpdateVideo(homeVUrl);
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "Video successfully.",
+                    redirectUrl = Url.Action("Home", "Home")
+                };
+
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "File uploaded successfully.",
+                    redirectUrl = Url.Action("Home", "Home")
+                };
+
+                return Json(response);
             }
         }
 
