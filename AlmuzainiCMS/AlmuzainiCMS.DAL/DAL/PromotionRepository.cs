@@ -25,10 +25,27 @@ namespace AlmuzainiCMS.DAL.DAL
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public async Task<bool> DeleteLatestPromotionsById(Guid id)
+        {
+            var pNews = await _context.PromotionNews.FindAsync(id);
+            if (pNews != null)
+            {
+                _context.PromotionNews.Remove(pNews);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
         public Promotion GetBannerAndInnerSectionTitle()
         {
             Promotion promotion = _context.Promotions.FirstOrDefault();
             return promotion;
+        }
+
+        public async Task<PromotionNews> GetLatestPromotionById(Guid id)
+        {
+            return await _context.PromotionNews.FirstOrDefaultAsync(b => b.Id == id);
         }
 
         public List<PromotionNews> GetPromotionNews()
@@ -78,6 +95,12 @@ namespace AlmuzainiCMS.DAL.DAL
                 _context.Promotions?.Add(promotion);
                 return await _context.SaveChangesAsync() > 0;
             }
+        }
+
+        public async Task<bool> UpdateLatestPromotion(PromotionNews latestPromo)
+        {
+            _context.PromotionNews.Update(latestPromo);
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

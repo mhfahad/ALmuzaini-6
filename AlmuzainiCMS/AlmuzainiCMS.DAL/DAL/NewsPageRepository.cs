@@ -1,6 +1,7 @@
 ﻿using AlmuzainiCMS.DAL.Interface;
 using AlmuzainiCMS.DataBaseContext.DataBaseContext;
 using AlmuzainiCMS.Models.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,10 +24,27 @@ namespace AlmuzainiCMS.DAL.DAL
             return await _context.SaveChangesAsync() > 0;
         }
 
+        public async Task<bool> DeleteLatestNewsById(Guid id)
+        {
+            var lNews = await _context.NewsSectionNews.FindAsync(id);
+            if (lNews != null)
+            {
+                _context.NewsSectionNews.Remove(lNews);
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
         public NewsSection GetBannerAndInnerSectionTitle()
         {
             NewsSection newsSection = _context.NewsSections.FirstOrDefault();  
             return newsSection;
+        }
+
+        public async Task<NewsSectionNews> GetLatestNewsById(Guid id)
+        {
+            return await _context.NewsSectionNews.FirstOrDefaultAsync(b => b.Id == id);
         }
 
         public List<NewsSectionNews> GetNews()
@@ -76,6 +94,12 @@ namespace AlmuzainiCMS.DAL.DAL
                 _context.NewsSections?.Add(news);
                 return await _context.SaveChangesAsync() > 0;
             }
+        }
+
+        public async Task<bool> UpdateLatestNews(NewsSectionNews uplatestNews)
+        {
+            _context.NewsSectionNews.Update(uplatestNews);
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

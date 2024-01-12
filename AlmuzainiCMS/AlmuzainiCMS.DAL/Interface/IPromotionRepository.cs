@@ -15,5 +15,11 @@ namespace AlmuzainiCMS.DAL.Interface
         List<PromotionNews> GetPromotionNews();
         Task<bool> UpdateBannerImagePath(Promotion promotion);
         Task<bool> UpdateInnerSection(Promotion promotion);
+
+        ////Latest Promotion
+
+        Task<PromotionNews> GetLatestPromotionById(Guid id);
+        Task<bool> DeleteLatestPromotionsById(Guid id);
+        Task<bool> UpdateLatestPromotion(PromotionNews latestPromo);
     }
 }

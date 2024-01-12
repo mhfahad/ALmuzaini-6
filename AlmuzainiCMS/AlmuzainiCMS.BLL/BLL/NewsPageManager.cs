@@ -32,12 +32,30 @@ namespace AlmuzainiCMS.BLL.BLL
             }
         }
 
+        public async Task<bool> DeleteLatestNewsById(Guid id)
+        {
+            try
+            {
+                bool result = await _repository.DeleteLatestNewsById(id);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
         public NewsSection GetBannerAndInnerSectionTitle()
         {
             NewsSection news = new NewsSection();
 
             news = _repository.GetBannerAndInnerSectionTitle();
             return news;
+        }
+
+        public async Task<NewsSectionNews> GetLatestNewsById(Guid id)
+        {
+            return await _repository.GetLatestNewsById(id);
         }
 
         public List<NewsSectionNews> GetNews()
@@ -71,6 +89,22 @@ namespace AlmuzainiCMS.BLL.BLL
             catch (Exception ex)
             {
                 return await Task.FromResult(false);
+            }
+        }
+
+        public async Task<bool> UpdateLatestNews(NewsSectionNews uplatestNews)
+        {
+            try
+            {
+                bool result = await _repository.UpdateLatestNews(uplatestNews);
+
+                return await Task.FromResult(result);
+            }
+            catch (Exception ex)
+            {
+
+                return await Task.FromResult(false);
+
             }
         }
     }

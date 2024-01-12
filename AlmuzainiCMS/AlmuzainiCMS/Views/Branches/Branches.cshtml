@@ -306,7 +306,9 @@
                         $("#branchMapLink").val(response.map);
 
 
-                        toggleButtons('select');
+                        $('#uploadBranchInfo').hide();
+                        $('#editBranchInfo').show();
+                        $('#cancelBranchInfo').show();
                     },
                     error: function () {
                         console.log("Failed to fetch branch data.");
@@ -450,22 +452,11 @@
             $("#branchLatitude").val('');
             $("#branchLongitude").val('');
             $("#branchMapLink").val('');
-            toggleButtons('cancel');
+
+            $('#uploadBranchInfo').show();
+            $('#editBranchInfo').hide();
+            $('#cancelBranchInfo').hide();
         });
-
-
-        function toggleButtons(action) {
-            if (action === 'select') {
-                $('#uploadBranchInfo').hide();
-                $('#editBranchInfo').show();
-                $('#cancelBranchInfo').show();
-            }
-            else if (action === 'cancel') {
-                $('#uploadBranchInfo').show();
-                $('#editBranchInfo').hide();
-                $('#cancelBranchInfo').hide();
-            }
-        }
 
 
     </script>
