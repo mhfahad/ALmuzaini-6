@@ -296,6 +296,7 @@
                     data: { id: branchId },
                     success: function (response) {
 
+                        $("#branchDetailsId").val(response.id);
                         $("#branchDropdown").val(response.selectedDropdownValue);
                         $("#BusinessTypeDropdown").val(response.businessType);
                         $("#branchArea").val(response.area);

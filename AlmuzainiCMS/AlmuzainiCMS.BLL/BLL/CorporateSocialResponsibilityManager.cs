@@ -1,4 +1,5 @@
 ﻿using AlmuzainiCMS.BLL.Interface;
+using AlmuzainiCMS.DAL.DAL;
 using AlmuzainiCMS.DAL.Interface;
 using AlmuzainiCMS.Models.Models;
 using System;
@@ -16,6 +17,15 @@ namespace AlmuzainiCMS.BLL.BLL
         {
             _repository = repository;
         }
+
+        public CorporateSocialRespBanner GetCorporateSocialRespBanner()
+        {
+            CorporateSocialRespBanner corporateSocialRespBanner = new CorporateSocialRespBanner();
+
+            corporateSocialRespBanner = _repository.GetCorporateSocialRespBanner();
+            return corporateSocialRespBanner;
+        }
+
         public async Task<CorporateSocialResponsibility> GetCorporateSocialResponsibility()
         {
             try
@@ -26,6 +36,19 @@ namespace AlmuzainiCMS.BLL.BLL
             catch (Exception ex)
             {
                 return await Task.FromResult(new CorporateSocialResponsibility());
+            }
+        }
+
+        public async Task<bool> UpdateCorporateSocialRespBanner(CorporateSocialRespBanner corporateSocialRespBanner)
+        {
+            try
+            {
+                bool result = await _repository.UpdateCorporateSocialRespBanner(corporateSocialRespBanner);
+                return await Task.FromResult(result);
+            }
+            catch (Exception)
+            {
+                return await Task.FromResult(false);
             }
         }
 

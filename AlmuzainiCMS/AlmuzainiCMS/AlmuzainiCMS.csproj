@@ -37,7 +37,9 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Uploads\Home\" />
+    <Folder Include="wwwroot\Uploads\original\CorpSocialResp\Banner\" />
     <Folder Include="wwwroot\Uploads\original\Koisk\Banner\" />
+    <Folder Include="wwwroot\uploads\original\VideoImageThumb\" />
   </ItemGroup>
 
 </Project>

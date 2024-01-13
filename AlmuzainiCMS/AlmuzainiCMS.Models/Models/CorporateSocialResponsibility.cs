@@ -25,4 +25,15 @@ namespace AlmuzainiCMS.Models.Models
         public string? SeventhSection { get; set; }
 
     }
+
+    public class CorporateSocialRespBanner
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public Guid Id { get; set; }
+
+        public string? CorporateSocialRespBannerImagePath { get; set; }
+
+        public DateTime? CreatedAt { get; set; }
+    }
 }

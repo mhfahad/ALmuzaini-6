@@ -1,4 +1,5 @@
-﻿using AlmuzainiCMS.BLL.Interface;
+﻿using AlmuzainiCMS.BLL.BLL;
+using AlmuzainiCMS.BLL.Interface;
 using AlmuzainiCMS.Models;
 using AlmuzainiCMS.Models.Models;
 using AlmuzainiCMS.Models.RequestDto;
@@ -50,7 +51,6 @@ namespace AlmuzainiCMS.Controllers
             //GetCompanyTechnologyImage("uploads", "original", "CompanyHistory", "TechnologyImage");
         }
 
-        
 
         [HttpPost]
         public async Task<JsonResult> UploadCompanyHistoryCompanyProfile(MultipleFileUploadVM model)  
@@ -1057,6 +1057,7 @@ namespace AlmuzainiCMS.Controllers
         public IActionResult CorporateSocialResponsibility()
         {
             PrepareCorporateSocialResponsibilityView();
+            GetCorporateSocialRespBanner("uploads", "original", "CorpSocialResp", "Banner");
             return View();
         }
 
@@ -1264,5 +1265,100 @@ namespace AlmuzainiCMS.Controllers
 
 
 
+        [HttpPost]
+
+        public async Task<JsonResult> UploadCSRBannerButton(MultipleFileUploadVM model)
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+            string filePath = Path.Combine(uploadsFolder, "Uploads", "original", "CorpSocialResp", "Banner");
+
+            string filePosition = model.position;
+
+            DeleteAllFilesOfFolderWithPosition(filePath, filePosition);
+
+            string filePathToSave = string.Empty;
+            foreach (var file in model.Files)
+            {
+                if (file != null && file.Length > 0)
+                {
+
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
+                    string fileExtension = ".webp";
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal;
+
+                    if (model.position != "0")
+                    {
+                        totalfilesOriginal = Convert.ToInt32(model.position);
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
+
+                    }
+                    else
+                    {
+                        totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+
+                    }
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+
+
+                }
+            }
+            var CorpSocialRespPath = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
+            CorporateSocialRespBanner corporateSocialRespBanner = new CorporateSocialRespBanner();
+            corporateSocialRespBanner.CorporateSocialRespBannerImagePath = CorpSocialRespPath;
+
+            bool result = await _corporateSocialResponsibilityManager.UpdateCorporateSocialRespBanner(corporateSocialRespBanner);
+
+
+
+            if (result == true)
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "CorporateSocialResp. Banner updated successfully.",
+                    redirectUrl = Url.Action("CorporateSocialResponsibility", "About")
+                };
+                return Json(response);
+            }
+            else
+            {
+                var response = new
+                {
+                    Success = true,
+                    Message = "CorporateSocialResp. Banner updated failed.",
+                    redirectUrl = Url.Action("CorporateSocialResponsibility", "About")
+                };
+                return Json(response);
+            }
+        }
+
+
+        public void GetCorporateSocialRespBanner(string folderName, string subfolder, string typefolder, string mainfolder)
+        {
+            string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
+            string folderPath = Path.Combine(uploadsFolder, subfolder, typefolder, mainfolder);
+
+            if (Directory.Exists(folderPath))
+            {
+                string[] fileNames = Directory.GetFiles(folderPath)
+                    .Select(Path.GetFileName)
+                    .ToArray();
+
+                ViewBag.CorpSocialRespPath = fileNames;
+            }
+            else
+            {
+                ViewBag.CorpSocialRespPath = new string[0];
+            }
+
+        }
     }
 }

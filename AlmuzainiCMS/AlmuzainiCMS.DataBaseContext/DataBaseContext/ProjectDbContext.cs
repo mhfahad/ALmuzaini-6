@@ -27,6 +27,7 @@ namespace AlmuzainiCMS.DataBaseContext.DataBaseContext
         public DbSet<MissionVisionValues> MissionVisionValues { get; set; }
         public DbSet<ValuesItem> ValuesItems  { get; set; }
         public DbSet<CorporateSocialResponsibility> CorporateSocialResponsibilities { get; set; }
+        public DbSet<CorporateSocialRespBanner> CorporateSocialRespBanners { get; set; }
         public DbSet<ForeignCurrency> ForeignCurrency { get; set; }
         public DbSet<Corporate> Corporate { get; set; }
         public DbSet<RequiredDocument> RequiredDocuments { get; set; }   

@@ -17,10 +17,36 @@ namespace AlmuzainiCMS.DAL.DAL
         {
             _context = context;
         }
+
+        public CorporateSocialRespBanner GetCorporateSocialRespBanner()
+        {
+            CorporateSocialRespBanner corporateSocialRespBanner = _context.CorporateSocialRespBanners.FirstOrDefault();
+            return corporateSocialRespBanner;
+        }
+
         public async Task<CorporateSocialResponsibility> GetCorporateSocialResponsibility()
         {
             CorporateSocialResponsibility corporateSocialResponsibility = _context.CorporateSocialResponsibilities.FirstOrDefault();
             return await Task.FromResult(corporateSocialResponsibility);  
+        }
+
+        public async Task<bool> UpdateCorporateSocialRespBanner(CorporateSocialRespBanner corporateSocialRespBanner)
+        {
+            var count = _context.CorporateSocialRespBanners.Count();
+            if (count > 0)
+            {
+                var csrToUpdate = _context.CorporateSocialRespBanners?.First();
+
+                csrToUpdate.CorporateSocialRespBannerImagePath = corporateSocialRespBanner.CorporateSocialRespBannerImagePath;
+
+                _context.Entry(csrToUpdate).Property(i => i.CorporateSocialRespBannerImagePath).IsModified = true;
+                return await _context.SaveChangesAsync() > 0;
+            }
+            else
+            {
+                _context.CorporateSocialRespBanners?.Add(corporateSocialRespBanner);
+                return await _context.SaveChangesAsync() > 0;
+            }
         }
 
         public async Task<bool> UpdateCorporateSocialResponsibilityImage(CorporateSocialResponsibility corporateSocialResponsibility)

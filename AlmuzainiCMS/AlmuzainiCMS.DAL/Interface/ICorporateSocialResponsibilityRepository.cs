@@ -14,5 +14,11 @@ namespace AlmuzainiCMS.DAL.Interface
         Task<bool> UpdateCorporateSocialResponsibilitySection(CorporateSocialResponsibility corporateSocialResponsibility);
         Task<CorporateSocialResponsibility> GetCorporateSocialResponsibility();
 
+
+        //Top Banner
+
+        CorporateSocialRespBanner GetCorporateSocialRespBanner();
+        Task<bool> UpdateCorporateSocialRespBanner(CorporateSocialRespBanner corporateSocialRespBanner);
+
     }
 }

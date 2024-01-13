@@ -20,36 +20,36 @@ namespace AlmuzainiCMS.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-       
+
         private readonly IMapper _mapper;
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly INewsManager _newsManager;
         private readonly IHomeManager _homeManager;
-       
-        public HomeController(ILogger<HomeController> logger ,  IMapper mapper, IWebHostEnvironment webHostEnvironment, INewsManager newsManager, IHomeManager homeManager)
+
+        public HomeController(ILogger<HomeController> logger, IMapper mapper, IWebHostEnvironment webHostEnvironment, INewsManager newsManager, IHomeManager homeManager)
         {
             _logger = logger;
             _mapper = mapper;
             _hostingEnvironment = webHostEnvironment;
             _newsManager = newsManager;
-            _homeManager = homeManager; 
-             
+            _homeManager = homeManager;
+
 
 
         }
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
 
-            string ? SessionName = HttpContext.Session.GetString("_userName");
-            string ? SessionAge =  HttpContext.Session.GetString("_userPass");
-            if (SessionAge==null || SessionName == null)
+            string? SessionName = HttpContext.Session.GetString("_userName");
+            string? SessionAge = HttpContext.Session.GetString("_userPass");
+            if (SessionAge == null || SessionName == null)
             {
                 filterContext.Result = new RedirectResult("/Login/Index");
                 return;
             }
         }
         public IActionResult Index()
-        
+
         {
             ViewBag.userName = HttpContext.Session.GetString("_userName");
             return View();
@@ -93,7 +93,7 @@ namespace AlmuzainiCMS.Controllers
             {
                 if (file != null && file.Length > 0)
                 {
-                   
+
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = ".webp";
 
@@ -106,7 +106,7 @@ namespace AlmuzainiCMS.Controllers
                     if (model.position != "0")
                     {
                         totalfilesOriginal = Convert.ToInt32(model.position);
-                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal ).ToString() + fileExtension);
+                        filePathToSave = Path.Combine(filePath, (totalfilesOriginal).ToString() + fileExtension);
 
                     }
                     else
@@ -130,7 +130,7 @@ namespace AlmuzainiCMS.Controllers
                             Mode = ResizeMode.Max
                         }));
 
-                       
+
                         if (!Directory.Exists(thumbnailPath))
                         {
                             Directory.CreateDirectory(thumbnailPath);
@@ -163,7 +163,7 @@ namespace AlmuzainiCMS.Controllers
                 redirectUrl = Url.Action("Home", "Home")
             };
 
-           
+
             return Json(response);
         }
 
@@ -183,7 +183,7 @@ namespace AlmuzainiCMS.Controllers
             {
                 if (file != null && file.Length > 0)
                 {
-                    
+
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = ".webp";
 
@@ -219,7 +219,7 @@ namespace AlmuzainiCMS.Controllers
                             Mode = ResizeMode.Max
                         }));
 
-                        
+
                         if (!Directory.Exists(thumbnailPath))
                         {
                             Directory.CreateDirectory(thumbnailPath);
@@ -252,7 +252,7 @@ namespace AlmuzainiCMS.Controllers
                 redirectUrl = Url.Action("Home", "Home")
             };
 
-            
+
             return Json(response);
 
             //string redirectUrl = Url.Action("Home", "Home");
@@ -440,7 +440,7 @@ namespace AlmuzainiCMS.Controllers
             {
                 if (file != null && file.Length > 0)
                 {
-                   
+
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = ".webp";
 
@@ -477,7 +477,7 @@ namespace AlmuzainiCMS.Controllers
                             Mode = ResizeMode.Max
                         }));
 
-                        
+
                         if (!Directory.Exists(thumbnailPath))
                         {
                             Directory.CreateDirectory(thumbnailPath);
@@ -527,7 +527,7 @@ namespace AlmuzainiCMS.Controllers
             {
                 if (file != null && file.Length > 0)
                 {
-                    
+
                     string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
                     string fileExtension = ".webp";
 
@@ -564,7 +564,7 @@ namespace AlmuzainiCMS.Controllers
                             Mode = ResizeMode.Max
                         }));
 
-                        
+
                         if (!Directory.Exists(thumbnailPath))
                         {
                             Directory.CreateDirectory(thumbnailPath);
@@ -711,66 +711,49 @@ namespace AlmuzainiCMS.Controllers
 
 
         [HttpPost]
-        [DisableRequestSizeLimit,
-        RequestFormLimits(MultipartBodyLengthLimit = int.MaxValue,
-        ValueLengthLimit = int.MaxValue)]
-        public async Task<IActionResult> UploadVideo([FromForm] VideoFileUploadVM model, [FromForm] HomeVUrlRequestDTO model2)
+        public async Task<JsonResult> UploadVideo(HomeVUrlRequestDTO model)
         {
             try
             {
-                //string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads", "original", "Videos");
-                string videoImageThumbFilePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads", "original", "VideoImageThumb");
 
-                // Delete existing files if needed
-                string filePosition = model.Position;
+                string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath);
+                string filePath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads", "original", "VideoImageThumb");
 
-                DeleteAllFilesOfFolderWithPosition(videoImageThumbFilePath, filePosition);
+                string filePathToSave = string.Empty;
 
+                if (model?.ImageFile != null && model?.ImageFile.Length > 0)
+                {
+
+                    string uniqueFileName = Guid.NewGuid().ToString() + "_" + model?.ImageFile.FileName;
+                    //string fileExtension = Path.GetExtension(file.FileName);
+                    string fileExtension = ".webp";
+                    if (!Directory.Exists(filePath))
+                    {
+                        Directory.CreateDirectory(filePath);
+                    }
+                    int totalfilesOriginal;
+
+                    totalfilesOriginal = Directory.GetFiles(filePath).Count();
+                    filePathToSave = Path.Combine(filePath, (totalfilesOriginal + 1).ToString() + fileExtension);
+
+                    using (var fileStream = new FileStream(filePathToSave, FileMode.Create))
+                    {
+                        model?.ImageFile.CopyTo(fileStream);
+                    }
+
+
+                }
+                var Position = ".." + filePathToSave.Substring(uploadsFolder.Length).Replace("\\", "/");
 
                 HomeVUrl vUrl = new HomeVUrl
                 {
-                    Title = model2.Title ?? "",
-                    VideoUrl = model2.VideoUrl ?? "",
-                    Position = model2.Position ?? "",
+                    Title = model.Title ?? "",
+                    VideoUrl = model.VideoUrl ?? "",
+                    Position = Position,
                     CreatedAt = DateTime.Now
                 };
 
                 bool result = await _homeManager.AddHomeVUrlText(vUrl);
-
-                //ThumbImageSave 
-                foreach (var file in model.VideoThumbFile)
-                {
-                    if (file != null && file.Length > 0)
-                    {
-
-                        string uniqueFileName = Guid.NewGuid().ToString() + "_" + file.FileName;
-                        string fileExtension = ".webp";
-
-                        if (!Directory.Exists(videoImageThumbFilePath))
-                        {
-                            Directory.CreateDirectory(videoImageThumbFilePath);
-                        }
-                        string fileThumbPathToSave = string.Empty;
-                        int totalfilesThumb;
-                        if (model.Position != "0")
-                        {
-                            totalfilesThumb = Convert.ToInt32(model.Position);
-                            fileThumbPathToSave = Path.Combine(videoImageThumbFilePath, (totalfilesThumb).ToString() + fileExtension);
-
-                        }
-                        else
-                        {
-                            totalfilesThumb = Directory.GetFiles(videoImageThumbFilePath).Count();
-                            fileThumbPathToSave = Path.Combine(videoImageThumbFilePath, (totalfilesThumb + 1).ToString() + fileExtension);
-
-                        }
-
-                        using (var fileStream = new FileStream(fileThumbPathToSave, FileMode.Create))
-                        {
-                            file.CopyTo(fileStream);
-                        }
-                    }
-                }
 
                 var response = new
                 {
@@ -797,7 +780,7 @@ namespace AlmuzainiCMS.Controllers
         {
             List<HomeVUrl> vUrl = _homeManager.GetHomeVUrl();
 
-            List<LatestVideoUrlVM> latestVideoUrl= new List<LatestVideoUrlVM>();
+            List<LatestVideoUrlVM> latestVideoUrl = new List<LatestVideoUrlVM>();
 
             foreach (HomeVUrl urlItem in vUrl)
             {
@@ -856,54 +839,10 @@ namespace AlmuzainiCMS.Controllers
         }
 
 
-        public void DeleteFilesWithPosition(string folderPath, string position)
-        {
-            try
-            {
-                if (Directory.Exists(folderPath))
-                {
-                    if (position == "0")
-                    {
-                        string[] files = Directory.GetFiles(folderPath);
-                        foreach (string file in files)
-                        {
-                            System.IO.File.Delete(file);
-                        }
-                    }
-                    else
-                    {
-                        string[] files = Directory.GetFiles(folderPath).Where(filePath => Path.GetFileNameWithoutExtension(filePath).Equals(position, StringComparison.OrdinalIgnoreCase)).ToArray();
-                        foreach (string file in files)
-                        {
-                            System.IO.File.Delete(file);
-                        }
-
-                    }
-
-                }
-
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("File Delete Failed");
-            }
-
-        }
-
-
 
         [HttpPost]
         public async Task<JsonResult> Deletevideo(Guid id)
         {
-
-            HomeVUrl videoPosition = await _homeManager.GetVideoById(id);
-
-            //DeleteAllFilesOfFolderWithPosition("../Uploads/original/VideoImageThumb/", videoPosition.Position);
-
-            string videoPath = Path.Combine(_hostingEnvironment.WebRootPath, "Uploads", "original", "VideoImageThumb");
-
-
-            DeleteFilesWithPosition(videoPath, videoPosition.Position);
 
             bool result = await _homeManager.DeleteVideoById(id);
 
@@ -968,11 +907,11 @@ namespace AlmuzainiCMS.Controllers
 
 
         [HttpPost]
-        public  async Task<JsonResult> UploadNews( NewsVM model)
+        public async Task<JsonResult> UploadNews(NewsVM model)
         {
-            
 
-            string filePath =  UploadFilesToFolder("Uploads", "original", "NewsImage", model.Image);
+
+            string filePath = UploadFilesToFolder("Uploads", "original", "NewsImage", model.Image);
 
             News news = new News
             {
@@ -983,7 +922,7 @@ namespace AlmuzainiCMS.Controllers
 
             };
 
-            bool result = await  _newsManager.AddNews(news);
+            bool result = await _newsManager.AddNews(news);
 
             var response = new
             {
@@ -1021,7 +960,7 @@ namespace AlmuzainiCMS.Controllers
                     file.CopyTo(fileStream);
                 }
 
-              
+
             }
 
             return filePathToSave;
@@ -1037,13 +976,13 @@ namespace AlmuzainiCMS.Controllers
             //return Json(response);
         }
 
-        public void DeleteAllFilesOfFolderWithPosition(string folderPath , string position)
+        public void DeleteAllFilesOfFolderWithPosition(string folderPath, string position)
         {
             try
             {
                 if (Directory.Exists(folderPath))
                 {
-                    if(position == "0")
+                    if (position == "0")
                     {
                         string[] files = Directory.GetFiles(folderPath);
                         foreach (string file in files)
@@ -1054,11 +993,11 @@ namespace AlmuzainiCMS.Controllers
                     else
                     {
                         string[] files = Directory.GetFiles(folderPath).Where(filePath => Path.GetFileNameWithoutExtension(filePath).Equals(position, StringComparison.OrdinalIgnoreCase)).ToArray();
-                        foreach(string file in files)
+                        foreach (string file in files)
                         {
                             System.IO.File.Delete(file);
                         }
-                                       
+
                     }
 
                 }
@@ -1078,7 +1017,7 @@ namespace AlmuzainiCMS.Controllers
             {
                 if (Directory.Exists(folderPath))
                 {
-                   string[] files = Directory.GetFiles(folderPath);
+                    string[] files = Directory.GetFiles(folderPath);
                     foreach (string file in files)
                     {
                         System.IO.File.Delete(file);
@@ -1281,7 +1220,7 @@ namespace AlmuzainiCMS.Controllers
 
         //}
 
-        
+
         public void GetRoundButtons(string folderName, string subfolder, string typefolder)
         {
             string uploadsFolder = Path.Combine(_hostingEnvironment.WebRootPath, folderName);
@@ -1365,7 +1304,7 @@ namespace AlmuzainiCMS.Controllers
                 int minutes = timeDifference.Minutes;
                 int seconds = timeDifference.Seconds;
 
-                string updatedAt = days > 1 ? days.ToString() + " days ago" : days == 1 ? " yesterday" : hours > 1 ? hours.ToString() + " hours ago" : hours == 1 ? hours.ToString() + " hour ago" : minutes > 1 ? minutes.ToString() + " minutes ago" : minutes == 1 ? minutes.ToString() + " minute ago" : seconds.ToString() + " seconds ago"; 
+                string updatedAt = days > 1 ? days.ToString() + " days ago" : days == 1 ? " yesterday" : hours > 1 ? hours.ToString() + " hours ago" : hours == 1 ? hours.ToString() + " hour ago" : minutes > 1 ? minutes.ToString() + " minutes ago" : minutes == 1 ? minutes.ToString() + " minute ago" : seconds.ToString() + " seconds ago";
 
 
 
@@ -1374,7 +1313,7 @@ namespace AlmuzainiCMS.Controllers
                     Id = newsItem.Id,
                     Title = newsItem.Title,
                     Description = newsItem.Description,
-                    ImagePath = Path.GetFileName( newsItem.ImagePath ),
+                    ImagePath = Path.GetFileName(newsItem.ImagePath),
                     //UpdatedAt = $"{days} days, {hours} hours, {minutes} minutes, {seconds} seconds ago"
                     UpdatedAt = updatedAt
                 };
@@ -1385,7 +1324,7 @@ namespace AlmuzainiCMS.Controllers
             }
 
             ViewBag.LatestNews = latestNewsList; // No files available
-         
+
         }
 
 

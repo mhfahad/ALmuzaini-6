@@ -11,6 +11,12 @@ namespace AlmuzainiCMS.BLL.Interface
     {
         Task<bool> UpdateCorporateSocialResponsibilityImage(CorporateSocialResponsibility corporateSocialResponsibility); 
         Task<bool> UpdateCorporateSocialResponsibilitySection(CorporateSocialResponsibility corporateSocialResponsibility);
-        Task<CorporateSocialResponsibility> GetCorporateSocialResponsibility();    
+        Task<CorporateSocialResponsibility> GetCorporateSocialResponsibility();
+
+
+        //Top Banner
+
+        CorporateSocialRespBanner GetCorporateSocialRespBanner();
+        Task<bool> UpdateCorporateSocialRespBanner(CorporateSocialRespBanner corporateSocialRespBanner);
     }
 }
