@@ -152,7 +152,7 @@
                 var formData = new FormData();
                 formData.append("Title", newsTitle);
                 formData.append("Description", newsDescription);
-                    formData.append("ImageFile", newsImage);
+                formData.append("ImageFile", newsImage);
 
                 $.ajax({
                     url: "@Url.Action("UploadPromotionNews", "Promotions")",

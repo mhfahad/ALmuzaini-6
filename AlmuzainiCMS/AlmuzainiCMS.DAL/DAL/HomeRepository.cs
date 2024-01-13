@@ -87,7 +87,7 @@ namespace AlmuzainiCMS.DAL.DAL
 
         public List<HomeVUrl> GetHomeVUrl()
         {
-            List<HomeVUrl> topTextList = _context.HomeVUrls.OrderBy(c=>c.Position).ToList() ?? new List<HomeVUrl>();
+            List<HomeVUrl> topTextList = _context.HomeVUrls.ToList() ?? new List<HomeVUrl>();
 
             return topTextList;
         }

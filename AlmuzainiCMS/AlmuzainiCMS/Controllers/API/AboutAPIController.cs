@@ -3,6 +3,7 @@ using AlmuzainiCMS.Models.Models;
 using AlmuzainiCMS.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using AlmuzainiCMS.BLL.BLL;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -147,6 +148,30 @@ namespace AlmuzainiCMS.Controllers.API
 
             }
             catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+
+        [HttpGet("CorporateSocialRespBanner")]
+        public async Task<APIServiceResponse> CorporateSocialRespBanner()
+        {
+            APIServiceResponse objResponse = new APIServiceResponse();
+            try
+            {
+                CorporateSocialRespBanner corporateSocialRespBanner = new CorporateSocialRespBanner();
+                corporateSocialRespBanner = _corporateSocialResponsibilityManager.GetCorporateSocialRespBanner();
+                objResponse.ResponseStatus = true;
+                objResponse.ResponseDateTime = DateTime.Now.ToString();
+                objResponse.SuccessMsg = "Fetched CorporateSocialResp. Banner Successfully!";
+                objResponse.ResponseBusinessData = JsonConvert.SerializeObject(corporateSocialRespBanner).ToString();
+                objResponse.ResponseCode = 200;
+
+                return objResponse;
+
+            }
+            catch (Exception)
             {
                 throw;
             }

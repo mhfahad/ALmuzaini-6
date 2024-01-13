@@ -381,8 +381,9 @@
                     @*int thmbindex = 1;*@
                     @foreach (var video in ViewBag.LiveVideos)
                     {
-                        var urlthm = "../Uploads/original/VideoImageThumb/" + @video.Position + ".webp";
+                        @*var urlthm = "../Uploads/original/VideoImageThumb/" + @video.Position + ".webp";*@
                         <div class="col-sm-4 col-lg-3">
+                            
                             <div class="card-body">
                                 <h4 class="card-title">@video.Title</h4>
                                 @*<p class="card-text">
@@ -390,7 +391,8 @@
                                 </p>*@
                                 <a href="@video.VideoUrl" data-fancybox
                                    class="video position-relative">
-                                   <img src=@urlthm class="w-100 video-img" alt="Muzaini">
+                                    <img class="card-img-top img-fluid" src="@Url.Content(@video.Position)"
+                                         alt="Card image cap">
                                 </a>
 
 
@@ -442,7 +444,7 @@
                 <form enctype="multipart/form-data">
                     <div class="input-group flex-nowrap">
                         <div class="custom-file w-100">
-                            <input type="file" name="VideoThumbFiles" />
+                            <input type="file" name="VideoThumbFiles" id="VideoThumbFiles" />
                         </div>
 
                         <button type="button" id="uploadVideoButton" class="btn btn-outline-secondary">Upload</button>
@@ -452,16 +454,6 @@
 
                 </form>
 
-            </div>
-            <div class="row">
-                <div class="form-group col-sm-3 col-md-3 mb-4">
-                    <label class="mr-sm-2">Select Position</label>
-                    <select class="form-select mr-sm-2" id="ddlVideoSelection">
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>
-                </div>
             </div>
 
         </div>
@@ -933,20 +925,14 @@
         document.getElementById("uploadVideoButton").addEventListener("click", function () {
             var formData = new FormData();
 
-            // Append each selected file to the FormData object
-            //var videoFilesInput = document.querySelector('input[type="file"][name="VideoFiles"]');
             var videoTitle = document.getElementById("videoTitle").value;
             var videoUrl = document.getElementById("videoUrl").value;
-            var videoThumbImageInput = document.querySelector('input[type="file"][name="VideoThumbFiles"]');
-            var position = $("#ddlVideoSelection option:selected").val();
-            //formData.append("VideoFile", videoFilesInput.files[0]);
+            var position = document.getElementById("VideoThumbFiles").files[0];
+
             formData.append("Title", videoTitle);
             formData.append("VideoUrl", videoUrl);
-            formData.append("VideoThumbFile", videoThumbImageInput.files[0]);
-            formData.append("Position", position);
-            //for (var i = 0; i < filesInput.files.length; i++) {
-            //    formData.append("Files", filesInput.files[i]);
-            //}
+            formData.append("ImageFile", position);
+
 
             $.ajax({
                 url: "@Url.Action("UploadVideo", "Home")",

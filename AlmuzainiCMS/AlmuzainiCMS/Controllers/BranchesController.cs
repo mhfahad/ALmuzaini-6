@@ -335,6 +335,7 @@ namespace AlmuzainiCMS.Controllers
             {
                 return Json(new
                 {
+                    id = branch.Id,
                     selectedDropdownValue = branch.SelectedDropdownValue,
                     businessType = branch.BusinessType,
                     area = branch.Area,

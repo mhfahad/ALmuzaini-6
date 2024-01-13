@@ -5,6 +5,48 @@
 }
 
 <h1>Corporate Social Responsibility</h1>
+
+
+<div class="col-sm-12 col-md-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="row">
+                <h4 class="card-title">Corporate Social Responsibility Banner</h4>
+                <h6 class="lebel">Live Images</h6>
+                @if (ViewBag.CorpSocialRespPath.Length > 0)
+                {
+                    @foreach (var fileName in ViewBag.CorpSocialRespPath)
+                    {
+                        <div class="col-lg-3">
+                            <div class="card">
+                                <div class="carousel-item-active">
+                                    <img class="img-fluid" src="@Url.Content("../Uploads/original/CorpSocialResp/Banner/"+ fileName)" alt="First Slide">
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+                else
+                {
+                    <p>No files available.</p>
+                }
+
+                <form enctype="multipart/form-data">
+                    <div class="input-group flex-nowrap">
+                        <div class="custom-file w-100">
+                            <input type="file" name="CorpSocialRespFiles" multiple />
+                        </div>
+                        <button type="button" id="UploadCSRBannerButton" class="btn btn-outline-secondary">Upload</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="col-sm-12 col-md-12">
     <div class="card">
         <div class="card-body">
@@ -98,6 +140,44 @@
 
 @section Scripts{
     <script>
+
+        document.getElementById("UploadCSRBannerButton").addEventListener("click", function () {
+
+            var formData = new FormData();
+            var position = 1;
+
+            var filesInput = document.querySelector('input[type="file"][name="CorpSocialRespFiles"]');
+            for (var i = 0; i < filesInput.files.length; i++) {
+                formData.append("Files", filesInput.files[i]);
+                formData.append("position", position);
+            }
+
+            $.ajax({
+                url: "@Url.Action("UploadCSRBannerButton", "About")",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+
+                        toastr.success(response.message);
+                        var redirectUrl = response.redirectUrl;
+
+                        window.location.href = redirectUrl;
+                    } else {
+                        toastr.error("File upload failed.");
+
+                    }
+                },
+                error: function () {
+                    toastr.error("An error occurred while uploading the file.");
+                }
+            });
+        });
+
+
+
             document.getElementById("uploadCorporateSocialResponsibilySection").addEventListener("click", function () {
 
             var formData = new FormData();
