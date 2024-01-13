@@ -862,12 +862,12 @@
 
             var videoOneThumbnailImageFile = document.querySelector('input[type="file"][name="VideoOneThumbnailImageFile"]');
             var videoTwoThumbnailImageFile = document.querySelector('input[type="file"][name="VideoTwoThumbnailImageFile"]');
-           
-            if (remitNowImageOneFile.value.length > 0 ) {
+
+            if (videoOneThumbnailImageFile.value.length > 0) {
                 formData.append("VideoOneThumbnailImageFile", videoOneThumbnailImageFile.files[0]);
                
             }
-            if (remitNowImageTwoFile.value.length > 0) {
+            if (videoTwoThumbnailImageFile.value.length > 0) {
                 formData.append("VideoTwoThumbnailImageFile", videoTwoThumbnailImageFile.files[0]);
                
             }
