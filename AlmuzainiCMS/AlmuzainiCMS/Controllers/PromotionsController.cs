@@ -342,7 +342,7 @@ namespace AlmuzainiCMS.Controllers
                 var response = new
                 {
                     Success = true,
-                    Message = "News Added successfully.",
+                    Message = "Promotion News Added successfully.",
                     redirectUrl = Url.Action("Index", "Promotions")
                 };
 
